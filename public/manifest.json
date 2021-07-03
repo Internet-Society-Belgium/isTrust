@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
+  "permissions": [
+    "activeTab",
+    "<all_urls>",
+    "*://*/*"
+  ],
+  "icons": {
+    "128": "assets/icons/128.png"
+  },
+  "background": {
+    "scripts": [
+      "lib/browser-polyfill.js",
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "__MSG_extName__",
+    "default_icon": {
+      "128": "assets/icons/128.png"
+    }
+  }
+}
