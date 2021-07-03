@@ -52,6 +52,11 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
     ],
   },
   plugins: [
@@ -88,6 +93,11 @@ module.exports = {
         {
           from: 'node_modules/webextension-polyfill/dist/browser-polyfill.min.js',
           to: 'lib/browser-polyfill.js',
+          transform: (content) => {
+            return content
+              .toString()
+              .replace('//# sourceMappingURL=browser-polyfill.min.js.map', '')
+          },
         },
       ],
     }),
