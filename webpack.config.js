@@ -1,19 +1,18 @@
 const path = require('path')
 
 const { VueLoaderPlugin } = require('vue-loader')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const pkg = require('./package.json')
 
 module.exports = {
   entry: {
-    background: './src/background/index.ts',
-    content_scripts: './src/content_scripts/index.ts',
-    popup: './src/popup/index.ts',
+    'background/index': './src/background/index.ts',
+    'content_scripts/index': './src/content_scripts/index.ts',
+    'popup/index': './src/popup/index.ts',
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.resolve(__dirname, 'build'),
     clean: true,
   },
   resolve: {
@@ -47,7 +46,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'assets/img',
+              outputPath: 'popup/assets',
               esModule: false,
             },
           },
@@ -57,11 +56,6 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      title: pkg.name,
-      template: path.resolve(__dirname, 'public', 'index.html'),
-      favicon: './public/favicon.ico',
-    }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -76,8 +70,16 @@ module.exports = {
           },
         },
         {
+          from: 'public/index.html',
+          to: 'popup/index.html',
+        },
+        {
+          from: 'public/favicon.ico',
+          to: 'popup/favicon.ico',
+        },
+        {
           from: 'public/icons',
-          to: 'assets/icons',
+          to: 'icons',
         },
         {
           from: 'public/_locales',
