@@ -1,9 +1,9 @@
 import { browser } from 'webextension-polyfill-ts'
-import { CommunicationData } from '../types/Communication'
+import { Website, WebsiteStatus } from '../types/Communication'
 
 browser.runtime.onMessage.addListener(
-  (msg: string, sender): Promise<CommunicationData> => {
-    console.log(`${JSON.stringify(msg)}`)
+  (res: Website, sender): Promise<WebsiteStatus> => {
+    console.log(`${res.host}`)
     return Promise.resolve({ data: 'background => content_script' })
   }
 )
