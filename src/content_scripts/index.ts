@@ -1,5 +1,6 @@
 import { browser } from 'webextension-polyfill-ts'
 import { Website, WebsiteStatus } from '../types/Communication'
+import { Cookie } from '../types/Cookie'
 
 const getCookie = (name: string): string | undefined => {
   let key = name + '='
@@ -25,14 +26,24 @@ const setCookie = (name: string, value: string) => {
 }
 
 async function main() {
-  let cookie = getCookie('trest')
-  if (!cookie) {
+  let cookie = {} as Cookie
+
+  let cookieString = getCookie('trest')
+  if (cookieString) {
+    cookie = JSON.parse(cookieString)
+  }
+
+  const extensionVersion = browser.runtime.getManifest().version
+
+  if (!cookie || cookie.version !== extensionVersion) {
     const website: Website = { host: location.hostname }
     const res: WebsiteStatus = await browser.runtime.sendMessage(website)
-    cookie = JSON.stringify(res)
-    setCookie('trest', cookie)
+    const newCookie: Cookie = {
+      version: extensionVersion,
+      ...res,
+    }
+    setCookie('trest', JSON.stringify(newCookie))
   }
-  console.log(JSON.parse(cookie))
 }
 
 main()
