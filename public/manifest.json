@@ -5,9 +5,10 @@
   "author": "Progiciel",
   "default_locale": "en",
   "permissions": [
-    "activeTab",
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "activeTab",
+    "cookies"
   ],
   "icons": {
     "128": "icons/128.png"
