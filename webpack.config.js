@@ -2,6 +2,7 @@ const path = require('path')
 
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WebExtPlugin = require('web-ext-plugin');
 
 const pkg = require('./package.json')
 
@@ -101,5 +102,6 @@ module.exports = {
         },
       ],
     }),
+    new WebExtPlugin({sourceDir: path.join(__dirname, 'build')}),
   ],
 }
