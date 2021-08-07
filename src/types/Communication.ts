@@ -1,7 +1,9 @@
+import { DNS } from './Status'
+
 export interface Website {
-  host: string
+  hostname: string
 }
 
 export interface WebsiteStatus {
-  data: string
+  dns?: DNS
 }
