@@ -5,5 +5,6 @@ export interface Website {
 }
 
 export interface WebsiteStatus {
+  domain: string
   dns?: DNS
 }

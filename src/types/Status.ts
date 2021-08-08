@@ -1,5 +1,5 @@
 export interface DNS {
   registrant: {
-    organisation: string
+    companyName: string
   }
 }

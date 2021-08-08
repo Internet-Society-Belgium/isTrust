@@ -2,17 +2,25 @@ import { browser } from 'webextension-polyfill-ts'
 import { Website, WebsiteStatus } from '../types/Communication'
 import Country from './country'
 import Belgium from './country/be'
+import psl from 'psl'
 
 browser.runtime.onMessage.addListener(
-  (res: Website, sender): Promise<WebsiteStatus> => {
-    var country: Country
+  ({ hostname }: Website): Promise<WebsiteStatus> => {
+    return new Promise(async (resolve, reject) => {
+      const domain = psl.get(hostname)
+      if (domain) {
+        console.log(`Analyzing ${domain}`)
 
-    if (res.hostname.endsWith('.be')) {
-      country = new Belgium(res.hostname)
-    } else {
-      country = new Country(res.hostname)
-    }
+        var country: Country
 
-    return Promise.resolve({ dns: country.dns })
+        if (domain.endsWith('.be')) {
+          country = new Belgium(domain)
+        } else {
+          country = new Country(domain)
+        }
+
+        resolve({ domain, dns: await country.dns })
+      }
+    })
   }
 )

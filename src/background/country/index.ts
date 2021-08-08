@@ -7,7 +7,9 @@ export default class Country {
     this.hostname = hostname
   }
 
-  public get dns(): DNS {
-    return {} as DNS
+  public get dns(): Promise<DNS> {
+    return new Promise((resolve, reject) => {
+      return {} as DNS
+    })
   }
 }

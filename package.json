@@ -10,11 +10,13 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.15.2",
+    "psl": "^1.8.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@types/psl": "^1.1.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",

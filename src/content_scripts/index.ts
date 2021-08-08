@@ -36,12 +36,15 @@ async function main() {
   const extensionVersion = browser.runtime.getManifest().version
 
   if (!cookie || cookie.version !== extensionVersion) {
-    const website: Website = { hostname: location.hostname }
-    const res: WebsiteStatus = await browser.runtime.sendMessage(website)
+    const website: Website = {
+      hostname: location.hostname,
+    }
+    const status: WebsiteStatus = await browser.runtime.sendMessage(website)
     const newCookie: Cookie = {
       version: extensionVersion,
-      ...res,
+      ...status,
     }
+
     setCookie('trest', JSON.stringify(newCookie))
   }
 }

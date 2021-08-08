@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{ websiteStatus.hostname }}</h1>
+    <h1>{{ websiteStatus.domain }}</h1>
     <div>{{ JSON.stringify(websiteStatus, null, 2) }}</div>
     <router-link to="/settings">Settings</router-link>
   </div>
