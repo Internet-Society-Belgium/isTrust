@@ -1,5 +1,6 @@
 export interface Registration {
   domainInfo: {
+    created: string
     updated: string
   }
   registrant: string
