@@ -21,8 +21,7 @@ const getCookie = (name: string): string | undefined => {
 const setCookie = (name: string, value: string) => {
   const d = new Date()
   d.setTime(d.getTime() + 24 * 60 * 60 * 1000)
-  let expires = 'expires=' + d.toUTCString()
-  document.cookie = name + '=' + value + ';' + expires + ';path=/'
+  document.cookie = `${name}=${value};Path=/;Expires=${d.toUTCString()};Secure;SameSite=Strict;`
 }
 
 async function main() {
