@@ -24,7 +24,7 @@ const setCookie = (name: string, value: string) => {
   document.cookie = `${name}=${value};Path=/;Expires=${d.toUTCString()};Secure;SameSite=Strict;`
 }
 
-async function main() {
+browser.runtime.onMessage.addListener(async () => {
   let cookie = {} as Cookie
 
   let cookieString = getCookie('trest')
@@ -46,6 +46,4 @@ async function main() {
 
     setCookie('trest', JSON.stringify(newCookie))
   }
-}
-
-main()
+})

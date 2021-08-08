@@ -29,14 +29,26 @@
         })
         if (tab) {
           const url = tab[0].url
-          if (url) {
-            const cookie = await browser.cookies.get({
+          const id = tab[0].id
+
+          if (url && id) {
+            let cookie = await browser.cookies.get({
               url,
               name: 'trest',
             })
-            this.websiteStatus = {
-              hostname: new URL(url).hostname,
-              ...JSON.parse(cookie.value),
+
+            if (!cookie) {
+              await browser.tabs.sendMessage(id, {})
+              cookie = await browser.cookies.get({
+                url,
+                name: 'trest',
+              })
+            }
+
+            if (cookie) {
+              this.websiteStatus = {
+                ...JSON.parse(cookie.value),
+              }
             }
           }
         }
