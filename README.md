@@ -1,10 +1,10 @@
 ## Development
 
-[Vue Web-Extension Preset](https://github.com/Kocal/vue-web-extension) was partially used for this project
+[Vue Web-Extension Preset](https://github.com/Kocal/vue-web-extension) was partially used as a boilerplate for this project
 
 ### Requirements
 
-- git
+- [git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/)
   - npm
 - [VSCode](https://code.visualstudio.com/)
