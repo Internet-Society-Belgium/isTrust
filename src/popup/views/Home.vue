@@ -28,10 +28,10 @@
           currentWindow: true,
         })
         if (tab) {
-          const url = tab[0].url
           const id = tab[0].id
+          const url = tab[0].url
 
-          if (url && id) {
+          if (id && url && /https?:\/\/.*/.test(url)) {
             let cookie = await browser.cookies.get({
               url,
               name: 'trest',
