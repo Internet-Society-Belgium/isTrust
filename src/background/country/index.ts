@@ -1,15 +1,18 @@
-import { DNS } from '../../types/Status'
+import * as psl from 'psl'
+import { Country } from './all'
+import Belgium from './be'
 
-export default class Country {
-  hostname: string
+export function getCountry(hostname: string): Promise<Country> {
+  return new Promise((resolve, reject) => {
+    const parsedHostname = psl.parse(hostname)
+    if (parsedHostname?.error) return reject()
 
-  constructor(hostname: string) {
-    this.hostname = hostname
-  }
+    const { domain, tld } = parsedHostname
+    if (!domain || !tld) return reject()
 
-  public get dns(): Promise<DNS> {
-    return new Promise((resolve, reject) => {
-      return {} as DNS
-    })
-  }
+    if (['be', 'brussels', 'vlaanderen'].includes(tld)) {
+      resolve(new Belgium(domain))
+    }
+    resolve(new Country(domain))
+  })
 }

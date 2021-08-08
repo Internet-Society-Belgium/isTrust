@@ -1,8 +1,9 @@
 export interface DNS {
-  domainInfo: {
+  country: string | null
+  domainInfo?: {
     updated: string
   }
-  registrant: {
+  registrant?: {
     companyName: string
   }
 }
