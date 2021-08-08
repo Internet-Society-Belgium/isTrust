@@ -10,7 +10,7 @@ export function getCountry(hostname: string): Promise<Country> {
     const { domain, tld } = parsedHostname
     if (!domain || !tld) return reject()
 
-    if (['be', 'brussels', 'vlaanderen'].includes(tld)) {
+    if (tld === 'be') {
       resolve(new Belgium(domain))
     }
     resolve(new Country(domain))

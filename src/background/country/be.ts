@@ -2,6 +2,7 @@ import { DNS } from '../../types/Status'
 import { Registration, Contact } from '../../types/api/DnsBelgium'
 import axios from 'axios'
 import { Country } from './all'
+
 export default class Belgium extends Country {
   constructor(hostname: string) {
     super(hostname)
