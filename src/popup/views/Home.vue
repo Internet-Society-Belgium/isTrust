@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{ websiteStatus.domain }}</h1>
+    <h1>{{ websiteStatus.internal ? 'Internal' : websiteStatus.domain }}</h1>
     <div>{{ JSON.stringify(websiteStatus, null, 2) }}</div>
     <router-link to="/settings">Settings</router-link>
   </div>
@@ -31,7 +31,12 @@
           const id = tab[0].id
           const url = tab[0].url
 
-          if (id && url && /https?:\/\/.*/.test(url)) {
+          if (id && url) {
+            if (!/https?:\/\/.*/.test(url)) {
+              this.websiteStatus = {
+                internal: true,
+              }
+            }
             let cookie = await browser.cookies.get({
               url,
               name: 'trest',
