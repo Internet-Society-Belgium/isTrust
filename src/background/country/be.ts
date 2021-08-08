@@ -15,6 +15,9 @@ export default class Belgium extends Country {
       )
 
       resolve({
+        domainInfo: {
+          updated: registration.domainInfo.updated,
+        },
         registrant: {
           companyName: registrant.companyName,
         },
