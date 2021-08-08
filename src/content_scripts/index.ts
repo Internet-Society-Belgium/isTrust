@@ -1,5 +1,5 @@
 import { browser } from 'webextension-polyfill-ts'
-import { Website, WebsiteStatus } from '../types/Communication'
+import { Website, WebsiteData } from '../types/Communication'
 import { Cookie } from '../types/Cookie'
 
 const getCookie = (name: string): string | undefined => {
@@ -38,7 +38,7 @@ browser.runtime.onMessage.addListener(async () => {
     const website: Website = {
       hostname: location.hostname,
     }
-    const status: WebsiteStatus = await browser.runtime.sendMessage(website)
+    const status: WebsiteData = await browser.runtime.sendMessage(website)
     const newCookie: Cookie = {
       version: extensionVersion,
       ...status,

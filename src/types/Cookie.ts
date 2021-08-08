@@ -1,5 +1,5 @@
-import { WebsiteStatus } from './Communication'
+import { WebsiteData } from './Communication'
 
-export interface Cookie extends WebsiteStatus {
+export interface Cookie extends WebsiteData {
   version: string
 }

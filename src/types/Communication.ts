@@ -4,8 +4,7 @@ export interface Website {
   hostname: string
 }
 
-export interface WebsiteStatus {
-  internal: boolean
-  domain?: string
+export interface WebsiteData {
+  domain: string
   dns?: DNS
 }

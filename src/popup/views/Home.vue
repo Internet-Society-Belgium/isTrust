@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <h1>{{ websiteStatus.internal ? 'Internal' : websiteStatus.domain }}</h1>
-    <div v-if="!websiteStatus.internal">
-      {{ JSON.stringify(websiteStatus, null, 2) }}
+    <h1>{{ internal ? 'Internal' : data.domain }}</h1>
+    <div v-if="!internal">
+      {{ JSON.stringify(data, null, 2) }}
     </div>
     <router-link to="/settings">Settings</router-link>
   </div>
@@ -11,13 +11,14 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { browser } from 'webextension-polyfill-ts'
-  import { WebsiteStatus } from '../../types/Communication'
+  import { WebsiteData } from '../../types/Communication'
 
   export default defineComponent({
     name: 'Home',
     data() {
       return {
-        websiteStatus: {} as WebsiteStatus,
+        internal: false,
+        data: {} as WebsiteData,
       }
     },
     created() {
@@ -35,9 +36,7 @@
 
           if (id && url) {
             if (!/https?:\/\/.*/.test(url)) {
-              this.websiteStatus = {
-                internal: true,
-              }
+              this.internal = true
             }
             let cookie = await browser.cookies.get({
               url,
@@ -53,7 +52,7 @@
             }
 
             if (cookie) {
-              this.websiteStatus = {
+              this.data = {
                 ...JSON.parse(cookie.value),
               }
             }

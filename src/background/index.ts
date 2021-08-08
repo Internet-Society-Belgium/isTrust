@@ -1,9 +1,9 @@
 import { browser } from 'webextension-polyfill-ts'
-import { Website, WebsiteStatus } from '../types/Communication'
+import { Website, WebsiteData } from '../types/Communication'
 import { getCountry } from './country'
 
 browser.runtime.onMessage.addListener(
-  ({ hostname }: Website): Promise<WebsiteStatus> => {
+  ({ hostname }: Website): Promise<WebsiteData> => {
     return new Promise(async (resolve, reject) => {
       const country = await getCountry(hostname)
       const domain = country.domain
