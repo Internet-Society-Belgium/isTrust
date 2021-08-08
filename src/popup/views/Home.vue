@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <h1>{{ websiteStatus.internal ? 'Internal' : websiteStatus.domain }}</h1>
-    <div>{{ JSON.stringify(websiteStatus, null, 2) }}</div>
+    <div v-if="!websiteStatus.internal">
+      {{ JSON.stringify(websiteStatus, null, 2) }}
+    </div>
     <router-link to="/settings">Settings</router-link>
   </div>
 </template>
@@ -61,3 +63,5 @@
     },
   })
 </script>
+
+<style lang="scss"></style>
