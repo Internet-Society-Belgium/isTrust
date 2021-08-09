@@ -12,6 +12,7 @@
   import { defineComponent } from 'vue'
   import { browser } from 'webextension-polyfill-ts'
   import { WebsiteData } from '../../types/Communication'
+  import { Cookie } from '../../types/Cookie'
 
   export default defineComponent({
     name: 'Home',
@@ -33,29 +34,35 @@
         if (tab) {
           const id = tab[0].id
           const url = tab[0].url
+          if (!id || !url) return
 
-          if (id && url) {
-            if (!/https?:\/\/.*/.test(url)) {
-              this.internal = true
-            }
-            let cookie = await browser.cookies.get({
-              url,
+          if (!/https?:\/\/.*/.test(url)) {
+            this.internal = true
+          }
+
+          let cookie = await browser.cookies.get({
+            url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
+            name: 'trest',
+          })
+
+          let cookieData: Cookie | undefined
+
+          if (cookie) {
+            cookieData = JSON.parse(cookie.value)
+          }
+
+          const extensionVersion = await browser.runtime.getManifest().version
+
+          if (!cookieData || cookieData.version !== extensionVersion) {
+            await browser.tabs.sendMessage(id, {})
+            cookie = await browser.cookies.get({
+              url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
               name: 'trest',
             })
+          }
 
-            if (!cookie) {
-              await browser.tabs.sendMessage(id, {})
-              cookie = await browser.cookies.get({
-                url,
-                name: 'trest',
-              })
-            }
-
-            if (cookie) {
-              this.data = {
-                ...JSON.parse(cookie.value),
-              }
-            }
+          if (cookie) {
+            this.data = JSON.parse(cookie.value)
           }
         }
       },
