@@ -4,73 +4,92 @@
     <div v-if="!internal">
       {{ JSON.stringify(data, null, 2) }}
     </div>
+    <div>{{ chapterUrl }}</div>
     <router-link to="/settings">Settings</router-link>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import { browser } from 'webextension-polyfill-ts'
-  import { WebsiteData } from '../../types/Communication'
-  import { Cookie } from '../../types/Cookie'
+import axios from 'axios'
+import { defineComponent } from 'vue'
+import { browser } from 'webextension-polyfill-ts'
+import { WebsiteData } from '../../types/Communication'
+import { Cookie } from '../../types/Cookie'
+import { IpApi } from '../../types/api/IpApi'
+import chapters from '../data/chapters'
 
-  export default defineComponent({
-    name: 'Home',
-    data() {
-      return {
-        internal: false,
-        data: {} as WebsiteData,
+export default defineComponent({
+  name: 'Home',
+  data() {
+    return {
+      internal: false,
+      chapterUrl: '',
+      data: {} as WebsiteData,
+    }
+  },
+  created() {
+    this.getChapterUrl()
+    this.getWebsiteStatus()
+  },
+  methods: {
+    async getChapterUrl() {
+      const { data } = await axios.get<IpApi>(
+        `http://ip-api.com/json/?fields=status,country,countryCode`
+      )
+
+      let chapter
+
+      if (data?.countryCode) {
+        chapter = chapters.find((c) => c.country === data.countryCode)
       }
+
+      this.chapterUrl = (chapter || chapters[0]).url
     },
-    created() {
-      this.getWebsiteStatus()
-    },
-    methods: {
-      async getWebsiteStatus() {
-        const tab = await browser.tabs.query({
-          active: true,
-          currentWindow: true,
+    async getWebsiteStatus() {
+      const tab = await browser.tabs.query({
+        active: true,
+        currentWindow: true,
+      })
+      if (tab) {
+        const id = tab[0].id
+        const url = tab[0].url
+        if (!id || !url) return
+
+        if (!/https?:\/\/.*/.test(url)) {
+          this.internal = true
+        }
+
+        let cookie = await browser.cookies.get({
+          url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
+          name: 'trest',
         })
-        if (tab) {
-          const id = tab[0].id
-          const url = tab[0].url
-          if (!id || !url) return
 
-          if (!/https?:\/\/.*/.test(url)) {
-            this.internal = true
-          }
+        let cookieData: Cookie | undefined
 
-          let cookie = await browser.cookies.get({
+        if (cookie) {
+          cookieData = JSON.parse(cookie.value)
+        }
+
+        const extensionVersion = await browser.runtime.getManifest().version
+
+        if (!cookieData || cookieData.version !== extensionVersion) {
+          await browser.tabs.sendMessage(id, {})
+          cookie = await browser.cookies.get({
             url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
             name: 'trest',
           })
-
-          let cookieData: Cookie | undefined
-
-          if (cookie) {
-            cookieData = JSON.parse(cookie.value)
-          }
-
-          const extensionVersion = await browser.runtime.getManifest().version
-
-          if (!cookieData || cookieData.version !== extensionVersion) {
-            await browser.tabs.sendMessage(id, {})
-            cookie = await browser.cookies.get({
-              url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
-              name: 'trest',
-            })
-          }
-
-          if (cookie) {
-            this.data = JSON.parse(cookie.value)
-          }
         }
-      },
+
+        if (cookie) {
+          this.data = JSON.parse(cookie.value)
+        }
+      }
+    },
     i18n(message: string) {
       return browser.i18n.getMessage(message)
     },
-    },
-  })
+  },
+})
 </script>
 
 <style lang="scss"></style>
