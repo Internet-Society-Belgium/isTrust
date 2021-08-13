@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{ internal ? 'Internal' : data.domain }}</h1>
+    <h1>{{ internal ? i18n('internal') : data.domain }}</h1>
     <div v-if="!internal">
       {{ JSON.stringify(data, null, 2) }}
     </div>
@@ -66,6 +66,9 @@
           }
         }
       },
+    i18n(message: string) {
+      return browser.i18n.getMessage(message)
+    },
     },
   })
 </script>

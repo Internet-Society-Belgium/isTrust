@@ -4,5 +4,8 @@
   },
   "extDescription": {
     "message": "Vérifie si les obligations légales sont appliquées"
+  },
+  "internal": {
+    "message": "Interne"
   }
 }

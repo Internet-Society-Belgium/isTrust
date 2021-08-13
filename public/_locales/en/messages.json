@@ -4,5 +4,8 @@
   },
   "extDescription": {
     "message": "Verify legal trustability of a website"
+  },
+  "internal": {
+    "message": "Internal"
   }
 }
