@@ -34,7 +34,7 @@ export default defineComponent({
   methods: {
     async getChapterUrl() {
       const { data } = await axios.get<IpApi>(
-        `http://ip-api.com/json/?fields=status,country,countryCode`
+        `http://ip-api.com/json/?fields=countryCode`
       )
 
       let chapter
