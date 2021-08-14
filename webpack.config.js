@@ -1,5 +1,6 @@
 const path = require('path')
 
+const { DefinePlugin } = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WebExtPlugin = require('web-ext-plugin')
@@ -62,6 +63,10 @@ module.exports = (env, options) => {
       ],
     },
     plugins: [
+      new DefinePlugin({
+        __VUE_OPTIONS_API__: true,
+        __VUE_PROD_DEVTOOLS__: false,
+      }),
       new VueLoaderPlugin(),
       new CopyWebpackPlugin({
         patterns: [
