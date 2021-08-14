@@ -10,86 +10,86 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
-import { defineComponent } from 'vue'
-import { browser } from 'webextension-polyfill-ts'
-import { WebsiteData } from '../../types/Communication'
-import { Cookie } from '../../types/Cookie'
-import { IpApi } from '../../types/api/IpApi'
-import chapters from '../data/chapters'
+  import axios from 'axios'
+  import { defineComponent } from 'vue'
+  import { browser } from 'webextension-polyfill-ts'
+  import { WebsiteData } from '../../types/Communication'
+  import { Cookie } from '../../types/Cookie'
+  import { IpApi } from '../../types/api/IpApi'
+  import chapters from '../data/chapters'
 
-export default defineComponent({
-  name: 'Home',
-  data() {
-    return {
-      internal: false,
-      chapterUrl: '',
-      data: {} as WebsiteData,
-    }
-  },
-  created() {
-    this.getChapterUrl()
-    this.getWebsiteStatus()
-  },
-  methods: {
-    async getChapterUrl() {
-      const { data } = await axios.get<IpApi>(
-        `http://ip-api.com/json/?fields=countryCode`
-      )
-
-      let chapter
-
-      if (data?.countryCode) {
-        chapter = chapters.find((c) => c.country === data.countryCode)
+  export default defineComponent({
+    name: 'Home',
+    data() {
+      return {
+        internal: false,
+        chapterUrl: '',
+        data: {} as WebsiteData,
       }
-
-      this.chapterUrl = (chapter || chapters[0]).url
     },
-    async getWebsiteStatus() {
-      const tab = await browser.tabs.query({
-        active: true,
-        currentWindow: true,
-      })
-      if (tab) {
-        const id = tab[0].id
-        const url = tab[0].url
-        if (!id || !url) return
+    created() {
+      this.getChapterUrl()
+      this.getWebsiteStatus()
+    },
+    methods: {
+      async getChapterUrl() {
+        const { data } = await axios.get<IpApi>(
+          `http://ip-api.com/json/?fields=countryCode`
+        )
 
-        if (!/https?:\/\/.*/.test(url)) {
-          this.internal = true
+        let chapter
+
+        if (data?.countryCode) {
+          chapter = chapters.find((c) => c.country === data.countryCode)
         }
 
-        let cookie = await browser.cookies.get({
-          url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
-          name: 'trest',
+        this.chapterUrl = (chapter || chapters[0]).url
+      },
+      async getWebsiteStatus() {
+        const tab = await browser.tabs.query({
+          active: true,
+          currentWindow: true,
         })
+        if (tab) {
+          const id = tab[0].id
+          const url = tab[0].url
+          if (!id || !url) return
 
-        let cookieData: Cookie | undefined
+          if (!/https?:\/\/.*/.test(url)) {
+            this.internal = true
+          }
 
-        if (cookie) {
-          cookieData = JSON.parse(cookie.value)
-        }
-
-        const extensionVersion = await browser.runtime.getManifest().version
-
-        if (!cookieData || cookieData.version !== extensionVersion) {
-          await browser.tabs.sendMessage(id, {})
-          cookie = await browser.cookies.get({
+          let cookie = await browser.cookies.get({
             url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
             name: 'trest',
           })
-        }
 
-        if (cookie) {
-          this.data = JSON.parse(cookie.value)
+          let cookieData: Cookie | undefined
+
+          if (cookie) {
+            cookieData = JSON.parse(cookie.value)
+          }
+
+          const extensionVersion = await browser.runtime.getManifest().version
+
+          if (!cookieData || cookieData.version !== extensionVersion) {
+            await browser.tabs.sendMessage(id, {})
+            cookie = await browser.cookies.get({
+              url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
+              name: 'trest',
+            })
+          }
+
+          if (cookie) {
+            this.data = JSON.parse(cookie.value)
+          }
         }
-      }
+      },
+      i18n(message: string) {
+        return browser.i18n.getMessage(message)
+      },
     },
-    i18n(message: string) {
-      return browser.i18n.getMessage(message)
-    },
-  },
-})
+  })
 </script>
 
 <style lang="scss"></style>
