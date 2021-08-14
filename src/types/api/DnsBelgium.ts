@@ -1,9 +1,12 @@
 export interface Registration {
   domainInfo: {
-    created: string
-    updated: string
+    created: Date
+    updated: Date
   }
   registrant: string
+  dnsKeyInfo: {
+    dnsKeys: []
+  }
 }
 
 export interface Contact {
