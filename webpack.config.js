@@ -111,7 +111,7 @@ module.exports = (env, options) => {
           },
         ],
       }),
-      new WebExtPlugin({ sourceDir: path.join(__dirname, 'build') }),
+      new WebExtPlugin({ sourceDir: path.join(__dirname, 'build'), target:env?.target || 'firefox-desktop' }),
     ],
   }
 }
