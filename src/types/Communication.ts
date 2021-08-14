@@ -1,10 +1,10 @@
-import { DNS } from './Status'
+import { Data } from './Data'
 
-export interface Website {
+export interface WebsiteInfo {
   hostname: string
 }
 
 export interface WebsiteData {
   domain: string
-  dns?: DNS
+  data?: Data
 }
