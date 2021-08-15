@@ -1,12 +1,13 @@
 import * as psl from 'psl'
 import { UrlParsed } from '../../types/Url'
 
-export function parseHostname(hostname: string): UrlParsed | undefined {
+export function parseHostname(hostname: string): UrlParsed {
   const parsedHostname = psl.parse(hostname)
-  if (parsedHostname?.error) return
+  if (parsedHostname?.error) throw new Error(parsedHostname.error.message)
 
   const { domain, tld } = parsedHostname
-  if (!domain || !tld) return
+  if (!domain) throw new Error('no domain found')
+  if (!tld) throw new Error('no tld found')
   return {
     domain,
     tld,

@@ -6,10 +6,7 @@ export abstract class Website {
   readonly tld: string
 
   constructor(hostname: string) {
-    const parsedHostname = parseHostname(hostname)
-    if (!parsedHostname) throw new Error('Invalid hostname')
-
-    const { domain, tld } = parsedHostname
+    const { domain, tld } = parseHostname(hostname)
 
     this.domain = domain
     this.tld = tld
