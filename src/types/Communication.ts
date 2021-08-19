@@ -1,10 +1,11 @@
-import { Data } from './Data'
+import { Dns } from './Dns'
 
 export interface WebsiteInfo {
-  hostname: string
+  url: string
 }
 
 export interface WebsiteData {
+  secure: boolean
   domain: string
   dns?: Dns
 }
