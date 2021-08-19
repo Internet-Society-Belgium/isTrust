@@ -3,9 +3,10 @@ import { parseHostname } from '../utils/url'
 
 export abstract class Website {
   readonly domain: string
-  readonly tld: string
+  protected tld: string
 
-  constructor(hostname: string) {
+  constructor(url: string) {
+    const { protocol, hostname } = new URL(url)
     const { domain, tld } = parseHostname(hostname)
 
     this.domain = domain

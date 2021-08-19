@@ -11,7 +11,7 @@ const setCookie = (value: string) => {
 browser.runtime.onMessage.addListener(async () => {
   const extensionVersion = browser.runtime.getManifest().version
   const website: WebsiteInfo = {
-    hostname: location.hostname,
+    url: location.href,
   }
   const data: WebsiteData = await browser.runtime.sendMessage(website)
   const newCookie: Cookie = {

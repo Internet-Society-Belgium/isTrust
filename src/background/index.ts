@@ -3,9 +3,9 @@ import { WebsiteInfo, WebsiteData } from '../types/Communication'
 import getWebsiteTLD from './TLD/getWebsiteTLD'
 
 browser.runtime.onMessage.addListener(
-  async ({ hostname }: WebsiteInfo): Promise<WebsiteData> => {
-    const website = await getWebsiteTLD(hostname)
-    const domain = website.domain
+  async ({ url }: WebsiteInfo): Promise<WebsiteData> => {
+    const website = await getWebsiteTLD(url)
+    const { domain } = website
 
     console.log(`Analyzing ${domain}`)
 
