@@ -13,7 +13,7 @@ export class RDAP {
     return data
   }
 
-  public static async getRDAPUrls(tld: string): Promise<string[] | undefined> {
+  public static async urls(tld: string): Promise<string[] | undefined> {
     if (!RDAP.cachedIanaRdapList) {
       const ianaRdap = await RDAP.ianaRdap()
       if (!ianaRdap) return

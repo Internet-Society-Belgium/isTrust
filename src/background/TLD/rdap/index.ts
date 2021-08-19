@@ -12,8 +12,10 @@ export default class Website_rdap extends Website {
   public async data(): Promise<Data | undefined> {
     let data: Data = {} as Data
 
-    let rdapUrls = await RDAP.getRDAPUrls(this.tld)
-    if (!rdapUrls) return
+    const urls = await RDAP.urls(this.tld)
+    if (!urls) return
+
+    let rdapUrls = Object.assign([], urls)
 
     while (rdapUrls.length !== 0) {
       const url = rdapUrls[0]
