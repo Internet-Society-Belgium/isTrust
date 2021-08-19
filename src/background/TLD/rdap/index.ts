@@ -15,14 +15,17 @@ export default class Website_rdap extends Website {
     const urls = await RDAP.urls(this.tld)
     if (!urls) return
 
-    let rdapUrls = Object.assign([], urls)
+    let rdapUrls: string[] = []
+    for (const u of urls) {
+      rdapUrls.push(u)
+    }
 
     while (rdapUrls.length !== 0) {
       const url = rdapUrls[0]
       rdapUrls.shift()
 
       const { status, data: rdapData } = await axios.get<RDAPData>(
-        `${url}/domain/${this.domain}`
+        `${url}${url.endsWith('/') ? '' : '/'}domain/${this.domain}`
       )
       if (status !== 200) return
 
