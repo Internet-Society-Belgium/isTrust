@@ -5,6 +5,7 @@
       {{ JSON.stringify(data, null, 2) }}
     </div>
     <div>{{ chapterUrl }}</div>
+    <button v-on:click="deleteCookie">refresh</button>
     <router-link to="/settings">Settings</router-link>
   </div>
 </template>
@@ -28,7 +29,7 @@
       }
     },
     created() {
-      this.getChapterUrl()
+      // this.getChapterUrl()
       this.getWebsiteStatus()
     },
     methods: {
@@ -50,42 +51,62 @@
           active: true,
           currentWindow: true,
         })
-        if (tab) {
-          const id = tab[0].id
-          const url = tab[0].url
-          if (!id || !url) return
-          const { protocol, origin } = new URL(url)
-          if (!protocol || !origin) return
+        if (!tab) return
+        const id = tab[0].id
+        const url = tab[0].url
+        if (!id || !url) return
+        const { protocol, origin } = new URL(url)
+        if (!protocol || !origin) return
 
-          if (!['http:', 'https:'].includes(protocol)) {
-            this.internal = true
-          }
+        if (!['http:', 'https:'].includes(protocol)) {
+          this.internal = true
+        }
 
-          let cookie = await browser.cookies.get({
+        let cookie = await browser.cookies.get({
+          url: `${origin}/trest`,
+          name: 'trest',
+        })
+
+        let cookieData: Cookie | undefined
+
+        if (cookie) {
+          cookieData = JSON.parse(cookie.value)
+        }
+
+        const extensionVersion = await browser.runtime.getManifest().version
+
+        if (!cookieData || cookieData.version !== extensionVersion) {
+          await browser.tabs.sendMessage(id, {})
+          cookie = await browser.cookies.get({
             url: `${origin}/trest`,
             name: 'trest',
           })
-
-          let cookieData: Cookie | undefined
-
-          if (cookie) {
-            cookieData = JSON.parse(cookie.value)
-          }
-
-          const extensionVersion = await browser.runtime.getManifest().version
-
-          if (!cookieData || cookieData.version !== extensionVersion) {
-            await browser.tabs.sendMessage(id, {})
-            cookie = await browser.cookies.get({
-              url: `${origin}/trest`,
-              name: 'trest',
-            })
-          }
-
-          if (cookie) {
-            this.data = JSON.parse(cookie.value)
-          }
         }
+
+        if (cookie) {
+          this.data = JSON.parse(cookie.value)
+        }
+      },
+      async deleteCookie() {
+        this.data = {} as WebsiteData
+
+        const tab = await browser.tabs.query({
+          active: true,
+          currentWindow: true,
+        })
+        if (!tab) return
+        const id = tab[0].id
+        const url = tab[0].url
+        if (!id || !url) return
+        const { origin } = new URL(url)
+        if (!origin) return
+
+        await browser.cookies.remove({
+          url: `${origin}/trest`,
+          name: 'trest',
+        })
+
+        this.getWebsiteStatus()
       },
       i18n(message: string) {
         return browser.i18n.getMessage(message)
