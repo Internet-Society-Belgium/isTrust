@@ -1,4 +1,4 @@
-import { Data } from '../../types/Data'
+import { Dns } from '../../types/Dns'
 import { parseHostname } from '../utils/url'
 
 export abstract class Website {

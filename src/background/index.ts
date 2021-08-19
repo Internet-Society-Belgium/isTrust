@@ -9,8 +9,8 @@ browser.runtime.onMessage.addListener(
 
     console.log(`Analyzing ${domain}`)
 
-    const data = await website.data()
+    const dns = await website.dns()
 
-    return { domain, data }
+    return { domain, dns }
   }
 )

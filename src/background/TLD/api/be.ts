@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { Website } from '..'
 import { Contact, Registration } from '../../../types/api/DnsBelgium'
-import { Data } from '../../../types/Data'
+import { Dns } from '../../../types/Dns'
 
 export default class Website_be extends Website {
   constructor(hostname: string) {
     super(hostname)
   }
 
-  public async data(): Promise<Data | undefined> {
+  public async dns(): Promise<Dns | undefined> {
     const { status: registrationStatus, data: registration } =
       await axios.get<Registration>(
         `https://api.dnsbelgium.be/whois/registration/${this.domain}`

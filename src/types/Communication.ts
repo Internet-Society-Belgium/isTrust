@@ -6,5 +6,5 @@ export interface WebsiteInfo {
 
 export interface WebsiteData {
   domain: string
-  data?: Data
+  dns?: Dns
 }

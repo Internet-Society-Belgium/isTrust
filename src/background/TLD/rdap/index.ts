@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Website } from '..'
-import { Data } from '../../../types/Data'
+import { Dns } from '../../../types/Dns'
 import { RDAPData } from '../../../types/Rdap'
 import { RDAP } from '../../utils/rdap'
 
@@ -9,8 +9,8 @@ export default class Website_rdap extends Website {
     super(hostname)
   }
 
-  public async data(): Promise<Data | undefined> {
-    let data: Data = {} as Data
+  public async dns(): Promise<Dns | undefined> {
+    let data: Dns = {} as Dns
 
     const urls = await RDAP.urls(this.tld)
     if (!urls) return
@@ -26,7 +26,7 @@ export default class Website_rdap extends Website {
       )
       if (status !== 200) return
 
-      let parsedData: Data = {} as Data
+      let parsedData: Dns = {} as Dns
 
       const links = await RDAP.links(rdapData)
       for (const link of links) {

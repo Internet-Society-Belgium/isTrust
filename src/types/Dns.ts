@@ -1,4 +1,4 @@
-export interface Data {
+export interface Dns {
   events: Events
   registrant: Registrant
   dnssec: boolean
