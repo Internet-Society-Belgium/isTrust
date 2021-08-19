@@ -54,13 +54,15 @@
           const id = tab[0].id
           const url = tab[0].url
           if (!id || !url) return
+          const { protocol, origin } = new URL(url)
+          if (!protocol || !origin) return
 
-          if (!/https?:\/\/.*/.test(url)) {
+          if (!['http:', 'https:'].includes(protocol)) {
             this.internal = true
           }
 
           let cookie = await browser.cookies.get({
-            url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
+            url: `${origin}/trest`,
             name: 'trest',
           })
 
@@ -75,7 +77,7 @@
           if (!cookieData || cookieData.version !== extensionVersion) {
             await browser.tabs.sendMessage(id, {})
             cookie = await browser.cookies.get({
-              url: `${url}${url.endsWith('/') ? '' : '/'}trest`,
+              url: `${origin}/trest`,
               name: 'trest',
             })
           }
