@@ -1,21 +1,28 @@
 <template>
   <div class="settings">
     <h1>Settings</h1>
-    <div>{{ `v${extensionVersion}` }}</div>
+    <div>{{ JSON.stringify(settings, null, 2) }}</div>
+    <div>{{ `v${extension.version}` }}</div>
+    <button @click="settings.methods.toggleDev">
+      {{ settings.states.dev ? 'dev' : 'not dev' }}
+    </button>
     <router-link to="/">Return</router-link>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import { browser } from 'webextension-polyfill-ts'
+  import { defineComponent, inject } from 'vue'
 
   export default defineComponent({
     name: 'Settings',
-    computed: {
-      extensionVersion() {
-        return browser.runtime.getManifest().version
-      },
+    setup() {
+      const extension = inject('extension')
+      const settings = inject('settings')
+
+      return {
+        extension,
+        settings,
+      }
     },
   })
 </script>

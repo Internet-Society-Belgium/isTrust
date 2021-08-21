@@ -64,7 +64,7 @@ module.exports = (env, options) => {
     },
     plugins: [
       new DefinePlugin({
-        __VUE_OPTIONS_API__: true,
+        __VUE_OPTIONS_API__: false,
         __VUE_PROD_DEVTOOLS__: false,
       }),
       new VueLoaderPlugin(),
@@ -111,7 +111,10 @@ module.exports = (env, options) => {
           },
         ],
       }),
-      new WebExtPlugin({ sourceDir: path.join(__dirname, 'build'), target:env?.target || 'firefox-desktop' }),
+      new WebExtPlugin({
+        sourceDir: path.join(__dirname, 'build'),
+        target: env?.target || 'firefox-desktop',
+      }),
     ],
   }
 }
