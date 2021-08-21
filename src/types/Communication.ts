@@ -1,4 +1,4 @@
-import { Dns } from './Dns'
+import { Dns } from '../background/types/Dns'
 
 export interface WebsiteInfo {
   url: string

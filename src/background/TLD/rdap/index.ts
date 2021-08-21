@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Website } from '..'
-import { Dns } from '../../../types/Dns'
-import { RDAPData } from '../../../types/Rdap'
+import { Dns } from '../../types/Dns'
+import { RDAPData } from '../../types/Rdap'
 import { RDAP } from '../../utils/rdap'
 
 export default class Website_rdap extends Website {

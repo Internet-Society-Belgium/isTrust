@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Website } from '..'
-import { Contact, Registration } from '../../../types/api/DnsBelgium'
-import { Dns } from '../../../types/Dns'
+import { Contact, Registration } from '../../types/DnsBelgium'
+import { Dns } from '../../types/Dns'
 
 export default class Website_be extends Website {
   constructor(hostname: string) {

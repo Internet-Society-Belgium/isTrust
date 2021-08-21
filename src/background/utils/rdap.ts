@@ -1,5 +1,5 @@
-import { IanaRDAPList, RDAPData } from '../../types/Rdap'
-import { Events, Registrant } from '../../types/Dns'
+import { IanaRDAPList, RDAPData } from '../types/Rdap'
+import { Events, Registrant } from '../types/Dns'
 import axios from 'axios'
 
 export class RDAP {

@@ -1,5 +1,5 @@
 import * as psl from 'psl'
-import { UrlParsed } from '../../types/Url'
+import { UrlParsed } from '../types/Url'
 
 export function parseHostname(hostname: string): UrlParsed {
   const parsedHostname = psl.parse(hostname)
