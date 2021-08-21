@@ -29,6 +29,7 @@ export class RDAP {
   }
 
   public static links(data: RDAPData): string[] {
+    if (!data.links) return []
     const links = data.links.filter((e) => e.rel !== 'self')
 
     return links.map((e) => e.href.replace(/domain\/.*/, ''))
