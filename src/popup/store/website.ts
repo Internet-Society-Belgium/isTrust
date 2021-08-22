@@ -1,16 +1,13 @@
-import axios from 'axios'
 import { reactive, readonly } from 'vue'
 import { browser } from 'webextension-polyfill-ts'
 import { WebsiteData } from '../../types/Communication'
 import { Cookie } from '../../types/Cookie'
-import chapters from '../data/chapters'
-import { IpApi } from '../types/IpApi'
 
 const websiteStates = reactive({
   internal: false,
-  chapterUrl: '',
   data: {} as WebsiteData,
 })
+
 const websiteMethods = {
   async refresh() {
     websiteStates.data = {} as WebsiteData
@@ -83,19 +80,4 @@ async function getData() {
   }
 }
 
-async function getChapterUrl() {
-  const { data } = await axios.get<IpApi>(
-    `http://ip-api.com/json/?fields=countryCode`
-  )
-
-  let chapter
-
-  if (data?.countryCode) {
-    chapter = chapters.find((c) => c.country === data.countryCode)
-  }
-
-  websiteStates.chapterUrl = (chapter || chapters[0]).url
-}
-
 getData()
-getChapterUrl()

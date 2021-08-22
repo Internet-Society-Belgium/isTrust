@@ -10,7 +10,7 @@
     <div v-if="!website.states.internal">
       {{ JSON.stringify(website.states.data, null, 2) }}
     </div>
-    <div>{{ website.states.chapterUrl }}</div>
+    <div>{{ extension.states.chapter.url }}</div>
     <button v-if="settings.states.dev" @click="website.methods.refresh">
       refresh
     </button>

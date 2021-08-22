@@ -4,6 +4,7 @@ import { browser } from 'webextension-polyfill-ts'
 const settingsStates = reactive({
   dev: false,
 })
+
 const settingsMethods = {
   async toggleDev() {
     settingsStates.dev = !settingsStates.dev
@@ -18,7 +19,12 @@ export default {
 
 async function loadLocalStorage() {
   const { settings } = await browser.storage.local.get('settings')
-  if (settings) settingsStates.dev = settings.dev
+
+  if (settings) {
+    settingsStates.dev = settings.dev
+  } else {
+    await browser.storage.local.set({ settings: settingsStates })
+  }
 }
 
 loadLocalStorage()
