@@ -18,8 +18,8 @@
     "serve:firefox-desktop": "webpack build --mode development --watch --env target=firefox-desktop",
     "serve:chromium": "webpack build --mode development --watch --env target=chromium",
     "build": "webpack build --mode production",
-    "lint": "eslint --fix .",
-    "format": "prettier -w -u ."
+    "lint": "eslint --fix ./src",
+    "format": "prettier -w -u ./src"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^2.0.4",
     "@types/psl": "^1.1.0",
+    "@typescript-eslint/parser": "^4.29.3",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
