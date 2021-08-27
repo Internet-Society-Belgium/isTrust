@@ -1,4 +1,4 @@
 export interface UrlParsed {
-  domain: string
-  tld: string
+    domain: string
+    tld: string
 }

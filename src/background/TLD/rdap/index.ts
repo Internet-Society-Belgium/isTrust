@@ -1,57 +1,60 @@
 import axios from 'axios'
-import { Website } from '..'
+
 import { Dns } from '../../types/Dns'
 import { RDAPData } from '../../types/Rdap'
+
 import { RDAP } from '../../utils/rdap'
 
+import { Website } from '..'
+
 export default class Website_rdap extends Website {
-  constructor(hostname: string) {
-    super(hostname)
-  }
-
-  public async dns(): Promise<Dns | undefined> {
-    let data: Dns = {} as Dns
-
-    const urls = await RDAP.urls(this.tld)
-    if (!urls) return
-
-    let rdapUrls: string[] = []
-    for (const u of urls) {
-      rdapUrls.push(u)
+    constructor(hostname: string) {
+        super(hostname)
     }
 
-    while (rdapUrls.length !== 0) {
-      const url = rdapUrls[0]
-      rdapUrls.shift()
+    public async dns(): Promise<Dns | undefined> {
+        let data: Dns = {} as Dns
 
-      const { status, data: rdapData } = await axios.get<RDAPData>(
-        `${url}${url.endsWith('/') ? '' : '/'}domain/${this.domain}`
-      )
-      if (status !== 200) return
+        const urls = await RDAP.urls(this.tld)
+        if (!urls) return
 
-      let parsedData: Dns = {} as Dns
+        const rdapUrls: string[] = []
+        for (const u of urls) {
+            rdapUrls.push(u)
+        }
 
-      const links = await RDAP.links(rdapData)
-      for (const link of links) {
-        rdapUrls.push(link)
-      }
+        while (rdapUrls.length !== 0) {
+            const url = rdapUrls[0]
+            rdapUrls.shift()
 
-      const events = await RDAP.events(rdapData)
-      if (events) {
-        parsedData.events = events
-      }
+            const { status, data: rdapData } = await axios.get<RDAPData>(
+                `${url}${url.endsWith('/') ? '' : '/'}domain/${this.domain}`
+            )
+            if (status !== 200) return
 
-      const registrant = await RDAP.registrant(rdapData)
-      if (registrant) {
-        parsedData.registrant = registrant
-      }
+            const parsedData: Dns = {} as Dns
 
-      const dnssec = await RDAP.dnssec(rdapData)
-      parsedData.dnssec = dnssec
+            const links = await RDAP.links(rdapData)
+            for (const link of links) {
+                rdapUrls.push(link)
+            }
 
-      data = { ...parsedData, ...data }
+            const events = await RDAP.events(rdapData)
+            if (events) {
+                parsedData.events = events
+            }
+
+            const registrant = await RDAP.registrant(rdapData)
+            if (registrant) {
+                parsedData.registrant = registrant
+            }
+
+            const dnssec = await RDAP.dnssec(rdapData)
+            parsedData.dnssec = dnssec
+
+            data = { ...parsedData, ...data }
+        }
+
+        return data
     }
-
-    return data
-  }
 }

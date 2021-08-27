@@ -20,7 +20,6 @@
 
 <script lang="ts">
     import { inject } from 'vue'
-
     export default {
         name: 'Home',
         setup() {

@@ -1,16 +1,18 @@
 import { browser } from 'webextension-polyfill-ts'
+
 import { WebsiteInfo, WebsiteData } from '../types/Communication'
+
 import getWebsiteTLD from './TLD/getWebsiteTLD'
 
 browser.runtime.onMessage.addListener(
-  async ({ url }: WebsiteInfo): Promise<WebsiteData> => {
-    const website = await getWebsiteTLD(url)
-    const { secure, domain } = website
+    async ({ url }: WebsiteInfo): Promise<WebsiteData> => {
+        const website = await getWebsiteTLD(url)
+        const { secure, domain } = website
 
-    console.log(`Analyzing ${domain}`)
+        console.log(`Analyzing ${domain}`)
 
-    const dns = await website.dns()
+        const dns = await website.dns()
 
-    return { secure, domain, dns }
-  }
+        return { secure, domain, dns }
+    }
 )
