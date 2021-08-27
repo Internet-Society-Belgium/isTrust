@@ -1,38 +1,37 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+    <div id="app">
+        <router-view />
+    </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, provide } from 'vue'
-  import extension from '../store/extension'
-  import settings from '../store/settings'
-  import website from '../store/website'
-
-  export default defineComponent({
-    name: 'App',
-    setup() {
-      provide('extension', extension)
-      provide('settings', settings)
-      provide('website', website)
-    },
-  })
+    import { provide } from 'vue'
+    import extension from '../store/extension'
+    import settings from '../store/settings'
+    import website from '../store/website'
+    export default {
+        name: 'App',
+        setup() {
+            provide('extension', extension)
+            provide('settings', settings)
+            provide('website', website)
+        },
+    }
 </script>
 
 <style lang="scss">
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    width: 150px;
-    height: 250px;
-  }
+    #app {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        width: 150px;
+        height: 250px;
+    }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-  }
+    a {
+        font-weight: bold;
+        color: #2c3e50;
+    }
 </style>
