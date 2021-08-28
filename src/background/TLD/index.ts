@@ -2,7 +2,7 @@ import { Dns } from '../../types/Dns'
 
 import { parseHostname } from '../utils/url'
 
-export abstract class Website {
+export class Website {
     readonly secure: boolean
     readonly domain: string
     protected tld: string
@@ -16,5 +16,7 @@ export abstract class Website {
         this.tld = tld
     }
 
-    public abstract dns(): Promise<Dns | undefined>
+    public async dns(): Promise<Dns | undefined> {
+        return
+    }
 }
