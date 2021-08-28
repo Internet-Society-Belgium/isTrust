@@ -1,5 +1,8 @@
 {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "jest.jestCommandLine": "npm run test --"
+    "jest.jestCommandLine": "npm run test --",
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }
