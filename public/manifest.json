@@ -1,41 +1,33 @@
 {
-  "manifest_version": 2,
-  "name": "__MSG_extName__",
-  "description": "__MSG_extDescription__",
-  "author": "Progiciel",
-  "default_locale": "en",
-  "permissions": [
-    "http://*/*",
-    "https://*/*",
-    "activeTab",
-    "cookies",
-    "storage"
-  ],
-  "icons": {
-    "128": "icons/128.png"
-  },
-  "background": {
-    "scripts": [
-      "lib/browser-polyfill.js",
-      "background/index.js"
-    ]
-  },
-  "content_scripts": [
-    {
-      "matches": [
+    "manifest_version": 2,
+    "name": "__MSG_extName__",
+    "description": "__MSG_extDescription__",
+    "author": "Progiciel",
+    "default_locale": "en",
+    "permissions": [
         "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "content_scripts/index.js"
-      ]
+        "https://*/*",
+        "activeTab",
+        "cookies",
+        "storage"
+    ],
+    "icons": {
+        "128": "icons/128.png"
+    },
+    "background": {
+        "scripts": ["lib/browser-polyfill.js", "background/index.js"]
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["content_scripts/index.js"]
+        }
+    ],
+    "browser_action": {
+        "default_popup": "popup/index.html",
+        "default_title": "__MSG_extName__",
+        "default_icon": {
+            "128": "icons/128.png"
+        }
     }
-  ],
-  "browser_action": {
-    "default_popup": "popup/index.html",
-    "default_title": "__MSG_extName__",
-    "default_icon": {
-      "128": "icons/128.png"
-    }
-  }
 }

@@ -1,11 +1,11 @@
 {
-  "extName": {
-    "message": "trest"
-  },
-  "extDescription": {
-    "message": "Vérifie si les obligations légales sont appliquées"
-  },
-  "internal": {
-    "message": "Interne"
-  }
+    "extName": {
+        "message": "trest"
+    },
+    "extDescription": {
+        "message": "Vérifie si les obligations légales sont appliquées"
+    },
+    "internal": {
+        "message": "Interne"
+    }
 }

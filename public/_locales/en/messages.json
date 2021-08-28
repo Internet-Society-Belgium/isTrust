@@ -1,11 +1,11 @@
 {
-  "extName": {
-    "message": "trest"
-  },
-  "extDescription": {
-    "message": "Verify legal trustability of a website"
-  },
-  "internal": {
-    "message": "Internal"
-  }
+    "extName": {
+        "message": "trest"
+    },
+    "extDescription": {
+        "message": "Verify legal trustability of a website"
+    },
+    "internal": {
+        "message": "Internal"
+    }
 }
