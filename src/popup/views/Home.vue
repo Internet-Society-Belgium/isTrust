@@ -19,20 +19,16 @@
 </template>
 
 <script lang="ts">
-    import { inject } from 'vue'
-    export default {
+    import { defineComponent, inject } from 'vue'
+    export default defineComponent({
         name: 'Home',
         setup() {
             const extension = inject('extension')
             const settings = inject('settings')
             const website = inject('website')
-            return {
-                extension,
-                settings,
-                website,
-            }
+            return { extension, settings, website }
         },
-    }
+    })
 </script>
 
 <style lang="scss"></style>

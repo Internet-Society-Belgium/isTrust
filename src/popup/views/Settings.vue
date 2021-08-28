@@ -11,18 +11,15 @@
 </template>
 
 <script lang="ts">
-    import { inject } from 'vue'
-    export default {
+    import { defineComponent, inject } from 'vue'
+    export default defineComponent({
         name: 'Settings',
         setup() {
             const extension = inject('extension')
             const settings = inject('settings')
-            return {
-                extension,
-                settings,
-            }
+            return { extension, settings }
         },
-    }
+    })
 </script>
 
 <style lang="scss"></style>
