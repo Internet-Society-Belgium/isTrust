@@ -7,7 +7,7 @@ test('Belgium', () => {
     expect(getBestRegion(Belgium, {})).toBe(Belgium.regions[0])
 })
 
-test('UnitedStates', () => {
+test('United States', () => {
     expect(getBestRegion(UnitedStates, {})).toBe(UnitedStates.regions[0])
 })
 
