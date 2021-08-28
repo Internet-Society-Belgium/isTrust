@@ -1,3 +1,4 @@
+import { Certificate } from './Certificate'
 import { Dns } from './Dns'
 
 export interface WebsiteInfo {
@@ -5,7 +6,8 @@ export interface WebsiteInfo {
 }
 
 export interface WebsiteData {
-    secure: boolean
     domain: string
+    secure: boolean
+    certificate?: Certificate
     dns?: Dns
 }
