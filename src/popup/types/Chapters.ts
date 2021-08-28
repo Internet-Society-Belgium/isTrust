@@ -1,9 +1,10 @@
 export interface Chapters {
     country: string
-    url: Url
+    regions: Region[]
 }
 
-interface Url {
-    _: string
-    [key: string]: string
+interface Region {
+    latitude?: number
+    longitude?: number
+    url: string
 }

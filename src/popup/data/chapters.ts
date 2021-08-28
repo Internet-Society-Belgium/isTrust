@@ -1,12 +1,22 @@
-// https://www.internetsociety.org/chapters/
+import { Chapters } from '../types/Chapters'
 
-export default [
+const chapters: Chapters[] = [
     {
         country: 'BE',
-        url: 'https://www.internetsociety.be/',
+        regions: [
+            {
+                url: 'https://www.internetsociety.be/',
+            },
+        ],
     },
     {
         country: 'FR',
-        url: 'https://www.isoc.fr/',
+        regions: [
+            {
+                url: 'https://www.isoc.fr/',
+            },
+        ],
     },
 ]
+
+export default chapters
