@@ -2,7 +2,8 @@ import axios from 'axios'
 import { reactive, readonly } from 'vue'
 import { browser } from 'webextension-polyfill-ts'
 
-import { IpApi } from '../types/IpApi'
+import { Chapter } from '../types/chapters'
+import { Geolocation, Location } from '../types/geolocation'
 
 import chapters from '../data/chapters'
 
@@ -25,20 +26,53 @@ async function getChapterUrl() {
     if (extension) {
         extensionStates.chapter.url = extension.chapter.url
     } else {
-        const { data } = await axios.get<IpApi>(
-            `http://ip-api.com/json/?fields=countryCode`
+        const { status, data } = await axios.get<Geolocation>(
+            `https://trest.api.progiciel.be/geolocation`
         )
 
-        let chapter
+        if (status !== 200) return
 
-        if (data?.countryCode) {
-            chapter = chapters.find((c) => c.country === data.countryCode)
+        const defaultChapterUrl = chapters[0].regions[0].url
+
+        const chapter = chapters.find((c) => c.country === data.country.isoCode)
+
+        if (!chapter) {
+            extensionStates.chapter.url = defaultChapterUrl
+            return
         }
 
-        extensionStates.chapter.url = (chapter || chapters[0]).url
+        extensionStates.chapter.url = getBestRegion(chapter, data.location).url
 
         await browser.storage.local.set({ extension: extensionStates })
     }
+}
+
+function getBestRegion(chapter: Chapter, userLocation: Location) {
+    let best = { distance: 1000, region: chapter.regions[0] }
+
+    for (let index = 1; index < chapter.regions.length; index++) {
+        const region = chapter.regions[index]
+
+        if (
+            userLocation.latitude &&
+            userLocation.longitude &&
+            region.latitude &&
+            region.longitude
+        ) {
+            const distance = Math.sqrt(
+                Math.pow(userLocation.latitude - region.latitude, 2) +
+                    Math.pow(userLocation.longitude - region.longitude, 2)
+            )
+            if (best.distance > distance) {
+                best = {
+                    distance,
+                    region,
+                }
+            }
+        }
+    }
+
+    return best.region
 }
 
 getChapterUrl()

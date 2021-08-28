@@ -1,4 +1,4 @@
-export interface Chapters {
+export interface Chapter {
     country: string
     regions: Region[]
 }

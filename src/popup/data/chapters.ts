@@ -1,6 +1,6 @@
-import { Chapters } from '../types/Chapters'
+import { Chapter } from '../types/chapters'
 
-const chapters: Chapters[] = [
+const chapters: Chapter[] = [
     {
         country: 'BE',
         regions: [
