@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { Dns } from '../../types/Dns'
+import { Dns } from '../../../types/Dns'
 import { Contact, Registration } from '../../types/DnsBelgium'
 
 import { Website } from '..'
