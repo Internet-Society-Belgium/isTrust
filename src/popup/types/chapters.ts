@@ -1,10 +1,14 @@
 export interface Chapter {
-    country: string
+    country: Country
     regions: Region[]
 }
 
-interface Region {
+interface Country {
+    isoCode: string // ISO 3166-1 alpha-2
+}
+
+export interface Region {
+    url: string
     latitude?: number
     longitude?: number
-    url: string
 }

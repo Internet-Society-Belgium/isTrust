@@ -2,10 +2,9 @@ import axios from 'axios'
 import { reactive, readonly } from 'vue'
 import { browser } from 'webextension-polyfill-ts'
 
-import { Chapter } from '../types/chapters'
-import { Geolocation, Location } from '../types/geolocation'
+import { Geolocation } from '../types/geolocation'
 
-import chapters from '../data/chapters'
+import { getBestRegion, getChapter } from '../utils/chapter'
 
 const extensionStates = reactive({
     chapter: {
@@ -32,47 +31,12 @@ async function getChapterUrl() {
 
         if (status !== 200) return
 
-        const defaultChapterUrl = chapters[0].regions[0].url
-
-        const chapter = chapters.find((c) => c.country === data.country.isoCode)
-
-        if (!chapter) {
-            extensionStates.chapter.url = defaultChapterUrl
-            return
-        }
+        const chapter = getChapter(data.country.isoCode)
 
         extensionStates.chapter.url = getBestRegion(chapter, data.location).url
 
         await browser.storage.local.set({ extension: extensionStates })
     }
-}
-
-function getBestRegion(chapter: Chapter, userLocation: Location) {
-    let best = { distance: 1000, region: chapter.regions[0] }
-
-    for (let index = 1; index < chapter.regions.length; index++) {
-        const region = chapter.regions[index]
-
-        if (
-            userLocation.latitude &&
-            userLocation.longitude &&
-            region.latitude &&
-            region.longitude
-        ) {
-            const distance = Math.sqrt(
-                Math.pow(userLocation.latitude - region.latitude, 2) +
-                    Math.pow(userLocation.longitude - region.longitude, 2)
-            )
-            if (best.distance > distance) {
-                best = {
-                    distance,
-                    region,
-                }
-            }
-        }
-    }
-
-    return best.region
 }
 
 getChapterUrl()
