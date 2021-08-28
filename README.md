@@ -4,13 +4,14 @@
 
 ### Requirements
 
-- [git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en/)
-  - npm
-- [VSCode](https://code.visualstudio.com/)
-  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-  - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
+-   [git](https://git-scm.com/)
+-   [Node.js](https://nodejs.org/en/)
+    -   npm
+-   [VSCode](https://code.visualstudio.com/)
+    -   [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+    -   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+    -   [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
+    -   [Jest](https://marketplace.visualstudio.com/items?itemName=orta.vscode-jest)
 
 ### Steps
 

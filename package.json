@@ -19,7 +19,8 @@
     "serve:chromium": "webpack build --mode development --watch --env target=chromium",
     "build": "webpack build --mode production",
     "lint": "eslint --fix ./src",
-    "format": "prettier -w -u ./src"
+    "format": "prettier -w -u .",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "@types/jest": "^27.0.1",
     "@types/psl": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
@@ -52,11 +54,13 @@
     "eslint-plugin-promise": "^5.0.0",
     "eslint-plugin-vue": "^7.0.0",
     "file-loader": "^6.2.0",
+    "jest": "^27.1.0",
     "prettier": "^2.3.2",
     "sass": "^1.26.5",
     "sass-loader": "^12.0.2",
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.0.0",
+    "ts-jest": "^27.0.5",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.4",
     "vue-eslint-parser": "^7.10.0",
