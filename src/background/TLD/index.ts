@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { Certificate } from '../../types/Certificate'
 import { Dns } from '../../types/Dns'
 
@@ -20,9 +22,12 @@ export class Website {
     public async certificate(): Promise<Certificate | undefined> {
         if (!this.secure) return
 
-        return {
-            organisation: '',
-        }
+        const { status, data } = await axios.get<Certificate>(
+            `https://trest.api.progiciel.be/certificate?url=${this.domain}`
+        )
+        if (status !== 200) return
+
+        return data
     }
 
     public async dns(): Promise<Dns | undefined> {
