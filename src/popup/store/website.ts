@@ -30,6 +30,8 @@ const websiteMethods = {
         })
 
         await getData()
+
+        browser.tabs.reload(id)
     },
 }
 
