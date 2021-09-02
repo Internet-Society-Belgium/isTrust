@@ -1,22 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from '../views/Home.vue'
+import Infos from '../views/Infos.vue'
 import Settings from '../views/Settings.vue'
 
 const routes = [
     {
-        path: '/',
-        redirect: '/index.html',
+        path: '/index.html',
+        redirect: '/',
     },
     {
-        path: '/index.html',
+        path: '/',
         name: 'Home',
         component: Home,
-    },
-    {
-        path: '/settings',
-        name: 'Settings',
-        component: Settings,
+        children: [
+            {
+                path: '',
+                name: 'Infos',
+                component: Infos,
+            },
+            {
+                path: 'settings',
+                name: 'Settings',
+                component: Settings,
+            },
+        ],
     },
 ]
 
