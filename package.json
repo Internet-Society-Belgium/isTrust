@@ -30,6 +30,7 @@
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
+    "@heroicons/vue": "^1.0.4",
     "@trivago/prettier-plugin-sort-imports": "^2.0.4",
     "@types/jest": "^27.0.1",
     "@types/psl": "^1.1.0",
