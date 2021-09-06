@@ -6,7 +6,7 @@ import Website_be from './api/be'
 import Website_port43 from './port43'
 import Website_rdap from './rdap'
 
-export default function (url: string): Website {
+export default async function (url: string): Promise<Website> {
     const { hostname } = new URL(url)
     const { tld } = parseHostname(hostname)
 
@@ -14,7 +14,8 @@ export default function (url: string): Website {
         return new Website_be(url)
     }
 
-    if (RDAP.urls(tld)) {
+    const urls = await RDAP.urls(tld)
+    if (urls) {
         return new Website_rdap(url)
     }
 
