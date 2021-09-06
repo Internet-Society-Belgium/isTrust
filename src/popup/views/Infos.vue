@@ -53,6 +53,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div
+                            v-if="website.states.data?.dns?.events?.transfer"
+                            class="p-1"
+                        >
+                            <div class="flex items-center gap-2">
+                                <SwitchHorizontalIcon
+                                    class="flex-none w-5 h-5 text-neutral"
+                                />
+                                <div class="flex-grow">
+                                    <p class="whitespace-nowrap">
+                                        {{
+                                            formatDate(
+                                                website.states.data.dns.events
+                                                    .transfer
+                                            )
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div>
@@ -172,6 +192,7 @@
         LockOpenIcon,
         KeyIcon,
         BadgeCheckIcon,
+        SwitchHorizontalIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { formatDate } from '../utils/date'
@@ -187,6 +208,7 @@
             LockOpenIcon,
             KeyIcon,
             BadgeCheckIcon,
+            SwitchHorizontalIcon,
         },
         setup() {
             const settings = inject('settings')
