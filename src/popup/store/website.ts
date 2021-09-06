@@ -32,7 +32,7 @@ const websiteMethods = {
 
         await getData()
 
-        browser.tabs.reload(id)
+        await browser.tabs.reload(id)
     },
 }
 
@@ -77,7 +77,9 @@ async function getData() {
         try {
             await browser.tabs.sendMessage(id, {})
         } catch (e) {
-            browser.tabs.reload(id)
+            await browser.tabs.reload(id)
+            await getData()
+            return
         }
         cookie = await browser.cookies.get({
             url: `${origin}/trest`,
