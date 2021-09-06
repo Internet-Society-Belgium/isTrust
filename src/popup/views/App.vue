@@ -1,8 +1,5 @@
 <template>
-    <div class="">
-        <div class="text-center">
-            <h1 class="text-lg font-semibold">Trest</h1>
-        </div>
+    <div class="bg-background">
         <router-view />
     </div>
 </template>

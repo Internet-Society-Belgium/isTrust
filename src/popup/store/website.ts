@@ -6,12 +6,14 @@ import { Cookie } from '../../types/Cookie'
 
 const websiteStates = reactive({
     internal: false,
+    empty: true,
     data: {} as WebsiteData,
 })
 
 const websiteMethods = {
     async refresh(): Promise<void> {
         websiteStates.data = {} as WebsiteData
+        websiteStates.empty = true
 
         const tab = await browser.tabs.query({
             active: true,
@@ -80,6 +82,7 @@ async function getData() {
 
     if (cookie) {
         websiteStates.data = JSON.parse(cookie.value)
+        websiteStates.empty = false
     }
 }
 

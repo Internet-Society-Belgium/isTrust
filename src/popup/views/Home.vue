@@ -1,5 +1,5 @@
 <template>
-    <div class="w-40">
+    <div class="p-2 flex flex-col gap-3 min-w-40">
         <div>
             <Header />
         </div>
