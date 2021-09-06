@@ -5,10 +5,11 @@ module.exports = {
         colors: {
             primary: '#0072f2',
             secondary: '#191b1f',
-            'neutral-text': '#89939b',
             container: '#ffffff',
             background: '#f2f4f5',
-            loading: '#89939b',
+            ok: '#7cb72e',
+            neutral: '#89939b',
+            warning: '#f463a4',
         },
         fontFamily: {
             sans: ['Rubik', 'sans-serif'],

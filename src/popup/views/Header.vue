@@ -2,12 +2,12 @@
     <div class="text-center p-2">
         <Loading>
             <div v-if="website.states.internal">
-                <h2 class="text-lg">
+                <h2 class="text-lg font-semibold">
                     {{ extension.i18n('internal') }}
                 </h2>
             </div>
             <div v-else-if="!website.states.loading">
-                <h2 class="text-lg">
+                <h2 class="text-lg font-semibold">
                     {{ website.states.data.domain }}
                 </h2>
             </div>
