@@ -1,7 +1,11 @@
 <template>
     <div
         class="flex flex-col justify-center align-middle gap-2 m-2"
-        :class="[website.states.internal ? 'filter blur-sm' : '']"
+        :class="[
+            website.states.internal
+                ? 'filter blur-sm pointer-events-none select-none'
+                : '',
+        ]"
     >
         <section class="bg-container rounded-lg p-2">
             <h3>Trustability</h3>
