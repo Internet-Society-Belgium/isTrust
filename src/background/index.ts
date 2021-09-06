@@ -11,8 +11,13 @@ browser.runtime.onMessage.addListener(
 
         console.log(`Analyzing ${domain}`)
 
-        const certificate = await website.certificate()
-        const dns = await website.dns()
+        const certificatePromise = website.certificate()
+        const dnsPromise = website.dns()
+
+        const [certificate, dns] = await Promise.all([
+            certificatePromise,
+            dnsPromise,
+        ])
 
         return { domain, secure, certificate, dns }
     }
