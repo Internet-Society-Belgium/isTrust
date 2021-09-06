@@ -6,11 +6,14 @@ import { Dns } from '../../types/Dns'
 import { parseHostname } from '../utils/url'
 
 export class Website {
+    private url: string
     readonly secure: boolean
     readonly domain: string
     protected tld: string
 
     constructor(url: string) {
+        this.url = url
+
         const { protocol, hostname } = new URL(url)
         const { domain, tld } = parseHostname(hostname)
 
@@ -23,7 +26,7 @@ export class Website {
         if (!this.secure) return
 
         const { status, data } = await axios.get<Certificate>(
-            `https://trest.api.progiciel.be/certificate?url=${this.domain}`
+            `https://trest.api.progiciel.be/certificate?url=${this.url}`
         )
         if (status !== 200) return
 
