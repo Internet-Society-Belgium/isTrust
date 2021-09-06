@@ -6,14 +6,13 @@ import { Cookie } from '../../types/Cookie'
 
 const websiteStates = reactive({
     internal: false,
-    empty: true,
+    loading: false,
     data: {} as WebsiteData,
 })
 
 const websiteMethods = {
     async refresh(): Promise<void> {
         websiteStates.data = {} as WebsiteData
-        websiteStates.empty = true
 
         const tab = await browser.tabs.query({
             active: true,
@@ -56,6 +55,7 @@ async function getData() {
 
     if (!['http:', 'https:'].includes(protocol)) {
         websiteStates.internal = true
+        websiteStates.loading = false
         return
     }
 
@@ -73,6 +73,7 @@ async function getData() {
     const extensionVersion = await browser.runtime.getManifest().version
 
     if (!cookieData || cookieData.version !== extensionVersion) {
+        websiteStates.loading = true
         await browser.tabs.sendMessage(id, {})
         cookie = await browser.cookies.get({
             url: `${origin}/trest`,
@@ -82,7 +83,7 @@ async function getData() {
 
     if (cookie) {
         websiteStates.data = JSON.parse(cookie.value)
-        websiteStates.empty = false
+        websiteStates.loading = false
     }
 }
 

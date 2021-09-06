@@ -1,0 +1,36 @@
+<template>
+    <transition name="fade" mode="out-in">
+        <div v-if="website.states.loading">
+            <div class="flex justify-center p-2">
+                <div class="w-3 h-3 rounded-full bg-primary animate-ping"></div>
+                <div class="w-3 h-3 absolute rounded-full bg-primary"></div>
+            </div>
+        </div>
+        <div v-else>
+            <slot></slot>
+        </div>
+    </transition>
+</template>
+
+<script lang="ts">
+    import { defineComponent, inject } from 'vue'
+    export default defineComponent({
+        name: 'Loading',
+        setup() {
+            const website = inject('website')
+            return { website }
+        },
+    })
+</script>
+
+<style scoped>
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s ease;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
+    }
+</style>
