@@ -1,5 +1,5 @@
 import { reactive, readonly } from 'vue'
-import { browser } from 'webextension-polyfill-ts'
+import browser from 'webextension-polyfill'
 
 const settingsStates = reactive({
     dev: false,

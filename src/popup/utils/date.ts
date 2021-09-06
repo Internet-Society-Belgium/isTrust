@@ -1,4 +1,4 @@
-import { browser } from 'webextension-polyfill-ts'
+import browser from 'webextension-polyfill'
 
 export function formatDate(date: string): string {
     const lang = browser.i18n.getUILanguage()

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { reactive, readonly } from 'vue'
-import { browser } from 'webextension-polyfill-ts'
+import browser from 'webextension-polyfill'
 
 import { Geolocation } from '../types/geolocation'
 

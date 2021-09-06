@@ -29,7 +29,7 @@
     import { CogIcon, ExternalLinkIcon } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { useRoute } from 'vue-router'
-    import { browser } from 'webextension-polyfill-ts'
+    import browser from 'webextension-polyfill'
     export default defineComponent({
         name: 'Header',
         components: { CogIcon, ExternalLinkIcon },
