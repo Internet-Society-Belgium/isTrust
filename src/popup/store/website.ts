@@ -74,7 +74,11 @@ async function getData() {
 
     if (!cookieData || cookieData.version !== extensionVersion) {
         websiteStates.loading = true
-        await browser.tabs.sendMessage(id, {})
+        try {
+            await browser.tabs.sendMessage(id, {})
+        } catch (e) {
+            browser.tabs.reload(id)
+        }
         cookie = await browser.cookies.get({
             url: `${origin}/trest`,
             name: 'trest',
