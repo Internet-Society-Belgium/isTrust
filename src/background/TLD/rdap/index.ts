@@ -30,7 +30,7 @@ export default class Website_rdap extends Website {
             const { status, data: rdapData } = await axios.get<RDAPData>(
                 `${url}${url.endsWith('/') ? '' : '/'}domain/${this.domain}`
             )
-            if (status !== 200) return
+            if (status !== 200) continue
 
             const parsedData: Dns = {} as Dns
 
