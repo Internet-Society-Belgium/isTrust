@@ -118,49 +118,62 @@
 
             <Loading>
                 <div class="grid gap-2 p-2">
-                    <div>
-                        <div
-                            v-if="website.states.data?.certificate"
-                            class="p-1"
-                        >
-                            <div v-if="website.states.data.certificate.valid">
-                                <div class="flex items-center gap-2">
-                                    <LockClosedIcon
-                                        class="flex-none w-5 h-5 text-ok"
-                                    />
-                                    <div class="flex-grow">
-                                        <p class="whitespace-nowrap">
-                                            Communication secured
-                                        </p>
-                                    </div>
+                    <div class="p-1">
+                        <div v-if="website.states.data?.secure === false">
+                            <div class="flex items-center gap-2">
+                                <LockOpenIcon
+                                    class="flex-none w-5 h-5 text-warning"
+                                />
+                                <div class="flex-grow">
+                                    <p class="whitespace-nowrap">
+                                        Communication not secured
+                                    </p>
                                 </div>
+                                <button @click="goToSecure">Go to https</button>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="flex items-center gap-2">
+                                <LockClosedIcon
+                                    class="flex-none w-5 h-5 text-ok"
+                                />
+                                <div class="flex-grow">
+                                    <p class="whitespace-nowrap">
+                                        Communication secured
+                                    </p>
+                                </div>
+                            </div>
+                            <div v-if="website.states.data?.certificate">
                                 <div
                                     v-if="
-                                        website.states.data?.certificate?.owner
+                                        website.states.data?.certificate
+                                            ?.valid === false
                                     "
                                     class="flex items-center gap-2"
                                 >
                                     <KeyIcon
-                                        class="flex-none w-5 h-5 text-neutral"
-                                    />
-                                    <div class="flex-grow">
-                                        <p class="whitespace-nowrap">
-                                            {{
-                                                website.states.data.certificate
-                                                    .owner.organisation
-                                            }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-else>
-                                <div class="flex items-center gap-2">
-                                    <LockOpenIcon
                                         class="flex-none w-5 h-5 text-warning"
                                     />
                                     <div class="flex-grow">
                                         <p class="whitespace-nowrap">
-                                            Communication not secured
+                                            Certificate invalid
+                                            {{
+                                                website.states.data?.certificate
+                                                    ?.error
+                                            }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div v-else class="flex items-center gap-2">
+                                    <KeyIcon
+                                        class="flex-none w-5 h-5 text-ok"
+                                    />
+                                    <div class="flex-grow">
+                                        <p class="whitespace-nowrap">
+                                            {{
+                                                website.states.data?.certificate
+                                                    ?.owner?.organisation || ''
+                                            }}
                                         </p>
                                     </div>
                                 </div>
@@ -177,7 +190,10 @@
             <Loading> DATA </Loading>
         </section> -->
 
-        <button v-if="settings.states.dev" @click="website.methods.refresh">
+        <button
+            v-if="settings.states.dev"
+            @click="website.methods.refresh(true)"
+        >
             refresh
         </button>
     </div>
@@ -195,6 +211,7 @@
         SwitchHorizontalIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+    import browser from 'webextension-polyfill'
     import { StoreSettingsKey } from '../types/store/settings'
     import { StoreWebsiteKey } from '../types/store/website'
     import { formatDate } from '../utils/date'
@@ -215,6 +232,26 @@
         setup() {
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
+            const goToSecure = async () => {
+                const tab = await browser.tabs.query({
+                    active: true,
+                    currentWindow: true,
+                })
+                if (!tab) return
+                const id = tab[0].id
+                const url = tab[0].url
+                if (!id || !url) return
+                await browser.tabs.update({
+                    url: url.replace('http://', 'https://'),
+                })
+                window.close()
+            }
+            return {
+                settings,
+                website,
+                formatDate,
+                goToSecure,
+            }
         },
     })
 </script>
