@@ -195,6 +195,8 @@
         SwitchHorizontalIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+    import { StoreSettingsKey } from '../types/store/settings'
+    import { StoreWebsiteKey } from '../types/store/website'
     import { formatDate } from '../utils/date'
     import Loading from '../components/Loading.vue'
     export default defineComponent({
@@ -211,9 +213,8 @@
             SwitchHorizontalIcon,
         },
         setup() {
-            const settings = inject('settings')
-            const website = inject('website')
-            return { settings, website, formatDate }
+            const settings = inject(StoreSettingsKey)
+            const website = inject(StoreWebsiteKey)
         },
     })
 </script>

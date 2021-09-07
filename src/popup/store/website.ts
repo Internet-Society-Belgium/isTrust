@@ -3,13 +3,19 @@ import browser from 'webextension-polyfill'
 
 import { WebsiteData } from '../../types/Communication'
 import { Cookie } from '../../types/Cookie'
+import {
+    StoreWebsite,
+    StoreWebsiteMethods,
+    StoreWebsiteStates,
+} from '../types/store/website'
 
-const websiteStates = reactive({
+const websiteStates: StoreWebsiteStates = reactive({
     internal: false,
     loading: false,
     data: {} as WebsiteData,
 })
 
+const websiteMethods: StoreWebsiteMethods = {
 const websiteMethods = {
     async refresh(): Promise<void> {
         websiteStates.data = {} as WebsiteData
@@ -20,15 +26,15 @@ const websiteMethods = {
         })
         if (!tab) return
         const id = tab[0].id
-        const url = tab[0].url
+            const url = tab[0].url
         if (!id || !url) return
         const { origin } = new URL(url)
-        if (!origin) return
+            if (!origin) return
 
-        await browser.cookies.remove({
-            url: `${origin}/trest`,
+            await browser.cookies.remove({
+                url: `${origin}/trest`,
             name: 'trest',
-        })
+            })
 
         await getData()
 
@@ -36,10 +42,12 @@ const websiteMethods = {
     },
 }
 
-export default {
+const website: StoreWebsite = {
     states: readonly(websiteStates),
     methods: websiteMethods,
 }
+
+export default website
 
 async function getData() {
     const tab = await browser.tabs.query({

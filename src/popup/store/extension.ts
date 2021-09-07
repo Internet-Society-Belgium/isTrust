@@ -3,22 +3,38 @@ import { reactive, readonly } from 'vue'
 import browser from 'webextension-polyfill'
 
 import { Geolocation } from '../types/geolocation'
+import {
+    StoreExtension,
+    StoreExtensionConstants,
+    StoreExtensionMethods,
+    StoreExtensionStates,
+} from '../types/store/extension'
 
 import { getBestRegion, getChapter } from '../utils/chapter'
 
-const extensionStates = reactive({
+const extensionConstants: StoreExtensionConstants = {
+    version: browser.runtime.getManifest().version,
+}
+
+const extensionStates: StoreExtensionStates = reactive({
     chapter: {
         url: '',
     },
 })
 
-export default {
-    version: browser.runtime.getManifest().version,
+const extensionMethods: StoreExtensionMethods = {
     i18n(message: string): string {
         return browser.i18n.getMessage(message)
     },
-    states: readonly(extensionStates),
 }
+
+const extension: StoreExtension = {
+    constants: extensionConstants,
+    states: readonly(extensionStates),
+    methods: extensionMethods,
+}
+
+export default extension
 
 async function getChapterUrl() {
     const { extension } = await browser.storage.local.get('extension')

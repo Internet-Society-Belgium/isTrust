@@ -30,12 +30,14 @@
     import { defineComponent, inject } from 'vue'
     import { useRoute } from 'vue-router'
     import browser from 'webextension-polyfill'
+    import { StoreExtensionKey } from '../types/store/extension'
+    import { StoreWebsiteKey } from '../types/store/website'
     export default defineComponent({
         name: 'Header',
         components: { CogIcon, ExternalLinkIcon },
         setup() {
-            const extension = inject('extension')
-            const website = inject('website')
+            const extension = inject(StoreExtensionKey)
+            const website = inject(StoreWebsiteKey)
             const settingsViewOpened = () => {
                 return useRoute().name === 'Settings'
             }

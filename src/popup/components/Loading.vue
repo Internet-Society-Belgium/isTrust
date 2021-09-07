@@ -14,10 +14,11 @@
 
 <script lang="ts">
     import { defineComponent, inject } from 'vue'
+    import { StoreWebsiteKey } from '../types/store/website'
     export default defineComponent({
         name: 'Loading',
         setup() {
-            const website = inject('website')
+            const website = inject(StoreWebsiteKey)
             return { website }
         },
     })

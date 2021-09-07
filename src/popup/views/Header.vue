@@ -3,7 +3,7 @@
         <Loading>
             <div v-if="website.states.internal">
                 <h2 class="text-lg font-semibold">
-                    {{ extension.i18n('internal') }}
+                    {{ extension.methods.i18n('internal') }}
                 </h2>
             </div>
             <div v-else-if="!website.states.loading">
@@ -17,13 +17,15 @@
 
 <script lang="ts">
     import { defineComponent, inject } from 'vue'
+    import { StoreExtensionKey } from '../types/store/extension'
+    import { StoreWebsiteKey } from '../types/store/website'
     import Loading from '../components/Loading.vue'
     export default defineComponent({
         name: 'Header',
         components: { Loading },
         setup() {
-            const extension = inject('extension')
-            const website = inject('website')
+            const extension = inject(StoreExtensionKey)
+            const website = inject(StoreWebsiteKey)
             return { website, extension }
         },
     })
