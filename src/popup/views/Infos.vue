@@ -11,7 +11,13 @@
             <h3 class="p-1 italic">Domain</h3>
 
             <Loading>
-                <div class="grid gap-2 p-2">
+                <div
+                    v-if="!website.states.data?.dns"
+                    class="flex justify-center"
+                >
+                    <p>No infos</p>
+                </div>
+                <div v-else class="grid gap-2 p-2">
                     <div>
                         <div
                             v-if="website.states.data?.dns?.events.registration"
@@ -34,26 +40,6 @@
                             </div>
                         </div>
                         <div
-                            v-if="website.states.data?.dns?.events?.lastChanged"
-                            class="p-1"
-                        >
-                            <div class="flex items-center gap-2">
-                                <RefreshIcon
-                                    class="flex-none w-5 h-5 text-neutral"
-                                />
-                                <div class="flex-grow">
-                                    <p class="whitespace-nowrap">
-                                        {{
-                                            formatDate(
-                                                website.states.data.dns.events
-                                                    .lastChanged
-                                            )
-                                        }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div
                             v-if="website.states.data?.dns?.events?.transfer"
                             class="p-1"
                         >
@@ -67,6 +53,26 @@
                                             formatDate(
                                                 website.states.data.dns.events
                                                     .transfer
+                                            )
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            v-if="website.states.data?.dns?.events?.lastChanged"
+                            class="p-1"
+                        >
+                            <div class="flex items-center gap-2">
+                                <RefreshIcon
+                                    class="flex-none w-5 h-5 text-neutral"
+                                />
+                                <div class="flex-grow">
+                                    <p class="whitespace-nowrap">
+                                        {{
+                                            formatDate(
+                                                website.states.data.dns.events
+                                                    .lastChanged
                                             )
                                         }}
                                     </p>
@@ -147,21 +153,30 @@
             <h3 class="p-1 italic">Security</h3>
 
             <Loading>
-                <div class="grid gap-2 p-2">
-                    <div v-if="website.states.data?.secure === false">
+                <div>
+                    <div
+                        v-if="website.states.data?.secure === false"
+                        class="grid gap-2 p-2"
+                    >
                         <div class="flex items-center gap-2">
                             <LockOpenIcon
                                 class="flex-none w-5 h-5 text-warning"
                             />
-                            <div class="flex-grow">
-                                <p class="whitespace-nowrap">
-                                    Communication not secured
-                                </p>
-                            </div>
-                            <button @click="goToSecure">Go to https</button>
+                            <a href="#" class="flex-grow" @click="goToSecure">
+                                <div class="flex items-center gap-1">
+                                    <p>http</p>
+                                    <ArrowNarrowRightIcon
+                                        class="w-5 h-5 text-neutral"
+                                    />
+                                    <p>https</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                    <div v-else-if="website.states.data?.secure === true">
+                    <div
+                        v-else-if="website.states.data?.secure === true"
+                        class="grid gap-2 p-2"
+                    >
                         <div class="flex items-center gap-2">
                             <LockClosedIcon
                                 class="flex-none w-5 h-5 text-neutral"
@@ -178,9 +193,9 @@
                                     website.states.data?.certificate?.valid ===
                                     false
                                 "
-                                class="flex items-center gap-2 pl-6"
+                                class="flex items-center gap-2"
                             >
-                                <KeyIcon
+                                <IdentificationIcon
                                     class="flex-none w-5 h-5 text-warning"
                                 />
                                 <div class="flex-grow">
@@ -189,13 +204,14 @@
                                     </p>
                                 </div>
                             </div>
+
                             <div
                                 v-else-if="
                                     website.states.data?.certificate?.owner
                                 "
                             >
-                                <div class="flex items-center gap-2 pl-6">
-                                    <KeyIcon
+                                <div class="flex items-center gap-2">
+                                    <IdentificationIcon
                                         class="flex-none w-5 h-5 text-neutral"
                                     />
                                     <div class="flex-grow">
@@ -212,7 +228,7 @@
                                         website.states.data?.certificate?.owner
                                             ?.location
                                     "
-                                    class="flex items-center gap-2 pl-12"
+                                    class="flex items-center gap-2 pl-6"
                                 >
                                     <LocationMarkerIcon
                                         class="flex-none w-5 h-5 text-neutral"
@@ -259,10 +275,11 @@
         OfficeBuildingIcon,
         LockClosedIcon,
         LockOpenIcon,
-        KeyIcon,
+        IdentificationIcon,
         BadgeCheckIcon,
         SwitchHorizontalIcon,
         LocationMarkerIcon,
+        ArrowNarrowRightIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import browser from 'webextension-polyfill'
@@ -279,10 +296,11 @@
             OfficeBuildingIcon,
             LockClosedIcon,
             LockOpenIcon,
-            KeyIcon,
+            IdentificationIcon,
             BadgeCheckIcon,
             SwitchHorizontalIcon,
             LocationMarkerIcon,
+            ArrowNarrowRightIcon,
         },
         setup() {
             const settings = inject(StoreSettingsKey)

@@ -8,7 +8,7 @@ interface ValidCertificate {
 
 interface Owner {
     organisation: string
-    location: {
+    location?: {
         state: string
         region: string
         country: string
