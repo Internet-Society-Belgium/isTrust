@@ -8,9 +8,11 @@ interface ValidCertificate {
 
 interface Owner {
     organisation: string
-    state: string
-    region: string
-    country: string
+    location: {
+        state: string
+        region: string
+        country: string
+    }
 }
 
 interface InvalidCertificate {
