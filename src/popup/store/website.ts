@@ -16,8 +16,7 @@ const websiteStates: StoreWebsiteStates = reactive({
 })
 
 const websiteMethods: StoreWebsiteMethods = {
-const websiteMethods = {
-    async refresh(): Promise<void> {
+    async refresh(cookie): Promise<void> {
         websiteStates.data = {} as WebsiteData
 
         const tab = await browser.tabs.query({
@@ -26,15 +25,19 @@ const websiteMethods = {
         })
         if (!tab) return
         const id = tab[0].id
+        if (!id) return
+
+        if (cookie) {
             const url = tab[0].url
-        if (!id || !url) return
-        const { origin } = new URL(url)
+            if (!url) return
+            const { protocol, origin } = new URL(url)
             if (!origin) return
 
             await browser.cookies.remove({
                 url: `${origin}/trest`,
-            name: 'trest',
+                name: `${protocol}trest`,
             })
+        }
 
         await getData()
 
@@ -69,7 +72,7 @@ async function getData() {
 
     let cookie = await browser.cookies.get({
         url: `${origin}/trest`,
-        name: 'trest',
+        name: `${protocol}trest`,
     })
 
     let cookieData: Cookie | undefined
@@ -91,7 +94,7 @@ async function getData() {
         }
         cookie = await browser.cookies.get({
             url: `${origin}/trest`,
-            name: 'trest',
+            name: `${protocol}trest`,
         })
     }
 
