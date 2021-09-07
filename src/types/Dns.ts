@@ -13,4 +13,9 @@ export interface Events {
 
 export interface Registrant {
     organisation: string
+    location?: {
+        state: string
+        region: string
+        country: string
+    }
 }
