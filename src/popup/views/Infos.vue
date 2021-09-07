@@ -132,7 +132,7 @@
                                 <button @click="goToSecure">Go to https</button>
                             </div>
                         </div>
-                        <div v-else>
+                        <div v-else-if="website.states.data?.secure === true">
                             <div class="flex items-center gap-2">
                                 <LockClosedIcon
                                     class="flex-none w-5 h-5 text-ok"
@@ -149,7 +149,7 @@
                                         website.states.data?.certificate
                                             ?.valid === false
                                     "
-                                    class="flex items-center gap-2"
+                                    class="flex items-center gap-2 pl-2"
                                 >
                                     <KeyIcon
                                         class="flex-none w-5 h-5 text-warning"
@@ -164,17 +164,62 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div v-else class="flex items-center gap-2">
-                                    <KeyIcon
-                                        class="flex-none w-5 h-5 text-ok"
-                                    />
-                                    <div class="flex-grow">
-                                        <p class="whitespace-nowrap">
-                                            {{
-                                                website.states.data?.certificate
-                                                    ?.owner?.organisation || ''
-                                            }}
-                                        </p>
+                                <div
+                                    v-else-if="
+                                        website.states.data?.certificate?.owner
+                                    "
+                                >
+                                    <div class="flex items-center gap-2 pl-6">
+                                        <KeyIcon
+                                            class="
+                                                flex-none
+                                                w-5
+                                                h-5
+                                                text-neutral
+                                            "
+                                        />
+                                        <div class="flex-grow">
+                                            <p class="whitespace-nowrap">
+                                                {{
+                                                    website.states.data
+                                                        ?.certificate?.owner
+                                                        ?.organisation || ''
+                                                }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        v-if="
+                                            website.states.data?.certificate
+                                                ?.owner
+                                        "
+                                        class="flex items-center gap-2 pl-6"
+                                    >
+                                        <LocationMarkerIcon
+                                            class="
+                                                flex-none
+                                                w-5
+                                                h-5
+                                                text-neutral
+                                            "
+                                        />
+                                        <div class="flex-grow">
+                                            <p class="whitespace-nowrap">
+                                                {{
+                                                    [
+                                                        website.states.data
+                                                            ?.certificate?.owner
+                                                            ?.state || '',
+                                                        website.states.data
+                                                            ?.certificate?.owner
+                                                            ?.region || '',
+                                                        website.states.data
+                                                            ?.certificate?.owner
+                                                            ?.country || '',
+                                                    ].join(' - ')
+                                                }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -190,10 +235,7 @@
             <Loading> DATA </Loading>
         </section> -->
 
-        <button
-            v-if="settings.states.dev"
-            @click="website.methods.refresh(true)"
-        >
+        <button v-if="settings.states.dev" @click="website.methods.refresh">
             refresh
         </button>
     </div>
@@ -209,6 +251,7 @@
         KeyIcon,
         BadgeCheckIcon,
         SwitchHorizontalIcon,
+        LocationMarkerIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import browser from 'webextension-polyfill'
@@ -228,6 +271,7 @@
             KeyIcon,
             BadgeCheckIcon,
             SwitchHorizontalIcon,
+            LocationMarkerIcon,
         },
         setup() {
             const settings = inject(StoreSettingsKey)
@@ -246,12 +290,7 @@
                 })
                 window.close()
             }
-            return {
-                settings,
-                website,
-                formatDate,
-                goToSecure,
-            }
+            return { settings, website, formatDate, goToSecure }
         },
     })
 </script>
