@@ -15,7 +15,7 @@ export interface StoreWebsiteStates {
 }
 
 export interface StoreWebsiteMethods {
-    refresh: (cookie: boolean) => Promise<void>
+    refresh: () => Promise<void>
 }
 
 export const StoreWebsiteKey: InjectionKey<StoreWebsite> = Symbol('website')
