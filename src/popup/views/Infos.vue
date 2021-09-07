@@ -8,7 +8,7 @@
         ]"
     >
         <section class="bg-container rounded-lg p-2">
-            <h3>Trustability</h3>
+            <h3 class="p-1 italic">Domain</h3>
 
             <Loading>
                 <div class="grid gap-2 p-2">
@@ -107,6 +107,36 @@
                                     </div>
                                 </div>
                             </div>
+                            <div
+                                v-if="
+                                    website.states.data?.dns?.registrant
+                                        ?.location
+                                "
+                                class="flex items-center gap-2 pl-6"
+                            >
+                                <LocationMarkerIcon
+                                    class="flex-none w-5 h-5 text-neutral"
+                                />
+                                <div class="flex-grow">
+                                    <p class="whitespace-nowrap">
+                                        {{
+                                            [
+                                                website.states.data?.dns
+                                                    ?.registrant?.location
+                                                    ?.state || '',
+                                                website.states.data?.dns
+                                                    ?.registrant?.location
+                                                    ?.region || '',
+                                                website.states.data?.dns
+                                                    ?.registrant?.location
+                                                    ?.country || '',
+                                            ]
+                                                .filter((e) => e != '')
+                                                .join(' - ')
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,112 +144,99 @@
         </section>
 
         <section class="bg-container rounded-lg p-2">
-            <h3>Security</h3>
+            <h3 class="p-1 italic">Security</h3>
 
             <Loading>
                 <div class="grid gap-2 p-2">
-                    <div class="p-1">
-                        <div v-if="website.states.data?.secure === false">
-                            <div class="flex items-center gap-2">
-                                <LockOpenIcon
+                    <div v-if="website.states.data?.secure === false">
+                        <div class="flex items-center gap-2">
+                            <LockOpenIcon
+                                class="flex-none w-5 h-5 text-warning"
+                            />
+                            <div class="flex-grow">
+                                <p class="whitespace-nowrap">
+                                    Communication not secured
+                                </p>
+                            </div>
+                            <button @click="goToSecure">Go to https</button>
+                        </div>
+                    </div>
+                    <div v-else-if="website.states.data?.secure === true">
+                        <div class="flex items-center gap-2">
+                            <LockClosedIcon
+                                class="flex-none w-5 h-5 text-neutral"
+                            />
+                            <div class="flex-grow">
+                                <p class="whitespace-nowrap">
+                                    Communication secured
+                                </p>
+                            </div>
+                        </div>
+                        <div v-if="website.states.data?.certificate">
+                            <div
+                                v-if="
+                                    website.states.data?.certificate?.valid ===
+                                    false
+                                "
+                                class="flex items-center gap-2 pl-6"
+                            >
+                                <KeyIcon
                                     class="flex-none w-5 h-5 text-warning"
                                 />
                                 <div class="flex-grow">
                                     <p class="whitespace-nowrap">
-                                        Communication not secured
-                                    </p>
-                                </div>
-                                <button @click="goToSecure">Go to https</button>
-                            </div>
-                        </div>
-                        <div v-else-if="website.states.data?.secure === true">
-                            <div class="flex items-center gap-2">
-                                <LockClosedIcon
-                                    class="flex-none w-5 h-5 text-ok"
-                                />
-                                <div class="flex-grow">
-                                    <p class="whitespace-nowrap">
-                                        Communication secured
+                                        Certificate invalid
                                     </p>
                                 </div>
                             </div>
-                            <div v-if="website.states.data?.certificate">
-                                <div
-                                    v-if="
-                                        website.states.data?.certificate
-                                            ?.valid === false
-                                    "
-                                    class="flex items-center gap-2 pl-2"
-                                >
+                            <div
+                                v-else-if="
+                                    website.states.data?.certificate?.owner
+                                "
+                            >
+                                <div class="flex items-center gap-2 pl-6">
                                     <KeyIcon
-                                        class="flex-none w-5 h-5 text-warning"
+                                        class="flex-none w-5 h-5 text-neutral"
                                     />
                                     <div class="flex-grow">
                                         <p class="whitespace-nowrap">
-                                            Certificate invalid
                                             {{
                                                 website.states.data?.certificate
-                                                    ?.error
+                                                    ?.owner?.organisation || ''
                                             }}
                                         </p>
                                     </div>
                                 </div>
                                 <div
-                                    v-else-if="
+                                    v-if="
                                         website.states.data?.certificate?.owner
+                                            ?.location
                                     "
+                                    class="flex items-center gap-2 pl-12"
                                 >
-                                    <div class="flex items-center gap-2 pl-6">
-                                        <KeyIcon
-                                            class="
-                                                flex-none
-                                                w-5
-                                                h-5
-                                                text-neutral
-                                            "
-                                        />
-                                        <div class="flex-grow">
-                                            <p class="whitespace-nowrap">
-                                                {{
+                                    <LocationMarkerIcon
+                                        class="flex-none w-5 h-5 text-neutral"
+                                    />
+                                    <div class="flex-grow">
+                                        <p class="whitespace-nowrap">
+                                            {{
+                                                [
                                                     website.states.data
                                                         ?.certificate?.owner
-                                                        ?.organisation || ''
-                                                }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div
-                                        v-if="
-                                            website.states.data?.certificate
-                                                ?.owner
-                                        "
-                                        class="flex items-center gap-2 pl-6"
-                                    >
-                                        <LocationMarkerIcon
-                                            class="
-                                                flex-none
-                                                w-5
-                                                h-5
-                                                text-neutral
-                                            "
-                                        />
-                                        <div class="flex-grow">
-                                            <p class="whitespace-nowrap">
-                                                {{
-                                                    [
-                                                        website.states.data
-                                                            ?.certificate?.owner
-                                                            ?.state || '',
-                                                        website.states.data
-                                                            ?.certificate?.owner
-                                                            ?.region || '',
-                                                        website.states.data
-                                                            ?.certificate?.owner
-                                                            ?.country || '',
-                                                    ].join(' - ')
-                                                }}
-                                            </p>
-                                        </div>
+                                                        ?.location?.state || '',
+                                                    website.states.data
+                                                        ?.certificate?.owner
+                                                        ?.location?.region ||
+                                                        '',
+                                                    website.states.data
+                                                        ?.certificate?.owner
+                                                        ?.location?.country ||
+                                                        '',
+                                                ]
+                                                    .filter((e) => e != '')
+                                                    .join(' - ')
+                                            }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -230,7 +247,7 @@
         </section>
 
         <!-- <section class="bg-container rounded-lg p-2">
-            <h3>Privacy</h3>
+            <h3 class="p-1 italic">Privacy</h3>
 
             <Loading> DATA </Loading>
         </section> -->
