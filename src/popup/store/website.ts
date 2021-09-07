@@ -54,6 +54,11 @@ async function getData() {
         currentWindow: true,
     })
     if (!tab) return
+
+    while (tab[0].status === 'loading') {
+        await new Promise((resolve) => setTimeout(resolve, 500))
+    }
+
     const id = tab[0].id
     const url = tab[0].url
     if (!id || !url) return
@@ -84,6 +89,7 @@ async function getData() {
         try {
             await browser.tabs.sendMessage(id, {})
         } catch (e) {
+            console.error(e)
             await browser.tabs.reload(id)
             await getData()
             return
