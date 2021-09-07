@@ -246,14 +246,8 @@
             </Loading>
         </section>
 
-        <!-- <section class="bg-container rounded-lg p-2">
-            <h3 class="p-1 italic">Privacy</h3>
-
-            <Loading> DATA </Loading>
-        </section> -->
-
-        <button v-if="settings.states.dev" @click="website.methods.refresh">
-            refresh
+        <button v-if="settings.states.dev" @click="website.methods.clear">
+            clear
         </button>
     </div>
 </template>

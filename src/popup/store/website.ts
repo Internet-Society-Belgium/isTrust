@@ -16,7 +16,7 @@ const websiteStates: StoreWebsiteStates = reactive({
 })
 
 const websiteMethods: StoreWebsiteMethods = {
-    async refresh(): Promise<void> {
+    async clear(): Promise<void> {
         websiteStates.data = {} as WebsiteData
 
         const tab = await browser.tabs.query({
@@ -34,10 +34,6 @@ const websiteMethods: StoreWebsiteMethods = {
             url: `${origin}/trest`,
             name: `${protocol}trest`,
         })
-
-        await getData()
-
-        await browser.tabs.reload(id)
     },
 }
 
