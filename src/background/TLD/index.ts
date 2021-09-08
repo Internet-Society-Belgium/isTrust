@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { Certificate } from '../../types/Certificate'
-import { Dns } from '../../types/Dns'
+import { Certificate } from '../../types/certificate'
+import { Dns } from '../../types/dns'
 
 import { parseHostname } from '../utils/url'
 

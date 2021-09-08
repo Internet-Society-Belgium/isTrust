@@ -1,6 +1,7 @@
 import browser from 'webextension-polyfill'
 
-import { WebsiteInfo, WebsiteData } from '../types/Communication'
+import { WebsiteInfo, WebsiteData } from '../types/communication'
+import { Geolocation } from '../types/geolocation'
 
 import getWebsiteTLD from './TLD/getWebsiteTLD'
 

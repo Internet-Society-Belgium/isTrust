@@ -1,8 +1,8 @@
 import { reactive, readonly } from 'vue'
 import browser from 'webextension-polyfill'
 
-import { WebsiteData } from '../../types/Communication'
-import { Cookie } from '../../types/Cookie'
+import { WebsiteData } from '../../types/communication'
+import { Cookie } from '../../types/cookie'
 import {
     StoreWebsite,
     StoreWebsiteMethods,

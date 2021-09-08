@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { Dns } from '../../../types/Dns'
-import { RDAPData } from '../../types/Rdap'
+import { Dns } from '../../../types/dns'
+import { RDAPData } from '../../types/rdap'
 
 import { RDAP } from '../../utils/rdap'
 

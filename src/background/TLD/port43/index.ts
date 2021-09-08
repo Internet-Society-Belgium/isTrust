@@ -1,4 +1,4 @@
-import { Dns } from '../../../types/Dns'
+import { Dns } from '../../../types/dns'
 
 import { Website } from '..'
 

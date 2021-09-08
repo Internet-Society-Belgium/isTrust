@@ -7,7 +7,7 @@ interface Country {
     isoCode: string // ISO 3166-1 alpha-2
 }
 
-export interface Region {
+interface Region {
     url: string
     latitude?: number
     longitude?: number

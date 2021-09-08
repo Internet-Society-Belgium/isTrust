@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill'
 
-import { WebsiteInfo, WebsiteData } from '../types/Communication'
-import { Cookie } from '../types/Cookie'
+import { WebsiteInfo, WebsiteData } from '../types/communication'
+import { Cookie } from '../types/cookie'
 
 const setCookie = (value: string, secure: boolean) => {
     const d = new Date()

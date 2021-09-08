@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { Events, Registrant } from '../../types/Dns'
-import { IanaRDAPList, RDAPData } from '../types/Rdap'
+import { Events, Registrant } from '../../types/dns'
+import { IanaRDAPList, RDAPData } from '../types/rdap'
 
 export class RDAP {
     private static cachedIanaRdapList: IanaRDAPList

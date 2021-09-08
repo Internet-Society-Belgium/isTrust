@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { InjectionKey } from 'vue'
 
-import { WebsiteData } from '../../../types/Communication'
+import { WebsiteData } from '../../../types/communication'
 
 export interface StoreWebsite {
     states: StoreWebsiteStates
