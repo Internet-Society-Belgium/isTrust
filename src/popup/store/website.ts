@@ -17,6 +17,7 @@ const websiteStates: StoreWebsiteStates = reactive({
 const websiteMethods: StoreWebsiteMethods = {
     async clear(): Promise<void> {
         websiteStates.data = {} as WebsiteData
+        websiteStates.score = undefined
 
         const tab = await browser.tabs.query({
             active: true,
@@ -34,9 +35,7 @@ const websiteMethods: StoreWebsiteMethods = {
             name: `${protocol}trest`,
         })
 
-        await browser.tabs.reload(id)
-
-        window.close()
+        await init()
     },
 }
 
@@ -46,6 +45,11 @@ const website: StoreWebsite = {
 }
 
 export default website
+
+async function init() {
+    await fetchData()
+    calculateScore()
+}
 
 async function fetchData() {
     const tab = await browser.tabs.query({
@@ -85,14 +89,9 @@ async function fetchData() {
 
     if (!cookieData || cookieData.version !== extensionVersion) {
         websiteStates.loading = true
-        try {
-            await browser.tabs.sendMessage(id, {})
-        } catch (e) {
-            console.error(e)
-            await browser.tabs.reload(id)
-            await fetchData()
-            return
-        }
+
+        await browser.tabs.sendMessage(id, {})
+
         cookie = await browser.cookies.get({
             url: `${origin}/trest`,
             name: `${protocol}trest`,
@@ -199,6 +198,5 @@ function calculateSecurityScore() {
 }
 
 ;(async () => {
-    await fetchData()
-    calculateScore()
+    await init()
 })()
