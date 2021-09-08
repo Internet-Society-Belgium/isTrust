@@ -34,6 +34,10 @@ const websiteMethods: StoreWebsiteMethods = {
             url: `${origin}/trest`,
             name: `${protocol}trest`,
         })
+
+        await browser.tabs.reload(id)
+
+        window.close()
     },
 }
 
