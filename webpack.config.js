@@ -42,7 +42,15 @@ module.exports = (env, options) => {
                 },
                 {
                     test: /\.(eot|ttf|woff|woff2)(\?\S*)?$/,
-                    use: 'file-loader',
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                outputPath: 'popup/fonts',
+                                esModule: false,
+                            },
+                        },
+                    ],
                 },
                 {
                     test: /\.(png|jpe?g|gif|webm|mp4|svg)$/,
