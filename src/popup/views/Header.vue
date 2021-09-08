@@ -1,16 +1,13 @@
 <template>
     <div class="text-center p-2">
         <Loading>
-            <div v-if="website.states.internal">
-                <h2 class="text-lg font-semibold">
-                    {{ extension.methods.i18n('internal') }}
-                </h2>
-            </div>
-            <div v-else-if="!website.states.loading">
-                <h2 class="text-lg font-semibold">
-                    {{ website.states?.data?.domain || '' }}
-                </h2>
-            </div>
+            <h2 class="text-lg font-semibold">
+                {{
+                    website.states.internal
+                        ? extension.methods.i18n('internal')
+                        : website.states?.data?.domain || ''
+                }}
+            </h2>
         </Loading>
     </div>
 </template>
