@@ -22,6 +22,11 @@ export interface StoreWebsiteScore {
         lastChanged: Score
         registrant: Score
     }
+    security: {
+        score: Score
+        https: Score
+        certificate: Score
+    }
 }
 
 type Score = 'ok' | 'neutral' | 'warning'

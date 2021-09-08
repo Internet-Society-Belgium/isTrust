@@ -24,7 +24,16 @@
             </Loading>
         </section>
 
-        <section class="bg-container rounded-lg p-2">
+        <section
+            class="bg-container rounded-lg p-2 ring-2"
+            :class="[
+                website.states?.score?.security?.score === 'warning'
+                    ? ' ring-warning'
+                    : website.states?.score?.security?.score === 'ok'
+                    ? 'ring-ok'
+                    : 'ring-neutral',
+            ]"
+        >
             <h3 class="p-1 italic">Security</h3>
 
             <Loading>

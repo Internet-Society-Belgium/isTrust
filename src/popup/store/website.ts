@@ -6,7 +6,6 @@ import { Cookie } from '../../types/cookie'
 import {
     StoreWebsite,
     StoreWebsiteMethods,
-    StoreWebsiteScore,
     StoreWebsiteStates,
 } from '../types/store/website'
 
@@ -107,9 +106,6 @@ async function fetchData() {
 }
 
 function calculateScore() {
-    const data = websiteStates.data
-    if (!data) return
-
     websiteStates.score = {
         domain: {
             score: 'neutral',
@@ -117,8 +113,22 @@ function calculateScore() {
             lastChanged: 'neutral',
             registrant: 'neutral',
         },
+        security: {
+            score: 'neutral',
+            https: 'neutral',
+            certificate: 'neutral',
+        },
     }
+
+    calculateDomainScore()
+    calculateSecurityScore()
+}
+
+function calculateDomainScore() {
+    const data = websiteStates.data
+    if (!data) return
     const score = websiteStates.score
+    if (!score) return
 
     if (data.dns?.events.registration) {
         const registration = new Date(data.dns?.events.registration)
@@ -127,10 +137,8 @@ function calculateScore() {
 
         if (recent < registration) {
             score.domain.registration = 'warning'
-            score.domain.score = 'warning'
         } else {
             score.domain.registration = 'ok'
-            if (score.domain.score === 'neutral') score.domain.score = 'ok'
         }
     }
 
@@ -141,21 +149,52 @@ function calculateScore() {
 
         if (recent < lastChanged) {
             score.domain.lastChanged = 'warning'
-            score.domain.score = 'warning'
         } else {
             score.domain.lastChanged = 'ok'
-            if (score.domain.score === 'neutral') score.domain.score = 'ok'
         }
     }
 
     if (data.dns) {
-    if (data.dns?.registrant) {
-        score.domain.registrant = 'ok'
-            if (score.domain.score === 'neutral') score.domain.score = 'ok'
-    } else {
-        score.domain.registrant = 'warning'
-            score.domain.score = 'warning'
+        if (!data.dns?.registrant) {
+            score.domain.registrant = 'warning'
+        } else {
+            score.domain.registrant = 'ok'
         }
+    }
+
+    for (const [k, v] of Object.entries(score.domain)) {
+        if (k === 'score') continue
+        if (v === 'warning') score.domain.score = 'warning'
+        if (v === 'ok' && score.domain.score === 'neutral')
+            score.domain.score = 'ok'
+    }
+}
+
+function calculateSecurityScore() {
+    const data = websiteStates.data
+    if (!data) return
+    const score = websiteStates.score
+    if (!score) return
+
+    if (!data.https) {
+        score.security.https = 'warning'
+    } else {
+        score.security.https = 'ok'
+    }
+
+    if (data.certificate) {
+        if (!data.certificate.valid) {
+            score.security.certificate = 'warning'
+        } else {
+            score.security.certificate = 'ok'
+        }
+    }
+
+    for (const [k, v] of Object.entries(score.security)) {
+        if (k === 'score') continue
+        if (v === 'warning') score.security.score = 'warning'
+        if (v === 'ok' && score.security.score === 'neutral')
+            score.security.score = 'ok'
     }
 }
 
