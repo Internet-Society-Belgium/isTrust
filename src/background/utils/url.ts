@@ -6,10 +6,11 @@ export function parseHostname(hostname: string): UrlParsed {
     const parsedHostname = psl.parse(hostname)
     if (parsedHostname?.error) throw new Error(parsedHostname.error.message)
 
-    const { domain, tld } = parsedHostname
+    const { subdomain, domain, tld } = parsedHostname
     if (!domain) throw new Error('no domain found')
     if (!tld) throw new Error('no tld found')
     return {
+        subdomain,
         domain,
         tld,
     }

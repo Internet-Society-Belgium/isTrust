@@ -1,5 +1,8 @@
 <template>
-    <div v-if="website.states.data?.https === false" class="grid gap-2 p-2">
+    <div
+        v-if="website.states.data?.url?.https === false"
+        class="grid gap-2 p-2"
+    >
         <div class="flex items-center gap-2">
             <LockOpenIcon class="flex-none w-5 h-5 text-warning" />
             <a href="#" class="flex-grow" @click="goToSecure">
@@ -11,7 +14,10 @@
             </a>
         </div>
     </div>
-    <div v-else-if="website.states.data?.https === true" class="grid gap-2 p-2">
+    <div
+        v-else-if="website.states.data?.url?.https === true"
+        class="grid gap-2 p-2"
+    >
         <div class="flex items-center gap-2">
             <LockClosedIcon class="flex-none w-5 h-5 text-neutral" />
             <div class="flex-grow">

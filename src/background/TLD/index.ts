@@ -7,8 +7,8 @@ import { parseHostname } from '../utils/url'
 
 export class Website {
     private url: string
-    readonly secure: boolean
-    readonly hostname: string
+    readonly https: boolean
+    readonly subdomain: string | null
     readonly domain: string
     protected tld: string
 
@@ -16,16 +16,15 @@ export class Website {
         this.url = url
 
         const { protocol, hostname } = new URL(url)
-        this.secure = protocol === 'https:'
-        this.hostname = hostname
-
-        const { domain, tld } = parseHostname(hostname)
-        this.domain = domain
+        this.https = protocol === 'https:'
+        const { subdomain, domain, tld } = parseHostname(hostname)
+        this.subdomain = subdomain
         this.tld = tld
+        this.domain = domain
     }
 
     public async certificate(): Promise<Certificate | undefined> {
-        if (!this.secure) return
+        if (!this.https) return
 
         const { status, data } = await axios.get<Certificate>(
             `https://trest.api.progiciel.be/certificate?url=${this.url}`

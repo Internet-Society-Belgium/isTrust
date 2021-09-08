@@ -6,8 +6,11 @@ export interface WebsiteInfo {
 }
 
 export interface WebsiteData {
-    hostname: string
-    https: boolean
+    url: {
+        https: boolean
+        subdomain: string | null
+        domain: string
+    }
     certificate?: Certificate
     dns?: Dns
 }
