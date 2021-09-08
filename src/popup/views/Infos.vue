@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-col justify-center align-middle gap-2 m-2"
+        class="flex flex-col justify-center align-middle gap-4 m-2"
         :class="[
             website.states.internal
                 ? 'filter blur-sm pointer-events-none select-none'
@@ -19,9 +19,11 @@
         >
             <div class="flex items-center gap-0.5">
                 <h3 class="p-1 italic">Domain</h3>
-                <div v-if="website.states?.data?.dns?.dnssec">
-                    <BadgeCheckIcon class="w-4 h-4 text-neutral" />
-                </div>
+                <Loading :animation="false">
+                    <div v-if="website.states?.data?.dns?.dnssec">
+                        <BadgeCheckIcon class="w-4 h-4 text-neutral" />
+                    </div>
+                </Loading>
             </div>
 
             <Loading>
