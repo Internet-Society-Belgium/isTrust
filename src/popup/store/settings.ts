@@ -1,6 +1,7 @@
 import { reactive, readonly } from 'vue'
 import browser from 'webextension-polyfill'
 
+import { LocalStorage, LocalStorageSettings } from '../../types/localstorage'
 import {
     StoreSettings,
     StoreSettingsMethods,
@@ -14,7 +15,8 @@ const settingsStates: StoreSettingsStates = reactive({
 const settingsMethods: StoreSettingsMethods = {
     async toggleDev(): Promise<void> {
         settingsStates.dev = !settingsStates.dev
-        await browser.storage.local.set({ settings: settingsStates })
+        const localStorage: LocalStorage = { settings: settingsStates }
+        await browser.storage.local.set(localStorage)
     },
 }
 
@@ -26,12 +28,15 @@ const settings: StoreSettings = {
 export default settings
 
 async function loadLocalStorage() {
-    const { settings } = await browser.storage.local.get('settings')
+    const localStorage = await browser.storage.local.get('settings')
+    if (!localStorage.settings) return
+    const settings: LocalStorageSettings = localStorage.settings
 
     if (settings) {
         settingsStates.dev = settings.dev
     } else {
-        await browser.storage.local.set({ settings: settingsStates })
+        const localStorage: LocalStorage = { settings: settingsStates }
+        await browser.storage.local.set(localStorage)
     }
 }
 
