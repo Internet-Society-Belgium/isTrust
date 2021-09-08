@@ -1,4 +1,4 @@
-import { Chapter } from '../types/chapters'
+import { Chapter } from '../background/types/chapters'
 
 const chapters: Chapter[] = [
     {
