@@ -177,7 +177,7 @@ function calculateSecurityScore() {
     const score = websiteStates.score
     if (!score) return
 
-    if (!data.https) {
+    if (!data.url.https) {
         score.security.https = 'warning'
     } else {
         score.security.https = 'ok'
