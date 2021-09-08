@@ -21,5 +21,5 @@ browser.runtime.onMessage.addListener(async () => {
         version: extensionVersion,
         ...data,
     }
-    setCookie(JSON.stringify(newCookie), data.secure)
+    setCookie(JSON.stringify(newCookie), data.https)
 })

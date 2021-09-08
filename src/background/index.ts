@@ -24,7 +24,7 @@ browser.runtime.onMessage.addListener(
             dnsPromise,
         ])
 
-        return { domain, secure, certificate, dns }
+        return { domain, https: secure, certificate, dns }
     }
 )
 
