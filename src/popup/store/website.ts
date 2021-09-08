@@ -105,6 +105,8 @@ async function fetchData() {
 }
 
 function calculateScore() {
+    if (websiteStates.internal) return
+
     websiteStates.score = {
         domain: {
             score: 'neutral',

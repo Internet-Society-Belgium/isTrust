@@ -1,12 +1,11 @@
 <template>
     <div
-        class="flex flex-col justify-center align-middle gap-4 m-2"
-        :class="[
-            website.states.internal
-                ? 'filter blur-sm pointer-events-none select-none'
-                : '',
-        ]"
+        v-if="website.states.internal"
+        class="flex justify-center align-middle m-2"
     >
+        <EmojiSadIcon class="w-12 h-12 text-neutral" />
+    </div>
+    <div v-else class="flex flex-col justify-center align-middle gap-4 m-2">
         <section
             class="bg-container rounded-lg p-2 ring-2"
             :class="[
@@ -55,7 +54,7 @@
 </template>
 
 <script lang="ts">
-    import { BadgeCheckIcon } from '@heroicons/vue/outline'
+    import { BadgeCheckIcon, EmojiSadIcon } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreSettingsKey } from '../types/store/settings'
     import { StoreWebsiteKey } from '../types/store/website'
@@ -64,7 +63,7 @@
     import Security from './infos/Security.vue'
     export default defineComponent({
         name: 'Infos',
-        components: { Loading, Domain, Security, BadgeCheckIcon },
+        components: { Loading, Domain, Security, BadgeCheckIcon, EmojiSadIcon },
         setup() {
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
