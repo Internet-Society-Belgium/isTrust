@@ -99,6 +99,6 @@ export class RDAP {
     }
 
     public static dnssec(data: RDAPData): boolean {
-        return data.secureDNS.delegationSigned
+        return data.secureDNS?.delegationSigned || false
     }
 }
