@@ -3,7 +3,7 @@
         v-if="website.states.internal"
         class="flex justify-center align-middle m-2"
     >
-        <EmojiSadIcon class="w-12 h-12 text-neutral" />
+        <EyeOffIcon class="w-12 h-12 text-neutral" />
     </div>
     <div v-else class="flex flex-col justify-center align-middle gap-4 m-2">
         <section
@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-    import { BadgeCheckIcon, EmojiSadIcon } from '@heroicons/vue/outline'
+    import { BadgeCheckIcon, EyeOffIcon } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreSettingsKey } from '../types/store/settings'
     import { StoreWebsiteKey } from '../types/store/website'
@@ -63,7 +63,7 @@
     import Security from './infos/Security.vue'
     export default defineComponent({
         name: 'Infos',
-        components: { Loading, Domain, Security, BadgeCheckIcon, EmojiSadIcon },
+        components: { Loading, Domain, Security, BadgeCheckIcon, EyeOffIcon },
         setup() {
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
