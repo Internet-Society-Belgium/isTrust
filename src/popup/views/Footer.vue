@@ -33,7 +33,7 @@
     import { StoreExtensionKey } from '../types/store/extension'
     import { StoreWebsiteKey } from '../types/store/website'
     export default defineComponent({
-        name: 'Header',
+        name: 'Footer',
         components: { CogIcon, ExternalLinkIcon },
         setup() {
             const extension = inject(StoreExtensionKey)

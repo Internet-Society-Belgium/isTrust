@@ -21,7 +21,7 @@
     import Footer from './Footer.vue'
     import Header from './Header.vue'
     export default defineComponent({
-        name: 'App',
+        name: 'Home',
         components: {
             Header,
             Footer,

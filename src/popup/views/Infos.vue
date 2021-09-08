@@ -46,7 +46,7 @@
     import Domain from './infos/Domain.vue'
     import Security from './infos/Security.vue'
     export default defineComponent({
-        name: 'Home',
+        name: 'Infos',
         components: { Loading, Domain, Security },
         setup() {
             const settings = inject(StoreSettingsKey)
