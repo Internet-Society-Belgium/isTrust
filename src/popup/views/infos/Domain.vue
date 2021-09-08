@@ -84,7 +84,15 @@
                 />
                 <div class="flex-grow">
                     <div class="flex items-center gap-0.5">
-                        <p class="whitespace-nowrap">
+                        <p
+                            class="whitespace-nowrap"
+                            :class="[
+                                !website.states?.data?.dns?.registrant
+                                    ?.organisation
+                                    ? 'filter blur-sm select-none'
+                                    : '',
+                            ]"
+                        >
                             {{
                                 website.states?.data?.dns?.registrant
                                     ?.organisation || 'No organisation'
