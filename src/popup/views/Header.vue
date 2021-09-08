@@ -8,7 +8,7 @@
             </div>
             <div v-else-if="!website.states.loading">
                 <h2 class="text-lg font-semibold">
-                    {{ website.states.data.domain }}
+                    {{ website.states?.data?.domain || '' }}
                 </h2>
             </div>
         </Loading>

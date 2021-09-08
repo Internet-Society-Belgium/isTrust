@@ -11,8 +11,19 @@ export interface StoreWebsite {
 export interface StoreWebsiteStates {
     internal: boolean
     loading: boolean
-    data: WebsiteData
+    data?: WebsiteData
+    score?: StoreWebsiteScore
 }
+
+export interface StoreWebsiteScore {
+    domain: {
+        registration: Score
+        lastChanged: Score
+        registrant: Score
+    }
+}
+
+type Score = 'ok' | 'neutral' | 'warning'
 
 export interface StoreWebsiteMethods {
     clear: () => Promise<void>
