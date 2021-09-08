@@ -27,32 +27,36 @@ export default class Website_rdap extends Website {
             const url = rdapUrls[0]
             rdapUrls.shift()
 
-            const { status, data: rdapData } = await axios.get<RDAPData>(
-                `${url}${url.endsWith('/') ? '' : '/'}domain/${this.domain}`
-            )
-            if (status !== 200) continue
+            try {
+                const { status, data: rdapData } = await axios.get<RDAPData>(
+                    `${url}${url.endsWith('/') ? '' : '/'}domain/${this.domain}`
+                )
+                if (status !== 200) continue
 
-            const parsedData: Dns = {} as Dns
+                const parsedData: Dns = {} as Dns
 
-            const links = await RDAP.links(rdapData)
-            for (const link of links) {
-                rdapUrls.push(link)
+                const links = await RDAP.links(rdapData)
+                for (const link of links) {
+                    rdapUrls.push(link)
+                }
+
+                const events = await RDAP.events(rdapData)
+                if (events) {
+                    parsedData.events = events
+                }
+
+                const registrant = await RDAP.registrant(rdapData)
+                if (registrant) {
+                    parsedData.registrant = registrant
+                }
+
+                const dnssec = await RDAP.dnssec(rdapData)
+                parsedData.dnssec = dnssec
+
+                data = { ...parsedData, ...data }
+            } catch (e) {
+                continue
             }
-
-            const events = await RDAP.events(rdapData)
-            if (events) {
-                parsedData.events = events
-            }
-
-            const registrant = await RDAP.registrant(rdapData)
-            if (registrant) {
-                parsedData.registrant = registrant
-            }
-
-            const dnssec = await RDAP.dnssec(rdapData)
-            parsedData.dnssec = dnssec
-
-            data = { ...parsedData, ...data }
         }
 
         return data
