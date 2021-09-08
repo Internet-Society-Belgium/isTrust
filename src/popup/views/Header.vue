@@ -11,7 +11,12 @@
                 v-else-if="website.states?.data?.url"
                 class="text-lg whitespace-nowrap"
             >
-                <i v-if="website.states?.data?.url?.subdomain !== null">
+                <i
+                    v-if="
+                        website.states?.data?.url?.subdomain !== null &&
+                        website.states?.data?.url?.subdomain !== 'www'
+                    "
+                >
                     {{ `${website.states?.data?.url?.subdomain}.` }}
                 </i>
                 <b>
