@@ -44,21 +44,16 @@ export class RDAP {
         )
         if (!registration) return
 
+        const transfer = data.events.find((e) => e.eventAction === 'transfer')
+
         const lastChanged = data.events.find(
             (e) => e.eventAction === 'last changed'
         )
 
-        const expiration = data.events.find(
-            (e) => e.eventAction === 'expiration'
-        )
-
-        const transfer = data.events.find((e) => e.eventAction === 'transfer')
-
         return {
             registration: registration.eventDate,
-            lastChanged: lastChanged?.eventDate,
-            expiration: expiration?.eventDate,
             transfer: transfer?.eventDate,
+            lastChanged: lastChanged?.eventDate,
         }
     }
 
