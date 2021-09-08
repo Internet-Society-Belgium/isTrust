@@ -17,6 +17,7 @@ export interface StoreWebsiteStates {
 
 export interface StoreWebsiteScore {
     domain: {
+        score: Score
         registration: Score
         lastChanged: Score
         registrant: Score

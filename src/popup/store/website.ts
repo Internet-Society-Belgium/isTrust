@@ -108,6 +108,7 @@ function calculateScore() {
 
     websiteStates.score = {
         domain: {
+            score: 'neutral',
             registration: 'neutral',
             lastChanged: 'neutral',
             registrant: 'neutral',
@@ -122,8 +123,10 @@ function calculateScore() {
 
         if (recent < registration) {
             score.domain.registration = 'warning'
+            score.domain.score = 'warning'
         } else {
             score.domain.registration = 'ok'
+            if (score.domain.score === 'neutral') score.domain.score = 'ok'
         }
     }
 
@@ -134,15 +137,21 @@ function calculateScore() {
 
         if (recent < lastChanged) {
             score.domain.lastChanged = 'warning'
+            score.domain.score = 'warning'
         } else {
             score.domain.lastChanged = 'ok'
+            if (score.domain.score === 'neutral') score.domain.score = 'ok'
         }
     }
 
+    if (data.dns) {
     if (data.dns?.registrant) {
         score.domain.registrant = 'ok'
+            if (score.domain.score === 'neutral') score.domain.score = 'ok'
     } else {
         score.domain.registrant = 'warning'
+            score.domain.score = 'warning'
+        }
     }
 }
 
