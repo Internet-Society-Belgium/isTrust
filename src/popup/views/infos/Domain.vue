@@ -84,7 +84,7 @@
                 />
                 <div class="flex-grow">
                     <div class="flex items-center gap-0.5">
-                        <p>
+                        <p class="whitespace-nowrap">
                             {{
                                 website.states?.data?.dns?.registrant
                                     ?.organisation || 'No organisation'
