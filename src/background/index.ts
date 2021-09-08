@@ -12,9 +12,9 @@ import getWebsiteTLD from './TLD/getWebsiteTLD'
 browser.runtime.onMessage.addListener(
     async ({ url }: WebsiteInfo): Promise<WebsiteData> => {
         const website = await getWebsiteTLD(url)
-        const { secure, domain } = website
+        const { secure, hostname } = website
 
-        console.log(`Analyzing ${domain}`)
+        console.log(`Analyzing ${hostname}`)
 
         const certificatePromise = website.certificate()
         const dnsPromise = website.dns()
@@ -24,7 +24,7 @@ browser.runtime.onMessage.addListener(
             dnsPromise,
         ])
 
-        return { domain, https: secure, certificate, dns }
+        return { hostname, https: secure, certificate, dns }
     }
 )
 

@@ -8,6 +8,7 @@ import { parseHostname } from '../utils/url'
 export class Website {
     private url: string
     readonly secure: boolean
+    readonly hostname: string
     readonly domain: string
     protected tld: string
 
@@ -15,9 +16,10 @@ export class Website {
         this.url = url
 
         const { protocol, hostname } = new URL(url)
-        const { domain, tld } = parseHostname(hostname)
-
         this.secure = protocol === 'https:'
+        this.hostname = hostname
+
+        const { domain, tld } = parseHostname(hostname)
         this.domain = domain
         this.tld = tld
     }

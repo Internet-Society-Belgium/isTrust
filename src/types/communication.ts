@@ -6,7 +6,7 @@ export interface WebsiteInfo {
 }
 
 export interface WebsiteData {
-    domain: string
+    hostname: string
     https: boolean
     certificate?: Certificate
     dns?: Dns

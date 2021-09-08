@@ -5,7 +5,7 @@
                 {{
                     website.states.internal
                         ? extension.methods.i18n('internal')
-                        : website.states?.data?.domain || ''
+                        : website.states?.data?.hostname || ''
                 }}
             </h2>
         </Loading>
