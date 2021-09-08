@@ -134,7 +134,7 @@ function calculateDomainScore() {
     if (data.dns?.events.registration) {
         const registration = new Date(data.dns?.events.registration)
         const recent = new Date()
-        recent.setFullYear(recent.getFullYear() - 1)
+        recent.setMonth(recent.getMonth() - 6)
 
         if (recent < registration) {
             score.domain.registration = 'warning'
@@ -146,7 +146,7 @@ function calculateDomainScore() {
     if (data.dns?.events.lastChanged) {
         const lastChanged = new Date(data.dns?.events.lastChanged)
         const recent = new Date()
-        recent.setMonth(recent.getMonth() - 6)
+        recent.setMonth(recent.getMonth() - 1)
 
         if (recent < lastChanged) {
             score.domain.lastChanged = 'warning'
