@@ -83,25 +83,19 @@
                     ]"
                 />
                 <div class="flex-grow">
-                    <div class="flex items-center gap-0.5">
-                        <p
-                            class="whitespace-nowrap"
-                            :class="[
-                                !website.states?.data?.dns?.registrant
-                                    ?.organisation
-                                    ? 'filter blur-sm select-none'
-                                    : '',
-                            ]"
-                        >
-                            {{
-                                website.states?.data?.dns?.registrant
-                                    ?.organisation || 'No organisation'
-                            }}
-                        </p>
-                        <div v-if="website.states?.data?.dns?.dnssec">
-                            <BadgeCheckIcon class="w-4 h-4 text-neutral" />
-                        </div>
-                    </div>
+                    <p
+                        class="whitespace-nowrap"
+                        :class="[
+                            !website.states?.data?.dns?.registrant?.organisation
+                                ? 'filter blur-sm select-none'
+                                : '',
+                        ]"
+                    >
+                        {{
+                            website.states?.data?.dns?.registrant
+                                ?.organisation || 'No organisation'
+                        }}
+                    </p>
                 </div>
             </div>
             <div
@@ -135,7 +129,6 @@
         CakeIcon,
         RefreshIcon,
         OfficeBuildingIcon,
-        BadgeCheckIcon,
         SwitchHorizontalIcon,
         LocationMarkerIcon,
     } from '@heroicons/vue/outline'
@@ -149,7 +142,6 @@
             CakeIcon,
             RefreshIcon,
             OfficeBuildingIcon,
-            BadgeCheckIcon,
             SwitchHorizontalIcon,
             LocationMarkerIcon,
         },

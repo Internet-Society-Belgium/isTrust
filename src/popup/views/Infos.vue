@@ -17,7 +17,12 @@
                     : 'ring-neutral',
             ]"
         >
-            <h3 class="p-1 italic">Domain</h3>
+            <div class="flex items-center gap-0.5">
+                <h3 class="p-1 italic">Domain</h3>
+                <div v-if="website.states?.data?.dns?.dnssec">
+                    <BadgeCheckIcon class="w-4 h-4 text-neutral" />
+                </div>
+            </div>
 
             <Loading>
                 <Domain />
@@ -48,6 +53,7 @@
 </template>
 
 <script lang="ts">
+    import { BadgeCheckIcon } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreSettingsKey } from '../types/store/settings'
     import { StoreWebsiteKey } from '../types/store/website'
@@ -56,7 +62,7 @@
     import Security from './infos/Security.vue'
     export default defineComponent({
         name: 'Infos',
-        components: { Loading, Domain, Security },
+        components: { Loading, Domain, Security, BadgeCheckIcon },
         setup() {
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
