@@ -21,9 +21,11 @@ export class RDAP {
             RDAP.cachedIanaRdapList = ianaRdap
         }
 
-        const data = RDAP.cachedIanaRdapList.services.find((e) =>
-            e[0].includes(tld)
-        )
+        const data = RDAP.cachedIanaRdapList.services.find((e) => {
+            if (e[0]) {
+                return e[0].includes(tld)
+            }
+        })
         if (!data) return
 
         return data[1]
@@ -61,9 +63,11 @@ export class RDAP {
     }
 
     public static registrant(data: RDAPData): Registrant | undefined {
-        const company = data.entities.find((e) =>
-            e.roles.includes('registrant')
-        )
+        const company = data.entities.find((e) => {
+            if (e.roles) {
+                return e.roles.includes('registrant')
+            }
+        })
         if (!company) return
 
         const vCard = company?.vcardArray[1]
