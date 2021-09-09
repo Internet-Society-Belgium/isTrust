@@ -2,9 +2,9 @@
     "name": "trest",
     "version": "0.1.0",
     "description": "Browser extension to verify the trustability of a website",
-    "homepage": "https://github.com/Progitiel/trest#readme",
+    "homepage": "https://github.com/Internet-Society-Belgium/trest#readme",
     "bugs": {
-        "url": "https://github.com/Progitiel/trest/issues"
+        "url": "https://github.com/Internet-Society-Belgium/trest/issues"
     },
     "author": {
         "name": "Progiciel",
@@ -12,7 +12,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Progitiel/trest.git"
+        "url": "https://github.com/Internet-Society-Belgium/trest.git"
     },
     "scripts": {
         "serve:firefox-desktop": "webpack build --mode development --watch --env target=firefox-desktop",
