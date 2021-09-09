@@ -25,7 +25,7 @@
         "build": "webpack build --mode production",
         "pack": "node utils/pack.js",
         "commit": "cz",
-        "release": "dotenv release-it --dry-run"
+        "release": "dotenv release-it"
     },
     "dependencies": {
         "axios": "^0.21.4",
