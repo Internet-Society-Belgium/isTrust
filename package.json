@@ -15,14 +15,15 @@
         "url": "https://github.com/Internet-Society-Belgium/trest.git"
     },
     "scripts": {
+        "prepare": "husky install",
+        "lint": "eslint --fix ./src",
+        "lint:staged": "lint-staged",
+        "format": "prettier -w -u .",
+        "test": "jest",
         "serve:firefox-desktop": "webpack build --mode development --watch --env target=firefox-desktop",
         "serve:chromium": "webpack build --mode development --watch --env target=chromium",
         "build": "webpack build --mode production",
-        "lint": "eslint --fix ./src",
-        "format": "prettier -w -u .",
-        "test": "jest",
-        "prepare": "husky install",
-        "commit": "cz"
+        "commit": "cz",
     },
     "dependencies": {
         "axios": "^0.21.4",
