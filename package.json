@@ -21,8 +21,7 @@
         "lint": "eslint --fix ./src",
         "format": "prettier -w -u .",
         "test": "jest",
-        "prepare": "husky install",
-        "commit": "cz"
+        "prepare": "husky install"
     },
     "dependencies": {
         "axios": "^0.21.4",
