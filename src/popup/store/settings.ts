@@ -1,29 +1,42 @@
 import { reactive, readonly } from 'vue'
-import { browser } from 'webextension-polyfill-ts'
+import browser from 'webextension-polyfill'
 
-const settingsStates = reactive({
+import { LocalStorage, LocalStorageSettings } from '../../types/localstorage'
+import {
+    StoreSettings,
+    StoreSettingsMethods,
+    StoreSettingsStates,
+} from '../types/store/settings'
+
+const settingsStates: StoreSettingsStates = reactive({
     dev: false,
 })
 
-const settingsMethods = {
+const settingsMethods: StoreSettingsMethods = {
     async toggleDev(): Promise<void> {
         settingsStates.dev = !settingsStates.dev
-        await browser.storage.local.set({ settings: settingsStates })
+        const localStorage: LocalStorage = { settings: settingsStates }
+        await browser.storage.local.set(localStorage)
     },
 }
 
-export default {
+const settings: StoreSettings = {
     states: readonly(settingsStates),
     methods: settingsMethods,
 }
 
+export default settings
+
 async function loadLocalStorage() {
-    const { settings } = await browser.storage.local.get('settings')
+    const localStorage = await browser.storage.local.get('settings')
+    if (!localStorage.settings) return
+    const settings: LocalStorageSettings = localStorage.settings
 
     if (settings) {
         settingsStates.dev = settings.dev
     } else {
-        await browser.storage.local.set({ settings: settingsStates })
+        const localStorage: LocalStorage = { settings: settingsStates }
+        await browser.storage.local.set(localStorage)
     }
 }
 

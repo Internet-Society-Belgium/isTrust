@@ -4,6 +4,7 @@ const { DefinePlugin } = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WebExtPlugin = require('web-ext-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const pkg = require('./package.json')
 
@@ -36,12 +37,20 @@ module.exports = (env, options) => {
                     loader: 'vue-loader',
                 },
                 {
-                    test: /\.s?css$/,
-                    use: ['style-loader', 'css-loader', 'sass-loader'],
+                    test: /\.css$/,
+                    use: ['style-loader', 'css-loader', 'postcss-loader'],
                 },
                 {
                     test: /\.(eot|ttf|woff|woff2)(\?\S*)?$/,
-                    use: 'file-loader',
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                outputPath: 'popup/fonts',
+                                esModule: false,
+                            },
+                        },
+                    ],
                 },
                 {
                     test: /\.(png|jpe?g|gif|webm|mp4|svg)$/,
@@ -119,5 +128,12 @@ module.exports = (env, options) => {
                 target: env?.target || 'firefox-desktop',
             }),
         ],
+        optimization: {
+            minimizer: [
+                // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+                `...`,
+                new CssMinimizerPlugin(),
+            ],
+        },
     }
 }

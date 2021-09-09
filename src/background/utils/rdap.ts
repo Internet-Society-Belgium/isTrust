@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { Events, Registrant } from '../../types/Dns'
-import { IanaRDAPList, RDAPData } from '../types/Rdap'
+import { Events, Registrant } from '../../types/dns'
+import { IanaRDAPList, RDAPData } from '../types/rdap'
 
 export class RDAP {
     private static cachedIanaRdapList: IanaRDAPList
@@ -21,9 +21,11 @@ export class RDAP {
             RDAP.cachedIanaRdapList = ianaRdap
         }
 
-        const data = RDAP.cachedIanaRdapList.services.find((e) =>
-            e[0].includes(tld)
-        )
+        const data = RDAP.cachedIanaRdapList.services.find((e) => {
+            if (e[0]) {
+                return e[0].includes(tld)
+            }
+        })
         if (!data) return
 
         return data[1]
@@ -42,28 +44,25 @@ export class RDAP {
         )
         if (!registration) return
 
+        const transfer = data.events.find((e) => e.eventAction === 'transfer')
+
         const lastChanged = data.events.find(
             (e) => e.eventAction === 'last changed'
         )
 
-        const expiration = data.events.find(
-            (e) => e.eventAction === 'expiration'
-        )
-
-        const transfer = data.events.find((e) => e.eventAction === 'transfer')
-
         return {
             registration: registration.eventDate,
-            lastChanged: lastChanged?.eventDate,
-            expiration: expiration?.eventDate,
             transfer: transfer?.eventDate,
+            lastChanged: lastChanged?.eventDate,
         }
     }
 
     public static registrant(data: RDAPData): Registrant | undefined {
-        const company = data.entities.find((e) =>
-            e.roles.includes('registrant')
-        )
+        const company = data.entities.find((e) => {
+            if (e.roles) {
+                return e.roles.includes('registrant')
+            }
+        })
         if (!company) return
 
         const vCard = company?.vcardArray[1]
@@ -75,12 +74,30 @@ export class RDAP {
         const organisation = organisationCard[3]
         if (typeof organisation != 'string') return
 
+        const locationCard = vCard.find((e) => e[0] === 'adr')
+        if (!locationCard) return
+
+        const locationCardText = locationCard[3]
+        if (!Array.isArray(locationCardText)) return
+
+        const state = locationCardText[3]
+        if (typeof state != 'string') return
+        const region = locationCardText[4]
+        if (typeof region != 'string') return
+        const country = locationCardText[6]
+        if (typeof country != 'string') return
+
         return {
             organisation,
+            location: {
+                state,
+                region,
+                country,
+            },
         }
     }
 
     public static dnssec(data: RDAPData): boolean {
-        return data.secureDNS.delegationSigned
+        return data.secureDNS?.delegationSigned || false
     }
 }

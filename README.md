@@ -12,6 +12,7 @@
     -   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
     -   [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
     -   [Jest](https://marketplace.visualstudio.com/items?itemName=orta.vscode-jest)
+    -   [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
 ### Steps
 

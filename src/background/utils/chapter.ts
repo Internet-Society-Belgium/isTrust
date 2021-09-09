@@ -1,16 +1,20 @@
+import { Location } from '../../types/geolocation'
 import { Chapter, Region } from '../types/chapters'
-import { Location } from '../types/geolocation'
 
-import chapters from '../data/chapters'
+import chapters from '../../data/chapters'
 
-export function getChapter(isoCode: string): Chapter {
-    return chapters.find((c) => c.country.isoCode === isoCode) || chapters[0]
+export function getChapter(isoCode?: string): Chapter {
+    return !isoCode
+        ? chapters[0]
+        : chapters.find((c) => c.country.isoCode === isoCode) || chapters[0]
 }
 
 export function getBestRegion(
     chapter: Chapter,
-    userLocation: Location
+    userLocation?: Location
 ): Region {
+    if (!userLocation) return chapter.regions[0]
+
     let best: { distance: number; region: Region } | null = null
 
     for (let index = 0; index < chapter.regions.length; index++) {

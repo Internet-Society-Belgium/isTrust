@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Rubik';
+        src: local('Rubik'),
+            url('../fonts/Rubik/Rubik-VariableFont_wght.ttf') format('truetype');
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Rubik';
+        src: local('Rubik'),
+            url('../fonts/Rubik/Rubik-Italic-VariableFont_wght.ttf')
+                format('truetype');
+        font-style: italic;
+    }
+}

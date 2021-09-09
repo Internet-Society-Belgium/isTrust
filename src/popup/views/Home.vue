@@ -1,34 +1,43 @@
 <template>
-    <div class="home">
-        <h1>
-            {{
-                website.states.internal
-                    ? extension.i18n('internal')
-                    : website.states.data.domain
-            }}
-        </h1>
-        <div v-if="!website.states.internal">
-            {{ JSON.stringify(website.states.data, null, 2) }}
+    <div class="p-2 flex flex-col gap-3 min-w-40">
+        <div>
+            <Header />
         </div>
-        <div>{{ extension.states.chapter.url }}</div>
-        <button v-if="settings.states.dev" @click="website.methods.refresh">
-            refresh
-        </button>
-        <router-link to="/settings">Settings</router-link>
+        <div>
+            <router-view v-slot="{ Component }">
+                <transition name="scale" mode="out-in">
+                    <component :is="Component" />
+                </transition>
+            </router-view>
+        </div>
+        <div>
+            <Footer />
+        </div>
     </div>
 </template>
 
 <script lang="ts">
-    import { defineComponent, inject } from 'vue'
+    import { defineComponent } from 'vue'
+    import Footer from './Footer.vue'
+    import Header from './Header.vue'
     export default defineComponent({
         name: 'Home',
-        setup() {
-            const extension = inject('extension')
-            const settings = inject('settings')
-            const website = inject('website')
-            return { extension, settings, website }
+        components: {
+            Header,
+            Footer,
         },
     })
 </script>
 
-<style lang="scss"></style>
+<style>
+    .scale-enter-active,
+    .scale-leave-active {
+        transition: all 0.5s ease-in-out;
+    }
+
+    .scale-enter-from,
+    .scale-leave-to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+</style>

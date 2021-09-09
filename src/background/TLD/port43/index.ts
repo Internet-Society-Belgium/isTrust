@@ -1,4 +1,4 @@
-import { Dns } from '../../../types/Dns'
+import { Dns } from '../../../types/dns'
 
 import { Website } from '..'
 
@@ -8,6 +8,6 @@ export default class Website_port43 extends Website {
     }
 
     public async dns(): Promise<Dns | undefined> {
-        return {} as Dns
+        return
     }
 }

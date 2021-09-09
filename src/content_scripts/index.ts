@@ -1,12 +1,14 @@
-import { browser } from 'webextension-polyfill-ts'
+import browser from 'webextension-polyfill'
 
-import { WebsiteInfo, WebsiteData } from '../types/Communication'
-import { Cookie } from '../types/Cookie'
+import { WebsiteInfo, WebsiteData } from '../types/communication'
+import { Cookie } from '../types/cookie'
 
-const setCookie = (value: string) => {
+const setCookie = (value: string, secure: boolean) => {
     const d = new Date()
     d.setTime(d.getTime() + 24 * 60 * 60 * 1000)
-    document.cookie = `trest=${value};Path=/trest;Expires=${d.toUTCString()};SameSite=Strict;`
+    document.cookie = `${
+        secure ? 'https:trest' : 'http:trest'
+    }=${value};Path=/trest;Expires=${d.toUTCString()};SameSite=Strict;`
 }
 
 browser.runtime.onMessage.addListener(async () => {
@@ -19,5 +21,5 @@ browser.runtime.onMessage.addListener(async () => {
         version: extensionVersion,
         ...data,
     }
-    setCookie(JSON.stringify(newCookie))
+    setCookie(JSON.stringify(newCookie), data.url.https)
 })
