@@ -2,14 +2,15 @@
 
 ## Maintainers
 
-<div style="display: flex; justify-content: center;gap: 1rem;">
+<div align="center">
     <a href="https://github.com/Progitiel">
         <img
             src="https://avatars.githubusercontent.com/u/36774665?v=4"
-            width="70px"
-            alt=""
+            width="70"
+            height="70"
+            alt="Progitiel"
         />
-        <div style="display: flex; justify-content: center;">
+        <div align="center">
             <p>Progiciel</p>
         </div>
     </a>
