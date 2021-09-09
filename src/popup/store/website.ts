@@ -11,7 +11,7 @@ import {
 
 const websiteStates: StoreWebsiteStates = reactive({
     internal: false,
-    loading: false,
+    loading: true,
 })
 
 const websiteMethods: StoreWebsiteMethods = {
@@ -48,7 +48,10 @@ export default website
 
 async function init() {
     await fetchData()
-    calculateScore()
+    if (!websiteStates.internal) {
+        calculateScore()
+    }
+    websiteStates.loading = false
 }
 
 async function fetchData() {
@@ -70,7 +73,6 @@ async function fetchData() {
 
     if (!['http:', 'https:'].includes(protocol)) {
         websiteStates.internal = true
-        websiteStates.loading = false
         return
     }
 
@@ -88,8 +90,6 @@ async function fetchData() {
     const extensionVersion = await browser.runtime.getManifest().version
 
     if (!cookieData || cookieData.version !== extensionVersion) {
-        websiteStates.loading = true
-
         await browser.tabs.sendMessage(id, {})
 
         cookie = await browser.cookies.get({
@@ -100,13 +100,10 @@ async function fetchData() {
 
     if (cookie) {
         websiteStates.data = JSON.parse(cookie.value)
-        websiteStates.loading = false
     }
 }
 
 function calculateScore() {
-    if (websiteStates.internal) return
-
     websiteStates.score = {
         domain: {
             score: 'neutral',
