@@ -7,7 +7,7 @@
                 </div>
                 <div>
                     <router-view v-slot="{ Component }">
-                        <ViewTransition :transition="'scale'">
+                        <ViewTransition>
                             <component :is="Component" />
                         </ViewTransition>
                     </router-view>
