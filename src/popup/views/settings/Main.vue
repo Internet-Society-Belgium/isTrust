@@ -8,24 +8,10 @@
                 <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
                     {{ extension.methods.i18n('dark_mode') }}
                 </p>
-                <div
-                    class="w-10 h-5 flex items-center rounded-full px-1"
-                    :class="settings.states.dark ? 'bg-primary' : 'bg-neutral'"
+                <Toggle
+                    :active="settings.states.dark"
                     @click="settings.methods.toggleDark"
-                >
-                    <div
-                        class="
-                            bg-background
-                            dark:bg-dark-background
-                            w-3
-                            h-3
-                            rounded-full
-                            shadow-md
-                            transform
-                        "
-                        :class="{ 'translate-x-5': settings.states.dark }"
-                    ></div>
-                </div>
+                />
             </div>
 
             <a
@@ -75,6 +61,7 @@
     import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreSettingsKey } from '../../types/store/settings'
     import { openUrl } from '../../utils/url'
+    import Toggle from '../../components/Toggle.vue'
     export default defineComponent({
         name: 'SettingsMain',
         components: {
@@ -83,6 +70,7 @@
             ChevronRightIcon,
             HeartIcon,
             PlusIcon,
+            Toggle,
         },
         setup() {
             const extension = inject(StoreExtensionKey)
