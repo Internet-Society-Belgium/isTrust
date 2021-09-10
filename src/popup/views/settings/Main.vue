@@ -8,10 +8,20 @@
                 <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
                     {{ extension.methods.i18n('dark_mode') }}
                 </p>
-                <Toggle
+                <Switch
                     :active="settings.states.dark"
                     @click="settings.methods.toggleDark"
                 />
+            </div>
+
+            <div class="flex items-center">
+                <div class="flex-none">
+                    <TranslateIcon class="w-6 h-6 text-neutral" />
+                </div>
+                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                    {{ extension.methods.i18n('language') }}
+                </p>
+                <Select />
             </div>
 
             <a
@@ -20,7 +30,7 @@
                 @click="openUrl('mailto:trest@isoc.be')"
             >
                 <div class="flex-none">
-                    <HeartIcon class="w-6 h-6 text-neutral" />
+                    <ChatIcon class="w-6 h-6 text-neutral" />
                 </div>
                 <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
                     {{ extension.methods.i18n('feedback') }}
@@ -36,10 +46,10 @@
                 class="flex items-center"
             >
                 <div class="flex-none">
-                    <PlusIcon class="w-6 h-6 text-neutral" />
+                    <DocumentTextIcon class="w-6 h-6 text-neutral" />
                 </div>
                 <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
-                    {{ extension.methods.i18n('more_infos') }}
+                    {{ extension.methods.i18n('legal') }}
                 </p>
                 <div class="flex-none">
                     <ChevronRightIcon class="w-5 h-5 text-neutral" />
@@ -54,23 +64,25 @@
         ExternalLinkIcon,
         MoonIcon,
         ChevronRightIcon,
-        HeartIcon,
-        PlusIcon,
+        ChatIcon,
+        DocumentTextIcon,
+        TranslateIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreSettingsKey } from '../../types/store/settings'
     import { openUrl } from '../../utils/url'
-    import Toggle from '../../components/Toggle.vue'
+    import Switch from '../../components/Switch.vue'
     export default defineComponent({
         name: 'SettingsMain',
         components: {
             ExternalLinkIcon,
             MoonIcon,
             ChevronRightIcon,
-            HeartIcon,
-            PlusIcon,
-            Toggle,
+            ChatIcon,
+            DocumentTextIcon,
+            TranslateIcon,
+            Switch,
         },
         setup() {
             const extension = inject(StoreExtensionKey)
