@@ -5,7 +5,9 @@
                 <div class="flex-none">
                     <MoonIcon class="w-6 h-6 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">Dark mode</p>
+                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                    {{ extension.methods.i18n('dark_mode') }}
+                </p>
                 <div
                     class="w-10 h-5 flex items-center rounded-full px-1"
                     :class="settings.states.dark ? 'bg-primary' : 'bg-neutral'"
@@ -34,7 +36,9 @@
                 <div class="flex-none">
                     <HeartIcon class="w-6 h-6 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">Feedback</p>
+                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                    {{ extension.methods.i18n('feedback') }}
+                </p>
                 <div class="flex-none">
                     <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                 </div>
@@ -48,7 +52,9 @@
                 <div class="flex-none">
                     <PlusIcon class="w-6 h-6 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">More infos</p>
+                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                    {{ extension.methods.i18n('more_infos') }}
+                </p>
                 <div class="flex-none">
                     <ChevronRightIcon class="w-5 h-5 text-neutral" />
                 </div>
@@ -66,6 +72,7 @@
         PlusIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+    import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreSettingsKey } from '../../types/store/settings'
     import { openUrl } from '../../utils/url'
     export default defineComponent({
@@ -78,8 +85,9 @@
             PlusIcon,
         },
         setup() {
+            const extension = inject(StoreExtensionKey)
             const settings = inject(StoreSettingsKey)
-            return { settings, openUrl }
+            return { extension, settings, openUrl }
         },
     })
 </script>

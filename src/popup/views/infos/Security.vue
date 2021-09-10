@@ -21,7 +21,9 @@
         <div class="flex items-center gap-2">
             <LockClosedIcon class="flex-none w-6 h-6 text-neutral" />
             <div class="flex-grow">
-                <p class="whitespace-nowrap">Communication secured</p>
+                <p class="whitespace-nowrap">
+                    {{ extension.methods.i18n('communication_secured') }}
+                </p>
             </div>
         </div>
         <div v-if="website.states.data?.certificate">
@@ -31,7 +33,9 @@
             >
                 <IdentificationIcon class="flex-none w-6 h-6 text-warning" />
                 <div class="flex-grow">
-                    <p class="whitespace-nowrap">Certificate invalid</p>
+                    <p class="whitespace-nowrap">
+                        {{ extension.methods.i18n('certificate_invalid') }}
+                    </p>
                 </div>
             </div>
 
@@ -88,6 +92,7 @@
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import browser from 'webextension-polyfill'
+    import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreSettingsKey } from '../../types/store/settings'
     import { StoreWebsiteKey } from '../../types/store/website'
     export default defineComponent({
@@ -100,6 +105,7 @@
             ArrowNarrowRightIcon,
         },
         setup() {
+            const extension = inject(StoreExtensionKey)
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
             const goToSecure = async () => {
@@ -116,7 +122,7 @@
                 })
                 window.close()
             }
-            return { settings, website, goToSecure }
+            return { extension, settings, website, goToSecure }
         },
     })
 </script>

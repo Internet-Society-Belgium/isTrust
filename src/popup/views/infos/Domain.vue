@@ -1,6 +1,6 @@
 <template>
     <div v-if="!website.states.data?.dns" class="flex justify-center">
-        <p>No infos</p>
+        <p>{{ extension.methods.i18n('no_infos') }}</p>
     </div>
     <div v-else class="grid gap-2 p-2">
         <div>
@@ -133,6 +133,7 @@
         LocationMarkerIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+    import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreSettingsKey } from '../../types/store/settings'
     import { StoreWebsiteKey } from '../../types/store/website'
     import { formatDate } from '../../utils/date'
@@ -146,9 +147,10 @@
             LocationMarkerIcon,
         },
         setup() {
+            const extension = inject(StoreExtensionKey)
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
-            return { settings, website, formatDate }
+            return { extension, settings, website, formatDate }
         },
     })
 </script>

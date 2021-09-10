@@ -7,5 +7,41 @@
     },
     "internal": {
         "message": "Internal"
+    },
+    "domain": {
+        "message": "Domain"
+    },
+    "security": {
+        "message": "Security"
+    },
+    "no_infos": {
+        "message": "No infos"
+    },
+    "communication_secured": {
+        "message": "Communication secured"
+    },
+    "certificate_invalid": {
+        "message": "Certificate invalid"
+    },
+    "dark_mode": {
+        "message": "Dark mode"
+    },
+    "feedback": {
+        "message": "Feedback"
+    },
+    "more_infos": {
+        "message": "More infos"
+    },
+    "settings": {
+        "message": "Settings"
+    },
+    "privacy_policy": {
+        "message": "Privacy Policy"
+    },
+    "license": {
+        "message": "License"
+    },
+    "credits": {
+        "message": "Credits"
     }
 }

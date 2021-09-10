@@ -17,7 +17,9 @@
             "
         >
             <div class="flex items-center gap-0.5">
-                <h3 class="p-1 italic">Domain</h3>
+                <h3 class="p-1 italic">
+                    {{ extension.methods.i18n('domain') }}
+                </h3>
                 <Loading :animation="false">
                     <div v-if="website.states?.data?.dns?.dnssec">
                         <BadgeCheckIcon class="w-4 h-4 text-neutral" />
@@ -40,7 +42,7 @@
                     : 'ring-neutral'
             "
         >
-            <h3 class="p-1 italic">Security</h3>
+            <h3 class="p-1 italic">{{ extension.methods.i18n('security') }}</h3>
 
             <Loading>
                 <Security />
@@ -56,6 +58,7 @@
 <script lang="ts">
     import { BadgeCheckIcon, EyeOffIcon } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+    import { StoreExtensionKey } from '../types/store/extension'
     import { StoreSettingsKey } from '../types/store/settings'
     import { StoreWebsiteKey } from '../types/store/website'
     import Loading from '../components/Loading.vue'
@@ -63,11 +66,22 @@
     import Security from './infos/Security.vue'
     export default defineComponent({
         name: 'Infos',
-        components: { Loading, Domain, Security, BadgeCheckIcon, EyeOffIcon },
+        components: {
+            Loading,
+            Domain,
+            Security,
+            BadgeCheckIcon,
+            EyeOffIcon,
+        },
         setup() {
+            const extension = inject(StoreExtensionKey)
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
-            return { settings, website }
+            return {
+                extension,
+                settings,
+                website,
+            }
         },
     })
 </script>

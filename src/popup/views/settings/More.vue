@@ -5,7 +5,9 @@
                 <div class="flex-none">
                     <ChevronLeftIcon class="w-5 h-5 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">Settings</p>
+                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                    {{ extension.methods.i18n('settings') }}
+                </p>
             </router-link>
             <div class="grid grid-flow-row gap-2">
                 <a
@@ -21,7 +23,7 @@
                         <ShieldCheckIcon class="w-6 h-6 text-neutral" />
                     </div>
                     <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
-                        Privacy Policy
+                        {{ extension.methods.i18n('privacy_policy') }}
                     </p>
                     <div class="flex-none">
                         <ExternalLinkIcon class="w-5 h-5 text-neutral" />
@@ -40,7 +42,9 @@
                     <div class="flex-none">
                         <ScaleIcon class="w-6 h-6 text-neutral" />
                     </div>
-                    <p class="flex-grow pl-1 pr-6 whitespace-nowrap">License</p>
+                    <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                        {{ extension.methods.i18n('license') }}
+                    </p>
                     <div class="flex-none">
                         <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                     </div>
@@ -58,7 +62,9 @@
                     <div class="flex-none">
                         <UserGroupIcon class="w-6 h-6 text-neutral" />
                     </div>
-                    <p class="flex-grow pl-1 pr-6 whitespace-nowrap">Credits</p>
+                    <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                        {{ extension.methods.i18n('credits') }}
+                    </p>
                     <div class="flex-none">
                         <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                     </div>
@@ -77,6 +83,7 @@
         ChevronLeftIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+    import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreSettingsKey } from '../../types/store/settings'
     import { openUrl } from '../../utils/url'
     export default defineComponent({
@@ -89,8 +96,9 @@
             ChevronLeftIcon,
         },
         setup() {
+            const extension = inject(StoreExtensionKey)
             const settings = inject(StoreSettingsKey)
-            return { settings, openUrl }
+            return { extension, settings, openUrl }
         },
     })
 </script>
