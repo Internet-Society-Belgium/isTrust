@@ -2,7 +2,7 @@
     <div class="grid grid-cols-3 m-0.5">
         <div class="justify-self-start flex items-center">
             <div v-if="!settingsViewOpened()">
-                <router-link to="/settings/main" tag="div">
+                <router-link to="/settings" tag="div">
                     <CogIcon class="w-6 h-6 text-secondary" />
                 </router-link>
             </div>
