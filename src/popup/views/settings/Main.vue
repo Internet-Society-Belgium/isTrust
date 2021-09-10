@@ -14,16 +14,6 @@
                 />
             </div>
 
-            <div class="flex items-center">
-                <div class="flex-none">
-                    <TranslateIcon class="w-6 h-6 text-neutral" />
-                </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
-                    {{ extension.methods.i18n('language') }}
-                </p>
-                <Select />
-            </div>
-
             <a
                 class="flex items-center"
                 href="#"
@@ -66,7 +56,6 @@
         ChevronRightIcon,
         ChatIcon,
         DocumentTextIcon,
-        TranslateIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreExtensionKey } from '../../types/store/extension'
@@ -81,7 +70,6 @@
             ChevronRightIcon,
             ChatIcon,
             DocumentTextIcon,
-            TranslateIcon,
             Switch,
         },
         setup() {
