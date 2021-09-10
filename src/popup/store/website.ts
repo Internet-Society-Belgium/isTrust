@@ -17,7 +17,7 @@ const websiteStates: StoreWebsiteStates = reactive({
 const websiteMethods: StoreWebsiteMethods = {
     async clear(): Promise<void> {
         websiteStates.data = {} as WebsiteData
-        websiteStates.score = undefined
+        websiteStates.scores = undefined
 
         const tab = await browser.tabs.query({
             active: true,
@@ -49,7 +49,7 @@ export default website
 async function init() {
     await fetchData()
     if (!websiteStates.internal) {
-        calculateScore()
+        calculateScores()
     }
     websiteStates.loading = false
 }
@@ -103,8 +103,9 @@ async function fetchData() {
     }
 }
 
-function calculateScore() {
-    websiteStates.score = {
+function calculateScores() {
+    websiteStates.scores = {
+        score: 'neutral',
         domain: {
             score: 'neutral',
             registration: 'neutral',
@@ -118,15 +119,24 @@ function calculateScore() {
         },
     }
 
-    calculateDomainScore()
-    calculateSecurityScore()
+    calculateDomainScores()
+    calculateSecurityScores()
+
+    for (const [k, v] of Object.entries(websiteStates.scores)) {
+        if (k === 'score') continue
+        const vScore = v.score
+        if (!vScore) continue
+        if (vScore === 'warning') websiteStates.scores.score = 'warning'
+        if (vScore === 'ok' && websiteStates.scores.score === 'neutral')
+            websiteStates.scores.score = 'ok'
+    }
 }
 
-function calculateDomainScore() {
+function calculateDomainScores() {
     const data = websiteStates.data
     if (!data) return
-    const score = websiteStates.score
-    if (!score) return
+    const scores = websiteStates.scores
+    if (!scores) return
 
     if (data.dns?.events.registration) {
         const registration = new Date(data.dns?.events.registration)
@@ -134,9 +144,9 @@ function calculateDomainScore() {
         recent.setMonth(recent.getMonth() - 6)
 
         if (recent < registration) {
-            score.domain.registration = 'warning'
+            scores.domain.registration = 'warning'
         } else {
-            score.domain.registration = 'ok'
+            scores.domain.registration = 'ok'
         }
     }
 
@@ -146,53 +156,53 @@ function calculateDomainScore() {
         recent.setMonth(recent.getMonth() - 1)
 
         if (recent < lastChanged) {
-            score.domain.lastChanged = 'warning'
+            scores.domain.lastChanged = 'warning'
         } else {
-            score.domain.lastChanged = 'ok'
+            scores.domain.lastChanged = 'ok'
         }
     }
 
     if (data.dns) {
         if (!data.dns?.registrant) {
-            score.domain.registrant = 'warning'
+            scores.domain.registrant = 'warning'
         } else {
-            score.domain.registrant = 'ok'
+            scores.domain.registrant = 'ok'
         }
     }
 
-    for (const [k, v] of Object.entries(score.domain)) {
+    for (const [k, v] of Object.entries(scores.domain)) {
         if (k === 'score') continue
-        if (v === 'warning') score.domain.score = 'warning'
-        if (v === 'ok' && score.domain.score === 'neutral')
-            score.domain.score = 'ok'
+        if (v === 'warning') scores.domain.score = 'warning'
+        if (v === 'ok' && scores.domain.score === 'neutral')
+            scores.domain.score = 'ok'
     }
 }
 
-function calculateSecurityScore() {
+function calculateSecurityScores() {
     const data = websiteStates.data
     if (!data) return
-    const score = websiteStates.score
-    if (!score) return
+    const scores = websiteStates.scores
+    if (!scores) return
 
     if (!data.url.https) {
-        score.security.https = 'warning'
+        scores.security.https = 'warning'
     } else {
-        score.security.https = 'ok'
+        scores.security.https = 'ok'
     }
 
     if (data.certificate) {
         if (!data.certificate.valid) {
-            score.security.certificate = 'warning'
+            scores.security.certificate = 'warning'
         } else {
-            score.security.certificate = 'ok'
+            scores.security.certificate = 'ok'
         }
     }
 
-    for (const [k, v] of Object.entries(score.security)) {
+    for (const [k, v] of Object.entries(scores.security)) {
         if (k === 'score') continue
-        if (v === 'warning') score.security.score = 'warning'
-        if (v === 'ok' && score.security.score === 'neutral')
-            score.security.score = 'ok'
+        if (v === 'warning') scores.security.score = 'warning'
+        if (v === 'ok' && scores.security.score === 'neutral')
+            scores.security.score = 'ok'
     }
 }
 

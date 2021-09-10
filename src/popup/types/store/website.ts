@@ -12,10 +12,11 @@ export interface StoreWebsiteStates {
     internal: boolean
     loading: boolean
     data?: WebsiteData
-    score?: StoreWebsiteScore
+    scores?: StoreWebsiteScore
 }
 
 export interface StoreWebsiteScore {
+    score: Score
     domain: {
         score: Score
         registration: Score

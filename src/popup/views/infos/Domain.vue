@@ -12,7 +12,7 @@
                     <CakeIcon
                         class="flex-none w-5 h-5"
                         :class="[
-                            website.states?.score?.domain?.registration ===
+                            website.states?.scores?.domain?.registration ===
                             'warning'
                                 ? 'text-warning'
                                 : 'text-neutral',
@@ -53,7 +53,7 @@
                     <RefreshIcon
                         class="flex-none w-5 h-5"
                         :class="[
-                            website.states?.score?.domain?.lastChanged ===
+                            website.states?.scores?.domain?.lastChanged ===
                             'warning'
                                 ? 'text-warning'
                                 : 'text-neutral',
@@ -77,7 +77,7 @@
                 <OfficeBuildingIcon
                     class="flex-none w-5 h-5"
                     :class="[
-                        website.states?.score?.domain?.registrant === 'warning'
+                        website.states?.scores?.domain?.registrant === 'warning'
                             ? 'text-warning'
                             : 'text-neutral',
                     ]"
