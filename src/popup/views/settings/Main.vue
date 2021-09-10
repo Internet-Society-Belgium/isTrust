@@ -1,5 +1,5 @@
 <template>
-    <div class="m-2 bg-container rounded-lg">
+    <div class="m-2 bg-container dark:bg-dark-container rounded-lg">
         <div class="grid grid-flow-row gap-2 p-3">
             <div class="flex items-center">
                 <div class="flex-none">
@@ -14,6 +14,7 @@
                     <div
                         class="
                             bg-background
+                            dark:bg-dark-background
                             w-3
                             h-3
                             rounded-full

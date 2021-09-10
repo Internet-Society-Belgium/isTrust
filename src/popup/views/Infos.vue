@@ -7,7 +7,7 @@
     </div>
     <div v-else class="flex flex-col justify-center align-middle gap-4 m-2">
         <section
-            class="bg-container rounded-lg p-2 ring-2"
+            class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
             :class="
                 website.states?.scores?.domain?.score === 'warning'
                     ? ' ring-warning'
@@ -31,7 +31,7 @@
         </section>
 
         <section
-            class="bg-container rounded-lg p-2 ring-2"
+            class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
             :class="
                 website.states?.scores?.security?.score === 'warning'
                     ? ' ring-warning'

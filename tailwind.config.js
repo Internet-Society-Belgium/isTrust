@@ -4,9 +4,12 @@ module.exports = {
     theme: {
         colors: {
             primary: '#0072f2',
-            secondary: '#191b1f',
+            secondary: '#000',
+            'dark-secondary':'#f2f4f5',
             container: '#ffffff',
+            'dark-container':'#252531',
             background: '#f2f4f5',
+            'dark-background':'#151419',
             ok: '#7cb72e',
             neutral: '#89939b',
             warning: '#f463a4',

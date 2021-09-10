@@ -3,7 +3,9 @@
         <div class="justify-self-start flex items-center">
             <div v-if="!settingsViewOpened()">
                 <router-link to="/settings" tag="div">
-                    <CogIcon class="w-6 h-6 text-secondary" />
+                    <CogIcon
+                        class="w-6 h-6 text-secondary dark:text-dark-secondary"
+                    />
                 </router-link>
             </div>
             <div v-else>
@@ -30,7 +32,9 @@
 
         <div class="justify-self-end flex items-center">
             <a href="#" @click="openUrl(extension.states.chapter.url)">
-                <InformationCircleIcon class="w-6 h-6 text-secondary" />
+                <InformationCircleIcon
+                    class="w-6 h-6 text-secondary dark:text-dark-secondary"
+                />
             </a>
         </div>
     </div>

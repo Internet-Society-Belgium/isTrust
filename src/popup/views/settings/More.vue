@@ -1,5 +1,5 @@
 <template>
-    <div class="m-2 bg-container rounded-lg">
+    <div class="m-2 bg-container dark:bg-dark-container rounded-lg">
         <div class="grid grid-flow-row gap-4 p-3">
             <router-link to="/settings" tag="div" class="flex items-center">
                 <div class="flex-none">
