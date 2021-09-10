@@ -8,13 +8,13 @@
     <div v-else class="flex flex-col justify-center align-middle gap-4 m-2">
         <section
             class="bg-container rounded-lg p-2 ring-2"
-            :class="[
+            :class="
                 website.states?.scores?.domain?.score === 'warning'
                     ? ' ring-warning'
                     : website.states?.scores?.domain?.score === 'ok'
                     ? 'ring-ok'
-                    : 'ring-neutral',
-            ]"
+                    : 'ring-neutral'
+            "
         >
             <div class="flex items-center gap-0.5">
                 <h3 class="p-1 italic">Domain</h3>
@@ -32,13 +32,13 @@
 
         <section
             class="bg-container rounded-lg p-2 ring-2"
-            :class="[
+            :class="
                 website.states?.scores?.security?.score === 'warning'
                     ? ' ring-warning'
                     : website.states?.scores?.security?.score === 'ok'
                     ? 'ring-ok'
-                    : 'ring-neutral',
-            ]"
+                    : 'ring-neutral'
+            "
         >
             <h3 class="p-1 italic">Security</h3>
 

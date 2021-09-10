@@ -8,9 +8,7 @@
                 <p class="flex-grow pl-1 pr-6 whitespace-nowrap">Dark mode</p>
                 <div
                     class="w-10 h-5 flex items-center rounded-full px-1"
-                    :class="[
-                        settings.states.dark ? 'bg-primary' : 'bg-neutral',
-                    ]"
+                    :class="settings.states.dark ? 'bg-primary' : 'bg-neutral'"
                     @click="settings.methods.toggleDark"
                 >
                     <div

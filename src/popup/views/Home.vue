@@ -1,5 +1,5 @@
 <template>
-    <div :class="[settings.states.dark ? 'dark' : '']">
+    <div :class="settings.states.dark ? 'dark' : ''">
         <div class="bg-background">
             <div class="p-2 flex flex-col gap-3 min-w-40">
                 <div>

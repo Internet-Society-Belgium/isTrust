@@ -11,12 +11,12 @@
                 <div class="flex items-center gap-2">
                     <CakeIcon
                         class="flex-none w-6 h-6"
-                        :class="[
+                        :class="
                             website.states?.scores?.domain?.registration ===
                             'warning'
                                 ? 'text-warning'
-                                : 'text-neutral',
-                        ]"
+                                : 'text-neutral'
+                        "
                     />
                     <div class="flex-grow">
                         <p class="whitespace-nowrap">
@@ -52,12 +52,12 @@
                 <div class="flex items-center gap-2">
                     <RefreshIcon
                         class="flex-none w-6 h-6"
-                        :class="[
+                        :class="
                             website.states?.scores?.domain?.lastChanged ===
                             'warning'
                                 ? 'text-warning'
-                                : 'text-neutral',
-                        ]"
+                                : 'text-neutral'
+                        "
                     />
                     <div class="flex-grow">
                         <p class="whitespace-nowrap">
@@ -76,20 +76,20 @@
             <div class="flex items-center gap-2">
                 <OfficeBuildingIcon
                     class="flex-none w-6 h-6"
-                    :class="[
+                    :class="
                         website.states?.scores?.domain?.registrant === 'warning'
                             ? 'text-warning'
-                            : 'text-neutral',
-                    ]"
+                            : 'text-neutral'
+                    "
                 />
                 <div class="flex-grow">
                     <p
                         class="whitespace-nowrap"
-                        :class="[
+                        :class="
                             !website.states?.data?.dns?.registrant?.organisation
                                 ? 'filter blur-sm select-none'
-                                : '',
-                        ]"
+                                : ''
+                        "
                     >
                         {{
                             website.states?.data?.dns?.registrant
