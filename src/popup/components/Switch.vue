@@ -13,6 +13,8 @@
                 rounded-full
                 shadow-md
                 transform
+                transition
+                duration-500
             "
             :class="{ 'translate-x-5': active }"
         ></div>

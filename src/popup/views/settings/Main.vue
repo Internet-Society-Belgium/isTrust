@@ -1,17 +1,14 @@
 <template>
     <div class="m-2 bg-container dark:bg-dark-container rounded-lg">
         <div class="grid grid-flow-row gap-2 p-3">
-            <div class="flex items-center">
-                <div class="flex-none">
-                    <MoonIcon class="w-6 h-6 text-neutral" />
-                </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
-                    {{ extension.methods.i18n('dark_mode') }}
-                </p>
+            <div class="w-full flex flex-row gap-2 items-center px-4 py-2">
+                <MoonIcon class="flex-grow w-6 h-6 text-neutral" />
                 <Switch
-                    :active="settings.states.dark"
+                    class="flex-none"
+                    :active="!settings.states.dark"
                     @click="settings.methods.toggleDark"
                 />
+                <SunIcon class="flex-grow w-6 h-6 text-neutral" />
             </div>
 
             <a
@@ -52,6 +49,7 @@
 <script lang="ts">
     import {
         ExternalLinkIcon,
+        SunIcon,
         MoonIcon,
         ChevronRightIcon,
         ChatIcon,
@@ -66,6 +64,7 @@
         name: 'SettingsMain',
         components: {
             ExternalLinkIcon,
+            SunIcon,
             MoonIcon,
             ChevronRightIcon,
             ChatIcon,
