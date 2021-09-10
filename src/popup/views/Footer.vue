@@ -30,14 +30,14 @@
 
         <div class="justify-self-end w-5 h-5">
             <a href="#" @click="openUrl(extension.states.chapter.url)">
-                <ExternalLinkIcon class="w-5 h-5 text-secondary" />
+                <InformationCircleIcon class="w-5 h-5 text-secondary" />
             </a>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import { CogIcon, ExternalLinkIcon } from '@heroicons/vue/outline'
+    import { CogIcon, InformationCircleIcon } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { useRoute } from 'vue-router'
     import { StoreExtensionKey } from '../types/store/extension'
@@ -47,7 +47,7 @@
     import ViewTransition from '../components/ViewTransition.vue'
     export default defineComponent({
         name: 'Footer',
-        components: { Loading, ViewTransition, CogIcon, ExternalLinkIcon },
+        components: { Loading, ViewTransition, CogIcon, InformationCircleIcon },
         setup() {
             const extension = inject(StoreExtensionKey)
             const website = inject(StoreWebsiteKey)

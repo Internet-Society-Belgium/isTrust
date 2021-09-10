@@ -17,7 +17,7 @@
                     Privacy Policy
                 </p>
                 <div class="flex-none">
-                    <ChevronRightIcon class="w-5 h-5 text-neutral" />
+                    <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                 </div>
             </a>
 
@@ -35,7 +35,7 @@
                 </div>
                 <p class="flex-grow pl-1 pr-3 whitespace-nowrap">License</p>
                 <div class="flex-none">
-                    <ChevronRightIcon class="w-5 h-5 text-neutral" />
+                    <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                 </div>
             </a>
 
@@ -53,7 +53,7 @@
                 </div>
                 <p class="flex-grow pl-1 pr-3 whitespace-nowrap">Credits</p>
                 <div class="flex-none">
-                    <ChevronRightIcon class="w-5 h-5 text-neutral" />
+                    <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                 </div>
             </a>
         </div>
@@ -62,7 +62,7 @@
 
 <script lang="ts">
     import {
-        ChevronRightIcon,
+        ExternalLinkIcon,
         ShieldCheckIcon,
         UsersIcon,
         ScaleIcon,
@@ -72,7 +72,7 @@
     import { openUrl } from '../utils/url'
     export default defineComponent({
         name: 'Settings',
-        components: { ChevronRightIcon, ShieldCheckIcon, UsersIcon, ScaleIcon },
+        components: { ExternalLinkIcon, ShieldCheckIcon, UsersIcon, ScaleIcon },
         setup() {
             const settings = inject(StoreSettingsKey)
             return { settings, openUrl }
