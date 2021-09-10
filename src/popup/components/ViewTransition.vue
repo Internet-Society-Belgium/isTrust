@@ -1,5 +1,5 @@
 <template>
-    <transition :name="transition" mode="out-in">
+    <transition :name="transition" :mode="mode">
         <slot></slot>
     </transition>
 </template>
@@ -11,8 +11,13 @@
         props: {
             transition: {
                 type: String,
-                default: 'scale',
+                default: '',
                 required: true,
+            },
+            mode: {
+                type: String,
+                default: '',
+                required: false,
             },
         },
     })

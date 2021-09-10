@@ -7,7 +7,10 @@
                 </div>
                 <div>
                     <router-view v-slot="{ Component }">
-                        <ViewTransition :transition="toChild ? 'scale' : ''">
+                        <ViewTransition
+                            :transition="toChild ? 'scale' : ''"
+                            :mode="toChild ? 'out-in' : ''"
+                        >
                             <component :is="Component" />
                         </ViewTransition>
                     </router-view>

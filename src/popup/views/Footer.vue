@@ -15,7 +15,7 @@
 
         <div class="justify-self-center flex items-center">
             <Loading :animation="false">
-                <ViewTransition :transition="'scale'">
+                <ViewTransition :transition="'scale'" :mode="'out-in'">
                     <p v-if="settingsViewOpened()">
                         {{ `v${extension.constants.version}` }}
                     </p>
