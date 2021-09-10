@@ -7,11 +7,11 @@ export interface StoreSettings {
 }
 
 export interface StoreSettingsStates {
-    dev: boolean
+    dark: boolean
 }
 
 export interface StoreSettingsMethods {
-    toggleDev: () => Promise<void>
+    toggleDark: () => Promise<void>
 }
 
 export const StoreSettingsKey: InjectionKey<StoreSettings> = Symbol('settings')

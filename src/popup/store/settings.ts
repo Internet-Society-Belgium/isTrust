@@ -9,11 +9,12 @@ import {
 } from '../types/store/settings'
 
 const settingsStates: StoreSettingsStates = reactive({
-    dev: false,
+    dark: false,
 })
 
 const settingsMethods: StoreSettingsMethods = {
-    async toggleDev(): Promise<void> {
+    async toggleDark(): Promise<void> {
+        settingsStates.dark = !settingsStates.dark
         const storage: LocalStorage = { settings: settingsStates }
         await browser.storage.local.set(storage)
     },
@@ -32,7 +33,7 @@ async function loadLocalStorage() {
     const settings: LocalStorageSettings = storage.settings
 
     if (settings) {
-        settingsStates.dev = settings.dev
+        settingsStates.dark = settings.dark
     } else {
         const storage: LocalStorage = { settings: settingsStates }
         await browser.storage.local.set(storage)
