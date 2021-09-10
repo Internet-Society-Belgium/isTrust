@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-3 m-0.5">
-        <div class="justify-self-start w-5 h-5">
+        <div class="justify-self-start flex items-center">
             <div v-if="!settingsViewOpened()">
                 <router-link to="/settings" tag="div">
                     <CogIcon class="w-6 h-6 text-secondary" />
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="justify-self-center">
+        <div class="justify-self-center flex items-center">
             <Loading :animation="false">
                 <ViewTransition>
                     <p v-if="settingsViewOpened()">
@@ -28,7 +28,7 @@
             </Loading>
         </div>
 
-        <div class="justify-self-end w-5 h-5">
+        <div class="justify-self-end flex items-center">
             <a href="#" @click="openUrl(extension.states.chapter.url)">
                 <InformationCircleIcon class="w-6 h-6 text-secondary" />
             </a>
