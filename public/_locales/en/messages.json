@@ -26,11 +26,14 @@
     "dark_mode": {
         "message": "Dark mode"
     },
+    "language": {
+        "message": "Language"
+    },
     "feedback": {
         "message": "Feedback"
     },
-    "more_infos": {
-        "message": "More infos"
+    "legal": {
+        "message": "Legal"
     },
     "settings": {
         "message": "Settings"
