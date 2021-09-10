@@ -19,6 +19,11 @@
                     <div v-if="settingsViewOpened()">
                         {{ `v${extension.constants.version}` }}
                     </div>
+                    <div v-else>
+                        <div v-if="website.states?.scores?.score === 'warning'">
+                            <!-- report -->
+                        </div>
+                    </div>
                 </ViewTransition>
             </Loading>
         </div>
