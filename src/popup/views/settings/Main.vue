@@ -26,7 +26,11 @@
                 </div>
             </div>
 
-            <a class="flex items-center" href="#">
+            <a
+                class="flex items-center"
+                href="#"
+                @click="openUrl('mailto:trest@isoc.be')"
+            >
                 <div class="flex-none">
                     <HeartIcon class="w-6 h-6 text-neutral" />
                 </div>
@@ -63,6 +67,7 @@
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreSettingsKey } from '../../types/store/settings'
+    import { openUrl } from '../../utils/url'
     export default defineComponent({
         name: 'SettingsMain',
         components: {
@@ -74,7 +79,7 @@
         },
         setup() {
             const settings = inject(StoreSettingsKey)
-            return { settings }
+            return { settings, openUrl }
         },
     })
 </script>
