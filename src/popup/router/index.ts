@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Infos from '../views/Infos.vue'
 import Settings from '../views/Settings.vue'
+import SettingsMain from '../views/settings/Main.vue'
+import SettingsMore from '../views/settings/More.vue'
 
 const routes = [
     {
@@ -23,6 +25,18 @@ const routes = [
                 path: 'settings',
                 name: 'Settings',
                 component: Settings,
+                children: [
+                    {
+                        path: '',
+                        name: 'SettingsMain',
+                        component: SettingsMain,
+                    },
+                    {
+                        path: 'more',
+                        name: 'SettingsMore',
+                        component: SettingsMore,
+                    },
+                ],
             },
         ],
     },

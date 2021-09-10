@@ -52,7 +52,9 @@
             const extension = inject(StoreExtensionKey)
             const website = inject(StoreWebsiteKey)
             const settingsViewOpened = () => {
-                return useRoute().name === 'Settings'
+                return useRoute().matched.find(
+                    (route) => route.path === '/settings'
+                )
             }
             return { website, extension, settingsViewOpened, openUrl }
         },
