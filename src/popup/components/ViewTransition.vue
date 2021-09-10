@@ -38,11 +38,11 @@
     .slide-left-leave-active,
     .slide-right-enter-active,
     .slide-right-leave-active {
-        transition: all 0.5s linear;
+        transition: all 0.5s ease-in-out;
     }
 
     .slide-left-enter-from {
-        transform: translateX(100%);
+        transform: translateX(120%);
     }
     .slide-left-enter-to {
         transform: translateX(0);
@@ -51,11 +51,11 @@
         transform: translateX(0);
     }
     .slide-left-leave-to {
-        transform: translateX(-100%);
+        transform: translateX(-120%);
     }
 
     .slide-right-enter-from {
-        transform: translateX(-100%);
+        transform: translateX(-120%);
     }
     .slide-right-enter-to {
         transform: translateX(0);
@@ -64,6 +64,6 @@
         transform: translateX(0);
     }
     .slide-right-leave-to {
-        transform: translateX(100%);
+        transform: translateX(120%);
     }
 </style>

@@ -1,11 +1,13 @@
 <template>
     <router-view v-slot="{ Component }">
-        <ViewTransition
-            :transition="toChild ? 'slide-left' : 'slide-right'"
-            :mode="'out-in'"
-        >
-            <component :is="Component" />
-        </ViewTransition>
+        <div class="w-full min-h-40">
+            <ViewTransition
+                :transition="toChild ? 'slide-left' : 'slide-right'"
+                :mode="'out-in'"
+            >
+                <component :is="Component" />
+            </ViewTransition>
+        </div>
     </router-view>
 </template>
 
