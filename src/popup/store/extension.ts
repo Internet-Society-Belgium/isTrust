@@ -34,9 +34,9 @@ const extension: StoreExtension = {
 export default extension
 
 async function getChapterUrl() {
-    const localStorage = await browser.storage.local.get('extension')
-    if (!localStorage.extension) return
-    const extension: LocalStorageExtension = localStorage.extension
+    const storage = await browser.storage.local.get('extension')
+    if (!storage.extension) return
+    const extension: LocalStorageExtension = storage.extension
     extensionStates.chapter.url = extension.chapter.url
 }
 

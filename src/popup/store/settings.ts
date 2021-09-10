@@ -14,9 +14,8 @@ const settingsStates: StoreSettingsStates = reactive({
 
 const settingsMethods: StoreSettingsMethods = {
     async toggleDev(): Promise<void> {
-        settingsStates.dev = !settingsStates.dev
-        const localStorage: LocalStorage = { settings: settingsStates }
-        await browser.storage.local.set(localStorage)
+        const storage: LocalStorage = { settings: settingsStates }
+        await browser.storage.local.set(storage)
     },
 }
 
@@ -28,15 +27,15 @@ const settings: StoreSettings = {
 export default settings
 
 async function loadLocalStorage() {
-    const localStorage = await browser.storage.local.get('settings')
-    if (!localStorage.settings) return
-    const settings: LocalStorageSettings = localStorage.settings
+    const storage = await browser.storage.local.get('settings')
+    if (!storage.settings) return
+    const settings: LocalStorageSettings = storage.settings
 
     if (settings) {
         settingsStates.dev = settings.dev
     } else {
-        const localStorage: LocalStorage = { settings: settingsStates }
-        await browser.storage.local.set(localStorage)
+        const storage: LocalStorage = { settings: settingsStates }
+        await browser.storage.local.set(storage)
     }
 }
 

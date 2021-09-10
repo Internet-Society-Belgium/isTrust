@@ -48,6 +48,6 @@ browser.runtime.onInstalled.addListener(async () => {
 
     const chapter = getChapter(data.country.isoCode)
     const url = getBestRegion(chapter, data.location).url
-    const localStorage: LocalStorage = { extension: { chapter: { url } } }
-    await browser.storage.local.set(localStorage)
+    const storage: LocalStorage = { extension: { chapter: { url } } }
+    await browser.storage.local.set(storage)
 })
