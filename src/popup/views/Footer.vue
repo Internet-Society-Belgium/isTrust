@@ -14,7 +14,13 @@
         </div>
 
         <div class="justify-self-center">
-            <!-- <div>report</div> -->
+            <Loading :animation="false">
+                <ViewTransition>
+                    <div v-if="settingsViewOpened()">
+                        {{ `v${extension.constants.version}` }}
+                    </div>
+                </ViewTransition>
+            </Loading>
         </div>
 
         <div class="justify-self-end w-5 h-5">
@@ -32,9 +38,16 @@
     import browser from 'webextension-polyfill'
     import { StoreExtensionKey } from '../types/store/extension'
     import { StoreWebsiteKey } from '../types/store/website'
+    import Loading from '../components/Loading.vue'
+    import ViewTransition from '../components/ViewTransition.vue'
     export default defineComponent({
         name: 'Footer',
-        components: { CogIcon, ExternalLinkIcon },
+        components: {
+            Loading,
+            ViewTransition,
+            CogIcon,
+            ExternalLinkIcon,
+        },
         setup() {
             const extension = inject(StoreExtensionKey)
             const website = inject(StoreWebsiteKey)
@@ -44,7 +57,12 @@
             const openUrl = async (url: string) => {
                 await browser.tabs.create({ url })
             }
-            return { website, extension, settingsViewOpened, openUrl }
+            return {
+                website,
+                extension,
+                settingsViewOpened,
+                openUrl,
+            }
         },
     })
 </script>

@@ -5,9 +5,9 @@
         </div>
         <div>
             <router-view v-slot="{ Component }">
-                <transition name="scale" mode="out-in">
+                <ViewTransition>
                     <component :is="Component" />
-                </transition>
+                </ViewTransition>
             </router-view>
         </div>
         <div>
@@ -18,26 +18,11 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue'
+    import ViewTransition from '../components/ViewTransition.vue'
     import Footer from './Footer.vue'
     import Header from './Header.vue'
     export default defineComponent({
         name: 'Home',
-        components: {
-            Header,
-            Footer,
-        },
+        components: { Header, Footer, ViewTransition },
     })
 </script>
-
-<style>
-    .scale-enter-active,
-    .scale-leave-active {
-        transition: all 0.5s ease-in-out;
-    }
-
-    .scale-enter-from,
-    .scale-leave-to {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-</style>
