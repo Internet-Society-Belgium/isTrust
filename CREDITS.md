@@ -1,17 +1,13 @@
 # Credits
 
-## Maintainers
+## Copyrights
 
-<div align="center">
-    <a href="https://github.com/Progitiel">
-        <img
-            src="https://avatars.githubusercontent.com/u/36774665?v=4"
-            width="70"
-            height="70"
-            alt="Progitiel"
-        />
-        <div align="center">
-            <p>Progiciel</p>
-        </div>
-    </a>
-</div>
+
+
+## Contributors
+
+<a href="https://github.com/Internet-Society-Belgium/trest/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Internet-Society-Belgium/trest" />
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
