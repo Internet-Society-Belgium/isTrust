@@ -7,7 +7,7 @@
                 </div>
                 <div>
                     <router-view v-slot="{ Component }">
-                        <ViewTransition :transition="'scale'">
+                        <ViewTransition :transition="toChild ? 'scale' : ''">
                             <component :is="Component" />
                         </ViewTransition>
                     </router-view>
@@ -21,7 +21,8 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent, inject } from 'vue'
+    import { defineComponent, inject, ref, watch } from 'vue'
+    import { useRoute } from 'vue-router'
     import { StoreSettingsKey } from '../types/store/settings'
     import ViewTransition from '../components/ViewTransition.vue'
     import Footer from './Footer.vue'
@@ -31,7 +32,15 @@
         components: { Header, Footer, ViewTransition },
         setup() {
             const settings = inject(StoreSettingsKey)
-            return { settings }
+            const toChild = ref(false)
+            const lastRoute = ref('/')
+            watch(useRoute(), (route) => {
+                const fromDepth = lastRoute.value.split('/').length
+                const toDepth = route.path.split('/').length
+                toChild.value = toDepth !== fromDepth
+                lastRoute.value = route.path
+            })
+            return { settings, toChild }
         },
     })
 </script>

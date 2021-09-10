@@ -27,7 +27,7 @@ const routes = [
                 component: Settings,
                 children: [
                     {
-                        path: '',
+                        path: 'main',
                         name: 'SettingsMain',
                         component: SettingsMain,
                     },

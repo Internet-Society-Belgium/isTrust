@@ -57,7 +57,11 @@
                 </div>
             </a>
 
-            <router-link to="/settings" tag="div" class="flex items-center">
+            <router-link
+                to="/settings/main"
+                tag="div"
+                class="flex items-center"
+            >
                 <div class="flex-none">
                     <AdjustmentsIcon class="w-6 h-6 text-neutral" />
                 </div>
