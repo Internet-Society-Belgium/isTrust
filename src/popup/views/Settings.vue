@@ -11,13 +11,13 @@
                 "
             >
                 <div class="flex-none">
-                    <ShieldCheckIcon class="w-5 h-5 text-neutral" />
+                    <ShieldCheckIcon class="w-6 h-6 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-3 whitespace-nowrap">
+                <p class="flex-grow pl-1 pr-4 whitespace-nowrap">
                     Privacy Policy
                 </p>
                 <div class="flex-none">
-                    <ExternalLinkIcon class="w-5 h-5 text-neutral" />
+                    <ExternalLinkIcon class="w-6 h-6 text-neutral" />
                 </div>
             </a>
 
@@ -31,11 +31,11 @@
                 "
             >
                 <div class="flex-none">
-                    <ScaleIcon class="w-5 h-5 text-neutral" />
+                    <ScaleIcon class="w-6 h-6 text-neutral" />
                 </div>
                 <p class="flex-grow pl-1 pr-3 whitespace-nowrap">License</p>
                 <div class="flex-none">
-                    <ExternalLinkIcon class="w-5 h-5 text-neutral" />
+                    <ExternalLinkIcon class="w-6 h-6 text-neutral" />
                 </div>
             </a>
 
@@ -49,11 +49,11 @@
                 "
             >
                 <div class="flex-none">
-                    <UsersIcon class="w-5 h-5 text-neutral" />
+                    <UsersIcon class="w-6 h-6 text-neutral" />
                 </div>
                 <p class="flex-grow pl-1 pr-3 whitespace-nowrap">Credits</p>
                 <div class="flex-none">
-                    <ExternalLinkIcon class="w-5 h-5 text-neutral" />
+                    <ExternalLinkIcon class="w-6 h-6 text-neutral" />
                 </div>
             </a>
         </div>

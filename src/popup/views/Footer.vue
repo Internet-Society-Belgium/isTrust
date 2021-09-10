@@ -3,12 +3,12 @@
         <div class="justify-self-start w-5 h-5">
             <div v-if="!settingsViewOpened()">
                 <router-link to="/settings" tag="div">
-                    <CogIcon class="w-5 h-5 text-secondary" />
+                    <CogIcon class="w-6 h-6 text-secondary" />
                 </router-link>
             </div>
             <div v-else>
                 <router-link to="/" tag="div">
-                    <CogIcon class="w-5 h-5 text-primary" />
+                    <CogIcon class="w-6 h-6 text-primary" />
                 </router-link>
             </div>
         </div>
@@ -30,7 +30,7 @@
 
         <div class="justify-self-end w-5 h-5">
             <a href="#" @click="openUrl(extension.states.chapter.url)">
-                <InformationCircleIcon class="w-5 h-5 text-secondary" />
+                <InformationCircleIcon class="w-6 h-6 text-secondary" />
             </a>
         </div>
     </div>

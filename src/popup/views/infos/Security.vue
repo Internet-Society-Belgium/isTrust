@@ -4,11 +4,11 @@
         class="grid gap-2 p-2"
     >
         <div class="flex items-center gap-2">
-            <LockOpenIcon class="flex-none w-5 h-5 text-warning" />
+            <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
             <a href="#" class="flex-grow" @click="goToSecure">
                 <div class="flex items-center gap-1">
                     <p>http</p>
-                    <ArrowNarrowRightIcon class="w-5 h-5 text-neutral" />
+                    <ArrowNarrowRightIcon class="w-6 h-6 text-neutral" />
                     <p>https</p>
                 </div>
             </a>
@@ -19,7 +19,7 @@
         class="grid gap-2 p-2"
     >
         <div class="flex items-center gap-2">
-            <LockClosedIcon class="flex-none w-5 h-5 text-neutral" />
+            <LockClosedIcon class="flex-none w-6 h-6 text-neutral" />
             <div class="flex-grow">
                 <p class="whitespace-nowrap">Communication secured</p>
             </div>
@@ -29,7 +29,7 @@
                 v-if="website.states.data?.certificate?.valid === false"
                 class="flex items-center gap-2"
             >
-                <IdentificationIcon class="flex-none w-5 h-5 text-warning" />
+                <IdentificationIcon class="flex-none w-6 h-6 text-warning" />
                 <div class="flex-grow">
                     <p class="whitespace-nowrap">Certificate invalid</p>
                 </div>
@@ -38,7 +38,7 @@
             <div v-else-if="website.states.data?.certificate?.owner">
                 <div class="flex items-center gap-2">
                     <IdentificationIcon
-                        class="flex-none w-5 h-5 text-neutral"
+                        class="flex-none w-6 h-6 text-neutral"
                     />
                     <div class="flex-grow">
                         <p class="whitespace-nowrap">
@@ -54,7 +54,7 @@
                     class="flex items-center gap-2 pl-6"
                 >
                     <LocationMarkerIcon
-                        class="flex-none w-5 h-5 text-neutral"
+                        class="flex-none w-6 h-6 text-neutral"
                     />
                     <div class="flex-grow">
                         <p class="whitespace-nowrap">

@@ -10,7 +10,7 @@
             >
                 <div class="flex items-center gap-2">
                     <CakeIcon
-                        class="flex-none w-5 h-5"
+                        class="flex-none w-6 h-6"
                         :class="[
                             website.states?.scores?.domain?.registration ===
                             'warning'
@@ -32,7 +32,7 @@
             <div v-if="website.states.data?.dns?.events?.transfer" class="p-1">
                 <div class="flex items-center gap-2">
                     <SwitchHorizontalIcon
-                        class="flex-none w-5 h-5 text-neutral"
+                        class="flex-none w-6 h-6 text-neutral"
                     />
                     <div class="flex-grow">
                         <p class="whitespace-nowrap">
@@ -51,7 +51,7 @@
             >
                 <div class="flex items-center gap-2">
                     <RefreshIcon
-                        class="flex-none w-5 h-5"
+                        class="flex-none w-6 h-6"
                         :class="[
                             website.states?.scores?.domain?.lastChanged ===
                             'warning'
@@ -75,7 +75,7 @@
         <div class="p-1">
             <div class="flex items-center gap-2">
                 <OfficeBuildingIcon
-                    class="flex-none w-5 h-5"
+                    class="flex-none w-6 h-6"
                     :class="[
                         website.states?.scores?.domain?.registrant === 'warning'
                             ? 'text-warning'
@@ -102,7 +102,7 @@
                 v-if="website.states.data?.dns?.registrant?.location"
                 class="flex items-center gap-2 pl-6"
             >
-                <LocationMarkerIcon class="flex-none w-5 h-5 text-neutral" />
+                <LocationMarkerIcon class="flex-none w-6 h-6 text-neutral" />
                 <div class="flex-grow">
                     <p class="whitespace-nowrap">
                         {{
