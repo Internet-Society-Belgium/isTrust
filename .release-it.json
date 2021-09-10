@@ -1,6 +1,7 @@
 {
     "hooks": {
-        "after:git:release": "npm run build && npm run pack",
+        "after:bump": "npm run build",
+        "after:git:release": "npm run pack",
         "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
     },
     "git": {
