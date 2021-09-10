@@ -38,9 +38,7 @@
             const toChild = ref(false)
             const lastRoute = ref('/')
             watch(useRoute(), (route) => {
-                const fromDepth = lastRoute.value.split('/').length
-                const toDepth = route.path.split('/').length
-                toChild.value = toDepth !== fromDepth
+                toChild.value = lastRoute.value.length !== route.path.length
                 lastRoute.value = route.path
             })
             return { settings, toChild }
