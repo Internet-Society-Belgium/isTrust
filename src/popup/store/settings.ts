@@ -15,7 +15,9 @@ const settingsStates: StoreSettingsStates = reactive({
 const settingsMethods: StoreSettingsMethods = {
     async toggleDark(): Promise<void> {
         settingsStates.dark = !settingsStates.dark
-        const storage: LocalStorage = { settings: settingsStates }
+        const storage: LocalStorage = {
+            settings: Object.assign({}, settingsStates),
+        }
         await browser.storage.local.set(storage)
     },
 }
