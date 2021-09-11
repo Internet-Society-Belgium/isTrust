@@ -2,13 +2,13 @@
     <div class="m-2 bg-container dark:bg-dark-container rounded-lg">
         <div class="grid grid-flow-row gap-2 p-3">
             <div class="w-full flex flex-row gap-2 items-center px-4 py-2">
-                <MoonIcon class="flex-grow w-6 h-6 text-neutral" />
+                <SunIcon class="flex-grow w-6 h-6 text-neutral" />
                 <Switch
                     class="flex-none"
-                    :active="!settings.states.dark"
+                    :active="settings.states.dark"
                     @click="settings.methods.toggleDark"
                 />
-                <SunIcon class="flex-grow w-6 h-6 text-neutral" />
+                <MoonIcon class="flex-grow w-6 h-6 text-neutral" />
             </div>
 
             <a
