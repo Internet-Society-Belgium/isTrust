@@ -13,7 +13,9 @@
     "github": {
         "release": true,
         "releaseName": "${version}",
-        "assets": ["pack/*.zip"]
+        "assets": [
+            "pack/*.zip"
+        ]
     },
     "plugins": {
         "@release-it/conventional-changelog": {
@@ -23,11 +25,11 @@
                 "types": [
                     {
                         "type": "feat",
-                        "section": "Features"
+                        "section": "✨ Features"
                     },
                     {
                         "type": "fix",
-                        "section": "Bug Fixes"
+                        "section": "🐛 Bug Fixes"
                     }
                 ]
             }
