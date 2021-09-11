@@ -19,7 +19,7 @@
                 <div class="flex-none">
                     <ChatIcon class="w-6 h-6 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                <p class="flex-grow pl-1 pr-6 whitespace-nowrap select-none">
                     {{ extension.methods.i18n('feedback') }}
                 </p>
                 <div class="flex-none">
@@ -35,7 +35,7 @@
                 <div class="flex-none">
                     <DocumentTextIcon class="w-6 h-6 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                <p class="flex-grow pl-1 pr-6 whitespace-nowrap select-none">
                     {{ extension.methods.i18n('legal') }}
                 </p>
                 <div class="flex-none">

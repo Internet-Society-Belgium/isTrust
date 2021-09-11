@@ -17,7 +17,7 @@
             "
         >
             <div class="flex items-center gap-0.5">
-                <h3 class="p-1 italic">
+                <h3 class="p-1 italic select-none">
                     {{ extension.methods.i18n('domain') }}
                 </h3>
                 <Loading :animation="false">
@@ -42,7 +42,9 @@
                     : 'ring-neutral'
             "
         >
-            <h3 class="p-1 italic">{{ extension.methods.i18n('security') }}</h3>
+            <h3 class="p-1 italic select-none">
+                {{ extension.methods.i18n('security') }}
+            </h3>
 
             <Loading>
                 <Security />

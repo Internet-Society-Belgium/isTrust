@@ -5,7 +5,7 @@
                 <div class="flex-none">
                     <ChevronLeftIcon class="w-5 h-5 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                <p class="flex-grow pl-1 pr-6 whitespace-nowrap select-none">
                     {{ extension.methods.i18n('settings') }}
                 </p>
             </router-link>
@@ -22,7 +22,15 @@
                     <div class="flex-none">
                         <ShieldCheckIcon class="w-6 h-6 text-neutral" />
                     </div>
-                    <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                    <p
+                        class="
+                            flex-grow
+                            pl-1
+                            pr-6
+                            whitespace-nowrap
+                            select-none
+                        "
+                    >
                         {{ extension.methods.i18n('privacy_policy') }}
                     </p>
                     <div class="flex-none">
@@ -42,7 +50,15 @@
                     <div class="flex-none">
                         <ScaleIcon class="w-6 h-6 text-neutral" />
                     </div>
-                    <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                    <p
+                        class="
+                            flex-grow
+                            pl-1
+                            pr-6
+                            whitespace-nowrap
+                            select-none
+                        "
+                    >
                         {{ extension.methods.i18n('license') }}
                     </p>
                     <div class="flex-none">
@@ -62,7 +78,15 @@
                     <div class="flex-none">
                         <UserGroupIcon class="w-6 h-6 text-neutral" />
                     </div>
-                    <p class="flex-grow pl-1 pr-6 whitespace-nowrap">
+                    <p
+                        class="
+                            flex-grow
+                            pl-1
+                            pr-6
+                            whitespace-nowrap
+                            select-none
+                        "
+                    >
                         {{ extension.methods.i18n('credits') }}
                     </p>
                     <div class="flex-none">

@@ -3,7 +3,7 @@
         <Loading>
             <h2
                 v-if="website.states.internal"
-                class="text-lg font-semibold whitespace-nowrap"
+                class="text-lg font-semibold whitespace-nowrap select-none"
             >
                 {{ extension.methods.i18n('internal') }}
             </h2>
