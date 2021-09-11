@@ -13,9 +13,7 @@
     "github": {
         "release": true,
         "releaseName": "${version}",
-        "assets": [
-            "pack/*.zip"
-        ]
+        "assets": ["pack/*.zip"]
     },
     "plugins": {
         "@release-it/conventional-changelog": {
