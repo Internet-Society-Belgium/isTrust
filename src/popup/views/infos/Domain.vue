@@ -19,7 +19,7 @@
                         "
                     />
                     <div class="flex-grow">
-                        <p class="whitespace-nowrap">
+                        <p class="text-left whitespace-nowrap">
                             {{
                                 formatDate(
                                     website.states.data.dns.events.registration
@@ -35,7 +35,7 @@
                         class="flex-none w-6 h-6 text-neutral"
                     />
                     <div class="flex-grow">
-                        <p class="whitespace-nowrap">
+                        <p class="text-left whitespace-nowrap">
                             {{
                                 formatDate(
                                     website.states.data.dns.events.transfer
@@ -60,7 +60,7 @@
                         "
                     />
                     <div class="flex-grow">
-                        <p class="whitespace-nowrap">
+                        <p class="text-left whitespace-nowrap">
                             {{
                                 formatDate(
                                     website.states.data.dns.events.lastChanged
@@ -84,7 +84,7 @@
                 />
                 <div class="flex-grow">
                     <p
-                        class="whitespace-nowrap"
+                        class="text-left whitespace-nowrap"
                         :class="
                             !website.states?.data?.dns?.registrant?.organisation
                                 ? 'filter blur-sm select-none'
@@ -104,7 +104,7 @@
             >
                 <LocationMarkerIcon class="flex-none w-6 h-6 text-neutral" />
                 <div class="flex-grow">
-                    <p class="whitespace-nowrap">
+                    <p class="text-left whitespace-nowrap">
                         {{
                             [
                                 website.states.data?.dns?.registrant?.location

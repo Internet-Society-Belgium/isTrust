@@ -1,11 +1,13 @@
 <template>
-    <div
-        v-if="website.states.loading || website.states?.data"
-        class="text-center p-2"
-    >
+    <div v-if="website.states.loading || website.states?.data" class="p-2">
         <h2
             v-if="website.states.internal"
-            class="text-lg font-semibold whitespace-nowrap select-none"
+            class="
+                text-lg text-center
+                font-semibold
+                whitespace-nowrap
+                select-none
+            "
         >
             {{ extension.methods.i18n('internal') }}
         </h2>
@@ -13,7 +15,7 @@
             <Loading>
                 <h2
                     v-if="website.states?.data?.url"
-                    class="text-lg whitespace-nowrap"
+                    class="text-lg text-center whitespace-nowrap"
                 >
                     <i
                         v-if="

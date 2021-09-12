@@ -21,7 +21,7 @@
         <div class="flex items-center gap-2">
             <LockClosedIcon class="flex-none w-6 h-6 text-neutral" />
             <div class="flex-grow">
-                <p class="whitespace-nowrap">
+                <p class="text-left whitespace-nowrap">
                     {{ extension.methods.i18n('communication_secured') }}
                 </p>
             </div>
@@ -33,7 +33,7 @@
             >
                 <IdentificationIcon class="flex-none w-6 h-6 text-warning" />
                 <div class="flex-grow">
-                    <p class="whitespace-nowrap">
+                    <p class="text-left whitespace-nowrap">
                         {{ extension.methods.i18n('certificate_invalid') }}
                     </p>
                 </div>
@@ -45,7 +45,7 @@
                         class="flex-none w-6 h-6 text-neutral"
                     />
                     <div class="flex-grow">
-                        <p class="whitespace-nowrap">
+                        <p class="text-left whitespace-nowrap">
                             {{
                                 website.states.data?.certificate?.owner
                                     ?.organisation || ''
@@ -61,7 +61,7 @@
                         class="flex-none w-6 h-6 text-neutral"
                     />
                     <div class="flex-grow">
-                        <p class="whitespace-nowrap">
+                        <p class="text-left whitespace-nowrap">
                             {{
                                 [
                                     website.states.data?.certificate?.owner

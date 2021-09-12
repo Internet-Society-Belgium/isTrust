@@ -5,7 +5,16 @@
                 <div class="flex-none">
                     <ChevronLeftIcon class="w-5 h-5 text-neutral" />
                 </div>
-                <p class="flex-grow pl-1 pr-6 whitespace-nowrap select-none">
+                <p
+                    class="
+                        flex-grow
+                        text-left
+                        pl-2
+                        pr-6
+                        whitespace-nowrap
+                        select-none
+                    "
+                >
                     {{ extension.methods.i18n('settings') }}
                 </p>
             </router-link>
@@ -24,7 +33,8 @@
                     <p
                         class="
                             flex-grow
-                            pl-1
+                            text-left
+                            pl-2
                             pr-6
                             whitespace-nowrap
                             select-none
@@ -51,7 +61,8 @@
                     <p
                         class="
                             flex-grow
-                            pl-1
+                            text-left
+                            pl-2
                             pr-6
                             whitespace-nowrap
                             select-none
@@ -78,7 +89,8 @@
                     <p
                         class="
                             flex-grow
-                            pl-1
+                            text-left
+                            pl-2
                             pr-6
                             whitespace-nowrap
                             select-none
