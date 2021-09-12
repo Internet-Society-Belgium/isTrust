@@ -83,17 +83,11 @@
                     "
                 />
                 <div class="flex-grow">
-                    <p
-                        class="text-left whitespace-nowrap"
-                        :class="
-                            !website.states?.data?.dns?.registrant?.organisation
-                                ? 'filter blur-sm select-none'
-                                : ''
-                        "
-                    >
+                    <p class="text-left whitespace-nowrap">
                         {{
                             website.states?.data?.dns?.registrant
-                                ?.organisation || 'No organisation'
+                                ?.organisation ||
+                            extension.methods.i18n('no_organisation')
                         }}
                     </p>
                 </div>
