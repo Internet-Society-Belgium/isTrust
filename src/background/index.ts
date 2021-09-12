@@ -6,6 +6,7 @@ import { Geolocation } from '../types/geolocation'
 import { LocalStorage } from '../types/localstorage'
 
 import { getBestRegion, getChapter } from './chapters'
+import getWebsiteTLD from './tld/getWebsiteTLD'
 
 browser.runtime.onMessage.addListener(
     async ({ url }: WebsiteInfo): Promise<WebsiteData> => {
