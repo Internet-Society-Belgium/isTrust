@@ -3,9 +3,14 @@ import axios from 'axios'
 import { Dns } from '../../../types/dns'
 import { RDAPData } from '../../types/rdap'
 
-import { RDAP } from '../../utils/rdap'
-
 import { Website } from '..'
+import {
+    getRdapDnssec,
+    getRdapEvents,
+    getRdapLinks,
+    getRdapRegistrant,
+    getRdapUrls,
+} from '../../rdap'
 
 export default class Website_rdap extends Website {
     constructor(hostname: string) {
@@ -15,7 +20,7 @@ export default class Website_rdap extends Website {
     public async dns(): Promise<Dns | undefined> {
         let data: Dns = {} as Dns
 
-        const urls = await RDAP.urls(this.tld)
+        const urls = await getRdapUrls(this.tld)
         if (!urls) return
 
         const rdapUrls: string[] = []
@@ -35,22 +40,22 @@ export default class Website_rdap extends Website {
 
                 const parsedData: Dns = {} as Dns
 
-                const links = await RDAP.links(rdapData)
+                const links = await getRdapLinks(rdapData)
                 for (const link of links) {
                     rdapUrls.push(link)
                 }
 
-                const events = await RDAP.events(rdapData)
+                const events = await getRdapEvents(rdapData)
                 if (events) {
                     parsedData.events = events
                 }
 
-                const registrant = await RDAP.registrant(rdapData)
+                const registrant = await getRdapRegistrant(rdapData)
                 if (registrant) {
                     parsedData.registrant = registrant
                 }
 
-                const dnssec = await RDAP.dnssec(rdapData)
+                const dnssec = await getRdapDnssec(rdapData)
                 parsedData.dnssec = dnssec
 
                 data = { ...parsedData, ...data }
