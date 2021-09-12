@@ -3,9 +3,45 @@
         "message": "isTrust"
     },
     "extDescription": {
-        "message": "Vérifie si les obligations légales sont appliquées"
+        "message": "Vérifie la fiabilité d'un site web"
     },
     "internal": {
         "message": "Interne"
+    },
+    "domain": {
+        "message": "Domaine"
+    },
+    "security": {
+        "message": "Securité"
+    },
+    "no_infos": {
+        "message": "Pas d'information"
+    },
+    "communication_secured": {
+        "message": "Communication securisée"
+    },
+    "certificate_invalid": {
+        "message": "Certificat invalide"
+    },
+    "dark_mode": {
+        "message": "Mode sombre"
+    },
+    "feedback": {
+        "message": "Feedback"
+    },
+    "legal": {
+        "message": "Légal"
+    },
+    "settings": {
+        "message": "Configuration"
+    },
+    "privacy_policy": {
+        "message": "Déclaration vie privée"
+    },
+    "license": {
+        "message": "Licence"
+    },
+    "credits": {
+        "message": "Crédits"
     }
 }
