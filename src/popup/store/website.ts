@@ -28,6 +28,7 @@ const website: StoreWebsite = {
 export default website
 
 async function init() {
+    websiteStates.loading = true
     await fetchData()
     if (!websiteStates.internal) {
         calculateScores()
