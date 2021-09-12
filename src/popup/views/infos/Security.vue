@@ -48,7 +48,8 @@
                         <p class="text-left whitespace-nowrap">
                             {{
                                 website.states.data?.certificate?.owner
-                                    ?.organisation || ''
+                                    ?.organisation ||
+                                extension.methods.i18n('no_organisation')
                             }}
                         </p>
                     </div>

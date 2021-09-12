@@ -17,6 +17,9 @@
     "no_infos": {
         "message": "No infos"
     },
+    "no_organisation": {
+        "message": "No organisation"
+    },
     "communication_secured": {
         "message": "Communication secured"
     },
