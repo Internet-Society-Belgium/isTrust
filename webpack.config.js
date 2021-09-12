@@ -42,27 +42,17 @@ module.exports = (env, options) => {
                 },
                 {
                     test: /\.(eot|ttf|woff|woff2)(\?\S*)?$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                outputPath: 'popup/fonts',
-                                esModule: false,
-                            },
-                        },
-                    ],
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'popup/fonts/[hash][ext]',
+                    },
                 },
                 {
                     test: /\.(png|jpe?g|gif|webm|mp4|svg)$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                outputPath: 'popup/assets',
-                                esModule: false,
-                            },
-                        },
-                    ],
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'popup/assets/[hash][ext]',
+                    },
                 },
                 {
                     test: /\.js$/,
