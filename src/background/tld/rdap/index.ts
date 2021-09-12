@@ -3,9 +3,8 @@ import axios from 'axios'
 import { Dns } from '../../../types/dns'
 import { RDAPData } from '../../types/rdap'
 
-import { RDAP } from '../../utils/rdap'
-
 import { Website } from '..'
+import { RDAP } from '../../rdap'
 
 export default class Website_rdap extends Website {
     constructor(hostname: string) {
