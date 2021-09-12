@@ -1,6 +1,6 @@
 {
     "extName": {
-        "message": "trest"
+        "message": "isTrust"
     },
     "extDescription": {
         "message": "Verify legal trustability of a website"

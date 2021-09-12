@@ -42,7 +42,7 @@ browser.runtime.onInstalled.addListener(async () => {
     await browser.storage.local.set(defaultLocalStorage)
 
     const { status, data } = await axios.get<Geolocation>(
-        `https://trest.api.progiciel.be/geolocation`
+        `https://istrust.api.progiciel.be/geolocation`
     )
     if (status !== 200) return
 

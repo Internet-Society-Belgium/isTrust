@@ -61,8 +61,8 @@ async function fetchData() {
     }
 
     let cookie = await browser.cookies.get({
-        url: `${origin}/trest`,
-        name: `${protocol}trest`,
+        url: `${origin}/istrust`,
+        name: `${protocol}istrust`,
     })
 
     let cookieData: Cookie | undefined
@@ -81,8 +81,8 @@ async function fetchData() {
         }
 
         cookie = await browser.cookies.get({
-            url: `${origin}/trest`,
-            name: `${protocol}trest`,
+            url: `${origin}/istrust`,
+            name: `${protocol}istrust`,
         })
     }
 

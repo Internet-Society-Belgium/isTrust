@@ -13,7 +13,7 @@
 
             <button
                 class="flex items-center"
-                @click="openUrl('mailto:trest@isoc.be')"
+                @click="openUrl('mailto:istrust@isoc.be')"
             >
                 <div class="flex-none">
                     <ChatIcon class="w-6 h-6 text-neutral" />

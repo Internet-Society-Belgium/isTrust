@@ -7,8 +7,8 @@ const setCookie = (value: string, secure: boolean) => {
     const d = new Date()
     d.setTime(d.getTime() + 24 * 60 * 60 * 1000)
     document.cookie = `${
-        secure ? 'https:trest' : 'http:trest'
-    }=${value};Path=/trest;Expires=${d.toUTCString()};SameSite=Strict;`
+        secure ? 'https:istrust' : 'http:istrust'
+    }=${value};Path=/istrust;Expires=${d.toUTCString()};SameSite=Strict;`
 }
 
 browser.runtime.onMessage.addListener(async () => {
