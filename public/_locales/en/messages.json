@@ -3,7 +3,7 @@
         "message": "isTrust"
     },
     "extDescription": {
-        "message": "Verify legal trustability of a website"
+        "message": "Verify trustability of a website"
     },
     "internal": {
         "message": "Internal"
@@ -15,7 +15,7 @@
         "message": "Security"
     },
     "no_infos": {
-        "message": "No infos"
+        "message": "No info"
     },
     "communication_secured": {
         "message": "Communication secured"
