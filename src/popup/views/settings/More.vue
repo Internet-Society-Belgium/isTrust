@@ -10,9 +10,8 @@
                 </p>
             </router-link>
             <div class="grid grid-flow-row gap-2">
-                <a
+                <button
                     class="flex items-center"
-                    href="#"
                     @click="
                         openUrl(
                             'https://github.com/Internet-Society-Belgium/trest/blob/main/PRIVACY.md'
@@ -36,11 +35,10 @@
                     <div class="flex-none">
                         <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                     </div>
-                </a>
+                </button>
 
-                <a
+                <button
                     class="flex items-center"
-                    href="#"
                     @click="
                         openUrl(
                             'https://github.com/Internet-Society-Belgium/trest/blob/main/LICENSE.md'
@@ -64,11 +62,10 @@
                     <div class="flex-none">
                         <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                     </div>
-                </a>
+                </button>
 
-                <a
+                <button
                     class="flex items-center"
-                    href="#"
                     @click="
                         openUrl(
                             'https://github.com/Internet-Society-Belgium/trest/blob/main/CREDITS.md'
@@ -92,7 +89,7 @@
                     <div class="flex-none">
                         <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                     </div>
-                </a>
+                </button>
             </div>
         </div>
     </div>

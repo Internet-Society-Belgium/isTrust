@@ -11,9 +11,8 @@
                 <MoonIcon class="flex-grow w-6 h-6 text-neutral" />
             </div>
 
-            <a
+            <button
                 class="flex items-center"
-                href="#"
                 @click="openUrl('mailto:trest@isoc.be')"
             >
                 <div class="flex-none">
@@ -25,7 +24,7 @@
                 <div class="flex-none">
                     <ExternalLinkIcon class="w-5 h-5 text-neutral" />
                 </div>
-            </a>
+            </button>
 
             <router-link
                 to="/settings/more"

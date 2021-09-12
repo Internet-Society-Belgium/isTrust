@@ -33,11 +33,11 @@
         </div>
 
         <div class="justify-self-end flex items-center">
-            <a href="#" @click="openUrl(extension.states.chapter.url)">
+            <button @click="openUrl(extension.states.chapter.url)">
                 <InformationCircleIcon
                     class="w-6 h-6 text-secondary dark:text-dark-secondary"
                 />
-            </a>
+            </button>
         </div>
     </div>
 </template>

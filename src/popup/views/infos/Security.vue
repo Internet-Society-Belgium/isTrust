@@ -5,13 +5,13 @@
     >
         <div class="flex items-center gap-2">
             <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
-            <a href="#" class="flex-grow" @click="goToSecure">
+            <button class="flex-grow" @click="goToSecure">
                 <div class="flex items-center gap-1">
                     <p>http</p>
                     <ArrowNarrowRightIcon class="w-6 h-6 text-neutral" />
                     <p>https</p>
                 </div>
-            </a>
+            </button>
         </div>
     </div>
     <div
