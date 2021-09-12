@@ -90,7 +90,11 @@ async function fetchData() {
     const extensionVersion = await browser.runtime.getManifest().version
 
     if (!cookieData || cookieData.version !== extensionVersion) {
-        await browser.tabs.sendMessage(id, {})
+        try {
+            await browser.tabs.sendMessage(id, {})
+        } catch (e) {
+            return
+        }
 
         cookie = await browser.cookies.get({
             url: `${origin}/trest`,
