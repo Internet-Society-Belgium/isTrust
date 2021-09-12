@@ -1,7 +1,6 @@
 import { reactive, readonly } from 'vue'
 import browser from 'webextension-polyfill'
 
-import { WebsiteData } from '../../types/communication'
 import { Cookie } from '../../types/cookie'
 import {
     StoreWebsite,
@@ -15,26 +14,8 @@ const websiteStates: StoreWebsiteStates = reactive({
 })
 
 const websiteMethods: StoreWebsiteMethods = {
-    async clear(): Promise<void> {
-        websiteStates.data = {} as WebsiteData
-        websiteStates.scores = undefined
-
-        const tab = await browser.tabs.query({
-            active: true,
-            currentWindow: true,
-        })
-        if (!tab) return
-        const id = tab[0].id
-        const url = tab[0].url
-        if (!id || !url) return
-        const { protocol, origin } = new URL(url)
-        if (!origin) return
-
-        await browser.cookies.remove({
-            url: `${origin}/trest`,
-            name: `${protocol}trest`,
-        })
-
+    async reload(): Promise<void> {
+        await browser.tabs.reload()
         await init()
     },
 }

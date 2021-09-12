@@ -33,7 +33,7 @@ export interface StoreWebsiteScore {
 type Score = 'ok' | 'neutral' | 'warning'
 
 export interface StoreWebsiteMethods {
-    clear: () => Promise<void>
+    reload: () => Promise<void>
 }
 
 export const StoreWebsiteKey: InjectionKey<StoreWebsite> = Symbol('website')

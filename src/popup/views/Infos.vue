@@ -5,6 +5,14 @@
     >
         <EyeOffIcon class="w-12 h-12 text-neutral" />
     </div>
+    <div
+        v-else-if="!website.states.loading && !website.states?.data"
+        class="flex justify-center align-middle m-2"
+    >
+        <button @click="website.methods.reload">
+            <RefreshIcon class="w-8 h-8 text-neutral" />
+        </button>
+    </div>
     <div v-else class="flex flex-col justify-center align-middle gap-4 m-2">
         <section
             class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
@@ -50,15 +58,15 @@
                 <Security />
             </Loading>
         </section>
-
-        <button v-if="settings.states.dev" @click="website.methods.clear">
-            clear
-        </button>
     </div>
 </template>
 
 <script lang="ts">
-    import { BadgeCheckIcon, EyeOffIcon } from '@heroicons/vue/outline'
+    import {
+        BadgeCheckIcon,
+        EyeOffIcon,
+        RefreshIcon,
+    } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreExtensionKey } from '../types/store/extension'
     import { StoreSettingsKey } from '../types/store/settings'
@@ -74,16 +82,13 @@
             Security,
             BadgeCheckIcon,
             EyeOffIcon,
+            RefreshIcon,
         },
         setup() {
             const extension = inject(StoreExtensionKey)
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
-            return {
-                extension,
-                settings,
-                website,
-            }
+            return { extension, settings, website }
         },
     })
 </script>
