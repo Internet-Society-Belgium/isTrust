@@ -17,8 +17,8 @@
     "scripts": {
         "prepare": "husky install",
         "lint": "eslint --fix",
-        "lint:staged": "lint-staged",
         "format": "prettier -w .",
+        "lint_format:staged": "lint-staged",
         "test": "jest",
         "serve:firefox-desktop": "webpack build --mode development --watch --env target=firefox-desktop",
         "serve:chromium": "webpack build --mode development --watch --env target=chromium",
