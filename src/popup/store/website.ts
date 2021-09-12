@@ -36,15 +36,17 @@ async function init() {
 }
 
 async function fetchData() {
-    const tab = await browser.tabs.query({
-        active: true,
-        currentWindow: true,
-    })
-    if (!tab) return
-
-    while (tab[0].status === 'loading') {
-        await new Promise((resolve) => setTimeout(resolve, 500))
-    }
+    let tab: browser.Tabs.Tab[] | null = null
+    do {
+        if (tab) {
+            await new Promise((resolve) => setTimeout(resolve, 500))
+        }
+        tab = await browser.tabs.query({
+            active: true,
+            currentWindow: true,
+        })
+        if (tab.length === 0) return
+    } while (tab[0].status === 'loading')
 
     const id = tab[0].id
     const url = tab[0].url
