@@ -1,3 +1,10 @@
+## [2.0.0](https://github.com/Internet-Society-Belgium/isTrust/compare/1.2.0...2.0.0) (2021-09-12)
+
+
+### 🐛 Bug Fixes
+
+* reload loading ([ccaa50b](https://github.com/Internet-Society-Belgium/isTrust/commit/ccaa50bf29b12381025f72731acb3950fd937743))
+
 ## [1.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/1.1.0...1.2.0) (2021-09-12)
 
 
