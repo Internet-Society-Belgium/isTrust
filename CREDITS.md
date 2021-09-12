@@ -2,8 +2,6 @@
 
 ## Copyrights
 
-
-
 ## Contributors
 
 <a href="https://github.com/Internet-Society-Belgium/trest/graphs/contributors">
