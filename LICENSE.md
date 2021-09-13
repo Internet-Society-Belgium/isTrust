@@ -5,8 +5,7 @@ Portions of the software Copyright © respective holders, see list of incorporat
 
 isTrust as a whole is presently Licensed Q Public License 1.0 (QPL 1.0), though portions of the code are dual-licensed under other free/open source licenses.
 
-TEXT OF Q Public License 1.0 (QPL 1.0)
-======================================
+# TEXT OF Q Public License 1.0 (QPL 1.0)
 
 Copyright (C) 1999 Trolltech AS, Norway.
 Everyone is permitted to copy and distribute this license document.
@@ -59,13 +58,11 @@ This license is governed by the Laws of Norway. Disputes shall be settled by Osl
 
 Source: https://opensource.org/licenses/QPL-1.0
 
-
-LICENSES FOR INCORPORATED CODEBASES
-===================================
+# LICENSES FOR INCORPORATED CODEBASES
 
 https://github.com/mozilla/webextension-polyfill => Mozilla Public License 2.0
 
-https://github.com/Lusito/webextension-polyfill-ts => zLib licence => thanks  Copyright (C) 2018 Santo Pfingsten
+https://github.com/Lusito/webextension-polyfill-ts => zLib licence => thanks Copyright (C) 2018 Santo Pfingsten
 
 https://github.com/axios/axios => MIT licence => thanks Copyright (c) 2014-present Matt Zabriskie
 
@@ -77,8 +74,7 @@ https://github.com/lupomontero/psl => MIT licence => thanks Copyright (c) 2017 L
 
 Font: https://fonts.google.com/specimen/Rubik => SIL Open Font License (OFL) => Copyright (c) Huber & Ficher, thanks Philipp Hubert and Sebastian Fischer, Meir Sadan and Alexei Vanyashin (Cyreal).
 
-CONTRIBUTORS AGREE TO FREE/OPEN SOURCE DUAL-LICENSING
-=====================================================
+# CONTRIBUTORS AGREE TO FREE/OPEN SOURCE DUAL-LICENSING
 
 By contributing code or other works of authorship to this project
 ("Your Contributions"), you grant to the Internet Society Chapter Belgium vzw/asbl (ISOC.be) and copyright holders a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Your Contributions and such derivative works under the terms of any free software or open source license or licenses, such license(s) to be selected by ISOC.be and copyright holders at their sole discretion (such licenses will always be consistent with ISOC.be's mission).
