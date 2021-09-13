@@ -17,7 +17,7 @@
     "scripts": {
         "prepare": "husky install",
         "lint": "eslint --fix",
-        "format": "prettier -w .",
+        "format": "prettier --json-recursive-sort -w .",
         "lint_format:staged": "lint-staged",
         "test": "jest",
         "serve:firefox-desktop": "webpack build --mode development --watch --env target=firefox-desktop",
@@ -75,6 +75,7 @@
         "postcss": "^8.3.6",
         "postcss-loader": "^6.1.1",
         "prettier": "^2.4.0",
+        "prettier-plugin-sort-json": "^0.0.2",
         "release-it": "^14.11.5",
         "source-map-loader": "^3.0.0",
         "style-loader": "^3.0.0",
