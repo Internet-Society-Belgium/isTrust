@@ -29,6 +29,8 @@ export default website
 
 async function init() {
     websiteStates.loading = true
+    websiteStates.data = undefined
+    websiteStates.scores = undefined
     await fetchData()
     if (!websiteStates.internal) {
         calculateScores()
