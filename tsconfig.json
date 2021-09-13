@@ -1,17 +1,17 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "esnext",
-        "strict": true,
-        "jsx": "preserve",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "importHelpers": true,
+        "jsx": "preserve",
+        "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+        "module": "esnext",
         "moduleResolution": "node",
         "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
         "sourceMap": true,
-        "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+        "strict": true,
+        "target": "es5"
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules"],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
