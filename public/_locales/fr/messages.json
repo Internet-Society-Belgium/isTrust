@@ -7,5 +7,41 @@
     },
     "internal": {
         "message": "Interne"
+    },
+    "domain": {
+        "message": "Domaine"
+    },
+    "security": {
+        "message": "Securité"
+    },
+    "no_infos": {
+        "message": "Pas d'information"
+    },
+    "communication_secured": {
+        "message": "Communication securisée"
+    },
+    "certificate_invalid": {
+        "message": "Certificat invalide"
+    },
+    "no_organisation": {
+        "message": "Pas d'organisation"
+    },
+    "feedback": {
+        "message": "Feedback"
+    },
+    "legal": {
+        "message": "Légal"
+    },
+    "settings": {
+        "message": "Configuration"
+    },
+    "privacy_policy": {
+        "message": "Déclaration vie privée"
+    },
+    "license": {
+        "message": "Licence"
+    },
+    "credits": {
+        "message": "Crédits"
     }
 }

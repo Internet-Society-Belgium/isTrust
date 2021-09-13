@@ -1,0 +1,47 @@
+{
+    "extension_name": {
+        "message": "isTrust"
+    },
+    "extension_description": {
+        "message": "De betrouwbaarheid van een website verifiëren"
+    },
+    "internal": {
+        "message": "Intern"
+    },
+    "domain": {
+        "message": "Domein"
+    },
+    "security": {
+        "message": "Veiligheid"
+    },
+    "no_infos": {
+        "message": "Geen info"
+    },
+    "communication_secured": {
+        "message": "Beveiligde communicatie"
+    },
+    "certificate_invalid": {
+        "message": "Ongeldig certificaat"
+    },
+    "no_organisation": {
+        "message": "Geen organisatie"
+    },
+    "feedback": {
+        "message": "Feedback"
+    },
+    "legal": {
+        "message": "Legaal"
+    },
+    "settings": {
+        "message": "Instellingen"
+    },
+    "privacy_policy": {
+        "message": "Privacybeleid"
+    },
+    "license": {
+        "message": "Licentie"
+    },
+    "credits": {
+        "message": "Credits"
+    }
+}
