@@ -1,9 +1,9 @@
 {
-    "extName": {
-        "message": "isTrust"
-    },
-    "extDescription": {
+    "extension_description": {
         "message": "Vérifie si les obligations légales sont appliquées"
+    },
+    "extension_name": {
+        "message": "isTrust"
     },
     "internal": {
         "message": "Interne"

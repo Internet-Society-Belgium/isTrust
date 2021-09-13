@@ -1,18 +1,33 @@
 {
-    "extName": {
-        "message": "isTrust"
+    "certificate_invalid": {
+        "message": "Certificate invalid"
     },
-    "extDescription": {
-        "message": "Verify legal trustability of a website"
+    "communication_secured": {
+        "message": "Communication secured"
     },
-    "internal": {
-        "message": "Internal"
+    "credits": {
+        "message": "Credits"
     },
     "domain": {
         "message": "Domain"
     },
-    "security": {
-        "message": "Security"
+    "extension_description": {
+        "message": "Verify legal trustability of a website"
+    },
+    "extension_name": {
+        "message": "isTrust"
+    },
+    "feedback": {
+        "message": "Feedback"
+    },
+    "internal": {
+        "message": "Internal"
+    },
+    "legal": {
+        "message": "Legal"
+    },
+    "license": {
+        "message": "License"
     },
     "no_infos": {
         "message": "No infos"
@@ -20,28 +35,13 @@
     "no_organisation": {
         "message": "No organisation"
     },
-    "communication_secured": {
-        "message": "Communication secured"
-    },
-    "certificate_invalid": {
-        "message": "Certificate invalid"
-    },
-    "feedback": {
-        "message": "Feedback"
-    },
-    "legal": {
-        "message": "Legal"
-    },
-    "settings": {
-        "message": "Settings"
-    },
     "privacy_policy": {
         "message": "Privacy Policy"
     },
-    "license": {
-        "message": "License"
+    "security": {
+        "message": "Security"
     },
-    "credits": {
-        "message": "Credits"
+    "settings": {
+        "message": "Settings"
     }
 }
