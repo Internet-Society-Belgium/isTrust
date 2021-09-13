@@ -26,9 +26,6 @@
     "certificate_invalid": {
         "message": "Certificate invalid"
     },
-    "dark_mode": {
-        "message": "Dark mode"
-    },
     "feedback": {
         "message": "Feedback"
     },
