@@ -8,6 +8,7 @@ export interface StoreSettings {
 
 export interface StoreSettingsStates {
     dark: boolean
+    reportBugs: boolean
 }
 
 export interface StoreSettingsMethods {

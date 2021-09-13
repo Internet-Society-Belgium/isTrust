@@ -10,6 +10,7 @@ import {
 
 const settingsStates: StoreSettingsStates = reactive({
     dark: false,
+    reportBugs: true,
 })
 
 const settingsMethods: StoreSettingsMethods = {

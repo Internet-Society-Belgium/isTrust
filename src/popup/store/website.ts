@@ -12,6 +12,8 @@ import {
     StoreWebsiteStates,
 } from '../types/store/website'
 
+import reportBug from '../utils/bug'
+
 const websiteStates: StoreWebsiteStates = reactive({
     internal: false,
     loading: true,
@@ -84,6 +86,14 @@ async function fetchData(): Promise<WebsiteData | undefined> {
         try {
             await browser.tabs.sendMessage(id, {})
         } catch (e) {
+            const error: Error = e as Error
+            if (
+                error.message !==
+                'Could not establish connection. Receiving end does not exist.'
+            ) {
+                await reportBug({ type: 'background', data: [url] })
+            }
+
             return
         }
 

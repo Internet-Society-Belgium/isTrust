@@ -1,8 +1,16 @@
 import { createApp } from 'vue'
 
+import reportBug from './utils/bug'
+
 import App from './views/App.vue'
 
 import router from './router'
 import './styles/index.css'
 
-createApp(App).use(router).mount('#app')
+const app = createApp(App)
+app.use(router)
+app.mount('#app')
+
+app.config.errorHandler = async (err, vm, info) => {
+    await reportBug({ type: 'popup', data: [info] })
+}
