@@ -12,7 +12,7 @@
         "message": "Domain"
     },
     "extension_description": {
-        "message": "Verify legal trustability of a website"
+        "message": "Verify trustability of a website"
     },
     "extension_name": {
         "message": "isTrust"
@@ -29,8 +29,8 @@
     "license": {
         "message": "License"
     },
-    "no_infos": {
-        "message": "No infos"
+    "no_info": {
+        "message": "No info"
     },
     "no_organisation": {
         "message": "No organisation"

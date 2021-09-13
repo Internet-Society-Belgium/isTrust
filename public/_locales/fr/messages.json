@@ -12,7 +12,7 @@
         "message": "Domaine"
     },
     "extension_description": {
-        "message": "Vérifie si les obligations légales sont appliquées"
+        "message": "Vérifie la fiabilité d'un site web"
     },
     "extension_name": {
         "message": "isTrust"
@@ -29,7 +29,7 @@
     "license": {
         "message": "Licence"
     },
-    "no_infos": {
+    "no_info": {
         "message": "Pas d'information"
     },
     "no_organisation": {
