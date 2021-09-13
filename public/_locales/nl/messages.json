@@ -1,8 +1,8 @@
 {
-    "extName": {
+    "extension_name": {
         "message": "isTrust"
     },
-    "extDescription": {
+    "extension_description": {
         "message": "De betrouwbaarheid van een website verifiëren"
     },
     "internal": {
@@ -23,8 +23,8 @@
     "certificate_invalid": {
         "message": "Ongeldig certificaat"
     },
-    "dark_mode": {
-        "message": "Donkere modus"
+    "no_organisation": {
+        "message": "Geen organisatie"
     },
     "feedback": {
         "message": "Feedback"

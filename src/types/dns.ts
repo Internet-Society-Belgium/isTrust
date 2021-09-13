@@ -1,6 +1,6 @@
 export interface Dns {
     events: Events
-    registrant: Registrant
+    registrant?: Registrant
     dnssec: boolean
 }
 

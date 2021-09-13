@@ -1,50 +1,47 @@
 {
-    "extName": {
-        "message": "isTrust"
-    },
-    "extDescription": {
-        "message": "Verify trustability of a website"
-    },
-    "internal": {
-        "message": "Internal"
-    },
-    "domain": {
-        "message": "Domain"
-    },
-    "security": {
-        "message": "Security"
-    },
-    "no_infos": {
-        "message": "No info"
-    },
-    "no_organisation": {
-        "message": "No organisation"
+    "certificate_invalid": {
+        "message": "Certificate invalid"
     },
     "communication_secured": {
         "message": "Communication secured"
     },
-    "certificate_invalid": {
-        "message": "Certificate invalid"
+    "credits": {
+        "message": "Credits"
     },
-    "dark_mode": {
-        "message": "Dark mode"
+    "domain": {
+        "message": "Domain"
+    },
+    "extension_description": {
+        "message": "Verify legal trustability of a website"
+    },
+    "extension_name": {
+        "message": "isTrust"
     },
     "feedback": {
         "message": "Feedback"
     },
+    "internal": {
+        "message": "Internal"
+    },
     "legal": {
         "message": "Legal"
-    },
-    "settings": {
-        "message": "Settings"
-    },
-    "privacy_policy": {
-        "message": "Privacy Policy"
     },
     "license": {
         "message": "License"
     },
-    "credits": {
-        "message": "Credits"
+    "no_infos": {
+        "message": "No infos"
+    },
+    "no_organisation": {
+        "message": "No organisation"
+    },
+    "privacy_policy": {
+        "message": "Privacy Policy"
+    },
+    "security": {
+        "message": "Security"
+    },
+    "settings": {
+        "message": "Settings"
     }
 }

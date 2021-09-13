@@ -1,3 +1,18 @@
+## [2.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.1.0...2.2.0) (2021-09-13)
+
+
+### 🐛 Bug Fixes
+
+* **public/manifest:** i18n strings ([e052879](https://github.com/Internet-Society-Belgium/isTrust/commit/e0528798549564cf5d627bbe9ff486d334c450e2))
+* **store/website:** reset data & score on init() ([c039c6d](https://github.com/Internet-Society-Belgium/isTrust/commit/c039c6d4dae7d756526c36e5fb0108696e55a2ad))
+* **tld/api/be:** no registrant ([3814a24](https://github.com/Internet-Society-Belgium/isTrust/commit/3814a249569a6e5bc3077323cc5fb54cd7406fa2)), closes [#44](https://github.com/Internet-Society-Belgium/isTrust/issues/44)
+
+
+### ✨ Features
+
+* report bugs ([3e5eba2](https://github.com/Internet-Society-Belgium/isTrust/commit/3e5eba2b52619eec39e00a104864d97826652191)), closes [#46](https://github.com/Internet-Society-Belgium/isTrust/issues/46)
+* **ui/domain:** no organisation ([ddc8bba](https://github.com/Internet-Society-Belgium/isTrust/commit/ddc8bbade5572019fc54884dd34c8e40da618710))
+
 ## [2.1.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.0.0...2.1.0) (2021-09-12)
 
 ## [2.0.0](https://github.com/Internet-Society-Belgium/isTrust/compare/1.2.0...2.0.0) (2021-09-12)

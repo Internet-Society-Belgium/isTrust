@@ -1,9 +1,9 @@
 {
-    "extName": {
-        "message": "isTrust"
+    "extension_description": {
+        "message": "Vérifie si les obligations légales sont appliquées"
     },
-    "extDescription": {
-        "message": "Vérifie la fiabilité d'un site web"
+    "extension_name": {
+        "message": "isTrust"
     },
     "internal": {
         "message": "Interne"
@@ -23,8 +23,8 @@
     "certificate_invalid": {
         "message": "Certificat invalide"
     },
-    "dark_mode": {
-        "message": "Mode sombre"
+    "no_organisation": {
+        "message": "Pas d'organisation"
     },
     "feedback": {
         "message": "Feedback"

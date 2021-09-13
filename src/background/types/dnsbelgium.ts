@@ -3,7 +3,7 @@ export interface Registration {
         created: Date
         updated: Date
     }
-    registrant: string
+    registrant: string | null
     dnsKeyInfo: {
         dnsKeys: []
     }

@@ -1,4 +1,7 @@
+.vscode
 build
 node_modules
 pack
+public/manifest.json
 CHANGELOG.md
+package*.json
