@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "__MSG_extName__",
-    "description": "__MSG_extDescription__",
+    "name": "__MSG_extension_name__",
+    "description": "__MSG_extension_description__",
     "author": "Progiciel",
     "default_locale": "en",
     "permissions": [
@@ -33,7 +33,7 @@
     ],
     "browser_action": {
         "default_popup": "popup/index.html",
-        "default_title": "__MSG_extName__",
+        "default_title": "__MSG_extension_name__",
         "default_icon": {
             "128": "icons/128.png"
         }
