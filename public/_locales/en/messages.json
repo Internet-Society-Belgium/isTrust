@@ -1,8 +1,8 @@
 {
-    "extName": {
+    "extension_name": {
         "message": "isTrust"
     },
-    "extDescription": {
+    "extension_description": {
         "message": "Verify trustability of a website"
     },
     "internal": {
