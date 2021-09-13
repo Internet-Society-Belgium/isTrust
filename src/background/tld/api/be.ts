@@ -17,22 +17,29 @@ export default class Website_be extends Website {
             )
         if (registrationStatus !== 200) return
 
-        const { status: registrantStatus, data: registrant } =
-            await axios.get<Contact>(
-                `https://api.dnsbelgium.be/whois/contact/${registration.registrant}`
-            )
-
-        if (registrantStatus !== 200) return
-
-        return {
+        const dns: Dns = {
             events: {
                 registration: registration.domainInfo.created,
                 lastChanged: registration.domainInfo.updated,
             },
-            registrant: {
-                organisation: registrant.companyName,
-            },
             dnssec: registration.dnsKeyInfo.dnsKeys.length !== 0,
         }
+
+        if (registration.registrant) {
+            const { status: registrantStatus, data: registrant } =
+                await axios.get<Contact>(
+                    `https://api.dnsbelgium.be/whois/contact/${registration.registrant}`
+                )
+
+            if (registrantStatus === 200) {
+                if (registrant?.companyName) {
+                    dns.registrant = {
+                        organisation: registrant.companyName,
+                    }
+                }
+            }
+        }
+
+        return dns
     }
 }
