@@ -1,6 +1,10 @@
 # Credits
 
+
 ## Copyrights
+Copyright 2021 © Internet Society Chapter Belgium vzw/asbl ("ISOC.be")
+Copyright 2021 © Frederic Taes and Julien Taes, initial authors.
+Portions Copyright © : see license.md for the incorporated codebase.
 
 ## Contributors
 
