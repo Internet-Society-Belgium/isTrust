@@ -75,6 +75,7 @@ https://github.com/vuejs/vue-router => MIT licence => thanks Copyright (c) 2013-
 
 https://github.com/lupomontero/psl => MIT licence => thanks Copyright (c) 2017 Lupo Montero lupomontero@gmail.com
 
+Font: https://fonts.google.com/specimen/Rubik => SIL Open Font License (OFL) => Copyright (c) Huber & Ficher, thanks Philipp Hubert and Sebastian Fischer, Meir Sadan and Alexei Vanyashin (Cyreal).
 
 CONTRIBUTORS AGREE TO FREE/OPEN SOURCE DUAL-LICENSING
 =====================================================
