@@ -17,17 +17,21 @@ export interface StoreWebsiteStates {
 
 export interface StoreWebsiteScore {
     score: Score
-    domain: {
-        score: Score
-        registration: Score
-        lastChanged: Score
-        registrant: Score
-    }
-    security: {
-        score: Score
-        https: Score
-        certificate: Score
-    }
+    domain: StoreWebsiteScoreDomain
+    security: StoreWebsiteScoreSecurity
+}
+
+export interface StoreWebsiteScoreDomain {
+    score: Score
+    registration: Score
+    lastChanged: Score
+    registrant: Score
+}
+
+export interface StoreWebsiteScoreSecurity {
+    score: Score
+    https: Score
+    certificate: Score
 }
 
 type Score = 'ok' | 'neutral' | 'warning'

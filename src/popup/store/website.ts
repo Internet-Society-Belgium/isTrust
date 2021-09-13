@@ -1,10 +1,14 @@
 import { reactive, readonly } from 'vue'
 import browser from 'webextension-polyfill'
 
+import { WebsiteData } from '../../types/communication'
 import { Cookie } from '../../types/cookie'
 import {
     StoreWebsite,
     StoreWebsiteMethods,
+    StoreWebsiteScore,
+    StoreWebsiteScoreDomain,
+    StoreWebsiteScoreSecurity,
     StoreWebsiteStates,
 } from '../types/store/website'
 
@@ -31,14 +35,15 @@ async function init() {
     websiteStates.loading = true
     websiteStates.data = undefined
     websiteStates.scores = undefined
-    await fetchData()
+
+    websiteStates.data = await fetchData()
     if (!websiteStates.internal) {
-        calculateScores()
+        websiteStates.scores = calculateScores()
     }
     websiteStates.loading = false
 }
 
-async function fetchData() {
+async function fetchData(): Promise<WebsiteData | undefined> {
     let tab: browser.Tabs.Tab[] | null = null
     do {
         if (tab) {
@@ -88,45 +93,41 @@ async function fetchData() {
         })
     }
 
-    if (cookie) {
-        websiteStates.data = JSON.parse(cookie.value)
-    }
+    if (!cookie) return
+
+    return JSON.parse(cookie.value)
 }
 
-function calculateScores() {
-    websiteStates.scores = {
+function calculateScores(): StoreWebsiteScore | undefined {
+    if (!websiteStates.data) return
+
+    const scoresDomain = calculateDomainScores(websiteStates.data)
+    const scoresSecurity = calculateSecurityScores(websiteStates.data)
+
+    const scores: StoreWebsiteScore = {
         score: 'neutral',
-        domain: {
-            score: 'neutral',
-            registration: 'neutral',
-            lastChanged: 'neutral',
-            registrant: 'neutral',
-        },
-        security: {
-            score: 'neutral',
-            https: 'neutral',
-            certificate: 'neutral',
-        },
+        domain: scoresDomain,
+        security: scoresSecurity,
     }
 
-    calculateDomainScores()
-    calculateSecurityScores()
-
-    for (const [k, v] of Object.entries(websiteStates.scores)) {
+    for (const [k, v] of Object.entries(scores)) {
         if (k === 'score') continue
         const vScore = v.score
         if (!vScore) continue
-        if (vScore === 'warning') websiteStates.scores.score = 'warning'
-        if (vScore === 'ok' && websiteStates.scores.score === 'neutral')
-            websiteStates.scores.score = 'ok'
+        if (vScore === 'warning') scores.score = 'warning'
+        if (vScore === 'ok' && scores.score === 'neutral') scores.score = 'ok'
     }
+
+    return scores
 }
 
-function calculateDomainScores() {
-    const data = websiteStates.data
-    if (!data) return
-    const scores = websiteStates.scores
-    if (!scores) return
+function calculateDomainScores(data: WebsiteData): StoreWebsiteScoreDomain {
+    const scores: StoreWebsiteScoreDomain = {
+        score: 'neutral',
+        registration: 'neutral',
+        lastChanged: 'neutral',
+        registrant: 'neutral',
+    }
 
     if (data.dns?.events.registration) {
         const registration = new Date(data.dns?.events.registration)
@@ -134,9 +135,9 @@ function calculateDomainScores() {
         recent.setMonth(recent.getMonth() - 6)
 
         if (recent < registration) {
-            scores.domain.registration = 'warning'
+            scores.registration = 'warning'
         } else {
-            scores.domain.registration = 'ok'
+            scores.registration = 'ok'
         }
     }
 
@@ -146,54 +147,57 @@ function calculateDomainScores() {
         recent.setMonth(recent.getMonth() - 1)
 
         if (recent < lastChanged) {
-            scores.domain.lastChanged = 'warning'
+            scores.lastChanged = 'warning'
         } else {
-            scores.domain.lastChanged = 'ok'
+            scores.lastChanged = 'ok'
         }
     }
 
     if (data.dns) {
         if (!data.dns?.registrant) {
-            scores.domain.registrant = 'warning'
+            scores.registrant = 'warning'
         } else {
-            scores.domain.registrant = 'ok'
+            scores.registrant = 'ok'
         }
     }
 
-    for (const [k, v] of Object.entries(scores.domain)) {
+    for (const [k, v] of Object.entries(scores)) {
         if (k === 'score') continue
-        if (v === 'warning') scores.domain.score = 'warning'
-        if (v === 'ok' && scores.domain.score === 'neutral')
-            scores.domain.score = 'ok'
+        if (v === 'warning') scores.score = 'warning'
+        if (v === 'ok' && scores.score === 'neutral') scores.score = 'ok'
     }
+
+    return scores
 }
 
-function calculateSecurityScores() {
-    const data = websiteStates.data
-    if (!data) return
-    const scores = websiteStates.scores
-    if (!scores) return
+function calculateSecurityScores(data: WebsiteData): StoreWebsiteScoreSecurity {
+    const scores: StoreWebsiteScoreSecurity = {
+        score: 'neutral',
+        https: 'neutral',
+        certificate: 'neutral',
+    }
 
     if (!data.url.https) {
-        scores.security.https = 'warning'
+        scores.https = 'warning'
     } else {
-        scores.security.https = 'ok'
+        scores.https = 'ok'
     }
 
     if (data.certificate) {
         if (!data.certificate.valid) {
-            scores.security.certificate = 'warning'
+            scores.certificate = 'warning'
         } else {
-            scores.security.certificate = 'ok'
+            scores.certificate = 'ok'
         }
     }
 
-    for (const [k, v] of Object.entries(scores.security)) {
+    for (const [k, v] of Object.entries(scores)) {
         if (k === 'score') continue
-        if (v === 'warning') scores.security.score = 'warning'
-        if (v === 'ok' && scores.security.score === 'neutral')
-            scores.security.score = 'ok'
+        if (v === 'warning') scores.score = 'warning'
+        if (v === 'ok' && scores.score === 'neutral') scores.score = 'ok'
     }
+
+    return scores
 }
 
 ;(async () => {
