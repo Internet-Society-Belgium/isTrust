@@ -20,17 +20,6 @@
             "background/index.js"
         ]
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "http://*/*",
-                "https://*/*"
-            ],
-            "js": [
-                "content_scripts/index.js"
-            ]
-        }
-    ],
     "browser_action": {
         "default_popup": "popup/index.html",
         "default_title": "__MSG_extension_name__",
