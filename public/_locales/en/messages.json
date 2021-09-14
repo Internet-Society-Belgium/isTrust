@@ -8,6 +8,9 @@
     "credits": {
         "message": "Credits"
     },
+    "clear_cache": {
+        "message": "Clear cache"
+    },
     "domain": {
         "message": "Domain"
     },

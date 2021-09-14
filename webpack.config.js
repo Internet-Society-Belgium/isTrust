@@ -12,7 +12,6 @@ module.exports = (env, options) => {
     return {
         entry: {
             'background/index': './src/background/index.ts',
-            'content_scripts/index': './src/content_scripts/index.ts',
             'popup/index': './src/popup/index.ts',
         },
         output: {
