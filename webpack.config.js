@@ -87,11 +87,7 @@ module.exports = (env, options) => {
                         to: 'popup/index.html',
                     },
                     {
-                        from: 'public/favicon.ico',
-                        to: 'popup/favicon.ico',
-                    },
-                    {
-                        from: 'public/icons',
+                        from: 'assets/icons',
                         to: 'icons',
                     },
                     {

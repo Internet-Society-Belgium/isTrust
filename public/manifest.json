@@ -14,7 +14,8 @@
         "contextMenus"
     ],
     "icons": {
-        "128": "icons/128.png"
+        "48": "icons/icon.png",
+        "96": "icons/icon@2x.png"
     },
     "background": {
         "scripts": [
@@ -26,7 +27,8 @@
         "default_popup": "popup/index.html",
         "default_title": "__MSG_extension_name__",
         "default_icon": {
-            "128": "icons/128.png"
+            "48": "icons/icon.png",
+            "96": "icons/icon@2x.png"
         }
     },
     "browser_specific_settings": {
