@@ -1,47 +1,47 @@
 {
-    "extension_name": {
-        "message": "isTrust"
-    },
-    "extension_description": {
-        "message": "De betrouwbaarheid van een website verifiëren"
-    },
-    "internal": {
-        "message": "Intern"
-    },
-    "domain": {
-        "message": "Domein"
-    },
-    "security": {
-        "message": "Veiligheid"
-    },
-    "no_infos": {
-        "message": "Geen info"
+    "certificate_invalid": {
+        "message": "Ongeldig certificaat"
     },
     "communication_secured": {
         "message": "Beveiligde communicatie"
     },
-    "certificate_invalid": {
-        "message": "Ongeldig certificaat"
+    "credits": {
+        "message": "Credits"
     },
-    "no_organisation": {
-        "message": "Geen organisatie"
+    "domain": {
+        "message": "Domein"
+    },
+    "extension_description": {
+        "message": "De betrouwbaarheid van een website verifiëren"
+    },
+    "extension_name": {
+        "message": "isTrust"
     },
     "feedback": {
         "message": "Feedback"
     },
+    "internal": {
+        "message": "Intern"
+    },
     "legal": {
         "message": "Legaal"
-    },
-    "settings": {
-        "message": "Instellingen"
-    },
-    "privacy_policy": {
-        "message": "Privacybeleid"
     },
     "license": {
         "message": "Licentie"
     },
-    "credits": {
-        "message": "Credits"
+    "no_info": {
+        "message": "Geen info"
+    },
+    "no_organisation": {
+        "message": "Geen organisatie"
+    },
+    "privacy_policy": {
+        "message": "Privacybeleid"
+    },
+    "security": {
+        "message": "Veiligheid"
+    },
+    "settings": {
+        "message": "Instellingen"
     }
 }

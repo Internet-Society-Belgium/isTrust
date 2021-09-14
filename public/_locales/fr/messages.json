@@ -1,47 +1,47 @@
 {
-    "extension_description": {
-        "message": "Vérifie si les obligations légales sont appliquées"
-    },
-    "extension_name": {
-        "message": "isTrust"
-    },
-    "internal": {
-        "message": "Interne"
-    },
-    "domain": {
-        "message": "Domaine"
-    },
-    "security": {
-        "message": "Securité"
-    },
-    "no_infos": {
-        "message": "Pas d'information"
+    "certificate_invalid": {
+        "message": "Certificat invalide"
     },
     "communication_secured": {
         "message": "Communication securisée"
     },
-    "certificate_invalid": {
-        "message": "Certificat invalide"
+    "credits": {
+        "message": "Crédits"
     },
-    "no_organisation": {
-        "message": "Pas d'organisation"
+    "domain": {
+        "message": "Domaine"
+    },
+    "extension_description": {
+        "message": "Vérifie la fiabilité d'un site web"
+    },
+    "extension_name": {
+        "message": "isTrust"
     },
     "feedback": {
         "message": "Feedback"
     },
+    "internal": {
+        "message": "Interne"
+    },
     "legal": {
         "message": "Légal"
-    },
-    "settings": {
-        "message": "Configuration"
-    },
-    "privacy_policy": {
-        "message": "Déclaration vie privée"
     },
     "license": {
         "message": "Licence"
     },
-    "credits": {
-        "message": "Crédits"
+    "no_info": {
+        "message": "Pas d'information"
+    },
+    "no_organisation": {
+        "message": "Pas d'organisation"
+    },
+    "privacy_policy": {
+        "message": "Déclaration vie privée"
+    },
+    "security": {
+        "message": "Securité"
+    },
+    "settings": {
+        "message": "Configuration"
     }
 }

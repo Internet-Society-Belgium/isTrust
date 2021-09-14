@@ -1,5 +1,4 @@
-isTrust - PRIVACY POLICY
-========================
+# isTrust - PRIVACY POLICY
 
 This software respects your privacy as much as possible with the data minimization principle.
 
