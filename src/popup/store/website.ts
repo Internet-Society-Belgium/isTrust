@@ -110,7 +110,7 @@ function calculateDomainScores(data: WebsiteData): StoreWebsiteScoreDomain {
         registrant: 'neutral',
     }
 
-    if (data.dns?.events.registration) {
+    if (data.dns?.events?.registration) {
         const registration = new Date(data.dns?.events.registration)
         const recent = new Date()
         recent.setMonth(recent.getMonth() - 6)
@@ -122,7 +122,7 @@ function calculateDomainScores(data: WebsiteData): StoreWebsiteScoreDomain {
         }
     }
 
-    if (data.dns?.events.lastChanged) {
+    if (data.dns?.events?.lastChanged) {
         const lastChanged = new Date(data.dns?.events.lastChanged)
         const recent = new Date()
         recent.setMonth(recent.getMonth() - 1)

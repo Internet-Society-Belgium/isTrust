@@ -5,7 +5,7 @@
     <div v-else class="grid gap-2 p-2">
         <div>
             <div
-                v-if="website.states.data?.dns?.events.registration"
+                v-if="website.states.data?.dns?.events?.registration"
                 class="p-1"
             >
                 <div class="flex items-center gap-2">
