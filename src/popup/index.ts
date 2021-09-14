@@ -11,6 +11,6 @@ const app = createApp(App)
 app.use(router)
 app.mount('#app')
 
-app.config.errorHandler = async (err, vm, info) => {
-    await reportBug({ type: 'popup', data: [info] })
+app.config.errorHandler = async (e) => {
+    await reportBug({ type: 'popup', data: e })
 }
