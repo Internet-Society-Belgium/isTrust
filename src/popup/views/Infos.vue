@@ -1,19 +1,19 @@
 <template>
     <div
         v-if="website.states.internal"
-        class="flex justify-center items-center m-2 h-20"
+        class="flex justify-center items-center h-20"
     >
         <EyeOffIcon class="w-12 h-12 text-neutral" />
     </div>
     <div
         v-else-if="!website.states.loading && !website.states?.data"
-        class="flex justify-center items-center m-2 h-20"
+        class="flex justify-center items-center h-20"
     >
         <button @click="website.methods.reload">
             <RefreshIcon class="w-8 h-8 text-neutral" />
         </button>
     </div>
-    <div v-else class="flex flex-col justify-center gap-4 m-2">
+    <div v-else class="flex flex-col justify-center gap-4">
         <section
             class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
             :class="

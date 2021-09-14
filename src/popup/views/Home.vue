@@ -8,11 +8,14 @@
                 dark:text-dark-secondary
             "
         >
-            <div class="p-2 flex flex-col gap-3 min-w-40">
-                <div>
+            <div class="flex flex-col gap-3 min-w-40">
+                <div class="p-4">
                     <Header />
                 </div>
-                <div>
+
+                <Title />
+
+                <div class="p-4">
                     <router-view v-slot="{ Component }">
                         <ViewTransition
                             :transition="toChild ? 'scale' : ''"
@@ -22,7 +25,8 @@
                         </ViewTransition>
                     </router-view>
                 </div>
-                <div>
+
+                <div class="p-2">
                     <Footer />
                 </div>
             </div>
@@ -37,9 +41,10 @@
     import ViewTransition from '../components/ViewTransition.vue'
     import Footer from './Footer.vue'
     import Header from './Header.vue'
+    import Title from './Title.vue'
     export default defineComponent({
         name: 'Home',
-        components: { Header, Footer, ViewTransition },
+        components: { Header, Title, Footer, ViewTransition },
         setup() {
             const settings = inject(StoreSettingsKey)
             const toChild = ref(false)
