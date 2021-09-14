@@ -158,6 +158,18 @@ const chapters: Chapter[] = [
         regions: [
             {
                 url: 'http://www.internetsociety.ca/',
+                latitude: 45.4211,
+                longitude: -75.6901,
+            },
+            {
+                url: 'https://isoc.quebec/',
+                latitude: 46.8137,
+                longitude: -71.2084,
+            },
+            {
+                url: 'https://www.internetsocietymanitoba.ca/',
+                latitude: 49.8955,
+                longitude: -97.1385,
             },
         ],
     },
@@ -428,6 +440,38 @@ const chapters: Chapter[] = [
         regions: [
             {
                 url: 'http://www.isoc.org.il/',
+            },
+        ],
+    },
+    {
+        country: {
+            isoCode: 'IN',
+        },
+        regions: [
+            {
+                url: 'http://isocindiachennai.org/',
+                latitude: 13.0837,
+                longitude: 80.2702,
+            },
+            {
+                url: 'https://www.isocindiahyderabad.org/',
+                latitude: 17.3606,
+                longitude: 78.474,
+            },
+            {
+                url: 'https://isocindiamumbai.org/',
+                latitude: 19.076,
+                longitude: 72.8774,
+            },
+            {
+                url: 'https://isockolkata.in/',
+                latitude: 22.5727,
+                longitude: 88.3639,
+            },
+            {
+                url: 'http://isoctrv.in/',
+                latitude: 8.5241,
+                longitude: 76.9361,
             },
         ],
     },
@@ -833,6 +877,28 @@ const chapters: Chapter[] = [
     },
     {
         country: {
+            isoCode: 'ES',
+        },
+        regions: [
+            {
+                url: 'http://www.isoc-es.org/',
+                latitude: 40.4167,
+                longitude: -3.7036,
+            },
+            {
+                url: 'http://isoc-aragon.org/',
+                latitude: 41.6521,
+                longitude: -0.8809,
+            },
+            {
+                url: 'https://www.isoc.cat/',
+                latitude: 41.3829,
+                longitude: 2.1774,
+            },
+        ],
+    },
+    {
+        country: {
             isoCode: 'CH',
         },
         regions: [
@@ -925,6 +991,26 @@ const chapters: Chapter[] = [
                 url: 'https://www.sfbayisoc.org/',
                 latitude: 37.7953,
                 longitude: -122.3558,
+            },
+            {
+                url: 'https://isoc-phila.org/',
+                latitude: 39.9527,
+                longitude: -75.1635,
+            },
+            {
+                url: 'https://isoc-dc.org/',
+                latitude: 38.895,
+                longitude: -77.0365,
+            },
+            {
+                url: 'https://www.facebook.com/IL.ISOC/',
+                latitude: 40.0797,
+                longitude: -89.4337,
+            },
+            {
+                url: 'http://www.internetsocietynewmexico.org/',
+                latitude: 34.5708,
+                longitude: -105.993,
             },
         ],
     },
