@@ -1,3 +1,20 @@
+## [2.3.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.2.0...2.3.0) (2021-09-14)
+
+
+### ✨ Features
+
+* **cache:** clear outdated alarm ([edc31e7](https://github.com/Internet-Society-Belgium/isTrust/commit/edc31e79a8756454e084e7cd948bdf08f9ce30b3))
+* **chapters:** add US,IN,CA,ES ([88cfda2](https://github.com/Internet-Society-Belgium/isTrust/commit/88cfda2b99ce578b389f7bed057b43506b88ca5c))
+* localstorage ([70ea355](https://github.com/Internet-Society-Belgium/isTrust/commit/70ea355e0355bd33f54375aa5079fb75745d7b46)), closes [#37](https://github.com/Internet-Society-Belgium/isTrust/issues/37)
+* manual clear cache context menu ([4573bd6](https://github.com/Internet-Society-Belgium/isTrust/commit/4573bd60486d4036fc1416e4f34099baf69cb22b))
+
+
+### 🐛 Bug Fixes
+
+* **bug report:** data ([d1db9a6](https://github.com/Internet-Society-Belgium/isTrust/commit/d1db9a6f51785d134c4803c67aeb134b6c03988c))
+* no registration ([e89f72b](https://github.com/Internet-Society-Belgium/isTrust/commit/e89f72b77f79fa84e1c5b8836735ec5490f766e7))
+* **popup/info:** height & align ([a8e409f](https://github.com/Internet-Society-Belgium/isTrust/commit/a8e409f03bc9efc5a60261303ffb5f38481ebbf3))
+
 ## [2.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.1.0...2.2.0) (2021-09-13)
 
 
