@@ -43,7 +43,7 @@
         "@types/jest": "^27.0.1",
         "@types/psl": "^1.1.0",
         "@types/webextension-polyfill": "^0.8.0",
-        "@typescript-eslint/eslint-plugin": "^4.31.0",
+        "@typescript-eslint/eslint-plugin": "^4.31.1",
         "@typescript-eslint/parser": "^4.31.1",
         "@vue/cli-plugin-babel": "~4.5.0",
         "@vue/cli-plugin-eslint": "^5.0.0-beta.3",
