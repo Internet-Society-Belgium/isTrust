@@ -10,9 +10,7 @@
             </div>
             <div v-else>
                 <router-link to="/" tag="div">
-                    <CogIcon
-                        class="w-6 h-6 text-primary dark:text-dark-primary"
-                    />
+                    <CogIcon class="w-6 h-6 text-primary" />
                 </router-link>
             </div>
         </div>

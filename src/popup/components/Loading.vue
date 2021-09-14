@@ -2,26 +2,8 @@
     <transition name="fade" mode="out-in">
         <div v-if="website.states.loading">
             <div v-if="animation" class="flex justify-center p-2">
-                <div
-                    class="
-                        w-3
-                        h-3
-                        rounded-full
-                        bg-primary
-                        dark:bg-dark-primary
-                        animate-ping
-                    "
-                ></div>
-                <div
-                    class="
-                        w-3
-                        h-3
-                        absolute
-                        rounded-full
-                        bg-primary
-                        dark:bg-dark-primary
-                    "
-                ></div>
+                <div class="w-3 h-3 rounded-full bg-primary animate-ping"></div>
+                <div class="w-3 h-3 absolute rounded-full bg-primary"></div>
             </div>
         </div>
         <div v-else>

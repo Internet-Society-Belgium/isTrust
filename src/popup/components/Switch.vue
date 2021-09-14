@@ -1,7 +1,7 @@
 <template>
     <div
         class="w-10 h-5 flex items-center rounded-full px-1"
-        :class="active ? 'bg-primary dark:bg-dark-primary' : 'bg-neutral'"
+        :class="active ? 'bg-primary' : 'bg-neutral'"
         @click="$emit('click')"
     >
         <div
