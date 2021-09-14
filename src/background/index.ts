@@ -58,3 +58,14 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
         await storage.cache.clearOutdated()
     }
 })
+
+browser.contextMenus.create({
+    id: 'clear_cache',
+    title: browser.i18n.getMessage('clear_cache'),
+    contexts: ['browser_action'],
+})
+browser.contextMenus.onClicked.addListener(async (info) => {
+    if (info.menuItemId === 'clear_cache') {
+        await storage.cache.clear()
+    }
+})

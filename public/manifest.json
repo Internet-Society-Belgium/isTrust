@@ -10,7 +10,8 @@
         "activeTab",
         "cookies",
         "storage",
-        "alarms"
+        "alarms",
+        "contextMenus"
     ],
     "icons": {
         "128": "icons/128.png"
