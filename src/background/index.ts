@@ -48,3 +48,13 @@ browser.runtime.onInstalled.addListener(async () => {
     const url = getBestRegion(chapter, data.location).url
     await storage.extension.set({ chapter: { url } })
 })
+
+browser.alarms.create('clear_outdated_cache', {
+    delayInMinutes: 1,
+    periodInMinutes: 60 * 24,
+})
+browser.alarms.onAlarm.addListener(async (alarm) => {
+    if (alarm.name === 'clear_outdated_cache') {
+        await storage.cache.clearOutdated()
+    }
+})
