@@ -33,5 +33,5 @@ test('Seattle', () => {
 test('Miami', () => {
     expect(
         getBestRegion(UnitedStates, { latitude: 25.7824, longitude: -80.2295 })
-    ).toBe(UnitedStates.regions.find((r) => r.url === 'https://isoc-ny.org/'))
+    ).toBe(UnitedStates.regions.find((r) => r.url === 'https://isoc-dc.org/'))
 })
