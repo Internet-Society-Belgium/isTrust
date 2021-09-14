@@ -2,14 +2,14 @@
     "certificate_invalid": {
         "message": "Certificate invalid"
     },
+    "clear_cache": {
+        "message": "Clear cache"
+    },
     "communication_secured": {
         "message": "Communication secured"
     },
     "credits": {
         "message": "Credits"
-    },
-    "clear_cache": {
-        "message": "Clear cache"
     },
     "domain": {
         "message": "Domain"
