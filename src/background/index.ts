@@ -3,7 +3,8 @@ import browser from 'webextension-polyfill'
 
 import { WebsiteInfo, WebsiteData } from '../types/communication'
 import { Geolocation } from '../types/geolocation'
-import { LocalStorage } from '../types/localstorage'
+
+import storage from '../utils/localstorage'
 
 import { getBestRegion, getChapter } from './chapters'
 import getWebsiteTLD from './tld/getWebsiteTLD'
@@ -34,19 +35,16 @@ browser.runtime.onMessage.addListener(
 )
 
 browser.runtime.onInstalled.addListener(async () => {
+    await storage.cache.clear()
+
     const defaultUrl = getBestRegion(getChapter()).url
-    const defaultLocalStorage: LocalStorage = {
-        extension: { chapter: { url: defaultUrl } },
-    }
-    await browser.storage.local.set(defaultLocalStorage)
+    await storage.extension.set({ chapter: { url: defaultUrl } })
 
     const { status, data } = await axios.get<Geolocation>(
         `https://istrust.api.progiciel.be/geolocation`
     )
     if (status !== 200) return
-
     const chapter = getChapter(data.country.isoCode)
     const url = getBestRegion(chapter, data.location).url
-    const storage: LocalStorage = { extension: { chapter: { url } } }
-    await browser.storage.local.set(storage)
+    await storage.extension.set({ chapter: { url } })
 })

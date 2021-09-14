@@ -2,7 +2,6 @@ import { reactive, readonly } from 'vue'
 import browser from 'webextension-polyfill'
 
 import { WebsiteData } from '../../types/communication'
-import { Cookie } from '../../types/cookie'
 import {
     StoreWebsite,
     StoreWebsiteMethods,
@@ -12,7 +11,7 @@ import {
     StoreWebsiteStates,
 } from '../types/store/website'
 
-import reportBug from '../utils/bug'
+import storage from '../../utils/localstorage'
 
 const websiteStates: StoreWebsiteStates = reactive({
     internal: false,
@@ -69,43 +68,15 @@ async function fetchData(): Promise<WebsiteData | undefined> {
         return
     }
 
-    let cookie = await browser.cookies.get({
-        url: `${origin}/istrust`,
-        name: `${protocol}istrust`,
-    })
+    const cachedData = await storage.cache.get(origin)
+    if (cachedData) return cachedData
 
-    let cookieData: Cookie | undefined
+    const data: WebsiteData = await browser.runtime.sendMessage({ url })
+    if (!data) return
 
-    if (cookie) {
-        cookieData = JSON.parse(cookie.value)
-    }
+    await storage.cache.set(origin, data)
 
-    const extensionVersion = await browser.runtime.getManifest().version
-
-    if (!cookieData || cookieData.version !== extensionVersion) {
-        try {
-            await browser.tabs.sendMessage(id, {})
-        } catch (e) {
-            const error: Error = e as Error
-            if (
-                error.message !==
-                'Could not establish connection. Receiving end does not exist.'
-            ) {
-                await reportBug({ type: 'background', data: [url] })
-            }
-
-            return
-        }
-
-        cookie = await browser.cookies.get({
-            url: `${origin}/istrust`,
-            name: `${protocol}istrust`,
-        })
-    }
-
-    if (!cookie) return
-
-    return JSON.parse(cookie.value)
+    return data
 }
 
 function calculateScores(): StoreWebsiteScore | undefined {

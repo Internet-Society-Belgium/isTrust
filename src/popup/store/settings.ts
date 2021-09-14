@@ -1,12 +1,12 @@
 import { reactive, readonly } from 'vue'
-import browser from 'webextension-polyfill'
 
-import { LocalStorage, LocalStorageSettings } from '../../types/localstorage'
 import {
     StoreSettings,
     StoreSettingsMethods,
     StoreSettingsStates,
 } from '../types/store/settings'
+
+import storage from '../../utils/localstorage'
 
 const settingsStates: StoreSettingsStates = reactive({
     dark: false,
@@ -16,10 +16,7 @@ const settingsStates: StoreSettingsStates = reactive({
 const settingsMethods: StoreSettingsMethods = {
     async toggleDark(): Promise<void> {
         settingsStates.dark = !settingsStates.dark
-        const storage: LocalStorage = {
-            settings: Object.assign({}, settingsStates),
-        }
-        await browser.storage.local.set(storage)
+        await updateStorage()
     },
 }
 
@@ -30,17 +27,20 @@ const settings: StoreSettings = {
 
 export default settings
 
-async function loadLocalStorage() {
-    const storage = await browser.storage.local.get('settings')
-    if (!storage.settings) return
-    const settings: LocalStorageSettings = storage.settings
-
-    if (settings) {
-        settingsStates.dark = settings.dark
+async function loadStorage() {
+    const settings = await storage.settings.get()
+    if (!settings) {
+        await updateStorage()
     } else {
-        const storage: LocalStorage = { settings: settingsStates }
-        await browser.storage.local.set(storage)
+        settingsStates.dark = settings.dark
+        settingsStates.reportBugs = settings.reportBugs
     }
 }
 
-loadLocalStorage()
+async function updateStorage() {
+    await storage.settings.set(Object.assign({}, settingsStates))
+}
+
+;(async () => {
+    await loadStorage()
+})()
