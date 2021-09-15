@@ -28,7 +28,9 @@ export class Website {
 
         try {
             const { status, data } = await axios.get<Certificate>(
-                `https://istrust.api.progiciel.be/certificate?url=${this.url}`
+                `https://istrust.api.progiciel.be/certificate?url=${encodeURIComponent(
+                    this.url
+                )}`
             )
             if (status !== 200) return
 
