@@ -7,7 +7,7 @@
             </div>
         </div>
         <div v-else>
-            <slot></slot>
+            <slot />
         </div>
     </transition>
 </template>

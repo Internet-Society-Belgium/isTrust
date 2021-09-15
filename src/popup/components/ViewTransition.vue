@@ -1,6 +1,6 @@
 <template>
     <transition :name="transition" :mode="mode">
-        <slot></slot>
+        <slot />
     </transition>
 </template>
 
