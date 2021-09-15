@@ -15,7 +15,15 @@
     </div>
     <div v-else class="flex flex-col justify-center gap-4">
         <section
-            class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
+            class="
+                bg-container
+                dark:bg-dark-container
+                transition-colors
+                duration-500
+                rounded-lg
+                p-2
+                ring-2
+            "
             :class="
                 website.states?.scores?.domain?.score === 'warning'
                     ? ' ring-warning'
@@ -25,7 +33,17 @@
             "
         >
             <div class="flex items-center">
-                <h3 class="p-1 italic select-none">
+                <h3
+                    class="
+                        p-1
+                        italic
+                        text-secondary
+                        dark:text-dark-secondary
+                        transition-colors
+                        duration-500
+                        select-none
+                    "
+                >
                     {{ extension.methods.i18n('domain') }}
                 </h3>
                 <Loading :animation="false">
@@ -45,7 +63,15 @@
         </section>
 
         <section
-            class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
+            class="
+                bg-container
+                dark:bg-dark-container
+                transition-colors
+                duration-500
+                rounded-lg
+                p-2
+                ring-2
+            "
             :class="
                 website.states?.scores?.security?.score === 'warning'
                     ? ' ring-warning'
@@ -54,7 +80,17 @@
                     : 'ring-neutral'
             "
         >
-            <h3 class="p-1 italic select-none">
+            <h3
+                class="
+                    p-1
+                    italic
+                    text-secondary
+                    dark:text-dark-secondary
+                    transition-colors
+                    duration-500
+                    select-none
+                "
+            >
                 {{ extension.methods.i18n('security') }}
             </h3>
 

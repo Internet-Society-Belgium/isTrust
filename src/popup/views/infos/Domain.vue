@@ -8,7 +8,7 @@
                 v-if="website.states.data?.dns?.events?.registration"
                 class="p-1"
             >
-                <div class="flex items-center gap-2">
+                <div class="flex items-center">
                     <CakeIcon
                         class="flex-none w-6 h-6"
                         :class="
@@ -18,7 +18,7 @@
                                 : 'text-neutral'
                         "
                     />
-                    <div class="flex-grow">
+                    <div class="flex-grow px-2">
                         <Tooltip
                             :disable="
                                 website.states?.scores?.domain?.registration !==
@@ -26,7 +26,15 @@
                             "
                             :text="extension.methods.i18n('less_x_month', '6')"
                         >
-                            <p class="text-left whitespace-nowrap">
+                            <p
+                                class="
+                                    text-left text-secondary
+                                    dark:text-dark-secondary
+                                    transition-colors
+                                    duration-500
+                                    whitespace-nowrap
+                                "
+                            >
                                 {{
                                     formatDate(
                                         website.states.data.dns.events
@@ -39,11 +47,11 @@
                 </div>
             </div>
             <div v-if="website.states.data?.dns?.events?.transfer" class="p-1">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center">
                     <SwitchHorizontalIcon
                         class="flex-none w-6 h-6 text-neutral"
                     />
-                    <div class="flex-grow">
+                    <div class="flex-grow px-2">
                         <Tooltip
                             :disable="
                                 website.states?.scores?.domain?.transfer !==
@@ -51,7 +59,15 @@
                             "
                             :text="extension.methods.i18n('less_x_month', '1')"
                         >
-                            <p class="text-left whitespace-nowrap">
+                            <p
+                                class="
+                                    text-left text-secondary
+                                    dark:text-dark-secondary
+                                    transition-colors
+                                    duration-500
+                                    whitespace-nowrap
+                                "
+                            >
                                 {{
                                     formatDate(
                                         website.states.data.dns.events.transfer
@@ -66,7 +82,7 @@
                 v-if="website.states.data?.dns?.events?.lastChanged"
                 class="p-1"
             >
-                <div class="flex items-center gap-2">
+                <div class="flex items-center">
                     <RefreshIcon
                         class="flex-none w-6 h-6"
                         :class="
@@ -76,7 +92,7 @@
                                 : 'text-neutral'
                         "
                     />
-                    <div class="flex-grow">
+                    <div class="flex-grow px-2">
                         <Tooltip
                             :disable="
                                 website.states?.scores?.domain?.lastChanged !==
@@ -84,7 +100,15 @@
                             "
                             :text="extension.methods.i18n('less_x_month', '1')"
                         >
-                            <p class="text-left whitespace-nowrap">
+                            <p
+                                class="
+                                    text-left text-secondary
+                                    dark:text-dark-secondary
+                                    transition-colors
+                                    duration-500
+                                    whitespace-nowrap
+                                "
+                            >
                                 {{
                                     formatDate(
                                         website.states.data.dns.events
@@ -99,7 +123,7 @@
         </div>
 
         <div class="p-1">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center">
                 <OfficeBuildingIcon
                     class="flex-none w-6 h-6"
                     :class="
@@ -108,8 +132,16 @@
                             : 'text-neutral'
                     "
                 />
-                <div class="flex-grow">
-                    <p class="text-left whitespace-nowrap">
+                <div class="flex-grow px-2">
+                    <p
+                        class="
+                            text-left text-secondary
+                            dark:text-dark-secondary
+                            transition-colors
+                            duration-500
+                            whitespace-nowrap
+                        "
+                    >
                         {{
                             website.states?.data?.dns?.registrant
                                 ?.organisation ||
@@ -120,11 +152,19 @@
             </div>
             <div
                 v-if="website.states.data?.dns?.registrant?.location"
-                class="flex items-center gap-2 pl-6"
+                class="flex items-center pl-6"
             >
                 <LocationMarkerIcon class="flex-none w-6 h-6 text-neutral" />
-                <div class="flex-grow">
-                    <p class="text-left whitespace-nowrap">
+                <div class="flex-grow px-2">
+                    <p
+                        class="
+                            text-left text-secondary
+                            dark:text-dark-secondary
+                            transition-colors
+                            duration-500
+                            whitespace-nowrap
+                        "
+                    >
                         {{
                             [
                                 website.states.data?.dns?.registrant?.location

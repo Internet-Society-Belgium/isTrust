@@ -11,7 +11,7 @@
                 v-if="isOpen"
                 class="
                     absolute
-                    transition-opacity
+                    transition
                     duration-500
                     text-secondary
                     dark:text-dark-secondary
@@ -33,6 +33,8 @@
                         absolute
                         text-secondary-container
                         dark:text-secondary-dark-container
+                        transition-colors
+                        duration-500
                         h-2
                         left-0
                         ml-4

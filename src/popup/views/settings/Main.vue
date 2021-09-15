@@ -1,5 +1,14 @@
 <template>
-    <div class="m-2 bg-container dark:bg-dark-container rounded-lg">
+    <div
+        class="
+            m-2
+            bg-container
+            dark:bg-dark-container
+            transition-colors
+            duration-500
+            rounded-lg
+        "
+    >
         <div class="grid grid-flow-row gap-2 p-3">
             <div class="w-full flex flex-row gap-2 items-center px-4 py-2">
                 <SunIcon class="flex-grow w-6 h-6 text-neutral" />
@@ -21,7 +30,10 @@
                 <p
                     class="
                         flex-grow
-                        text-left
+                        text-left text-secondary
+                        dark:text-dark-secondary
+                        transition-colors
+                        duration-500
                         pl-2
                         pr-6
                         whitespace-nowrap
@@ -42,7 +54,10 @@
                 <p
                     class="
                         flex-grow
-                        text-left
+                        text-left text-secondary
+                        dark:text-dark-secondary
+                        transition-colors
+                        duration-500
                         pl-2
                         pr-6
                         whitespace-nowrap
@@ -71,7 +86,10 @@
                 <p
                     class="
                         flex-grow
-                        text-left
+                        text-left text-secondary
+                        dark:text-dark-secondary
+                        transition-colors
+                        duration-500
                         pl-2
                         pr-6
                         whitespace-nowrap

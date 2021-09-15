@@ -1,6 +1,15 @@
 <template>
     <div
-        class="w-10 h-5 flex items-center rounded-full px-1"
+        class="
+            w-10
+            h-5
+            flex
+            items-center
+            rounded-full
+            px-1
+            transition-colors
+            duration-500
+        "
         :class="active ? 'bg-primary' : 'bg-neutral'"
         @click="$emit('click')"
     >

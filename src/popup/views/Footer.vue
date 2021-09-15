@@ -4,7 +4,14 @@
             <div v-if="!settingsViewOpened()">
                 <router-link to="/settings" tag="div">
                     <CogIcon
-                        class="w-6 h-6 text-secondary dark:text-dark-secondary"
+                        class="
+                            w-6
+                            h-6
+                            text-secondary
+                            dark:text-dark-secondary
+                            transition-colors
+                            duration-500
+                        "
                     />
                 </router-link>
             </div>
@@ -18,7 +25,16 @@
         <div class="justify-self-center flex items-center">
             <Loading :animation="false">
                 <ViewTransition :transition="'scale'" :mode="'out-in'">
-                    <p v-if="settingsViewOpened()" class="select-none">
+                    <p
+                        v-if="settingsViewOpened()"
+                        class="
+                            text-secondary
+                            dark:text-dark-secondary
+                            transition-colors
+                            duration-500
+                            select-none
+                        "
+                    >
                         {{ `v${extension.constants.version}` }}
                     </p>
                     <div v-else>
@@ -33,7 +49,14 @@
         <div class="justify-self-end flex items-center">
             <button @click="openUrl(extension.states.chapter.url)">
                 <InformationCircleIcon
-                    class="w-6 h-6 text-secondary dark:text-dark-secondary"
+                    class="
+                        w-6
+                        h-6
+                        text-secondary
+                        dark:text-dark-secondary
+                        transition-colors
+                        duration-500
+                    "
                 />
             </button>
         </div>

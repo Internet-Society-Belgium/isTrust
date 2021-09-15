@@ -1,6 +1,6 @@
 <template>
     <router-view v-slot="{ Component }">
-        <div class="w-full min-h-40 overflow-hidden">
+        <div class="w-full min-h-40">
             <ViewTransition
                 :transition="toChild ? 'slide-left' : 'slide-right'"
                 :mode="'out-in'"

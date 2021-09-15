@@ -3,13 +3,31 @@
         v-if="website.states.data?.url?.https === false"
         class="grid gap-2 p-2"
     >
-        <div class="flex items-center gap-2">
+        <div class="flex items-center">
             <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
-            <button class="flex-grow" @click="website.methods.goToHttps">
+            <button class="flex-grow px-2" @click="website.methods.goToHttps">
                 <div class="flex items-center gap-1">
-                    <p>http</p>
+                    <p
+                        class="
+                            text-secondary
+                            dark:text-dark-secondary
+                            transition-colors
+                            duration-500
+                        "
+                    >
+                        http
+                    </p>
                     <ArrowNarrowRightIcon class="w-6 h-6 text-neutral" />
-                    <p>https</p>
+                    <p
+                        class="
+                            text-secondary
+                            dark:text-dark-secondary
+                            transition-colors
+                            duration-500
+                        "
+                    >
+                        https
+                    </p>
                 </div>
             </button>
         </div>
@@ -18,10 +36,18 @@
         v-else-if="website.states.data?.url?.https === true"
         class="grid gap-2 p-2"
     >
-        <div class="flex items-center gap-2">
+        <div class="flex items-center">
             <LockClosedIcon class="flex-none w-6 h-6 text-neutral" />
-            <div class="flex-grow">
-                <p class="text-left whitespace-nowrap">
+            <div class="flex-grow px-2">
+                <p
+                    class="
+                        text-left text-secondary
+                        dark:text-dark-secondary
+                        transition-colors
+                        duration-500
+                        whitespace-nowrap
+                    "
+                >
                     {{ extension.methods.i18n('communication_secured') }}
                 </p>
             </div>
@@ -29,18 +55,26 @@
         <div v-if="website.states.data?.certificate">
             <div
                 v-if="website.states.data?.certificate?.valid === false"
-                class="flex items-center gap-2"
+                class="flex items-center"
             >
                 <IdentificationIcon class="flex-none w-6 h-6 text-warning" />
-                <div class="flex-grow">
-                    <p class="text-left whitespace-nowrap">
+                <div class="flex-grow px-2">
+                    <p
+                        class="
+                            text-left text-secondary
+                            dark:text-dark-secondary
+                            transition-colors
+                            duration-500
+                            whitespace-nowrap
+                        "
+                    >
                         {{ extension.methods.i18n('certificate_invalid') }}
                     </p>
                 </div>
             </div>
 
             <div v-else-if="website.states.data?.certificate?.owner">
-                <div class="flex items-center gap-2">
+                <div class="flex items-center">
                     <div v-if="website.states?.data?.certificate?.protocol">
                         <Tooltip
                             :text="website.states.data.certificate.protocol"
@@ -54,8 +88,16 @@
                             class="flex-none w-6 h-6 text-neutral"
                         />
                     </div>
-                    <div class="flex-grow">
-                        <p class="text-left whitespace-nowrap">
+                    <div class="flex-grow px-2">
+                        <p
+                            class="
+                                text-left text-secondary
+                                dark:text-dark-secondary
+                                transition-colors
+                                duration-500
+                                whitespace-nowrap
+                            "
+                        >
                             {{
                                 website.states.data?.certificate?.owner
                                     ?.organisation ||
@@ -66,13 +108,21 @@
                 </div>
                 <div
                     v-if="website.states.data?.certificate?.owner?.location"
-                    class="flex items-center gap-2 pl-6"
+                    class="flex items-center pl-6"
                 >
                     <LocationMarkerIcon
                         class="flex-none w-6 h-6 text-neutral"
                     />
-                    <div class="flex-grow">
-                        <p class="text-left whitespace-nowrap">
+                    <div class="flex-grow px-2">
+                        <p
+                            class="
+                                text-left text-secondary
+                                dark:text-dark-secondary
+                                transition-colors
+                                duration-500
+                                whitespace-nowrap
+                            "
+                        >
                             {{
                                 [
                                     website.states.data?.certificate?.owner

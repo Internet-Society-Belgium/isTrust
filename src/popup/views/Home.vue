@@ -6,6 +6,8 @@
                 dark:bg-dark-background
                 text-secondary
                 dark:text-dark-secondary
+                transition-colors
+                duration-500
             "
         >
             <div class="flex flex-col gap-3 min-w-40">
