@@ -29,10 +29,7 @@
                     {{ extension.methods.i18n('domain') }}
                 </h3>
                 <Loading :animation="false">
-                    <div
-                        v-if="website.states?.data?.dns?.dnssec"
-                        class="flex items-center"
-                    >
+                    <div v-if="website.states?.data?.dns?.dnssec">
                         <Tooltip :text="'DNSSEC'">
                             <BadgeCheckIcon class="w-4 h-4 text-neutral" />
                         </Tooltip>

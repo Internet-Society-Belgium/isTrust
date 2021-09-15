@@ -1,6 +1,8 @@
 <template>
-    <div class="group relative inline-block">
-        <slot />
+    <div class="group relative w-6">
+        <div class="flex justify-center">
+            <slot />
+        </div>
         <div
             class="
                 opacity-0
@@ -14,10 +16,11 @@
                 bg-secondary-container
                 dark:bg-secondary-dark-container
                 rounded-lg
+                bottom-full
+                -left-4
                 py-1
                 px-2
-                -top-8
-                -left-6
+                m-2
                 z-10
             "
         >
@@ -29,7 +32,7 @@
                     dark:text-secondary-dark-container
                     h-2
                     left-0
-                    w-full
+                    ml-4
                     top-full
                 "
                 x="0px"

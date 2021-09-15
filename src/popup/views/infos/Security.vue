@@ -41,9 +41,19 @@
 
             <div v-else-if="website.states.data?.certificate?.owner">
                 <div class="flex items-center gap-2">
-                    <IdentificationIcon
-                        class="flex-none w-6 h-6 text-neutral"
-                    />
+                    <div v-if="website.states?.data?.certificate?.protocol">
+                        <Tooltip
+                            :text="website.states.data.certificate.protocol"
+                        >
+                            <IdentificationIcon
+                                class="flex-none w-6 h-6 text-neutral"
+                        /></Tooltip>
+                    </div>
+                    <div v-else>
+                        <IdentificationIcon
+                            class="flex-none w-6 h-6 text-neutral"
+                        />
+                    </div>
                     <div class="flex-grow">
                         <p class="text-left whitespace-nowrap">
                             {{
@@ -95,9 +105,11 @@
     import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreSettingsKey } from '../../types/store/settings'
     import { StoreWebsiteKey } from '../../types/store/website'
+    import Tooltip from '../../components/Tooltip.vue'
     export default defineComponent({
         name: 'Security',
         components: {
+            Tooltip,
             LockClosedIcon,
             LockOpenIcon,
             IdentificationIcon,
