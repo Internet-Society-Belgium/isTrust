@@ -11,6 +11,30 @@
                 <MoonIcon class="flex-grow w-6 h-6 text-neutral" />
             </div>
 
+            <button
+                class="flex items-center"
+                @click="openUrl('mailto:istrust@isoc.be')"
+            >
+                <div class="flex-none">
+                    <MailIcon class="w-6 h-6 text-neutral" />
+                </div>
+                <p
+                    class="
+                        flex-grow
+                        text-left
+                        pl-2
+                        pr-6
+                        whitespace-nowrap
+                        select-none
+                    "
+                >
+                    {{ extension.methods.i18n('feedback') }}
+                </p>
+                <div class="flex-none">
+                    <ExternalLinkIcon class="w-5 h-5 text-neutral" />
+                </div>
+            </button>
+
             <div class="flex items-center">
                 <div class="flex-none">
                     <ChatIcon class="w-6 h-6 text-neutral" />
@@ -35,30 +59,6 @@
                     />
                 </div>
             </div>
-
-            <button
-                class="flex items-center"
-                @click="openUrl('mailto:istrust@isoc.be')"
-            >
-                <div class="flex-none">
-                    <MailIcon class="w-6 h-6 text-neutral" />
-                </div>
-                <p
-                    class="
-                        flex-grow
-                        text-left
-                        pl-2
-                        pr-6
-                        whitespace-nowrap
-                        select-none
-                    "
-                >
-                    {{ extension.methods.i18n('feedback') }}
-                </p>
-                <div class="flex-none">
-                    <ExternalLinkIcon class="w-5 h-5 text-neutral" />
-                </div>
-            </button>
 
             <router-link
                 to="/settings/more"
