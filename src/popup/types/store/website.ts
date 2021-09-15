@@ -38,6 +38,7 @@ type Score = 'ok' | 'neutral' | 'warning'
 
 export interface StoreWebsiteMethods {
     reload: () => Promise<void>
+    goToHttps: () => Promise<void>
 }
 
 export const StoreWebsiteKey: InjectionKey<StoreWebsite> = Symbol('website')

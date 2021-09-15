@@ -5,7 +5,7 @@
     >
         <div class="flex items-center gap-2">
             <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
-            <button class="flex-grow" @click="goToSecure">
+            <button class="flex-grow" @click="website.methods.goToHttps">
                 <div class="flex items-center gap-1">
                     <p>http</p>
                     <ArrowNarrowRightIcon class="w-6 h-6 text-neutral" />
@@ -92,7 +92,6 @@
         ArrowNarrowRightIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
-    import browser from 'webextension-polyfill'
     import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreSettingsKey } from '../../types/store/settings'
     import { StoreWebsiteKey } from '../../types/store/website'
@@ -109,21 +108,7 @@
             const extension = inject(StoreExtensionKey)
             const settings = inject(StoreSettingsKey)
             const website = inject(StoreWebsiteKey)
-            const goToSecure = async () => {
-                const tab = await browser.tabs.query({
-                    active: true,
-                    currentWindow: true,
-                })
-                if (!tab) return
-                const id = tab[0].id
-                const url = tab[0].url
-                if (!id || !url) return
-                await browser.tabs.update({
-                    url: url.replace('http://', 'https://'),
-                })
-                window.close()
-            }
-            return { extension, settings, website, goToSecure }
+            return { extension, settings, website }
         },
     })
 </script>

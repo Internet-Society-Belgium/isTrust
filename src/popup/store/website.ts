@@ -28,6 +28,14 @@ const websiteMethods: StoreWebsiteMethods = {
         await browser.tabs.reload()
         await init()
     },
+    async goToHttps(): Promise<void> {
+        const tab = await getCurrentTab()
+        if (!tab?.url) return
+        await browser.tabs.update({
+            url: tab.url.replace('http://', 'https://'),
+        })
+        website?.methods.reload()
+    },
 }
 
 const website: StoreWebsite = {
