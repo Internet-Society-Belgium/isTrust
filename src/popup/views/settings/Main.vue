@@ -16,7 +16,7 @@
                 @click="openUrl('mailto:istrust@isoc.be')"
             >
                 <div class="flex-none">
-                    <ChatIcon class="w-6 h-6 text-neutral" />
+                    <MailIcon class="w-6 h-6 text-neutral" />
                 </div>
                 <p
                     class="
@@ -69,8 +69,8 @@
         SunIcon,
         MoonIcon,
         ChevronRightIcon,
-        ChatIcon,
         DocumentTextIcon,
+        MailIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreExtensionKey } from '../../types/store/extension'
@@ -84,8 +84,8 @@
             SunIcon,
             MoonIcon,
             ChevronRightIcon,
-            ChatIcon,
             DocumentTextIcon,
+            MailIcon,
             Switch,
         },
         setup() {
