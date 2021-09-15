@@ -1,3 +1,25 @@
+## [2.5.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.4.0...2.5.0) (2021-09-15)
+
+
+### 🐛 Bug Fixes
+
+* check internal without activeTab permission ([620f557](https://github.com/Internet-Society-Belgium/isTrust/commit/620f5574b7421f50dcab1ceae7623f97365cada9))
+* dnssec icon align ([10522ce](https://github.com/Internet-Society-Belgium/isTrust/commit/10522ce550a72bda976994e3da7f49dd651bd949))
+* **tooltip:** align ([8e58f54](https://github.com/Internet-Society-Belgium/isTrust/commit/8e58f543335f0b0a7afa6b56d157cc5395e273c6))
+
+
+### ✨ Features
+
+* change light colors ([7482b65](https://github.com/Internet-Society-Belgium/isTrust/commit/7482b657c411e4e0e365ec3a4ff9c01b344fd65d))
+* dark colors ([e616308](https://github.com/Internet-Society-Belgium/isTrust/commit/e61630814c2d1a2b4e10a0dd34d6505cd643f0b0))
+* go to https live reload ([7dcd793](https://github.com/Internet-Society-Belgium/isTrust/commit/7dcd793a91b32a32a0db63c34f633df369786414))
+* **i18n:** less_x_month ([4ca5143](https://github.com/Internet-Society-Belgium/isTrust/commit/4ca51438099a2bdde8a7987ea5d49d2f24a87600))
+* **i18n:** placeholders ([1384af0](https://github.com/Internet-Society-Belgium/isTrust/commit/1384af03d18db79ea0b8617a270ac036ca76343f))
+* text color & transition ([ce716bc](https://github.com/Internet-Society-Belgium/isTrust/commit/ce716bcf26642e1f56330ae4457e86e7b0447d93))
+* tooltip ([ce4ed1d](https://github.com/Internet-Society-Belgium/isTrust/commit/ce4ed1d7d210bfc54ce996b3e47b353f5fbc52e8))
+* transfert score ([c0230cc](https://github.com/Internet-Society-Belgium/isTrust/commit/c0230cc0a378949098d95f7204ff875dfd59e43f))
+* **ui/settings:** report bug ([741fa2e](https://github.com/Internet-Society-Belgium/isTrust/commit/741fa2ec2378027f16bdd95dc7614e6b82594ba2)), closes [#46](https://github.com/Internet-Society-Belgium/isTrust/issues/46)
+
 ## [2.4.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.3.0...2.4.0) (2021-09-15)
 
 
