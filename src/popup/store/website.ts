@@ -20,6 +20,11 @@ const websiteStates: StoreWebsiteStates = reactive({
 
 const websiteMethods: StoreWebsiteMethods = {
     async reload(): Promise<void> {
+        const tab = await getCurrentTab()
+        if (!tab?.url) return
+        const { origin } = new URL(tab.url)
+        if (!origin) return
+        await storage.cache.remove(origin)
         await browser.tabs.reload()
         await init()
     },
@@ -44,7 +49,7 @@ async function init() {
     websiteStates.loading = false
 }
 
-async function fetchData(): Promise<WebsiteData | undefined> {
+async function getCurrentTab() {
     let tab: browser.Tabs.Tab[] | null = null
     do {
         if (tab) {
@@ -57,9 +62,16 @@ async function fetchData(): Promise<WebsiteData | undefined> {
         if (tab.length === 0) return
     } while (tab[0].status === 'loading')
 
-    const id = tab[0].id
-    const url = tab[0].url
+    return tab[0]
+}
+
+async function fetchData(): Promise<WebsiteData | undefined> {
+    const tab = await getCurrentTab()
+    if (!tab) return
+    const id = tab.id
+    const url = tab.url
     if (!id || !url) return
+
     const { protocol, origin } = new URL(url)
     if (!protocol || !origin) return
 

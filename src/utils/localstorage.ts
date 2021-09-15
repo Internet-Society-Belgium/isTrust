@@ -46,6 +46,13 @@ async function cacheSet(
     await browser.storage.local.set({ cache: storageCache })
 }
 
+async function cacheRemove(host: string): Promise<void> {
+    const storage = await browser.storage.local.get('cache')
+    const storageCache: LocalStorageCache = storage?.cache || {}
+    delete storageCache[host]
+    await browser.storage.local.set({ cache: storageCache })
+}
+
 async function cacheClear(): Promise<void> {
     await browser.storage.local.remove('cache')
 }
@@ -82,6 +89,7 @@ export default {
     cache: {
         get: cacheGet,
         set: cacheSet,
+        remove: cacheRemove,
         clear: cacheClear,
         clearOutdated: cacheClearOutdated,
     },
