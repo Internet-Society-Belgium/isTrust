@@ -24,14 +24,16 @@
                     : 'ring-neutral'
             "
         >
-            <div class="flex items-center gap-0.5">
+            <div class="flex items-center">
                 <h3 class="p-1 italic select-none">
                     {{ extension.methods.i18n('domain') }}
                 </h3>
                 <Loading :animation="false">
                     <div v-if="website.states?.data?.dns?.dnssec">
                         <Tooltip :text="'DNSSEC'">
-                            <BadgeCheckIcon class="w-4 h-4 text-neutral" />
+                            <div class="px-1">
+                                <BadgeCheckIcon class="w-4 h-4 text-neutral" />
+                            </div>
                         </Tooltip>
                     </div>
                 </Loading>

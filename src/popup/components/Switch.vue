@@ -35,5 +35,3 @@
         emits: ['click'],
     })
 </script>
-
-<style></style>

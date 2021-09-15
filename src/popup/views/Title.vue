@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!website.states.internal">
+    <div v-if="!website.states.internal" class="px-6">
         <Loading>
             <h2
                 v-if="website.states?.data?.url"
