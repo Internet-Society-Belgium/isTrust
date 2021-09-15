@@ -8,15 +8,20 @@ let cachedIanaRdapList: IanaRDAPList
 async function updateIanaRdapList(): Promise<IanaRDAPList | undefined> {
     if (cachedIanaRdapList) return
 
-    const { status, data } = await axios.get<IanaRDAPList>(
-        `https://data.iana.org/rdap/dns.json`
-    )
-    if (status !== 200) return
-    cachedIanaRdapList = data
+    try {
+        const { status, data } = await axios.get<IanaRDAPList>(
+            `https://data.iana.org/rdap/dns.json`
+        )
+        if (status !== 200) return
+        cachedIanaRdapList = data
+    } catch (e) {
+        return
+    }
 }
 
 export async function getRdapUrls(tld: string): Promise<string[] | undefined> {
     await updateIanaRdapList()
+    if (!cachedIanaRdapList) return
 
     const data = cachedIanaRdapList.services.find((e) => {
         if (e[0]) {

@@ -26,12 +26,16 @@ export class Website {
     public async certificate(): Promise<Certificate | undefined> {
         if (!this.https) return
 
-        const { status, data } = await axios.get<Certificate>(
-            `https://istrust.api.progiciel.be/certificate?url=${this.url}`
-        )
-        if (status !== 200) return
+        try {
+            const { status, data } = await axios.get<Certificate>(
+                `https://istrust.api.progiciel.be/certificate?url=${this.url}`
+            )
+            if (status !== 200) return
 
-        return data
+            return data
+        } catch (e) {
+            return
+        }
     }
 
     public async dns(): Promise<Dns | undefined> {
