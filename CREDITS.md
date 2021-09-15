@@ -1,11 +1,18 @@
 # Credits
 
-## Copyrights
+# Contributors
 
-## Contributors
+<div align="center">
+    <a
+        href="https://github.com/Internet-Society-Belgium/isTrust/graphs/contributors"
+    >
+        <img
+            src="https://contrib.rocks/image?repo=Internet-Society-Belgium/isTrust"
+        />
+    </a>
+</div>
 
-<a href="https://github.com/Internet-Society-Belgium/isTrust/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Internet-Society-Belgium/isTrust" />
-</a>
-
-Made with [contributors-img](https://contrib.rocks).
+<div align="center">
+    Made with
+    <a href="https://contrib.rocks">contributors-img</a>
+</div>
