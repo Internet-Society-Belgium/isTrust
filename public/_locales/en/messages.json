@@ -1,4 +1,7 @@
 {
+    "report_bugs": {
+        "message": "Report bugs"
+    },
     "certificate_invalid": {
         "message": "Certificate invalid"
     },

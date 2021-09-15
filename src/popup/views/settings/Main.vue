@@ -11,6 +11,31 @@
                 <MoonIcon class="flex-grow w-6 h-6 text-neutral" />
             </div>
 
+            <div class="flex items-center">
+                <div class="flex-none">
+                    <ChatIcon class="w-6 h-6 text-neutral" />
+                </div>
+                <p
+                    class="
+                        flex-grow
+                        text-left
+                        pl-2
+                        pr-6
+                        whitespace-nowrap
+                        select-none
+                    "
+                >
+                    {{ extension.methods.i18n('report_bugs') }}
+                </p>
+                <div class="flex-none">
+                    <Switch
+                        class="flex-none"
+                        :active="settings.states.reportBugs"
+                        @click="settings.methods.toggleReportBugs"
+                    />
+                </div>
+            </div>
+
             <button
                 class="flex items-center"
                 @click="openUrl('mailto:istrust@isoc.be')"
@@ -69,6 +94,7 @@
         SunIcon,
         MoonIcon,
         ChevronRightIcon,
+        ChatIcon,
         DocumentTextIcon,
         MailIcon,
     } from '@heroicons/vue/outline'
@@ -84,6 +110,7 @@
             SunIcon,
             MoonIcon,
             ChevronRightIcon,
+            ChatIcon,
             DocumentTextIcon,
             MailIcon,
             Switch,

@@ -18,6 +18,10 @@ const settingsMethods: StoreSettingsMethods = {
         settingsStates.dark = !settingsStates.dark
         await updateStorage()
     },
+    async toggleReportBugs(): Promise<void> {
+        settingsStates.reportBugs = !settingsStates.reportBugs
+        await updateStorage()
+    },
 }
 
 const settings: StoreSettings = {
