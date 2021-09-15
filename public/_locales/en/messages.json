@@ -1,7 +1,4 @@
 {
-    "report_bugs": {
-        "message": "Report bugs"
-    },
     "certificate_invalid": {
         "message": "Certificate invalid"
     },
@@ -29,6 +26,14 @@
     "legal": {
         "message": "Legal"
     },
+    "less_x_month": {
+        "message": "< $X$ month",
+        "placeholders": {
+            "x": {
+                "content": "$1"
+            }
+        }
+    },
     "license": {
         "message": "License"
     },
@@ -40,6 +45,9 @@
     },
     "privacy_policy": {
         "message": "Privacy Policy"
+    },
+    "report_bugs": {
+        "message": "Report bugs"
     },
     "security": {
         "message": "Security"

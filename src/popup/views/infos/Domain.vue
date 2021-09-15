@@ -19,13 +19,22 @@
                         "
                     />
                     <div class="flex-grow">
-                        <p class="text-left whitespace-nowrap">
-                            {{
-                                formatDate(
-                                    website.states.data.dns.events.registration
-                                )
-                            }}
-                        </p>
+                        <Tooltip
+                            :disable="
+                                website.states?.scores?.domain?.registration !==
+                                'warning'
+                            "
+                            :text="extension.methods.i18n('less_x_month', '6')"
+                        >
+                            <p class="text-left whitespace-nowrap">
+                                {{
+                                    formatDate(
+                                        website.states.data.dns.events
+                                            .registration
+                                    )
+                                }}
+                            </p>
+                        </Tooltip>
                     </div>
                 </div>
             </div>
@@ -60,13 +69,22 @@
                         "
                     />
                     <div class="flex-grow">
-                        <p class="text-left whitespace-nowrap">
-                            {{
-                                formatDate(
-                                    website.states.data.dns.events.lastChanged
-                                )
-                            }}
-                        </p>
+                        <Tooltip
+                            :disable="
+                                website.states?.scores?.domain?.lastChanged !==
+                                'warning'
+                            "
+                            :text="extension.methods.i18n('less_x_month', '1')"
+                        >
+                            <p class="text-left whitespace-nowrap">
+                                {{
+                                    formatDate(
+                                        website.states.data.dns.events
+                                            .lastChanged
+                                    )
+                                }}
+                            </p></Tooltip
+                        >
                     </div>
                 </div>
             </div>
@@ -131,9 +149,11 @@
     import { StoreSettingsKey } from '../../types/store/settings'
     import { StoreWebsiteKey } from '../../types/store/website'
     import { formatDate } from '../../utils/date'
+    import Tooltip from '../../components/Tooltip.vue'
     export default defineComponent({
         name: 'Domain',
         components: {
+            Tooltip,
             CakeIcon,
             RefreshIcon,
             OfficeBuildingIcon,
