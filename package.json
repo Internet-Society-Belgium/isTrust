@@ -24,7 +24,7 @@
         "serve:chromium": "webpack build --mode development --watch --env target=chromium",
         "build": "npm i && webpack build --mode production",
         "pack": "node utils/pack.js",
-        "commit": "cz",
+        "commit": "git pull && cz",
         "release": "dotenv release-it",
         "release:patch": "dotenv release-it patch",
         "release:minor": "dotenv release-it minor",
