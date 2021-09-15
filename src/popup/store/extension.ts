@@ -21,8 +21,8 @@ const extensionStates: StoreExtensionStates = reactive({
 })
 
 const extensionMethods: StoreExtensionMethods = {
-    i18n(message: string): string {
-        return browser.i18n.getMessage(message)
+    i18n(message: string, placeholders: string | string[]): string {
+        return browser.i18n.getMessage(message, placeholders)
     },
 }
 
