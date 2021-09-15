@@ -35,6 +35,37 @@
                     class="flex items-center"
                     @click="
                         openUrl(
+                            'https://github.com/Internet-Society-Belgium/isTrust/blob/main/CREDITS.md'
+                        )
+                    "
+                >
+                    <div class="flex-none">
+                        <UserGroupIcon class="w-6 h-6 text-neutral" />
+                    </div>
+                    <p
+                        class="
+                            flex-grow
+                            text-left text-secondary
+                            dark:text-dark-secondary
+                            transition-colors
+                            duration-500
+                            pl-2
+                            pr-6
+                            whitespace-nowrap
+                            select-none
+                        "
+                    >
+                        {{ extension.methods.i18n('credits') }}
+                    </p>
+                    <div class="flex-none">
+                        <ExternalLinkIcon class="w-5 h-5 text-neutral" />
+                    </div>
+                </button>
+
+                <button
+                    class="flex items-center"
+                    @click="
+                        openUrl(
                             'https://github.com/Internet-Society-Belgium/isTrust/blob/main/PRIVACY.md'
                         )
                     "
@@ -87,37 +118,6 @@
                         "
                     >
                         {{ extension.methods.i18n('license') }}
-                    </p>
-                    <div class="flex-none">
-                        <ExternalLinkIcon class="w-5 h-5 text-neutral" />
-                    </div>
-                </button>
-
-                <button
-                    class="flex items-center"
-                    @click="
-                        openUrl(
-                            'https://github.com/Internet-Society-Belgium/isTrust/blob/main/CREDITS.md'
-                        )
-                    "
-                >
-                    <div class="flex-none">
-                        <UserGroupIcon class="w-6 h-6 text-neutral" />
-                    </div>
-                    <p
-                        class="
-                            flex-grow
-                            text-left text-secondary
-                            dark:text-dark-secondary
-                            transition-colors
-                            duration-500
-                            pl-2
-                            pr-6
-                            whitespace-nowrap
-                            select-none
-                        "
-                    >
-                        {{ extension.methods.i18n('credits') }}
                     </p>
                     <div class="flex-none">
                         <ExternalLinkIcon class="w-5 h-5 text-neutral" />
