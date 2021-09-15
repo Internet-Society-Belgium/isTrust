@@ -24,6 +24,7 @@ export interface StoreWebsiteScore {
 export interface StoreWebsiteScoreDomain {
     score: Score
     registration: Score
+    transfer: Score
     lastChanged: Score
     registrant: Score
 }

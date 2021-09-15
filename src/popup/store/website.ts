@@ -125,6 +125,7 @@ function calculateDomainScores(data: WebsiteData): StoreWebsiteScoreDomain {
     const scores: StoreWebsiteScoreDomain = {
         score: 'neutral',
         registration: 'neutral',
+        transfer: 'neutral',
         lastChanged: 'neutral',
         registrant: 'neutral',
     }
@@ -138,6 +139,18 @@ function calculateDomainScores(data: WebsiteData): StoreWebsiteScoreDomain {
             scores.registration = 'warning'
         } else {
             scores.registration = 'ok'
+        }
+    }
+
+    if (data.dns?.events?.transfer) {
+        const transfer = new Date(data.dns?.events.transfer)
+        const recent = new Date()
+        recent.setMonth(recent.getMonth() - 1)
+
+        if (recent < transfer) {
+            scores.transfer = 'warning'
+        } else {
+            scores.transfer = 'ok'
         }
     }
 

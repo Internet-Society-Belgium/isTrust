@@ -44,13 +44,21 @@
                         class="flex-none w-6 h-6 text-neutral"
                     />
                     <div class="flex-grow">
-                        <p class="text-left whitespace-nowrap">
-                            {{
-                                formatDate(
-                                    website.states.data.dns.events.transfer
-                                )
-                            }}
-                        </p>
+                        <Tooltip
+                            :disable="
+                                website.states?.scores?.domain?.transfer !==
+                                'warning'
+                            "
+                            :text="extension.methods.i18n('less_x_month', '1')"
+                        >
+                            <p class="text-left whitespace-nowrap">
+                                {{
+                                    formatDate(
+                                        website.states.data.dns.events.transfer
+                                    )
+                                }}
+                            </p></Tooltip
+                        >
                     </div>
                 </div>
             </div>
