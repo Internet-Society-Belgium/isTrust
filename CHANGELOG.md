@@ -1,3 +1,18 @@
+## [2.4.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.3.0...2.4.0) (2021-09-15)
+
+
+### 🐛 Bug Fixes
+
+* **axios:** catch error ([f7424c3](https://github.com/Internet-Society-Belgium/isTrust/commit/f7424c3539c2b4bb66c90059f914facc017a425f))
+
+
+### ✨ Features
+
+* **cache:** clear current origin on reload ([9a65169](https://github.com/Internet-Society-Belgium/isTrust/commit/9a65169c7bd99bf65cda4bb63e6084b20662bfb2))
+* **certificate api:** encode url ([21f2de3](https://github.com/Internet-Society-Belgium/isTrust/commit/21f2de34691177997f5f173983784461434efa44))
+* logo ([84f8d81](https://github.com/Internet-Society-Belgium/isTrust/commit/84f8d816ba265d6101dbfe380a8e7bf9a0c205fe)), closes [#39](https://github.com/Internet-Society-Belgium/isTrust/issues/39)
+* split title and header ([80b6905](https://github.com/Internet-Society-Belgium/isTrust/commit/80b690582fd3031df0ac4ed3715e460a84e54a67))
+
 ## [2.3.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.2.0...2.3.0) (2021-09-14)
 
 
