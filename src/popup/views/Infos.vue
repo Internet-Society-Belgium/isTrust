@@ -30,7 +30,9 @@
                 </h3>
                 <Loading :animation="false">
                     <div v-if="website.states?.data?.dns?.dnssec">
-                        <BadgeCheckIcon class="w-4 h-4 text-neutral" />
+                        <Tooltip :text="'DNSSEC'">
+                            <BadgeCheckIcon class="w-4 h-4 text-neutral" />
+                        </Tooltip>
                     </div>
                 </Loading>
             </div>
@@ -72,12 +74,14 @@
     import { StoreSettingsKey } from '../types/store/settings'
     import { StoreWebsiteKey } from '../types/store/website'
     import Loading from '../components/Loading.vue'
+    import Tooltip from '../components/Tooltip.vue'
     import Domain from './infos/Domain.vue'
     import Security from './infos/Security.vue'
     export default defineComponent({
         name: 'Infos',
         components: {
             Loading,
+            Tooltip,
             Domain,
             Security,
             BadgeCheckIcon,
