@@ -1,3 +1,11 @@
+### [2.5.1](https://github.com/Internet-Society-Belgium/isTrust/compare/2.5.0...2.5.1) (2021-09-15)
+
+
+### 🐛 Bug Fixes
+
+* git pull before commit ([b3422e5](https://github.com/Internet-Society-Belgium/isTrust/commit/b3422e5da3f2198f44c9a4f9487d6b16955ac5b4))
+* **manifest:** remove browser_specific_settings ([527119e](https://github.com/Internet-Society-Belgium/isTrust/commit/527119eb8d8931e9e2a1eb9cff962f8df3299625)), closes [#54](https://github.com/Internet-Society-Belgium/isTrust/issues/54)
+
 ## [2.5.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.4.0...2.5.0) (2021-09-15)
 
 
