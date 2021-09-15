@@ -77,16 +77,15 @@ async function fetchData(): Promise<WebsiteData | undefined> {
     const tab = await getCurrentTab()
     if (!tab) return
     const id = tab.id
+    if (!id) return
     const url = tab.url
-    if (!id || !url) return
-
-    const { protocol, origin } = new URL(url)
-    if (!protocol || !origin) return
-
-    if (!['http:', 'https:'].includes(protocol)) {
+    if (!url) {
         websiteStates.internal = true
         return
     }
+
+    const { origin } = new URL(url)
+    if (!origin) return
 
     const cachedData = await storage.cache.get(origin)
     if (cachedData) return cachedData
