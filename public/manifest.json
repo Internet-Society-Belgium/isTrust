@@ -28,10 +28,5 @@
             "48": "icons/icon.png",
             "96": "icons/icon@2x.png"
         }
-    },
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "istrust@internetsociety.be"
-        }
     }
 }
