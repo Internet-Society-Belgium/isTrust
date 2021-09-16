@@ -61,24 +61,22 @@ Choice of Law
 
 This license is governed by the Laws of Belgium. Disputes shall be settled by Brussels City Court.
 
-Source: https://opensource.org/licenses/QPL-1.0
+[Source](https://opensource.org/licenses/QPL-1.0)
 
 # LICENSES FOR INCORPORATED CODEBASES
 
-https://github.com/mozilla/webextension-polyfill => Mozilla Public License 2.0
+[webextension-polyfill](https://github.com/mozilla/webextension-polyfill) => Mozilla Public License 2.0
 
-https://github.com/Lusito/webextension-polyfill-ts => zLib licence => thanks Copyright (C) 2018 Santo Pfingsten
+[webextension-polyfill-ts](https://github.com/Lusito/webextension-polyfill-ts) => zLib licence => thanks Copyright (C) 2018 Santo Pfingsten
 
-https://github.com/axios/axios => MIT licence => thanks Copyright (c) 2014-present Matt Zabriskie
+[axios](https://github.com/axios/axios) => MIT licence => thanks Copyright (c) 2014-present Matt Zabriskie
 
-https://github.com/vuejs/vue => MIT licence => thanks Copyright (c) 2013-present, Yuxi (Evan) You
+[vue](https://github.com/vuejs/vue) => MIT licence => thanks Copyright (c) 2013-present, Yuxi (Evan) You
 
-https://github.com/vuejs/vue-router => MIT licence => thanks Copyright (c) 2013-present Evan You
+[vue-router](https://github.com/vuejs/vue-router) => MIT licence => thanks Copyright (c) 2013-present Evan You
 
-https://github.com/lupomontero/psl => MIT licence => thanks Copyright (c) 2017 Lupo Montero lupomontero@gmail.com
+[psl](https://github.com/lupomontero/psl) => MIT licence => thanks Copyright (c) 2017 Lupo Montero lupomontero@gmail.com
 
-Font: https://fonts.google.com/specimen/Rubik => SIL Open Font License (OFL) => Copyright (c) Huber & Ficher, thanks Philipp Hubert and Sebastian Fischer, Meir Sadan and Alexei Vanyashin (Cyreal).
+[Rubik](https://fonts.google.com/specimen/Rubik) => SIL Open Font License (OFL) => Copyright (c) Huber & Ficher, thanks Philipp Hubert and Sebastian Fischer, Meir Sadan and Alexei Vanyashin (Cyreal).
 
-isTrust also uses isTrust-API, incorporating other codebases: please refer to isTrust-API documentation for more information (https://github.com/Internet-Society-Belgium/isTrust-API)
-
-(END OF FILE)
+[isTrust](https://github.com/Internet-Society-Belgium/isTrust) also uses [isTrust-API](https://github.com/Internet-Society-Belgium/isTrust-API), incorporating other codebases: please refer to [isTrust-API license](https://github.com/Internet-Society-Belgium/isTrust-API/blob/main/LICENSE.md) for more information
