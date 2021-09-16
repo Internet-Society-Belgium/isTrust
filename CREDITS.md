@@ -1,5 +1,3 @@
-# Credits
-
 # Contributors
 
 <div align="center">
