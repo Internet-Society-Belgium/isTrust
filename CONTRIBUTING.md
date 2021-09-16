@@ -29,7 +29,7 @@ Go to the [repository](https://github.com/Internet-Society-Belgium/isTrust) and 
 #### 2. Clone your fork on your local machine
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/isTrust.git
+git clone https://github.com/<YOUR_USERNAME>/isTrust.git
 ```
 
 #### 3. Install the dependencies
@@ -41,7 +41,8 @@ npm install
 #### 4. Create a branch per feature
 
 ```bash
-git checkout -b FEATURE
+git checkout -b <FEATURE>
+git push -u origin <FEATURE>
 ```
 
 #### 5. Commit modifications
@@ -49,7 +50,7 @@ git checkout -b FEATURE
 Split modifications into separate commits. And for each :
 
 ```bash
-git add FILES_TO_STAGED
+git add <FILES_TO_STAGED>
 npm run commit
 git push
 ```
