@@ -1,3 +1,11 @@
+## [2.6.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.5.1...2.6.0) (2021-09-16)
+
+
+### ✨ Features
+
+* **chapter url:** migrate to native geolocation API ([499d76e](https://github.com/Internet-Society-Belgium/isTrust/commit/499d76ee9894437567638b9a2c7f40fbffb52866)), closes [#55](https://github.com/Internet-Society-Belgium/isTrust/issues/55)
+* **readme:** header & .md links ([501a61f](https://github.com/Internet-Society-Belgium/isTrust/commit/501a61f43a9a8ac50c6e22b8c1ad8fad803aa091)), closes [#20](https://github.com/Internet-Society-Belgium/isTrust/issues/20)
+
 ### [2.5.1](https://github.com/Internet-Society-Belgium/isTrust/compare/2.5.0...2.5.1) (2021-09-15)
 
 
