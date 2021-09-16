@@ -58,17 +58,17 @@ async function init() {
 }
 
 async function getCurrentTab() {
-    let tab: browser.Tabs.Tab[] | null = null
-    do {
-        if (tab) {
-            await new Promise((resolve) => setTimeout(resolve, 500))
-        }
+    let tab = await browser.tabs.query({
+        active: true,
+        currentWindow: true,
+    })
+    while (!tab || tab.length === 0 || tab[0].status === 'loading') {
+        await new Promise((resolve) => setTimeout(resolve, 100))
         tab = await browser.tabs.query({
             active: true,
             currentWindow: true,
         })
-        if (tab.length === 0) return
-    } while (tab[0].status === 'loading')
+    }
 
     return tab[0]
 }
