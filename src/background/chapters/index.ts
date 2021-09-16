@@ -1,48 +1,38 @@
-import { Location } from '../../types/geolocation'
-import { Chapter, Region } from '../types/chapters'
+import { Location } from '../types/chapters'
 
 import chapters from './data'
 
-function distanceFromRegion(userLocation: Location, region: Region) {
+function distanceFromRegion(userLocation: Location, chapterLocation: Location) {
     if (
         !userLocation.latitude ||
         !userLocation.longitude ||
-        !region.latitude ||
-        !region.longitude
+        !chapterLocation.latitude ||
+        !chapterLocation.longitude
     )
         return
 
     return Math.sqrt(
-        Math.pow(userLocation.latitude - region.latitude, 2) +
-            Math.pow(userLocation.longitude - region.longitude, 2)
+        Math.pow(userLocation.latitude - chapterLocation.latitude, 2) +
+            Math.pow(userLocation.longitude - chapterLocation.longitude, 2)
     )
 }
 
-export function getChapter(isoCode?: string): Chapter {
-    return !isoCode
-        ? chapters[0]
-        : chapters.find((c) => c.country.isoCode === isoCode) || chapters[0]
-}
+export function getChapterUrl(userLocation: Location): string {
+    if (!userLocation) return chapters[0].url
 
-export function getBestRegion(
-    chapter: Chapter,
-    userLocation?: Location
-): Region {
-    if (!userLocation) return chapter.regions[0]
+    let best: { distance: number; url: string } | null = null
 
-    let best: { distance: number; region: Region } | null = null
+    for (let index = 0; index < chapters.length; index++) {
+        const chapter = chapters[index]
 
-    for (let index = 0; index < chapter.regions.length; index++) {
-        const region = chapter.regions[index]
-
-        const distance = distanceFromRegion(userLocation, region)
+        const distance = distanceFromRegion(userLocation, chapter.location)
         if (distance && (!best || distance < best.distance)) {
             best = {
                 distance,
-                region,
+                url: chapter.url,
             }
         }
     }
 
-    return best?.region || chapter.regions[0]
+    return best?.url || chapters[0].url
 }

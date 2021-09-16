@@ -15,9 +15,7 @@ const extensionConstants: StoreExtensionConstants = {
 }
 
 const extensionStates: StoreExtensionStates = reactive({
-    chapter: {
-        url: '',
-    },
+    chapterUrl: '',
 })
 
 const extensionMethods: StoreExtensionMethods = {
@@ -35,16 +33,13 @@ const extension: StoreExtension = {
 export default extension
 
 async function loadStorage() {
-    const extension = await storage.extension.get()
-    if (!extension) {
-        await updateStorage()
-    } else {
-        extensionStates.chapter.url = extension.chapter.url
+    let extension = await storage.extension.get()
+    while (!extension || !extension.chapterUrl) {
+        await new Promise((resolve) => setTimeout(resolve, 100))
+        extension = await storage.extension.get()
     }
-}
 
-async function updateStorage() {
-    await storage.extension.set(Object.assign({}, extensionStates))
+    extensionStates.chapterUrl = extension.chapterUrl
 }
 
 ;(async () => {
