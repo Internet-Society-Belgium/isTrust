@@ -1,7 +1,12 @@
 isTrust
-Copyright © 2021 Internet Society Chapter Belgium vzw/asbl, Frederic Taes and Julien Taes.
 
-Portions of the software Copyright © respective holders, see list of incorporated codebases.
+isTrust (TM) is a trademark created by Frederic Taes, with property transferred to Internet Society Chapter Belgium vzw/asbl ("ISOC.be").
+
+Copyright (c) 2021 Frederic Taes, President of Internet Society Chapter Belgium vzw/asbl.
+
+Initial author: Julien Taes, Frederic Taes.
+
+Portions of the software Copyright (c) respective holders, see list of incorporated codebases.
 
 isTrust as a whole is presently Licensed Q Public License 1.0 (QPL 1.0), though portions of the code are dual-licensed under other free/open source licenses.
 
@@ -54,7 +59,7 @@ The Software and this license document are provided AS IS with NO WARRANTY OF AN
 
 Choice of Law
 
-This license is governed by the Laws of Norway. Disputes shall be settled by Oslo City Court.
+This license is governed by the Laws of Belgium. Disputes shall be settled by Brussels City Court.
 
 Source: https://opensource.org/licenses/QPL-1.0
 
@@ -74,17 +79,6 @@ https://github.com/lupomontero/psl => MIT licence => thanks Copyright (c) 2017 L
 
 Font: https://fonts.google.com/specimen/Rubik => SIL Open Font License (OFL) => Copyright (c) Huber & Ficher, thanks Philipp Hubert and Sebastian Fischer, Meir Sadan and Alexei Vanyashin (Cyreal).
 
-# CONTRIBUTORS AGREE TO FREE/OPEN SOURCE DUAL-LICENSING
-
-By contributing code or other works of authorship to this project
-("Your Contributions"), you grant to the Internet Society Chapter Belgium vzw/asbl (ISOC.be) and copyright holders a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable license to reproduce, prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Your Contributions and such derivative works under the terms of any free software or open source license or licenses, such license(s) to be selected by ISOC.be and copyright holders at their sole discretion (such licenses will always be consistent with ISOC.be's mission).
-
-By contributing code or other works of authorship to this project, you
-represent that you have the legal right and ability to grant this license.
-
-Except for the license granted herein to ISOC.be, copyright holders and recipients of software distributed by ISOC.be, You reserve all right, title, and interest in and to Your Contributions.
-
-If you do not agree to these terms, please do not send patches or pull
-requests, or commit any material to this repository.
+isTrust also uses isTrust-API, incorporating other codebases: please refer to isTrust-API documentation for more information (https://github.com/Internet-Society-Belgium/isTrust-API)
 
 (END OF FILE)
