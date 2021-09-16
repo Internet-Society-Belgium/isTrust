@@ -2,12 +2,13 @@
     "manifest_version": 2,
     "name": "__MSG_extension_name__",
     "description": "__MSG_extension_description__",
-    "author": "Progiciel",
+    "author": "Internet Society Belgium",
     "default_locale": "en",
     "permissions": [
         "http://*/*",
         "https://*/*",
         "storage",
+        "unlimitedStorage",
         "alarms",
         "contextMenus"
     ],
