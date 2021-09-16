@@ -47,7 +47,7 @@
         </div>
 
         <div class="justify-self-end flex items-center">
-            <button @click="openUrl(extension.states.chapterUrl)">
+            <button @click="openUrl(extension.states.chapter.url)">
                 <InformationCircleIcon
                     class="
                         w-6

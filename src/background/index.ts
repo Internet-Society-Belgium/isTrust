@@ -1,10 +1,12 @@
+import axios from 'axios'
 import browser from 'webextension-polyfill'
 
 import { WebsiteInfo, WebsiteData } from '../types/communication'
+import { Geolocation } from '../types/geolocation'
 
 import storage from '../utils/localstorage'
 
-import { getChapterUrl } from './chapters'
+import { getBestRegion, getChapter } from './chapters'
 import getWebsiteTLD from './tld/getWebsiteTLD'
 
 browser.runtime.onMessage.addListener(
@@ -34,16 +36,17 @@ browser.runtime.onMessage.addListener(
 
 browser.runtime.onInstalled.addListener(async () => {
     await storage.cache.clear()
-    await storage.extension.clear()
 
-    navigator.geolocation.getCurrentPosition(
-        async (location: GeolocationPosition) => {
-            const latitude = location.coords.latitude
-            const longitude = location.coords.longitude
-            const chapterUrl = getChapterUrl({ latitude, longitude })
-            await storage.extension.set({ chapterUrl })
-        }
+    const defaultUrl = getBestRegion(getChapter()).url
+    await storage.extension.set({ chapter: { url: defaultUrl } })
+
+    const { status, data } = await axios.get<Geolocation>(
+        `https://istrust.api.progiciel.be/geolocation`
     )
+    if (status !== 200) return
+    const chapter = getChapter(data.country.isoCode)
+    const url = getBestRegion(chapter, data.location).url
+    await storage.extension.set({ chapter: { url } })
 })
 
 browser.alarms.create('clear_outdated_cache', {

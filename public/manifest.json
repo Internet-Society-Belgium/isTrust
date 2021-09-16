@@ -9,8 +9,7 @@
         "https://*/*",
         "storage",
         "alarms",
-        "contextMenus",
-        "geolocation"
+        "contextMenus"
     ],
     "icons": {
         "48": "icons/icon.png",

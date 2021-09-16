@@ -12,7 +12,9 @@ export interface StoreExtensionConstants {
 }
 
 export interface StoreExtensionStates {
-    chapterUrl: string
+    chapter: {
+        url: string
+    }
 }
 
 export interface StoreExtensionMethods {

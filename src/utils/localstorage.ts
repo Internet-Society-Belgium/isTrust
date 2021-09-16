@@ -17,10 +17,6 @@ async function extensionSet(data: LocalStorageExtension): Promise<void> {
     await browser.storage.local.set({ extension: { ...storage, ...data } })
 }
 
-async function extensionClear(): Promise<void> {
-    await browser.storage.local.remove('extension')
-}
-
 async function settingsGet(): Promise<LocalStorageSettings | undefined> {
     const storage = await browser.storage.local.get('settings')
     return storage?.settings
@@ -85,7 +81,6 @@ export default {
     extension: {
         get: extensionGet,
         set: extensionSet,
-        clear: extensionClear,
     },
     settings: {
         get: settingsGet,
