@@ -75,7 +75,7 @@
         "lint-staged": "^11.1.2",
         "postcss": "^8.3.6",
         "postcss-loader": "^6.1.1",
-        "prettier": "^2.4.0",
+        "prettier": "^2.4.1",
         "prettier-plugin-sort-json": "^0.0.2",
         "release-it": "^14.11.5",
         "source-map-loader": "^3.0.0",
