@@ -1,3 +1,10 @@
+### [2.6.1](https://github.com/Internet-Society-Belgium/isTrust/compare/2.6.0...2.6.1) (2021-09-16)
+
+
+### 🐛 Bug Fixes
+
+* **manifest:** author & permission ([f3f9306](https://github.com/Internet-Society-Belgium/isTrust/commit/f3f9306c04c5b44292aec4b6078299abcaa63d9b))
+
 ## [2.6.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.5.1...2.6.0) (2021-09-16)
 
 
