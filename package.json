@@ -19,7 +19,7 @@
         "lint": "eslint --fix",
         "format": "prettier --json-recursive-sort -w .",
         "lint_format:staged": "lint-staged",
-        "test": "jest",
+        "test": "jest --passWithNoTests",
         "serve:firefox-desktop": "webpack build --mode development --watch --env target=firefox-desktop",
         "serve:chromium": "webpack build --mode development --watch --env target=chromium",
         "build": "npm i && webpack build --mode production",
