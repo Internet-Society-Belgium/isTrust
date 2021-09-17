@@ -1,3 +1,15 @@
+## [2.7.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.6.1...2.7.0) (2021-09-17)
+
+
+### 🐛 Bug Fixes
+
+* markdown formating ([916c487](https://github.com/Internet-Society-Belgium/isTrust/commit/916c48759d1f9a5fb59b53532eeb7fca0fe43a4f))
+
+
+### ✨ Features
+
+* **bug report:** remove for MVP ([78ba0f4](https://github.com/Internet-Society-Belgium/isTrust/commit/78ba0f446375bec1f107a0fa38ac16fbad91ec2b)), closes [#46](https://github.com/Internet-Society-Belgium/isTrust/issues/46)
+
 ### [2.6.1](https://github.com/Internet-Society-Belgium/isTrust/compare/2.6.0...2.6.1) (2021-09-16)
 
 
