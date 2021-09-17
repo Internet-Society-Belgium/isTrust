@@ -47,34 +47,6 @@
                 </div>
             </button>
 
-            <div class="flex items-center">
-                <div class="flex-none">
-                    <ChatIcon class="w-6 h-6 text-neutral" />
-                </div>
-                <p
-                    class="
-                        flex-grow
-                        text-left text-secondary
-                        dark:text-dark-secondary
-                        transition-colors
-                        duration-500
-                        pl-2
-                        pr-6
-                        whitespace-nowrap
-                        select-none
-                    "
-                >
-                    {{ extension.methods.i18n('report_bugs') }}
-                </p>
-                <div class="flex-none">
-                    <Switch
-                        class="flex-none"
-                        :active="settings.states.reportBugs"
-                        @click="settings.methods.toggleReportBugs"
-                    />
-                </div>
-            </div>
-
             <router-link
                 to="/settings/more"
                 tag="div"
@@ -112,7 +84,6 @@
         SunIcon,
         MoonIcon,
         ChevronRightIcon,
-        ChatIcon,
         DocumentTextIcon,
         MailIcon,
     } from '@heroicons/vue/outline'
@@ -128,7 +99,6 @@
             SunIcon,
             MoonIcon,
             ChevronRightIcon,
-            ChatIcon,
             DocumentTextIcon,
             MailIcon,
             Switch,
