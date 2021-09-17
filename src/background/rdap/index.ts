@@ -74,7 +74,7 @@ export function getRdapRegistrant(data: RDAPData): Registrant | undefined {
     if (!organisationCard) return
 
     const organisation = organisationCard[3]
-    if (typeof organisation != 'string') return
+    if (typeof organisation !== 'string') return
 
     const locationCard = vCard.find((e) => e[0] === 'adr')
     if (!locationCard) return
@@ -83,11 +83,11 @@ export function getRdapRegistrant(data: RDAPData): Registrant | undefined {
     if (!Array.isArray(locationCardText)) return
 
     const state = locationCardText[3]
-    if (typeof state != 'string') return
+    if (typeof state !== 'string') return
     const region = locationCardText[4]
-    if (typeof region != 'string') return
+    if (typeof region !== 'string') return
     const country = locationCardText[6]
-    if (typeof country != 'string') return
+    if (typeof country !== 'string') return
 
     return {
         organisation,
