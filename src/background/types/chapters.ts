@@ -4,8 +4,12 @@ export interface Chapters {
 
 type Url = string
 
-interface Region {
+export interface Region {
     url: string
-    latitude: number
+    location: Location
+}
+
+export interface Location {
     longitude: number
+    latitude: number
 }
