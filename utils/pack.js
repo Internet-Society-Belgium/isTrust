@@ -7,7 +7,7 @@ if (!fs.existsSync('build'))
 if (fs.existsSync('pack')) fs.rmSync('pack', { recursive: true })
 fs.mkdirSync('pack')
 
-zipDirectory('build', `pack/${pack.name}_v${pack.version}.zip`)
+zipDirectory('build', `pack/isTrust_v${pack.version}.zip`)
 
 function zipDirectory(source, out) {
     const archive = archiver('zip')
