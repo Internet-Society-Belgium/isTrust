@@ -55,8 +55,7 @@ module.exports = (env, options) => {
                 },
                 {
                     test: /\.js$/,
-                    enforce: 'pre',
-                    use: ['source-map-loader'],
+                    loader: 'babel-loader',
                 },
             ],
         },
