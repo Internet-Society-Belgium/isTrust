@@ -1,3 +1,10 @@
+### [3.0.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.0.0...3.0.1) (2021-09-20)
+
+
+### 🐛 Bug Fixes
+
+* **store/extension:** default chapterUrl ([6ea352c](https://github.com/Internet-Society-Belgium/isTrust/commit/6ea352c80eedb38c367bf3d302146f49e78a7862))
+
 ## [3.0.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.7.0...3.0.0) (2021-09-20)
 
 
