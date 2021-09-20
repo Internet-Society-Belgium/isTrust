@@ -26,9 +26,12 @@ const countriesFile = path.resolve(
     const chaptersTs = fs.readFileSync(chaptersFile).toString()
 
     chaptersRaw = chaptersTs
-        .replace(`import { Chapters } from '../types/chapters'`, '')
-        .replace(`const chapters: Chapters = `, '')
-        .replace(`export default chapters`, '')
+        .replace(`import { Chapters, Url } from '../types/chapters'`, '')
+        .replace(
+            `export const defaultUrl: Url = 'https://www.istrust.org/'`,
+            ''
+        )
+        .replace(`export const chapters: Chapters = `, '')
 
     const chapters = JSON.parse(
         prettier.format(chaptersRaw, {
@@ -44,7 +47,7 @@ const countriesFile = path.resolve(
             if (!country) {
                 country = data50.features.find((f) => f.properties.NAME === key)
             }
-            if (!country) throw new Error(`no country ${country}`)
+            if (!country) throw new Error(`No country for ${key}`)
 
             cleanedData[key] = {
                 POP_RANK: country.properties.POP_RANK,
