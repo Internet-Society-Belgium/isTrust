@@ -36,7 +36,8 @@ export function getCountry(location: Location): string | undefined {
             [location.longitude, location.latitude],
             data.geometry
         )
-        if (!best || distance < best.distance) {
+
+        if (distance < 0.5 && (!best || (best && distance < best.distance))) {
             best = {
                 distance,
                 country,
