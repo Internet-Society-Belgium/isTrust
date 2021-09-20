@@ -10,16 +10,11 @@ import storage from '../../utils/localstorage'
 
 const settingsStates: StoreSettingsStates = reactive({
     dark: false,
-    reportBugs: true,
 })
 
 const settingsMethods: StoreSettingsMethods = {
     async toggleDark(): Promise<void> {
         settingsStates.dark = !settingsStates.dark
-        await updateStorage()
-    },
-    async toggleReportBugs(): Promise<void> {
-        settingsStates.reportBugs = !settingsStates.reportBugs
         await updateStorage()
     },
 }
@@ -37,7 +32,6 @@ async function loadStorage() {
         await updateStorage()
     } else {
         settingsStates.dark = settings.dark
-        settingsStates.reportBugs = settings.reportBugs
     }
 }
 
