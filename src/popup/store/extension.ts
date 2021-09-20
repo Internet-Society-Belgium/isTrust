@@ -15,7 +15,7 @@ const extensionConstants: StoreExtensionConstants = {
 }
 
 const extensionStates: StoreExtensionStates = reactive({
-    chapterUrl: '',
+    chapterUrl: 'https://www.istrust.org/',
 })
 
 const extensionMethods: StoreExtensionMethods = {
