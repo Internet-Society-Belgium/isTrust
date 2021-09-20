@@ -1,3 +1,36 @@
+## [3.0.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.7.0...3.0.0) (2021-09-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* multi region location missing
+* **chapters:** utils deprecated
+
+### 🐛 Bug Fixes
+
+* babel ([9276244](https://github.com/Internet-Society-Belgium/isTrust/commit/927624428e5fcccaec39c55a15732f0bb5dd8405))
+* **browser-polyfill:** auto bundeled ([e5fea7b](https://github.com/Internet-Society-Belgium/isTrust/commit/e5fea7bd287262e5289b94b9fcc247d260c56ec9))
+* **rdap:** type verification ([7641718](https://github.com/Internet-Society-Belgium/isTrust/commit/7641718c132402587a275c5612ea9892205563fc))
+* **vue error handler:** remove ([f98f6f5](https://github.com/Internet-Society-Belgium/isTrust/commit/f98f6f5c9befe739dfd7a890515135a6b0b3ee65)), closes [#46](https://github.com/Internet-Society-Belgium/isTrust/issues/46)
+
+
+### ✨ Features
+
+* **bug report:** remove ([5552cb5](https://github.com/Internet-Society-Belgium/isTrust/commit/5552cb5549dc4e44100c4dd0d3908dcd773d28ce)), closes [#46](https://github.com/Internet-Society-Belgium/isTrust/issues/46)
+* chapters ([187950c](https://github.com/Internet-Society-Belgium/isTrust/commit/187950c3f3f939d0a95f74e64bd567566e01047b))
+* **chapters & countries:** clean unverified ([4661fb6](https://github.com/Internet-Society-Belgium/isTrust/commit/4661fb69d9495475d4e5892b19f1b0615dd6fb9d))
+* **chapters:** data restructuration ([11acaa6](https://github.com/Internet-Society-Belgium/isTrust/commit/11acaa6a3b5f34ade4d7ed63bcbdcdf0f02b744a))
+* **chapters:** default url ([309be94](https://github.com/Internet-Society-Belgium/isTrust/commit/309be94901db40af7409dc765115f5e0a89b831f))
+* **chapters:** get url & get country ([44cc51f](https://github.com/Internet-Society-Belgium/isTrust/commit/44cc51f2a6c8dc97b58d836cec02f6f5585f7ee4))
+* countries ([d3378f9](https://github.com/Internet-Society-Belgium/isTrust/commit/d3378f976807087d1c35133e6bc0b67d547ce5fd))
+* **countries:** generate based on chapters.ts ([0e27144](https://github.com/Internet-Society-Belgium/isTrust/commit/0e27144d01233f2a21f762705cef7f4956dcda65))
+* generate countries.ts ([6443ef5](https://github.com/Internet-Society-Belgium/isTrust/commit/6443ef5416ea5f579fb5b84daa04560b504e9651))
+* get nearest country ([751c28a](https://github.com/Internet-Society-Belgium/isTrust/commit/751c28a0701ca95111b73946c9a33c7548128ba2))
+* **getcountry:** border margin ([a931170](https://github.com/Internet-Society-Belgium/isTrust/commit/a9311704de97698308545094d7ca6be0b81f95ed))
+* http -> https animation ([68ddf0e](https://github.com/Internet-Society-Belgium/isTrust/commit/68ddf0e42b9743e9751116849bcdd6c226a3b230)), closes [#67](https://github.com/Internet-Society-Belgium/isTrust/issues/67)
+* **popup:** geolocation chapter url ([0b9de9a](https://github.com/Internet-Society-Belgium/isTrust/commit/0b9de9a90ee2900bddc3a3f867b3c8d7caa08982)), closes [#55](https://github.com/Internet-Society-Belgium/isTrust/issues/55)
+* raw geojson countries ([80cb43f](https://github.com/Internet-Society-Belgium/isTrust/commit/80cb43f5e793380c2592a411643e09bc0b1d96ba))
+
 ## [2.7.0](https://github.com/Internet-Society-Belgium/isTrust/compare/2.6.1...2.7.0) (2021-09-17)
 
 
