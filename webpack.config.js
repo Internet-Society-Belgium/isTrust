@@ -26,11 +26,11 @@ module.exports = (env, options) => {
             rules: [
                 {
                     test: /\.tsx?$/,
+                    exclude: /node_modules/,
                     loader: 'ts-loader',
                     options: {
                         appendTsSuffixTo: [/\.vue$/],
                     },
-                    exclude: /node_modules/,
                 },
                 {
                     test: /\.vue$/,
@@ -56,6 +56,7 @@ module.exports = (env, options) => {
                 },
                 {
                     test: /\.js$/,
+                    exclude: /node_modules/,
                     loader: 'babel-loader',
                 },
             ],
@@ -74,11 +75,6 @@ module.exports = (env, options) => {
                         transform(content) {
                             const manifest = JSON.parse(content.toString())
                             manifest.version = pkg.version
-
-                            if (options.mode !== 'production') {
-                                manifest.content_security_policy =
-                                    "script-src 'self' 'unsafe-eval'; object-src 'self'"
-                            }
                             return JSON.stringify(manifest, null, 2)
                         },
                     },
