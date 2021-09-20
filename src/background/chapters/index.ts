@@ -1,7 +1,11 @@
 import { Location, Region } from '../types/chapters'
 
-import { coordinateInBoundingBox, coordinateInGeometry } from './utils/geojson'
-import { distanceBetweenLocations } from './utils/location'
+import {
+    coordinateInBoundingBox,
+    coordinateInGeometry,
+    distanceBetweenCoordinates,
+    distanceToGeometry,
+} from './utils/geojson'
 
 import chapters from './chapters'
 import countries from './countries'
@@ -24,7 +28,23 @@ export function getCountry(location: Location): string | undefined {
             }
         }
     }
-    return
+
+    let best: { distance: number; country: string } | null = null
+
+    for (const [country, data] of Object.entries(countries)) {
+        const distance = distanceToGeometry(
+            [location.longitude, location.latitude],
+            data.geometry
+        )
+        if (!best || distance < best.distance) {
+            best = {
+                distance,
+                country,
+            }
+        }
+    }
+
+    return best?.country
 }
 
 function getBestRegionUrl(
@@ -36,7 +56,10 @@ function getBestRegionUrl(
     for (let index = 0; index < regions.length; index++) {
         const region = regions[index]
 
-        const distance = distanceBetweenLocations(userLocation, region.location)
+        const distance = distanceBetweenCoordinates(
+            [userLocation.longitude, userLocation.latitude],
+            [region.location.longitude, region.location.latitude]
+        )
         if (distance && (!best || distance < best.distance)) {
             best = {
                 distance,

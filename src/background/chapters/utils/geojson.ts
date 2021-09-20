@@ -59,3 +59,49 @@ function coordinateInPolygon(
     }
     return inside
 }
+
+export function distanceToGeometry(
+    coordinate: Coordinates,
+    geometry: Geometry
+): number {
+    let best = 1000
+
+    if (geometry.type === 'Polygon') {
+        const geometryCoordinates = geometry.coordinates as Polygon[]
+        for (const polygon of geometryCoordinates) {
+            const distance = distanceToPolygon(coordinate, polygon)
+            if (distance < best) best = distance
+        }
+    } else if (geometry.type === 'MultiPolygon') {
+        const geometryCoordinates = geometry.coordinates as Polygon[][]
+        for (const geometryCoordinate of geometryCoordinates) {
+            for (const polygon of geometryCoordinate) {
+                const distance = distanceToPolygon(coordinate, polygon)
+                if (distance < best) best = distance
+            }
+        }
+    }
+
+    return best
+}
+
+function distanceToPolygon(coordinates: Coordinates, polygon: Polygon): number {
+    let best = 1000
+
+    for (const c of polygon) {
+        const distance = distanceBetweenCoordinates(coordinates, c)
+        if (distance < best) best = distance
+    }
+
+    return best
+}
+
+export function distanceBetweenCoordinates(
+    coordinates: Coordinates,
+    point: Coordinates
+): number {
+    return Math.sqrt(
+        Math.pow(coordinates[0] - point[0], 2) +
+            Math.pow(coordinates[1] - point[1], 2)
+    )
+}
