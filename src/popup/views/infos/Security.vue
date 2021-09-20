@@ -17,7 +17,9 @@
                     >
                         http
                     </p>
-                    <ArrowNarrowRightIcon class="w-6 h-6 text-neutral" />
+                    <ArrowNarrowRightIcon
+                        class="w-6 h-6 text-neutral mx-1 animate-bounce-right"
+                    />
                     <p
                         class="
                             text-secondary
