@@ -1,6 +1,8 @@
-import { Chapters } from '../types/chapters'
+import { Chapters, Url } from '../types/chapters'
 
-const chapters: Chapters = {
+export const defaultUrl: Url = 'https://www.istrust.org/'
+
+export const chapters: Chapters = {
     Belgium: 'https://www.internetsociety.be/',
     Argentina: 'http://www.isoc.org.ar/',
     Armenia: 'https://www.isocchapter.am/',
@@ -224,5 +226,3 @@ const chapters: Chapters = {
     Yemen: 'http://www.isoc.ye/',
     Zimbabwe: 'http://isoc.org.zw/',
 }
-
-export default chapters

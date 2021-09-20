@@ -7,7 +7,7 @@ import {
     distanceToGeometry,
 } from './utils/geojson'
 
-import chapters from './chapters'
+import { defaultUrl, chapters } from './chapters'
 import countries from './countries'
 
 export function getCountry(location: Location): string | undefined {
@@ -72,8 +72,6 @@ function getBestRegionUrl(
 }
 
 export function getChapterUrl(userLocation: Location): string {
-    const defaultUrl = chapters.Belgium as string
-
     if (!userLocation) return defaultUrl
 
     const country = getCountry(userLocation)
