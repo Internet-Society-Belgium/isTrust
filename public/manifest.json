@@ -10,7 +10,8 @@
         "storage",
         "unlimitedStorage",
         "alarms",
-        "contextMenus"
+        "contextMenus",
+        "geolocation"
     ],
     "icons": {
         "48": "icons/icon.png",

@@ -1,37 +1,25 @@
-import { getBestRegion, getChapter } from '.'
+import { getChapterUrl, getCountry } from '.'
 
-const Belgium = getChapter('BE')
-const UnitedStates = getChapter('US')
-const Luxemburg = getChapter('LU')
+test('getCountry Mons -> Belgium', () => {
+    expect(getCountry({ longitude: 3.952, latitude: 50.455 })).toBe('Belgium')
+})
 
-test('Belgium', () => {
-    expect(getBestRegion(Belgium, {})).toBe(
-        Belgium.regions.find((r) => r.url === 'https://www.internetsociety.be/')
+test('getChapterUrl Mons', () => {
+    expect(getChapterUrl({ longitude: 3.952, latitude: 50.455 })).toBe(
+        'https://www.internetsociety.be/'
     )
 })
 
-test('Luxemburg', () => {
-    expect(getBestRegion(Luxemburg, {})).toBe(
-        Belgium.regions.find((r) => r.url === 'https://www.internetsociety.be/')
-    )
+test('getCountry Torshavn -> undefined', () => {
+    expect(getCountry({ longitude: -6.833, latitude: 62.052 })).toBe(undefined)
 })
 
-test('United States', () => {
-    expect(getBestRegion(UnitedStates, {})).toBe(
-        UnitedStates.regions.find((r) => r.url === 'https://isoc-ny.org/')
-    )
+test('getCountry Galapagos -> undefined', () => {
+    expect(getCountry({ longitude: -91.165, latitude: -0.417 })).toBe(undefined)
 })
 
-test('Seattle', () => {
-    expect(
-        getBestRegion(UnitedStates, { latitude: 47.614, longitude: -123.201 })
-    ).toBe(
-        UnitedStates.regions.find((r) => r.url === 'https://www.sfbayisoc.org/')
+test('getChapterUrl Galapagos', () => {
+    expect(getChapterUrl({ longitude: -91.165, latitude: -0.417 })).toBe(
+        'https://www.istrust.org/'
     )
-})
-
-test('Miami', () => {
-    expect(
-        getBestRegion(UnitedStates, { latitude: 25.7824, longitude: -80.2295 })
-    ).toBe(UnitedStates.regions.find((r) => r.url === 'https://isoc-dc.org/'))
 })
