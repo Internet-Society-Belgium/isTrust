@@ -46,8 +46,8 @@
     "privacy_policy": {
         "message": "Privacy Policy"
     },
-    "report_bugs": {
-        "message": "Report bugs"
+    "report_bug": {
+        "message": "Report a bug"
     },
     "security": {
         "message": "Security"
