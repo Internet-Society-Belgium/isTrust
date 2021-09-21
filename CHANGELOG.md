@@ -1,3 +1,10 @@
+## [3.1.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.0.1...3.1.0) (2021-09-21)
+
+
+### ✨ Features
+
+* **bug report:** link to github issues ([3d46a26](https://github.com/Internet-Society-Belgium/isTrust/commit/3d46a26051ce17128eae34929f0fa0cc93c4a58e))
+
 ### [3.0.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.0.0...3.0.1) (2021-09-20)
 
 
