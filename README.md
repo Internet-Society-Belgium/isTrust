@@ -11,6 +11,14 @@
 <p align="center">Browser extension to verify the trustability of a website</p>
 
 <div align="center">
+    <a
+        href="https://github.com/Internet-Society-Belgium/isTrust/blob/main/CONTRIBUTING.md"
+    >
+        :writing_hand: CONTRIBUTING.md
+    </a>
+</div>
+
+<div align="center">
   <a
     href="https://github.com/Internet-Society-Belgium/isTrust/blob/main/CREDITS.md"
   >
