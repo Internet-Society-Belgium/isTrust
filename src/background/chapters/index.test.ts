@@ -6,13 +6,17 @@ const Luxemburg = getChapter('LU')
 
 test('Belgium', () => {
     expect(getBestRegion(Belgium, {})).toBe(
-        Belgium.regions.find((r) => r.url === 'https://www.internetsociety.be/')
+        Belgium.regions.find(
+            (r) => r.url === 'https://www.internetsociety.be/project/istrust/'
+        )
     )
 })
 
 test('Luxemburg', () => {
     expect(getBestRegion(Luxemburg, {})).toBe(
-        Belgium.regions.find((r) => r.url === 'https://www.internetsociety.be/')
+        Belgium.regions.find(
+            (r) => r.url === 'https://www.internetsociety.be/project/istrust/'
+        )
     )
 })
 

@@ -7,7 +7,7 @@ const chapters: Chapter[] = [
         },
         regions: [
             {
-                url: 'https://www.internetsociety.be/',
+                url: 'https://www.internetsociety.be/project/istrust/',
             },
         ],
     },
