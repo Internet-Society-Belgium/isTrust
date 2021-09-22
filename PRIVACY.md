@@ -4,13 +4,7 @@ The isTrust browser addon and its extension isTrust-API (collectively named here
 
 This software respects your privacy as much as possible. By design, we only process the minimum data necessary for your use of the software.
 
-During the installation and/or version update of the software, the browser addon will contact a server (isTrust-API), getting your IP address and software version installed on your device. From this IP address your location is determined and the closest Internet Society Chapter computed, with purpose to display the appropriate link under the info button.
-
-At server side (isTrust-API), data are segregated this way:
-
-1. For the purpose of general statistics and to size and monitor our services accordingly, following are kept: date, software version and country. Those information does not allow us to re-identify the individual;
-
-2. For the sole purpose to protect our servers and have ways to block traffic from IP addresses abusing/attacking us, we reserve the right to store requestors’ IP addresses for a maximum period of 30 days. We do not share this information with any third party, and we keep this data in a separated zone where accesses are restricted.
+During the installation and/or version update of the software, we need to identify your country and closest Internet Society Chapter to display the appropriate link under the info button. This is done by the geolocation function of the web browser: no data is transmitted to us.
 
 During your use of this software, the browser extension will call several services to gather various information about domain names and certificates:
 
@@ -20,6 +14,8 @@ A first way to consult domain information is to use the RDAP propocol; isTrust g
 
 The collection and processing of your data by the latter will be done under their sole responsibility (as separate data controllers). We invite you to read the privacy notices and other documents published on their websites for that purpose.
 
-2. SECURITY. To check and collect of information on HTTPS certificates, any browser extension cannot access certificates’ data itself for security and technical reasons, that’s why the browser extension calls a second service of isTrust-API to get data that will be displayed in the “Security” section. No personal data is stored, including your IP address.
+2. SECURITY. To check and collect of information on HTTPS certificates, a browser extension cannot access certificates’ data itself for security and technical reasons, that’s why the browser extension calls a second service of isTrust-API to get data that will be displayed in the “Security” section. This function does not store any data.
+
+3. Cookies : we do not use any "cookie".
 
 If you have any question about the processing of your personal data (including about your rights to access and to rectification on the data, and your other rights) feel free to contact DPO@isoc.be. Alternatively you can always contact the Belgian Data Protection Authority (https://www.dataprotectionauthority.be/citizen).
