@@ -71,7 +71,7 @@
         "husky": "^7.0.0",
         "jest": "^27.2.1",
         "lint-staged": "^11.1.2",
-        "postcss": "^8.3.6",
+        "postcss": "^8.3.7",
         "postcss-loader": "^6.1.1",
         "prettier": "^2.4.1",
         "prettier-plugin-sort-json": "^0.0.2",
