@@ -1,10 +1,10 @@
 # Bugs
 
-Please create an [issue](https://github.com/Internet-Society-Belgium/isTrust/issues) with the `bug` tag.
+Please create an [issue](https://github.com/Internet-Society-Belgium/isTrust/issues/new/choose).
 
 # Feature request
 
-Please create an [issue](https://github.com/Internet-Society-Belgium/isTrust/issues) with the `enhancement` tag.
+Please create an [issue](https://github.com/Internet-Society-Belgium/isTrust/issues/new/choose).
 
 # Propose changes
 
