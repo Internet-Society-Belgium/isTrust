@@ -2,6 +2,9 @@
     "certificate_invalid": {
         "message": "Certificat invalide"
     },
+    "clear_cache": {
+        "message": "Vider le cache"
+    },
     "communication_secured": {
         "message": "Communication securisée"
     },
@@ -20,11 +23,16 @@
     "feedback": {
         "message": "Feedback"
     },
-    "internal": {
-        "message": "Interne"
-    },
     "legal": {
         "message": "Légal"
+    },
+    "less_x_month": {
+        "message": "< $X$ mois",
+        "placeholders": {
+            "x": {
+                "content": "$1"
+            }
+        }
     },
     "license": {
         "message": "Licence"
@@ -37,6 +45,9 @@
     },
     "privacy_policy": {
         "message": "Déclaration vie privée"
+    },
+    "report_bug": {
+        "message": "Signaler un bug"
     },
     "security": {
         "message": "Securité"

@@ -2,6 +2,9 @@
     "certificate_invalid": {
         "message": "Ongeldig certificaat"
     },
+    "clear_cache": {
+        "message": "De cache legen"
+    },
     "communication_secured": {
         "message": "Beveiligde communicatie"
     },
@@ -20,11 +23,16 @@
     "feedback": {
         "message": "Feedback"
     },
-    "internal": {
-        "message": "Intern"
-    },
     "legal": {
         "message": "Legaal"
+    },
+    "less_x_month": {
+        "message": "< $X$ maanden",
+        "placeholders": {
+            "x": {
+                "content": "$1"
+            }
+        }
     },
     "license": {
         "message": "Licentie"
@@ -37,6 +45,9 @@
     },
     "privacy_policy": {
         "message": "Privacybeleid"
+    },
+    "report_bug": {
+        "message": "Report a bug"
     },
     "security": {
         "message": "Veiligheid"
