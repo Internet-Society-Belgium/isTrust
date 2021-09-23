@@ -6,7 +6,7 @@ test('getCountry Mons -> Belgium', () => {
 
 test('getChapterUrl Mons', () => {
     expect(getChapterUrl({ longitude: 3.952, latitude: 50.455 })).toBe(
-        'https://www.internetsociety.be/'
+        'https://www.internetsociety.be/project/istrust/'
     )
 })
 
