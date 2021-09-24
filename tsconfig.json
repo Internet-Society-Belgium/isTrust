@@ -1,16 +1,14 @@
 {
     "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "strict": true,
+        "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "importHelpers": true,
-        "jsx": "preserve",
-        "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-        "module": "esnext",
-        "moduleResolution": "node",
-        "skipLibCheck": true,
-        "sourceMap": true,
-        "strict": true,
-        "target": "es5"
+        "allowJs": false,
+        "sourceMap": false
     },
     "exclude": ["node_modules"],
     "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
