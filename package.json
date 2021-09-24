@@ -22,7 +22,7 @@
         "test": "jest --passWithNoTests",
         "serve:firefox-desktop": "webpack build --mode=development --watch --env target=firefox-desktop",
         "serve:chromium": "webpack build --mode=development --watch --env target=chromium",
-        "build": "npm i && webpack build --mode=production",
+        "build": "webpack build --mode=production",
         "pack": "node utils/pack.js",
         "commit": "git pull && cz",
         "release": "dotenv release-it",
