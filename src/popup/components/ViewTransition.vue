@@ -1,5 +1,14 @@
 <template>
-    <transition :name="transition" :mode="mode">
+    <transition
+        :name="transition"
+        :mode="
+            mode === 'in-out'
+                ? 'in-out'
+                : mode === 'out-in'
+                ? 'out-in'
+                : 'default'
+        "
+    >
         <slot />
     </transition>
 </template>
@@ -11,12 +20,14 @@
         props: {
             transition: {
                 type: String,
-                default: '',
                 required: true,
             },
             mode: {
                 type: String,
-                default: '',
+                validator(value: string) {
+                    return ['default', 'in-out', 'out-in'].includes(value)
+                },
+                default: 'default',
                 required: false,
             },
         },
