@@ -16,7 +16,7 @@ export interface StoreExtensionStates {
 }
 
 export interface StoreExtensionMethods {
-    i18n: (message: string, placeholders: string | string[]) => string
+    i18n: (message: string, placeholders?: string | string[]) => string
 }
 
 export const StoreExtensionKey: InjectionKey<StoreExtension> =

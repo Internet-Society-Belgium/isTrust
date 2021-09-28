@@ -16,7 +16,7 @@ Please create an [issue](https://github.com/Internet-Society-Belgium/isTrust/iss
 -   [VSCode](https://code.visualstudio.com/)
     -   [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
     -   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-    -   [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
+    -   [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
     -   [Jest](https://marketplace.visualstudio.com/items?itemName=orta.vscode-jest)
     -   [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 

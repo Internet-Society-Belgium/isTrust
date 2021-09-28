@@ -194,7 +194,6 @@
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreExtensionKey } from '../../types/store/extension'
-    import { StoreSettingsKey } from '../../types/store/settings'
     import { StoreWebsiteKey } from '../../types/store/website'
     import { formatDate } from '../../utils/date'
     import Tooltip from '../../components/Tooltip.vue'
@@ -210,9 +209,18 @@
         },
         setup() {
             const extension = inject(StoreExtensionKey)
-            const settings = inject(StoreSettingsKey)
+            if (!extension) {
+                throw new Error(
+                    `Could not resolve ${StoreExtensionKey.description}`
+                )
+            }
             const website = inject(StoreWebsiteKey)
-            return { extension, settings, website, formatDate }
+            if (!website) {
+                throw new Error(
+                    `Could not resolve ${StoreWebsiteKey.description}`
+                )
+            }
+            return { extension, website, formatDate }
         },
     })
 </script>

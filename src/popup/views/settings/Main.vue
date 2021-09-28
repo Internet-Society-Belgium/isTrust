@@ -138,7 +138,17 @@
         },
         setup() {
             const extension = inject(StoreExtensionKey)
+            if (!extension) {
+                throw new Error(
+                    `Could not resolve ${StoreExtensionKey.description}`
+                )
+            }
             const settings = inject(StoreSettingsKey)
+            if (!settings) {
+                throw new Error(
+                    `Could not resolve ${StoreSettingsKey.description}`
+                )
+            }
             return { extension, settings, openUrl }
         },
     })

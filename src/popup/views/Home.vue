@@ -49,6 +49,11 @@
         components: { Header, Title, Footer, ViewTransition },
         setup() {
             const settings = inject(StoreSettingsKey)
+            if (!settings) {
+                throw new Error(
+                    `Could not resolve ${StoreSettingsKey.description}`
+                )
+            }
             const toChild = ref(false)
             const lastRoute = ref('/')
             watch(useRoute(), (route) => {

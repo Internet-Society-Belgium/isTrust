@@ -77,7 +77,17 @@
         components: { Loading, ViewTransition, CogIcon, InformationCircleIcon },
         setup() {
             const extension = inject(StoreExtensionKey)
+            if (!extension) {
+                throw new Error(
+                    `Could not resolve ${StoreExtensionKey.description}`
+                )
+            }
             const website = inject(StoreWebsiteKey)
+            if (!website) {
+                throw new Error(
+                    `Could not resolve ${StoreWebsiteKey.description}`
+                )
+            }
             const settingsViewOpened = () => {
                 return useRoute().matched.find(
                     (route) => route.path === '/settings'

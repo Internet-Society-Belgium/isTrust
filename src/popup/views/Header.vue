@@ -25,6 +25,11 @@
         name: 'Header',
         setup() {
             const extension = inject(StoreExtensionKey)
+            if (!extension) {
+                throw new Error(
+                    `Could not resolve ${StoreExtensionKey.description}`
+                )
+            }
             return { extension }
         },
     })

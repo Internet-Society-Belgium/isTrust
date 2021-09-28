@@ -138,7 +138,6 @@
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { StoreExtensionKey } from '../../types/store/extension'
-    import { StoreSettingsKey } from '../../types/store/settings'
     import { openUrl } from '../../utils/url'
     export default defineComponent({
         name: 'Settings',
@@ -151,8 +150,12 @@
         },
         setup() {
             const extension = inject(StoreExtensionKey)
-            const settings = inject(StoreSettingsKey)
-            return { extension, settings, openUrl }
+            if (!extension) {
+                throw new Error(
+                    `Could not resolve ${StoreExtensionKey.description}`
+                )
+            }
+            return { extension, openUrl }
         },
     })
 </script>

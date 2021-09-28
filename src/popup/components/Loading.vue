@@ -26,6 +26,11 @@
         },
         setup() {
             const website = inject(StoreWebsiteKey)
+            if (!website) {
+                throw new Error(
+                    `Could not resolve ${StoreWebsiteKey.description}`
+                )
+            }
             return { website }
         },
     })
