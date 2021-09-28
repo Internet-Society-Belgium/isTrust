@@ -33,7 +33,7 @@
 <script lang="ts">
     import { defineComponent } from 'vue'
     export default defineComponent({
-        name: 'Loading',
+        name: 'Switch',
         props: {
             active: {
                 type: Boolean,
