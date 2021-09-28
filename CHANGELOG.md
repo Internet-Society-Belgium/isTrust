@@ -1,3 +1,19 @@
+## [3.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.1.0...3.2.0) (2021-09-28)
+
+
+### ✨ Features
+
+* **chapters:** belgium url ([c4407db](https://github.com/Internet-Society-Belgium/isTrust/commit/c4407dbb2c58702e14a4d70b70084e493cd724aa)), closes [#82](https://github.com/Internet-Society-Belgium/isTrust/issues/82)
+* **translation:** update french, dutch ([77f2f17](https://github.com/Internet-Society-Belgium/isTrust/commit/77f2f17a03677a66df557de1dfa912408bcf7f6d))
+
+
+### 🐛 Bug Fixes
+
+* **rdap:** organisation without location ([51c496b](https://github.com/Internet-Society-Belgium/isTrust/commit/51c496bc47abe52c0d7165904eea23360d8e8efe))
+* **router-view:** component: any ([bf4c4e8](https://github.com/Internet-Society-Belgium/isTrust/commit/bf4c4e8f1a29a663570116cc4bcc58d7bbd2f83a))
+* **settings:** width ([07b8a0e](https://github.com/Internet-Society-Belgium/isTrust/commit/07b8a0e668744f74c5319a9487a40720f447443d))
+* **viewtransition:** mode type ([5773307](https://github.com/Internet-Society-Belgium/isTrust/commit/577330790b620d18780306bb1d864b802e361376))
+
 ## [3.1.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.0.1...3.1.0) (2021-09-21)
 
 
