@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "strict": true,
-        "moduleResolution": "node",
+        "allowJs": false,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "importHelpers": true,
-        "allowJs": false,
-        "sourceMap": false
+        "module": "esnext",
+        "moduleResolution": "node",
+        "sourceMap": false,
+        "strict": true,
+        "target": "esnext"
     },
     "exclude": ["node_modules"],
     "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
