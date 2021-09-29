@@ -6,16 +6,15 @@ import { Dns } from '../../types/dns'
 import { parseHostname } from '../utils/url'
 
 export class Website {
-    private url: string
+    private origin: string
     readonly https: boolean
     readonly subdomain: string | null
     readonly domain: string
     protected tld: string
 
     constructor(url: string) {
-        this.url = url
-
-        const { protocol, hostname } = new URL(url)
+        const { origin, protocol, hostname } = new URL(url)
+        this.origin = origin
         this.https = protocol === 'https:'
         const { subdomain, domain, tld } = parseHostname(hostname)
         this.subdomain = subdomain
@@ -29,7 +28,7 @@ export class Website {
         try {
             const { status, data } = await axios.get<Certificate>(
                 `https://api.istrust.org/certificate?url=${encodeURIComponent(
-                    this.url
+                    this.origin
                 )}`
             )
             if (status !== 200) return
