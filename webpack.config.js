@@ -25,16 +25,13 @@ module.exports = (env, options) => {
         module: {
             rules: [
                 {
-                    test: /\.tsx?$/,
-                    exclude: /node_modules/,
-                    loader: 'ts-loader',
-                    options: {
-                        appendTsSuffixTo: [/\.vue$/],
-                    },
-                },
-                {
                     test: /\.vue$/,
                     loader: 'vue-loader',
+                },
+                {
+                    test: /\.tsx?$/,
+                    exclude: /node_modules/,
+                    loader: 'babel-loader',
                 },
                 {
                     test: /\.css$/,
@@ -53,11 +50,6 @@ module.exports = (env, options) => {
                     generator: {
                         filename: 'popup/assets/[hash][ext]',
                     },
-                },
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: 'babel-loader',
                 },
             ],
         },
