@@ -10,7 +10,7 @@
                 duration-500
             "
         >
-            <div class="flex flex-col gap-3 min-w-40">
+            <div class="flex flex-col gap-3 min-w-40 w-min">
                 <div class="p-4">
                     <Header />
                 </div>
