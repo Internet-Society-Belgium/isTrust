@@ -1,3 +1,17 @@
+## [3.3.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.2.0...3.3.0) (2021-09-30)
+
+
+### ✨ Features
+
+* **certificate:** by url origin ([1e603b7](https://github.com/Internet-Society-Belgium/isTrust/commit/1e603b7b574d57c0626f996893e1e1892d9edc04))
+* **certificate:** production api ([6615f8e](https://github.com/Internet-Society-Belgium/isTrust/commit/6615f8ed7e26d80616a8700e50d97a23d7311170))
+
+
+### 🐛 Bug Fixes
+
+* **babel:** compile ts with babel ([e288078](https://github.com/Internet-Society-Belgium/isTrust/commit/e2880789aa8fa6abfa6e15e965983fe4d5e616c7))
+* **popup:** width ([fbd3fd9](https://github.com/Internet-Society-Belgium/isTrust/commit/fbd3fd9b035bb2c3102c8906dbe5e65a53b14899))
+
 ## [3.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.1.0...3.2.0) (2021-09-28)
 
 
