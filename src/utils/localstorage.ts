@@ -67,8 +67,6 @@ async function cacheClearOutdated(): Promise<void> {
     const cache: LocalStorageCache = storage.cache
 
     for (const [k, v] of Object.entries(cache)) {
-        console.log(`${k} ${v.created}`)
-
         const created = new Date(v.created)
         const outdated = new Date()
         outdated.setDate(outdated.getDate() - 1)
