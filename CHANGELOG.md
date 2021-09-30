@@ -1,3 +1,10 @@
+### [3.3.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.3.0...3.3.1) (2021-09-30)
+
+
+### 🐛 Bug Fixes
+
+* **rdap:** case insensitive ([08a71ac](https://github.com/Internet-Society-Belgium/isTrust/commit/08a71ac698d032b1687d5b234951f3364b181a2c))
+
 ## [3.3.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.2.0...3.3.0) (2021-09-30)
 
 
