@@ -25,7 +25,10 @@ export async function getRdapUrls(tld: string): Promise<string[] | undefined> {
 
     const data = cachedIanaRdapList.services.find((e) => {
         if (e[0]) {
-            return e[0].includes(tld)
+            return (
+                e[0].findIndex((e) => e.match(new RegExp(`^${tld}$`, 'i'))) !==
+                -1
+            )
         }
     })
     if (!data) return
@@ -35,21 +38,21 @@ export async function getRdapUrls(tld: string): Promise<string[] | undefined> {
 
 export function getRdapLinks(data: RDAPData): string[] {
     if (!data.links) return []
-    const links = data.links.filter((e) => e.rel !== 'self')
+    const links = data.links.filter((e) => !e.rel.match(/^self$/i))
 
     return links.map((e) => e.href.replace(/domain\/.*/, ''))
 }
 
 export function getRdapEvents(data: RDAPData): Events | undefined {
-    const registration = data.events.find(
-        (e) => e.eventAction === 'registration'
+    const registration = data.events.find((e) =>
+        e.eventAction.match(/^registration$/i)
     )
     if (!registration) return
 
-    const transfer = data.events.find((e) => e.eventAction === 'transfer')
+    const transfer = data.events.find((e) => e.eventAction.match(/^transfer$/i))
 
-    const lastChanged = data.events.find(
-        (e) => e.eventAction === 'last changed'
+    const lastChanged = data.events.find((e) =>
+        e.eventAction.match(/^last changed$/i)
     )
 
     return {
@@ -62,7 +65,7 @@ export function getRdapEvents(data: RDAPData): Events | undefined {
 export function getRdapRegistrant(data: RDAPData): Registrant | undefined {
     const company = data.entities.find((e) => {
         if (e.roles) {
-            return e.roles.includes('registrant')
+            return e.roles.findIndex((r) => r.match(/^registrant$/i)) !== -1
         }
     })
     if (!company) return
@@ -70,13 +73,15 @@ export function getRdapRegistrant(data: RDAPData): Registrant | undefined {
     const vCard = company?.vcardArray[1]
     if (!(vCard instanceof Array)) return
 
-    const organisationCard = vCard.find((e) => e[0] === 'org')
+    const organisationCard = vCard.find(
+        (e) => typeof e[0] === 'string' && e[0].match(/^org$/i)
+    )
     if (!organisationCard) return
 
     const organisation = organisationCard[3]
     if (typeof organisation !== 'string') return
 
-    const locationCard = vCard.find((e) => e[0] === 'adr')
+    const locationCard = vCard.find((e) => e[0].toString().match(/^adr$/i))
     if (!locationCard) return { organisation }
 
     const locationCardText = locationCard[3]
