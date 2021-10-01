@@ -77,6 +77,10 @@ This license is governed by the Laws of Belgium. Disputes shall be settled by Br
 
 [psl](https://github.com/lupomontero/psl) => MIT licence => thanks Copyright (c) 2017 Lupo Montero lupomontero@gmail.com
 
+[tailwindcss](https://github.com/tailwindlabs/tailwindcss) => MIT licence => thanks Copyright (c) Adam Wathan <adam.wathan@gmail.com> & Jonathan Reinink <jonathan@reinink.ca>
+
+[heroicons](https://github.com/tailwindlabs/heroicons) => MIT licence => thanks Copyright (c) 2020 Refactoring UI Inc.
+
 [Rubik](https://fonts.google.com/specimen/Rubik) => SIL Open Font License (OFL) => Copyright (c) Huber & Ficher, thanks Philipp Hubert and Sebastian Fischer, Meir Sadan and Alexei Vanyashin (Cyreal).
 
 [isTrust](https://github.com/Internet-Society-Belgium/isTrust) also uses [isTrust-API](https://github.com/Internet-Society-Belgium/isTrust-API), incorporating other codebases: please refer to [isTrust-API license](https://github.com/Internet-Society-Belgium/isTrust-API/blob/main/LICENSE.md) for more information
