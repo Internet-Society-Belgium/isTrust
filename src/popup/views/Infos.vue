@@ -14,6 +14,8 @@
         </button>
     </div>
     <div v-else class="flex flex-col justify-center gap-4">
+        <Title />
+
         <section
             class="
                 bg-container
@@ -114,11 +116,13 @@
     import Tooltip from '../components/Tooltip.vue'
     import Domain from './infos/Domain.vue'
     import Security from './infos/Security.vue'
+    import Title from './infos/Title.vue'
     export default defineComponent({
         name: 'Infos',
         components: {
             Loading,
             Tooltip,
+            Title,
             Domain,
             Security,
             BadgeCheckIcon,
@@ -138,7 +142,10 @@
                     `Could not resolve ${StoreWebsiteKey.description}`
                 )
             }
-            return { extension, website }
+            return {
+                extension,
+                website,
+            }
         },
     })
 </script>

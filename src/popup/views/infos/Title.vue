@@ -1,4 +1,5 @@
 <template>
+    abc
     <div v-if="!website.states.internal" class="px-6">
         <Loading>
             <h2
@@ -6,8 +7,6 @@
                 class="
                     text-lg text-center text-secondary
                     dark:text-dark-secondary
-                    transition-colors
-                    duration-500
                     whitespace-nowrap
                 "
             >
@@ -29,8 +28,8 @@
 
 <script lang="ts">
     import { defineComponent, inject } from 'vue'
-    import { StoreWebsiteKey } from '../types/store/website'
-    import Loading from '../components/Loading.vue'
+    import { StoreWebsiteKey } from '../../types/store/website'
+    import Loading from '../../components/Loading.vue'
     export default defineComponent({
         name: 'Title',
         components: { Loading },
