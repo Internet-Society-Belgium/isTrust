@@ -7,29 +7,11 @@
             <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
             <button class="flex-grow px-2" @click="website.methods.goToHttps">
                 <div class="flex items-center gap-1">
-                    <p
-                        class="
-                            text-secondary
-                            dark:text-dark-secondary
-                            transition-colors
-                            duration-500
-                        "
-                    >
-                        http
-                    </p>
+                    <p class="text-secondary dark:text-dark-secondary">http</p>
                     <ArrowNarrowRightIcon
                         class="w-6 h-6 text-neutral mx-1 animate-bounce-right"
                     />
-                    <p
-                        class="
-                            text-secondary
-                            dark:text-dark-secondary
-                            transition-colors
-                            duration-500
-                        "
-                    >
-                        https
-                    </p>
+                    <p class="text-secondary dark:text-dark-secondary">https</p>
                 </div>
             </button>
         </div>
@@ -45,8 +27,6 @@
                     class="
                         text-left text-secondary
                         dark:text-dark-secondary
-                        transition-colors
-                        duration-500
                         whitespace-nowrap
                     "
                 >
@@ -65,8 +45,6 @@
                         class="
                             text-left text-secondary
                             dark:text-dark-secondary
-                            transition-colors
-                            duration-500
                             whitespace-nowrap
                         "
                     >
@@ -95,8 +73,6 @@
                             class="
                                 text-left text-secondary
                                 dark:text-dark-secondary
-                                transition-colors
-                                duration-500
                                 whitespace-nowrap
                             "
                         >
@@ -120,8 +96,6 @@
                             class="
                                 text-left text-secondary
                                 dark:text-dark-secondary
-                                transition-colors
-                                duration-500
                                 whitespace-nowrap
                             "
                         >

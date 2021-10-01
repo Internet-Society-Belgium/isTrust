@@ -6,10 +6,13 @@
                 class="
                     text-base text-center text-secondary
                     dark:text-dark-secondary
-                    transition-colors
-                    duration-500
                     font-semibold
                     whitespace-nowrap
+                "
+                :class="
+                    settings.transitioning.dark
+                        ? 'transition-colors duration-500'
+                        : ''
                 "
             >
                 {{ extension.methods.i18n('extension_name') }}
@@ -21,6 +24,7 @@
 <script lang="ts">
     import { defineComponent, inject } from 'vue'
     import { StoreExtensionKey } from '../types/store/extension'
+    import { StoreSettingsKey } from '../types/store/settings'
     export default defineComponent({
         name: 'Header',
         setup() {
@@ -30,7 +34,13 @@
                     `Could not resolve ${StoreExtensionKey.description}`
                 )
             }
-            return { extension }
+            const settings = inject(StoreSettingsKey)
+            if (!settings) {
+                throw new Error(
+                    `Could not resolve ${StoreSettingsKey.description}`
+                )
+            }
+            return { extension, settings }
         },
     })
 </script>

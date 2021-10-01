@@ -6,16 +6,17 @@
                 dark:bg-dark-background
                 text-secondary
                 dark:text-dark-secondary
-                transition-colors
-                duration-500
+            "
+            :class="
+                settings.transitioning.dark
+                    ? 'transition-colors duration-500'
+                    : ''
             "
         >
             <div class="flex flex-col gap-3 min-w-40 w-min">
                 <div class="p-4">
                     <Header />
                 </div>
-
-                <Title />
 
                 <div class="p-4">
                     <router-view v-slot="{ Component }">
@@ -43,7 +44,7 @@
     import ViewTransition from '../components/ViewTransition.vue'
     import Footer from './Footer.vue'
     import Header from './Header.vue'
-    import Title from './Title.vue'
+    import Title from './infos/Title.vue'
     export default defineComponent({
         name: 'Home',
         components: { Header, Title, Footer, ViewTransition },

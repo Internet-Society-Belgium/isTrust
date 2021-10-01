@@ -3,10 +3,15 @@ import { InjectionKey } from 'vue'
 
 export interface StoreSettings {
     states: StoreSettingsStates
+    transitioning: StoreSettingsTransitiongStates
     methods: StoreSettingsMethods
 }
 
 export interface StoreSettingsStates {
+    dark: boolean
+}
+
+export interface StoreSettingsTransitiongStates {
     dark: boolean
 }
 

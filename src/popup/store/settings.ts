@@ -4,6 +4,7 @@ import {
     StoreSettings,
     StoreSettingsMethods,
     StoreSettingsStates,
+    StoreSettingsTransitiongStates,
 } from '../types/store/settings'
 
 import storage from '../../utils/localstorage'
@@ -12,8 +13,14 @@ const settingsStates: StoreSettingsStates = reactive({
     dark: false,
 })
 
+const settingsTransitiongStates: StoreSettingsTransitiongStates = reactive({
+    dark: false,
+})
+
 const settingsMethods: StoreSettingsMethods = {
     async toggleDark(): Promise<void> {
+        settingsTransitiongStates.dark = true
+        setTimeout(() => (settingsTransitiongStates.dark = false), 600)
         settingsStates.dark = !settingsStates.dark
         await updateStorage()
     },
@@ -21,6 +28,7 @@ const settingsMethods: StoreSettingsMethods = {
 
 const settings: StoreSettings = {
     states: readonly(settingsStates),
+    transitioning: readonly(settingsTransitiongStates),
     methods: settingsMethods,
 }
 

@@ -17,15 +17,7 @@
         <Title />
 
         <section
-            class="
-                bg-container
-                dark:bg-dark-container
-                transition-colors
-                duration-500
-                rounded-lg
-                p-2
-                ring-2
-            "
+            class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
             :class="
                 website.states?.scores?.domain?.score === 'warning'
                     ? ' ring-warning'
@@ -41,8 +33,6 @@
                         italic
                         text-secondary
                         dark:text-dark-secondary
-                        transition-colors
-                        duration-500
                         select-none
                     "
                 >
@@ -65,15 +55,7 @@
         </section>
 
         <section
-            class="
-                bg-container
-                dark:bg-dark-container
-                transition-colors
-                duration-500
-                rounded-lg
-                p-2
-                ring-2
-            "
+            class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
             :class="
                 website.states?.scores?.security?.score === 'warning'
                     ? ' ring-warning'
@@ -88,8 +70,6 @@
                     italic
                     text-secondary
                     dark:text-dark-secondary
-                    transition-colors
-                    duration-500
                     select-none
                 "
             >

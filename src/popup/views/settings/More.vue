@@ -1,14 +1,5 @@
 <template>
-    <div
-        class="
-            m-2
-            bg-container
-            dark:bg-dark-container
-            transition-colors
-            duration-500
-            rounded-lg
-        "
-    >
+    <div class="m-2 bg-container dark:bg-dark-container rounded-lg">
         <div class="grid grid-flow-row gap-4 p-3">
             <router-link to="/settings" tag="div" class="flex items-center">
                 <div class="flex-none">
@@ -19,8 +10,6 @@
                         flex-grow
                         text-left text-secondary
                         dark:text-dark-secondary
-                        transition-colors
-                        duration-500
                         pl-2
                         pr-6
                         whitespace-nowrap
@@ -47,8 +36,6 @@
                             flex-grow
                             text-left text-secondary
                             dark:text-dark-secondary
-                            transition-colors
-                            duration-500
                             pl-2
                             pr-6
                             whitespace-nowrap
@@ -78,8 +65,6 @@
                             flex-grow
                             text-left text-secondary
                             dark:text-dark-secondary
-                            transition-colors
-                            duration-500
                             pl-2
                             pr-6
                             whitespace-nowrap
@@ -109,8 +94,6 @@
                             flex-grow
                             text-left text-secondary
                             dark:text-dark-secondary
-                            transition-colors
-                            duration-500
                             pl-2
                             pr-6
                             whitespace-nowrap

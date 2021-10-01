@@ -30,8 +30,6 @@
                                 class="
                                     text-left text-secondary
                                     dark:text-dark-secondary
-                                    transition-colors
-                                    duration-500
                                     whitespace-nowrap
                                 "
                             >
@@ -63,8 +61,6 @@
                                 class="
                                     text-left text-secondary
                                     dark:text-dark-secondary
-                                    transition-colors
-                                    duration-500
                                     whitespace-nowrap
                                 "
                             >
@@ -104,8 +100,6 @@
                                 class="
                                     text-left text-secondary
                                     dark:text-dark-secondary
-                                    transition-colors
-                                    duration-500
                                     whitespace-nowrap
                                 "
                             >
@@ -137,8 +131,6 @@
                         class="
                             text-left text-secondary
                             dark:text-dark-secondary
-                            transition-colors
-                            duration-500
                             whitespace-nowrap
                         "
                     >
@@ -160,8 +152,6 @@
                         class="
                             text-left text-secondary
                             dark:text-dark-secondary
-                            transition-colors
-                            duration-500
                             whitespace-nowrap
                         "
                     >
