@@ -1,3 +1,15 @@
+## [3.4.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.3.1...3.4.0) (2021-10-01)
+
+
+### ✨ Features
+
+* **infos:** move title into infos section ([ab3bbfd](https://github.com/Internet-Society-Belgium/isTrust/commit/ab3bbfdffeb026273f43f3009f7f0a32e76c85f4))
+
+
+### 🐛 Bug Fixes
+
+* **dark mode transition:** transition on start ([058891c](https://github.com/Internet-Society-Belgium/isTrust/commit/058891c0d33836ce9e392c49865201512694ac38))
+
 ### [3.3.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.3.0...3.3.1) (2021-09-30)
 
 
