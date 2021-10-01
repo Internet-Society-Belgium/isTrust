@@ -15,7 +15,7 @@
         "message": "Domaine"
     },
     "extension_description": {
-        "message": "Vérifie la fiabilité d'un site web"
+        "message": "Vérifie la fiabilité de n'importe quel site web"
     },
     "extension_name": {
         "message": "isTrust"
