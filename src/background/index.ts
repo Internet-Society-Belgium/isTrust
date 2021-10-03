@@ -8,26 +8,31 @@ import { getChapterUrl } from './chapters'
 import getWebsiteTLD from './tld/getWebsiteTLD'
 
 browser.runtime.onMessage.addListener(
-    async ({ url }: WebsiteInfo): Promise<WebsiteData> => {
-        const website = await getWebsiteTLD(url)
-        const { https, subdomain, domain } = website
+    async ({ url }: WebsiteInfo): Promise<WebsiteData | undefined> => {
+        try {
+            const website = await getWebsiteTLD(url)
 
-        const certificatePromise = website.certificate()
-        const dnsPromise = website.dns()
+            const { https, subdomain, domain } = website
 
-        const [certificate, dns] = await Promise.all([
-            certificatePromise,
-            dnsPromise,
-        ])
+            const certificatePromise = website.certificate()
+            const dnsPromise = website.dns()
 
-        return {
-            url: {
-                https,
-                subdomain,
-                domain,
-            },
-            certificate,
-            dns,
+            const [certificate, dns] = await Promise.all([
+                certificatePromise,
+                dnsPromise,
+            ])
+
+            return {
+                url: {
+                    https,
+                    subdomain,
+                    domain,
+                },
+                certificate,
+                dns,
+            }
+        } catch (e) {
+            return
         }
     }
 )
