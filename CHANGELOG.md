@@ -1,3 +1,10 @@
+### [3.4.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.4.0...3.4.1) (2021-10-03)
+
+
+### 🐛 Bug Fixes
+
+* **tld:** invalid domain ([9f2599a](https://github.com/Internet-Society-Belgium/isTrust/commit/9f2599a4ec8900e3ca45858df2df0a68e5ffa484))
+
 ## [3.4.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.3.1...3.4.0) (2021-10-01)
 
 
