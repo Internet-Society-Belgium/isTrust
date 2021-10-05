@@ -38,10 +38,7 @@
                         ml-4
                         top-full
                     "
-                    x="0px"
-                    y="0px"
-                    viewBox="0 0 255 255"
-                    xml:space="preserve"
+                    viewBox="0 0 255 127.5"
                 >
                     <polygon
                         class="fill-current"
