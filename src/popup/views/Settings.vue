@@ -3,7 +3,7 @@
         <div class="min-h-40">
             <ViewTransition
                 :transition="toChild ? 'slide-left' : 'slide-right'"
-                :mode="'out-in'"
+                mode="out-in"
             >
                 <component :is="Component" />
             </ViewTransition>

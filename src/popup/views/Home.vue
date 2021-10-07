@@ -22,7 +22,7 @@
                     <router-view v-slot="{ Component }">
                         <ViewTransition
                             :transition="toChild ? 'scale' : ''"
-                            :mode="toChild ? 'out-in' : ''"
+                            :mode="toChild ? 'out-in' : 'default'"
                         >
                             <component :is="Component" />
                         </ViewTransition>
