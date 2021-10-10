@@ -34,7 +34,10 @@ export default class Website_rdap extends Website {
 
             try {
                 const { status, data: rdapData } = await axios.get<RDAPData>(
-                    `${url}${url.endsWith('/') ? '' : '/'}domain/${this.domain}`
+                    `${url}${url.endsWith('/') ? '' : '/'}domain/${
+                        this.domain
+                    }`,
+                    { timeout: 5000 }
                 )
                 if (status !== 200) continue
 
