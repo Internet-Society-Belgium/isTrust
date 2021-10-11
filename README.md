@@ -111,13 +111,4 @@
             width="40px"
         />
     </a>
-    <a
-        href="https://addons.mozilla.org/firefox/addon/istrust/?utm_source=github.com"
-        title="Tor browser"
-    >
-        <img
-            src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Tor_Browser_icon.svg"
-            width="40px"
-        />
-    </a>
 </div>
