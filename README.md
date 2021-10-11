@@ -10,7 +10,9 @@
     <a href="https://www.istrust.org/">isTrust</a>
 </h3>
 
-<p align="center">Browser extension to verify the trustability of any website</p>
+<p align="center">
+    Browser extension to verify the trustability of any website
+</p>
 
 <div align="center">
     <a
@@ -49,5 +51,73 @@
         href="https://github.com/Internet-Society-Belgium/isTrust/blob/main/CHANGELOG.md"
     >
         :pencil: CHANGELOG.md
+    </a>
+</div>
+
+<h2 align="center">Download</h2>
+
+<div align="center">
+    <a
+        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
+        title="Chrome"
+    >
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Chrome_icon_%28September_2014%29.svg"
+            width="40px"
+        />
+    </a>
+    <a
+        href="https://addons.mozilla.org/firefox/addon/istrust/?utm_source=github.com"
+        title="Firefox"
+    >
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/2/28/Firefox_logo%2C_2017.svg"
+            width="40px"
+        />
+    </a>
+    <a
+        href="https://microsoftedge.microsoft.com/addons/detail/cphlaknpjmlpfaejjabjlgnekfkebeoo"
+        title="Edge"
+    >
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg"
+            width="40px"
+        />
+    </a>
+    <a
+        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
+        title="Opera"
+    >
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/4/49/Opera_2015_icon.svg"
+            width="40px"
+        />
+    </a>
+    <a
+        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
+        title="Brave"
+    >
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Brave_lion.png"
+            width="40px"
+        />
+    </a>
+    <a
+        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
+        title="Vivaldi"
+    >
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Vivaldi_web_browser_logo.svg"
+            width="40px"
+        />
+    </a>
+    <a
+        href="https://addons.mozilla.org/firefox/addon/istrust/?utm_source=github.com"
+        title="Vivaldi"
+    >
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Tor_Browser_icon.svg"
+            width="40px"
+        />
     </a>
 </div>
