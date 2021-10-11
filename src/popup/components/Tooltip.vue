@@ -20,10 +20,9 @@
                     dark:bg-secondary-dark-container
                     rounded-lg
                     bottom-full
-                    -left-4
                     py-1
                     px-2
-                    m-2
+                    my-2
                     z-10
                 "
             >
@@ -35,7 +34,7 @@
                         dark:text-secondary-dark-container
                         h-2
                         left-0
-                        ml-4
+                        ml-1
                         top-full
                     "
                     viewBox="0 0 255 127.5"

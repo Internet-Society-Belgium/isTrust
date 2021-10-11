@@ -21,7 +21,14 @@
         class="grid gap-2 p-2"
     >
         <div class="flex items-center">
-            <LockClosedIcon class="flex-none w-6 h-6 text-neutral" />
+            <div v-if="website.states.data.certificate?.valid">
+                <Tooltip :text="website.states.data.certificate.protocol">
+                    <LockClosedIcon class="flex-none w-6 h-6 text-neutral"
+                /></Tooltip>
+            </div>
+            <div v-else>
+                <LockClosedIcon class="flex-none w-6 h-6 text-neutral" />
+            </div>
             <div class="flex-grow px-2">
                 <p
                     class="
@@ -55,19 +62,9 @@
 
             <div v-else-if="website.states.data?.certificate?.owner">
                 <div class="flex items-center">
-                    <div v-if="website.states?.data?.certificate?.protocol">
-                        <Tooltip
-                            :text="website.states.data.certificate.protocol"
-                        >
-                            <IdentificationIcon
-                                class="flex-none w-6 h-6 text-neutral"
-                        /></Tooltip>
-                    </div>
-                    <div v-else>
-                        <IdentificationIcon
-                            class="flex-none w-6 h-6 text-neutral"
-                        />
-                    </div>
+                    <IdentificationIcon
+                        class="flex-none w-6 h-6 text-neutral"
+                    />
                     <div class="flex-grow px-2">
                         <p
                             class="
