@@ -1,3 +1,12 @@
+### [3.4.2](https://github.com/Internet-Society-Belgium/isTrust/compare/3.4.1...3.4.2) (2021-10-12)
+
+
+### 🐛 Bug Fixes
+
+* **rdap:** request timeout ([ad0a6ae](https://github.com/Internet-Society-Belgium/isTrust/commit/ad0a6ae04afa3c5394e4f9224599154778d2266d))
+* **tooltip:** protocol on lock icon ([8a1a684](https://github.com/Internet-Society-Belgium/isTrust/commit/8a1a6840204a05712a0ed477008475cb161b7a32)), closes [#88](https://github.com/Internet-Society-Belgium/isTrust/issues/88)
+* **viewtransition:** default mode ([54ae712](https://github.com/Internet-Society-Belgium/isTrust/commit/54ae712b4bc73486dd3f03c3831954a0b1a1e989))
+
 ### [3.4.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.4.0...3.4.1) (2021-10-03)
 
 
