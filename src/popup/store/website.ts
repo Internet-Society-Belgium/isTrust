@@ -8,6 +8,7 @@ import {
     StoreWebsiteStates,
 } from '../types/store/website'
 
+import { setIcon } from '../../utils/icon'
 import storage from '../../utils/localstorage'
 import { getCurrentTab } from '../../utils/tab'
 
@@ -19,9 +20,10 @@ const websiteStates: StoreWebsiteStates = reactive({
 const websiteMethods: StoreWebsiteMethods = {
     async reload(): Promise<void> {
         const tab = await getCurrentTab()
-        if (!tab?.url) return
+        if (!tab.id || !tab?.url) return
         const { origin } = new URL(tab.url)
         if (!origin) return
+        await setIcon({ tabId: tab.id })
         await storage.cache.remove(origin)
         await browser.tabs.reload()
         await init()
@@ -49,13 +51,18 @@ async function init() {
 
     websiteStates.internal = await isInternal()
 
-    if (!websiteStates.internal) {
+    if (websiteStates.internal) {
+        const tab = await getCurrentTab()
+        if (tab.id) {
+            await setIcon({ tabId: tab.id })
+        }
+    } else {
         const data: WebsiteData | undefined = await browser.runtime.sendMessage(
             {
                 cacheOnly: false,
             }
         )
-    websiteStates.data = data
+        websiteStates.data = data
     }
 
     websiteStates.loading = false

@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill'
 
 import { WebsiteData } from '../types/communication'
 
+import { setIcon } from '../utils/icon'
 import storage from '../utils/localstorage'
 import { getCurrentTab } from '../utils/tab'
 import { getScores } from './utils/score'
@@ -22,6 +23,7 @@ browser.runtime.onMessage.addListener(
 
         const cachedData = await storage.cache.get(origin)
         if (cachedData) {
+            setIcon({ tabId: tab.id, score: cachedData.scores.score })
             return cachedData
         }
 
@@ -60,6 +62,7 @@ browser.runtime.onMessage.addListener(
                 dns,
             }
 
+            setIcon({ tabId: tab.id, score: scores.score })
             await storage.cache.set(origin, data)
 
             return data
