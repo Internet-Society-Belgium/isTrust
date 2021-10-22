@@ -69,7 +69,7 @@ async function cacheClearOutdated(): Promise<void> {
     for (const [k, v] of Object.entries(cache)) {
         const created = new Date(v.created)
         const outdated = new Date()
-        outdated.setDate(outdated.getDate() - 1)
+        outdated.setDate(outdated.getDate() - 3)
 
         if (created < outdated) {
             delete cache[k]
