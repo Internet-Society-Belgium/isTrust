@@ -6,6 +6,7 @@
                 dark:bg-dark-background
                 text-secondary
                 dark:text-dark-secondary
+                overflow-hidden
             "
             :class="
                 settings.transitioning.dark

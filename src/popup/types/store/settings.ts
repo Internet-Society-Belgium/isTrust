@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { InjectionKey } from 'vue'
 
 export interface StoreSettings {

@@ -12,7 +12,7 @@
                     <CakeIcon
                         class="flex-none w-6 h-6"
                         :class="
-                            website.states?.scores?.domain?.registration ===
+                            website.states.data.scores.domain.registration ===
                             'warning'
                                 ? 'text-warning'
                                 : 'text-neutral'
@@ -21,8 +21,8 @@
                     <div class="flex-grow px-2">
                         <Tooltip
                             :disable="
-                                website.states?.scores?.domain?.registration !==
-                                'warning'
+                                website.states.data.scores.domain
+                                    .registration !== 'warning'
                             "
                             :text="extension.methods.i18n('less_x_month', '6')"
                         >
@@ -52,7 +52,7 @@
                     <div class="flex-grow px-2">
                         <Tooltip
                             :disable="
-                                website.states?.scores?.domain?.transfer !==
+                                website.states.data.scores.domain.transfer !==
                                 'warning'
                             "
                             :text="extension.methods.i18n('less_x_month', '1')"
@@ -82,7 +82,7 @@
                     <RefreshIcon
                         class="flex-none w-6 h-6"
                         :class="
-                            website.states?.scores?.domain?.lastChanged ===
+                            website.states.data.scores.domain.lastChanged ===
                             'warning'
                                 ? 'text-warning'
                                 : 'text-neutral'
@@ -91,8 +91,8 @@
                     <div class="flex-grow px-2">
                         <Tooltip
                             :disable="
-                                website.states?.scores?.domain?.lastChanged !==
-                                'warning'
+                                website.states.data.scores.domain
+                                    .lastChanged !== 'warning'
                             "
                             :text="extension.methods.i18n('less_x_month', '1')"
                         >
@@ -121,7 +121,8 @@
                 <OfficeBuildingIcon
                     class="flex-none w-6 h-6"
                     :class="
-                        website.states?.scores?.domain?.registrant === 'warning'
+                        website.states.data.scores.domain.registrant ===
+                        'warning'
                             ? 'text-warning'
                             : 'text-neutral'
                     "

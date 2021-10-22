@@ -1,8 +1,9 @@
 import browser from 'webextension-polyfill'
 
-import { WebsiteInfo, WebsiteData } from '../types/communication'
+import { WebsiteData } from '../types/communication'
 
 import storage from '../utils/localstorage'
+import { getScores } from './utils/score'
 
 import { getChapterUrl } from './chapters'
 import getWebsiteTLD from './tld/getWebsiteTLD'
@@ -22,7 +23,7 @@ browser.runtime.onMessage.addListener(
                 dnsPromise,
             ])
 
-            return {
+            const scores = getScores({
                 url: {
                     https,
                     subdomain,
@@ -30,7 +31,20 @@ browser.runtime.onMessage.addListener(
                 },
                 certificate,
                 dns,
+            })
+
+            const data = {
+                url: {
+                    https,
+                    subdomain,
+                    domain,
+                },
+                scores,
+                certificate,
+                dns,
             }
+
+            return data
         } catch (e) {
             return
         }

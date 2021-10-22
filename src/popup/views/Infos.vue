@@ -19,9 +19,9 @@
         <section
             class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
             :class="
-                website.states?.scores?.domain?.score === 'warning'
+                website.states.data?.scores.domain.score === 'warning'
                     ? ' ring-warning'
-                    : website.states?.scores?.domain?.score === 'ok'
+                    : website.states.data?.scores.domain.score === 'ok'
                     ? 'ring-ok'
                     : 'ring-neutral'
             "
@@ -57,9 +57,9 @@
         <section
             class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
             :class="
-                website.states?.scores?.security?.score === 'warning'
+                website.states.data?.scores.security.score === 'warning'
                     ? ' ring-warning'
-                    : website.states?.scores?.security?.score === 'ok'
+                    : website.states.data?.scores.security.score === 'ok'
                     ? 'ring-ok'
                     : 'ring-neutral'
             "

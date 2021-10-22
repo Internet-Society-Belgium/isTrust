@@ -1,16 +1,16 @@
 import { Certificate } from './certificate'
 import { Dns } from './dns'
-
-export interface WebsiteInfo {
-    url: string
-}
+import { WebsiteScore } from './score'
 
 export interface WebsiteData {
-    url: {
-        https: boolean
-        subdomain: string | null
-        domain: string
-    }
+    url: WebsiteDataUrl
+    scores: WebsiteScore
     certificate?: Certificate
     dns?: Dns
+}
+
+export interface WebsiteDataUrl {
+    https: boolean
+    subdomain: string | null
+    domain: string
 }

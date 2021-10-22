@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { InjectionKey } from 'vue'
 
 import { WebsiteData } from '../../../types/communication'
@@ -12,30 +11,7 @@ export interface StoreWebsiteStates {
     internal: boolean
     loading: boolean
     data?: WebsiteData
-    scores?: StoreWebsiteScore
 }
-
-export interface StoreWebsiteScore {
-    score: Score
-    domain: StoreWebsiteScoreDomain
-    security: StoreWebsiteScoreSecurity
-}
-
-export interface StoreWebsiteScoreDomain {
-    score: Score
-    registration: Score
-    transfer: Score
-    lastChanged: Score
-    registrant: Score
-}
-
-export interface StoreWebsiteScoreSecurity {
-    score: Score
-    https: Score
-    certificate: Score
-}
-
-type Score = 'ok' | 'neutral' | 'warning'
 
 export interface StoreWebsiteMethods {
     reload: () => Promise<void>
