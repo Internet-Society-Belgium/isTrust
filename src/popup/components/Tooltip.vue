@@ -35,8 +35,8 @@
                         h-2
                         left-0
                         ml-1
-                        top-full
                     "
+                    style="top: 95%"
                     viewBox="0 0 255 127.5"
                 >
                     <polygon
