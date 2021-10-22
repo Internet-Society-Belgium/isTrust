@@ -1,3 +1,14 @@
+## [3.5.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.4.2...3.5.0) (2021-10-22)
+
+
+### ✨ Features
+
+* **cache:** invalid after 3 days (72 hours) ([c2eddbe](https://github.com/Internet-Society-Belgium/isTrust/commit/c2eddbe6dea2b7d10f69a468d770f0ada2b48598))
+* **cache:** move to background ([2b0f773](https://github.com/Internet-Society-Belgium/isTrust/commit/2b0f773c9a249e550b06ae0991fed5dc546f9c94))
+* **icon:** dynamic color ([44ef145](https://github.com/Internet-Society-Belgium/isTrust/commit/44ef145d79de3b234905a92799da3cdeb8786468)), closes [#91](https://github.com/Internet-Society-Belgium/isTrust/issues/91)
+* **scores:** move to background ([7660889](https://github.com/Internet-Society-Belgium/isTrust/commit/7660889d12c5203077b7e8cba9a3cefc175e4f40))
+* **tooltip:** pixel perfect ([80f7ae0](https://github.com/Internet-Society-Belgium/isTrust/commit/80f7ae0052a80a559eaf7c5a417906ec87cc47c0))
+
 ### [3.4.2](https://github.com/Internet-Society-Belgium/isTrust/compare/3.4.1...3.4.2) (2021-10-12)
 
 
