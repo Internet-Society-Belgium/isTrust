@@ -3,15 +3,31 @@ import browser from 'webextension-polyfill'
 import { WebsiteData } from '../types/communication'
 
 import storage from '../utils/localstorage'
+import { getCurrentTab } from '../utils/tab'
 import { getScores } from './utils/score'
 
 import { getChapterUrl } from './chapters'
 import getWebsiteTLD from './tld/getWebsiteTLD'
 
 browser.runtime.onMessage.addListener(
-    async ({ url }: WebsiteInfo): Promise<WebsiteData | undefined> => {
+    async ({
+        cacheOnly,
+    }: {
+        cacheOnly: boolean
+    }): Promise<WebsiteData | undefined> => {
+        const tab = await getCurrentTab()
+        if (!tab.id || !tab?.url) return
+        const { origin } = new URL(tab.url)
+        if (!origin) return
+
+        const cachedData = await storage.cache.get(origin)
+        if (cachedData) {
+            return cachedData
+        }
+
+        if (cacheOnly) return
         try {
-            const website = await getWebsiteTLD(url)
+            const website = await getWebsiteTLD(tab.url)
 
             const { https, subdomain, domain } = website
 
@@ -43,6 +59,8 @@ browser.runtime.onMessage.addListener(
                 certificate,
                 dns,
             }
+
+            await storage.cache.set(origin, data)
 
             return data
         } catch (e) {

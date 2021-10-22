@@ -49,8 +49,14 @@ async function init() {
 
     websiteStates.internal = await isInternal()
 
-    const data: WebsiteData | undefined = await browser.runtime.sendMessage({})
+    if (!websiteStates.internal) {
+        const data: WebsiteData | undefined = await browser.runtime.sendMessage(
+            {
+                cacheOnly: false,
+            }
+        )
     websiteStates.data = data
+    }
 
     websiteStates.loading = false
 }
