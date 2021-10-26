@@ -13,7 +13,7 @@
                     absolute
                     transition
                     duration-500
-                    text-secondary
+                    text-sm text-secondary
                     dark:text-dark-secondary
                     text-center
                     bg-secondary-container

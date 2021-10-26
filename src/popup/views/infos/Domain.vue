@@ -1,6 +1,6 @@
 <template>
     <div v-if="!website.states.data?.dns" class="flex justify-center">
-        <p>{{ extension.methods.i18n('no_info') }}</p>
+        <p class="text-sm">{{ extension.methods.i18n('no_info') }}</p>
     </div>
     <div v-else class="grid gap-2 p-2">
         <div>
@@ -28,7 +28,7 @@
                         >
                             <p
                                 class="
-                                    text-left text-secondary
+                                    text-sm text-left text-secondary
                                     dark:text-dark-secondary
                                     whitespace-nowrap
                                 "
@@ -59,7 +59,7 @@
                         >
                             <p
                                 class="
-                                    text-left text-secondary
+                                    text-sm text-left text-secondary
                                     dark:text-dark-secondary
                                     whitespace-nowrap
                                 "
@@ -98,7 +98,7 @@
                         >
                             <p
                                 class="
-                                    text-left text-secondary
+                                    text-sm text-left text-secondary
                                     dark:text-dark-secondary
                                     whitespace-nowrap
                                 "
@@ -130,7 +130,7 @@
                 <div class="flex-grow px-2">
                     <p
                         class="
-                            text-left text-secondary
+                            text-sm text-left text-secondary
                             dark:text-dark-secondary
                             whitespace-nowrap
                         "
@@ -151,7 +151,7 @@
                 <div class="flex-grow px-2">
                     <p
                         class="
-                            text-left text-secondary
+                            text-sm text-left text-secondary
                             dark:text-dark-secondary
                             whitespace-nowrap
                         "

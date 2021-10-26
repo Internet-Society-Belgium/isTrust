@@ -26,7 +26,7 @@
                     <p
                         v-if="settingsViewOpened()"
                         class="
-                            text-secondary
+                            text-sm text-secondary
                             dark:text-dark-secondary
                             select-none
                         "

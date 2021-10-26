@@ -8,7 +8,7 @@
                 <p
                     class="
                         flex-grow
-                        text-left text-secondary
+                        text-sm text-left text-secondary
                         dark:text-dark-secondary
                         pl-2
                         pr-6
@@ -34,7 +34,7 @@
                     <p
                         class="
                             flex-grow
-                            text-left text-secondary
+                            text-sm text-left text-secondary
                             dark:text-dark-secondary
                             pl-2
                             pr-6
@@ -63,7 +63,7 @@
                     <p
                         class="
                             flex-grow
-                            text-left text-secondary
+                            text-sm text-left text-secondary
                             dark:text-dark-secondary
                             pl-2
                             pr-6
@@ -92,7 +92,7 @@
                     <p
                         class="
                             flex-grow
-                            text-left text-secondary
+                            text-sm text-left text-secondary
                             dark:text-dark-secondary
                             pl-2
                             pr-6

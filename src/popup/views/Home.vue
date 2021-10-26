@@ -1,13 +1,7 @@
 <template>
     <div :class="settings.states.dark ? 'dark' : ''">
         <div
-            class="
-                bg-background
-                dark:bg-dark-background
-                text-secondary
-                dark:text-dark-secondary
-                overflow-hidden
-            "
+            class="bg-background dark:bg-dark-background overflow-hidden"
             :class="
                 settings.transitioning.dark
                     ? 'transition-colors duration-500'

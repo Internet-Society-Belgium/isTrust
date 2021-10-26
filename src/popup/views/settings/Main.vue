@@ -34,7 +34,7 @@
                 <p
                     class="
                         flex-grow
-                        text-left text-secondary
+                        text-sm text-left text-secondary
                         dark:text-dark-secondary
                         transition-colors
                         duration-500
@@ -61,7 +61,7 @@
                 <p
                     class="
                         flex-grow
-                        text-left text-secondary
+                        text-sm text-left text-secondary
                         dark:text-dark-secondary
                         transition-colors
                         duration-500
@@ -89,7 +89,7 @@
                 <p
                     class="
                         flex-grow
-                        text-left text-secondary
+                        text-sm text-left text-secondary
                         dark:text-dark-secondary
                         transition-colors
                         duration-500

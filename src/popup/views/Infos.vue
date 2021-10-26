@@ -30,6 +30,7 @@
                 <h3
                     class="
                         p-1
+                        text-sm
                         italic
                         text-secondary
                         dark:text-dark-secondary
@@ -67,6 +68,7 @@
             <h3
                 class="
                     p-1
+                    text-sm
                     italic
                     text-secondary
                     dark:text-dark-secondary
