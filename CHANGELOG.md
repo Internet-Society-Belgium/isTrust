@@ -1,3 +1,15 @@
+## [3.6.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.5.0...3.6.0) (2021-10-26)
+
+
+### ✨ Features
+
+* security -> communication ([a88a9aa](https://github.com/Internet-Society-Belgium/isTrust/commit/a88a9aa6706b9bacc0829aa46f2eaa96ba40ddef))
+
+
+### 🐛 Bug Fixes
+
+* font size ([161c989](https://github.com/Internet-Society-Belgium/isTrust/commit/161c98956b272c4a1c9a28cd0758b01055ac0393))
+
 ## [3.5.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.4.2...3.5.0) (2021-10-22)
 
 

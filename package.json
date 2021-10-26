@@ -1,6 +1,6 @@
 {
     "name": "istrust",
-    "version": "3.5.0",
+    "version": "3.6.0",
     "description": "Browser extension to verify the trustability of a website",
     "homepage": "https://github.com/Internet-Society-Belgium/isTrust#readme",
     "bugs": {
