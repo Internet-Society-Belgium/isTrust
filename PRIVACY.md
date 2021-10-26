@@ -14,7 +14,7 @@ A first way to consult domain information is to use the RDAP propocol; isTrust g
 
 The collection and processing of your data by the latter will be done under their sole responsibility (as separate data controllers). We invite you to read the privacy notices and other documents published on their websites for that purpose.
 
-2. SECURITY. To check and collect of information on HTTPS certificates, a browser extension cannot access certificates’ data itself for security and technical reasons, that’s why the browser extension calls a second service of isTrust-API to get data that will be displayed in the “Security” section. This function does not store any data.
+2. SECURITY. To check and collect of information on HTTPS certificates, a browser extension cannot access certificates’ data itself for security and technical reasons, that’s why the browser extension calls a second service of isTrust-API to get data that will be displayed in the "Communication" section. This function does not store any data.
 
 3. Cookies : we do not use any "cookie".
 

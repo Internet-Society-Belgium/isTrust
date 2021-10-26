@@ -1,7 +1,7 @@
 export interface WebsiteScore {
     score: Score
     domain: WebsiteScoreDomain
-    security: WebsiteScoreSecurity
+    communication: WebsiteScoreCommunication
 }
 
 export interface WebsiteScoreDomain {
@@ -12,7 +12,7 @@ export interface WebsiteScoreDomain {
     registrant: Score
 }
 
-export interface WebsiteScoreSecurity {
+export interface WebsiteScoreCommunication {
     score: Score
     https: Score
     certificate: Score

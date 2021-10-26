@@ -57,9 +57,9 @@
         <section
             class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
             :class="
-                website.states.data?.scores.security.score === 'warning'
+                website.states.data?.scores.communication.score === 'warning'
                     ? ' ring-warning'
-                    : website.states.data?.scores.security.score === 'ok'
+                    : website.states.data?.scores.communication.score === 'ok'
                     ? 'ring-ok'
                     : 'ring-neutral'
             "
@@ -73,11 +73,11 @@
                     select-none
                 "
             >
-                {{ extension.methods.i18n('security') }}
+                {{ extension.methods.i18n('communication') }}
             </h3>
 
             <Loading>
-                <Security />
+                <Communication />
             </Loading>
         </section>
     </div>
@@ -94,8 +94,8 @@
     import { StoreWebsiteKey } from '../types/store/website'
     import Loading from '../components/Loading.vue'
     import Tooltip from '../components/Tooltip.vue'
+    import Communication from './infos/Communication.vue'
     import Domain from './infos/Domain.vue'
-    import Security from './infos/Security.vue'
     import Title from './infos/Title.vue'
     export default defineComponent({
         name: 'Infos',
@@ -104,7 +104,7 @@
             Tooltip,
             Title,
             Domain,
-            Security,
+            Communication,
             BadgeCheckIcon,
             EyeOffIcon,
             RefreshIcon,

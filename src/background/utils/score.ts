@@ -4,7 +4,7 @@ import { Dns } from '../../types/dns'
 import {
     WebsiteScore,
     WebsiteScoreDomain,
-    WebsiteScoreSecurity,
+    WebsiteScoreCommunication,
 } from '../../types/score'
 
 export function getScores({
@@ -17,12 +17,12 @@ export function getScores({
     certificate?: Certificate
 }): WebsiteScore {
     const scoresDomain = getDomainScores({ dns })
-    const scoresSecurity = getSecurityScores({ url, certificate })
+    const scoresCommunication = getCommunicationScores({ url, certificate })
 
     const scores: WebsiteScore = {
         score: 'neutral',
         domain: scoresDomain,
-        security: scoresSecurity,
+        communication: scoresCommunication,
     }
 
     for (const [k, v] of Object.entries(scores)) {
@@ -98,14 +98,14 @@ function getDomainScores({ dns }: { dns?: Dns }): WebsiteScoreDomain {
     return scores
 }
 
-function getSecurityScores({
+function getCommunicationScores({
     url,
     certificate,
 }: {
     url?: WebsiteDataUrl
     certificate?: Certificate
-}): WebsiteScoreSecurity {
-    const scores: WebsiteScoreSecurity = {
+}): WebsiteScoreCommunication {
+    const scores: WebsiteScoreCommunication = {
         score: 'neutral',
         https: 'neutral',
         certificate: 'neutral',

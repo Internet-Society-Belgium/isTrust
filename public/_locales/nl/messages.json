@@ -5,8 +5,8 @@
     "clear_cache": {
         "message": "De cache legen"
     },
-    "communication_secured": {
-        "message": "Beveiligde communicatie"
+    "secure": {
+        "message": "Veilig"
     },
     "credits": {
         "message": "Credits"
@@ -49,8 +49,8 @@
     "report_bug": {
         "message": "Report a bug"
     },
-    "security": {
-        "message": "Veiligheid"
+    "communication": {
+        "message": "Communicatie"
     },
     "settings": {
         "message": "Instellingen"

@@ -7,11 +7,17 @@
             <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
             <button class="flex-grow px-2" @click="website.methods.goToHttps">
                 <div class="flex items-center gap-1">
-                    <p class="text-secondary dark:text-dark-secondary">http</p>
+                    <span
+                        class="text-sm text-secondary dark:text-dark-secondary"
+                        >http</span
+                    >
                     <ArrowNarrowRightIcon
                         class="w-6 h-6 text-neutral mx-1 animate-bounce-right"
                     />
-                    <p class="text-secondary dark:text-dark-secondary">https</p>
+                    <span
+                        class="text-sm text-secondary dark:text-dark-secondary"
+                        >https</span
+                    >
                 </div>
             </button>
         </div>
@@ -32,12 +38,12 @@
             <div class="flex-grow px-2">
                 <p
                     class="
-                        text-left text-secondary
+                        text-sm text-left text-secondary
                         dark:text-dark-secondary
                         whitespace-nowrap
                     "
                 >
-                    {{ extension.methods.i18n('communication_secured') }}
+                    {{ extension.methods.i18n('secure') }}
                 </p>
             </div>
         </div>
@@ -50,7 +56,7 @@
                 <div class="flex-grow px-2">
                     <p
                         class="
-                            text-left text-secondary
+                            text-sm text-left text-secondary
                             dark:text-dark-secondary
                             whitespace-nowrap
                         "
@@ -68,7 +74,7 @@
                     <div class="flex-grow px-2">
                         <p
                             class="
-                                text-left text-secondary
+                                text-sm text-left text-secondary
                                 dark:text-dark-secondary
                                 whitespace-nowrap
                             "
@@ -91,7 +97,7 @@
                     <div class="flex-grow px-2">
                         <p
                             class="
-                                text-left text-secondary
+                                text-sm text-left text-secondary
                                 dark:text-dark-secondary
                                 whitespace-nowrap
                             "
@@ -129,7 +135,7 @@
     import { StoreWebsiteKey } from '../../types/store/website'
     import Tooltip from '../../components/Tooltip.vue'
     export default defineComponent({
-        name: 'Security',
+        name: 'Communication',
         components: {
             Tooltip,
             LockClosedIcon,
