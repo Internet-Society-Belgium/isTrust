@@ -5,8 +5,8 @@
     "clear_cache": {
         "message": "Clear cache"
     },
-    "secure": {
-        "message": "Secure"
+    "communication": {
+        "message": "Communication"
     },
     "credits": {
         "message": "Credits"
@@ -49,8 +49,8 @@
     "report_bug": {
         "message": "Report a bug"
     },
-    "communication": {
-        "message": "Communication"
+    "secure": {
+        "message": "Secure"
     },
     "settings": {
         "message": "Settings"
