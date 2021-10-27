@@ -1,3 +1,10 @@
+## [3.7.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.6.0...3.7.0) (2021-10-27)
+
+
+### ✨ Features
+
+* remove transfer date ([2cc8973](https://github.com/Internet-Society-Belgium/isTrust/commit/2cc8973dd18ab07474d9cfc5b4d35b77e2309364))
+
 ## [3.6.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.5.0...3.6.0) (2021-10-26)
 
 
