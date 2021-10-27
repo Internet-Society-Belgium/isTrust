@@ -6,7 +6,6 @@ export interface Dns {
 
 export interface Events {
     registration: Date
-    transfer?: Date
     lastChanged?: Date
 }
 

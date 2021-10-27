@@ -49,15 +49,12 @@ export function getRdapEvents(data: RDAPData): Events | undefined {
     )
     if (!registration) return
 
-    const transfer = data.events.find((e) => e.eventAction.match(/^transfer$/i))
-
     const lastChanged = data.events.find((e) =>
         e.eventAction.match(/^last changed$/i)
     )
 
     return {
         registration: registration.eventDate,
-        transfer: transfer?.eventDate,
         lastChanged: lastChanged?.eventDate,
     }
 }

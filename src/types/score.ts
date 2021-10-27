@@ -7,7 +7,6 @@ export interface WebsiteScore {
 export interface WebsiteScoreDomain {
     score: Score
     registration: Score
-    transfer: Score
     lastChanged: Score
     registrant: Score
 }

@@ -40,7 +40,6 @@ function getDomainScores({ dns }: { dns?: Dns }): WebsiteScoreDomain {
     const scores: WebsiteScoreDomain = {
         score: 'neutral',
         registration: 'neutral',
-        transfer: 'neutral',
         lastChanged: 'neutral',
         registrant: 'neutral',
     }
@@ -54,18 +53,6 @@ function getDomainScores({ dns }: { dns?: Dns }): WebsiteScoreDomain {
             scores.registration = 'warning'
         } else {
             scores.registration = 'ok'
-        }
-    }
-
-    if (dns?.events?.transfer) {
-        const transfer = new Date(dns?.events.transfer)
-        const recent = new Date()
-        recent.setMonth(recent.getMonth() - 1)
-
-        if (recent < transfer) {
-            scores.transfer = 'warning'
-        } else {
-            scores.transfer = 'ok'
         }
     }
 

@@ -44,36 +44,6 @@
                     </div>
                 </div>
             </div>
-            <div v-if="website.states.data?.dns?.events?.transfer" class="p-1">
-                <div class="flex items-center">
-                    <SwitchHorizontalIcon
-                        class="flex-none w-6 h-6 text-neutral"
-                    />
-                    <div class="flex-grow px-2">
-                        <Tooltip
-                            :disable="
-                                website.states.data.scores.domain.transfer !==
-                                'warning'
-                            "
-                            :text="extension.methods.i18n('less_x_month', '1')"
-                        >
-                            <p
-                                class="
-                                    text-sm text-left text-secondary
-                                    dark:text-dark-secondary
-                                    whitespace-nowrap
-                                "
-                            >
-                                {{
-                                    formatDate(
-                                        website.states.data.dns.events.transfer
-                                    )
-                                }}
-                            </p></Tooltip
-                        >
-                    </div>
-                </div>
-            </div>
             <div
                 v-if="website.states.data?.dns?.events?.lastChanged"
                 class="p-1"
@@ -180,7 +150,6 @@
         CakeIcon,
         RefreshIcon,
         OfficeBuildingIcon,
-        SwitchHorizontalIcon,
         LocationMarkerIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
@@ -195,7 +164,6 @@
             CakeIcon,
             RefreshIcon,
             OfficeBuildingIcon,
-            SwitchHorizontalIcon,
             LocationMarkerIcon,
         },
         setup() {
