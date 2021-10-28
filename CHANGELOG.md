@@ -1,3 +1,10 @@
+### [3.7.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.7.0...3.7.1) (2021-10-28)
+
+
+### 🐛 Bug Fixes
+
+* typo ([82fa399](https://github.com/Internet-Society-Belgium/isTrust/commit/82fa399f21ae81c4a404d50a289129cb87eb445b))
+
 ## [3.7.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.6.0...3.7.0) (2021-10-27)
 
 
