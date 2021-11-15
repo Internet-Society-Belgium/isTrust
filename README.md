@@ -84,31 +84,4 @@
             width="40px"
         />
     </a>
-    <a
-        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
-        title="Opera"
-    >
-        <img
-            src="https://upload.wikimedia.org/wikipedia/commons/4/49/Opera_2015_icon.svg"
-            width="40px"
-        />
-    </a>
-    <a
-        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
-        title="Brave"
-    >
-        <img
-            src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Brave_lion.png"
-            width="40px"
-        />
-    </a>
-    <a
-        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
-        title="Vivaldi"
-    >
-        <img
-            src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Vivaldi_web_browser_logo.svg"
-            width="40px"
-        />
-    </a>
 </div>
