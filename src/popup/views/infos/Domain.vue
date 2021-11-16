@@ -1,6 +1,14 @@
 <template>
     <div v-if="!website.states.data?.dns" class="flex justify-center">
-        <p class="text-sm">{{ extension.methods.i18n('no_info') }}</p>
+        <p
+            class="
+                text-sm text-secondary
+                dark:text-dark-secondary
+                whitespace-nowrap
+            "
+        >
+            {{ extension.methods.i18n('no_info') }}
+        </p>
     </div>
     <div v-else class="grid gap-2 p-2">
         <div>
