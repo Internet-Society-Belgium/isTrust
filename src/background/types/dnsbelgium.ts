@@ -1,7 +1,7 @@
 export interface DnsBelgiumRegistration {
     domainInfo: {
-        created: Date
-        updated: Date
+        created: string
+        updated: string
     }
     registrant: string | null
     dnsKeyInfo: {

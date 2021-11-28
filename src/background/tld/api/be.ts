@@ -23,8 +23,12 @@ export default class Website_be extends Website {
 
             const dns: Dns = {
                 events: {
-                    registration: registration.domainInfo.created,
-                    lastChanged: registration.domainInfo.updated,
+                    registration: new Date(
+                        registration.domainInfo.created
+                    ).toISOString(),
+                    lastChanged: new Date(
+                        registration.domainInfo.updated
+                    ).toISOString(),
                 },
                 dnssec: registration.dnsKeyInfo.dnsKeys.length !== 0,
             }

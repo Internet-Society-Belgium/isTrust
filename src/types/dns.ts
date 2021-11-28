@@ -5,8 +5,8 @@ export interface Dns {
 }
 
 export interface Events {
-    registration: Date
-    lastChanged?: Date
+    registration: string
+    lastChanged?: string
 }
 
 export interface Registrant {

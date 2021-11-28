@@ -53,9 +53,14 @@ export function getRdapEvents(data: RDAPData): Events | undefined {
         e.eventAction.match(/^last changed$/i)
     )
 
+    const registrationDate = new Date(registration.eventDate).toISOString()
+    const lastChangedDate = lastChanged
+        ? new Date(lastChanged?.eventDate).toISOString()
+        : undefined
+
     return {
-        registration: registration.eventDate,
-        lastChanged: lastChanged?.eventDate,
+        registration: registrationDate,
+        lastChanged: lastChangedDate,
     }
 }
 
