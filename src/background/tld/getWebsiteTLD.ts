@@ -3,6 +3,7 @@ import { parseHostname } from '../utils/url'
 import { Website } from '.'
 import { getRdapUrls } from '../rdap'
 import Website_be from './api/be'
+import Website_nl from './api/nl'
 import Website_rdap from './rdap'
 
 export default async function (url: string): Promise<Website> {
@@ -11,6 +12,10 @@ export default async function (url: string): Promise<Website> {
 
     if (tld === 'be') {
         return new Website_be(url)
+    }
+
+    if (tld === 'nl') {
+        return new Website_nl(url)
     }
 
     const urls = await getRdapUrls(tld)
