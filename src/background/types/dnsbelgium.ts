@@ -1,4 +1,4 @@
-export interface Registration {
+export interface DnsBelgiumRegistration {
     domainInfo: {
         created: Date
         updated: Date
@@ -9,6 +9,6 @@ export interface Registration {
     }
 }
 
-export interface Contact {
+export interface DnsBelgiumContact {
     companyName: string
 }

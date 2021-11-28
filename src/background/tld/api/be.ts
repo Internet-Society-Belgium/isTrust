@@ -1,7 +1,10 @@
 import axios from 'axios'
 
 import { Dns } from '../../../types/dns'
-import { Contact, Registration } from '../../types/dnsbelgium'
+import {
+    DnsBelgiumContact,
+    DnsBelgiumRegistration,
+} from '../../types/dnsbelgium'
 
 import { Website } from '..'
 
@@ -13,7 +16,7 @@ export default class Website_be extends Website {
     public async dns(): Promise<Dns | undefined> {
         try {
             const { status: registrationStatus, data: registration } =
-                await axios.get<Registration>(
+                await axios.get<DnsBelgiumRegistration>(
                     `https://api.dnsbelgium.be/whois/registration/${this.domain}`
                 )
             if (registrationStatus !== 200) return
@@ -28,7 +31,7 @@ export default class Website_be extends Website {
 
             if (registration.registrant) {
                 const { status: registrantStatus, data: registrant } =
-                    await axios.get<Contact>(
+                    await axios.get<DnsBelgiumContact>(
                         `https://api.dnsbelgium.be/whois/contact/${registration.registrant}`
                     )
 
