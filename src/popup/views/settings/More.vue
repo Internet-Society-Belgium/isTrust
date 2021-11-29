@@ -6,15 +6,7 @@
                     <ChevronLeftIcon class="w-5 h-5 text-neutral" />
                 </div>
                 <p
-                    class="
-                        flex-grow
-                        text-sm text-left text-secondary
-                        dark:text-dark-secondary
-                        pl-2
-                        pr-6
-                        whitespace-nowrap
-                        select-none
-                    "
+                    class="flex-grow text-sm text-left text-secondary dark:text-dark-secondary pl-2 pr-6 whitespace-nowrap select-none"
                 >
                     {{ extension.methods.i18n('settings') }}
                 </p>
@@ -32,15 +24,7 @@
                         <UserGroupIcon class="w-6 h-6 text-neutral" />
                     </div>
                     <p
-                        class="
-                            flex-grow
-                            text-sm text-left text-secondary
-                            dark:text-dark-secondary
-                            pl-2
-                            pr-6
-                            whitespace-nowrap
-                            select-none
-                        "
+                        class="flex-grow text-sm text-left text-secondary dark:text-dark-secondary pl-2 pr-6 whitespace-nowrap select-none"
                     >
                         {{ extension.methods.i18n('credits') }}
                     </p>
@@ -61,15 +45,7 @@
                         <ShieldCheckIcon class="w-6 h-6 text-neutral" />
                     </div>
                     <p
-                        class="
-                            flex-grow
-                            text-sm text-left text-secondary
-                            dark:text-dark-secondary
-                            pl-2
-                            pr-6
-                            whitespace-nowrap
-                            select-none
-                        "
+                        class="flex-grow text-sm text-left text-secondary dark:text-dark-secondary pl-2 pr-6 whitespace-nowrap select-none"
                     >
                         {{ extension.methods.i18n('privacy_policy') }}
                     </p>
@@ -90,15 +66,7 @@
                         <ScaleIcon class="w-6 h-6 text-neutral" />
                     </div>
                     <p
-                        class="
-                            flex-grow
-                            text-sm text-left text-secondary
-                            dark:text-dark-secondary
-                            pl-2
-                            pr-6
-                            whitespace-nowrap
-                            select-none
-                        "
+                        class="flex-grow text-sm text-left text-secondary dark:text-dark-secondary pl-2 pr-6 whitespace-nowrap select-none"
                     >
                         {{ extension.methods.i18n('license') }}
                     </p>
@@ -120,8 +88,11 @@
         ChevronLeftIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+
     import { StoreExtensionKey } from '../../types/store/extension'
+
     import { openUrl } from '../../utils/url'
+
     export default defineComponent({
         name: 'Settings',
         components: {

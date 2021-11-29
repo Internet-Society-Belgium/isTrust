@@ -9,33 +9,11 @@
         <transition name="fade">
             <div
                 v-if="isOpen"
-                class="
-                    absolute
-                    transition
-                    duration-500
-                    text-sm text-secondary
-                    dark:text-dark-secondary
-                    text-center
-                    bg-secondary-container
-                    dark:bg-secondary-dark-container
-                    rounded-lg
-                    bottom-full
-                    py-1
-                    px-2
-                    my-2
-                    z-10
-                "
+                class="absolute transition duration-500 text-sm text-secondary dark:text-dark-secondary text-center bg-secondary-container dark:bg-secondary-dark-container rounded-lg bottom-full py-1 px-2 my-2 z-10"
             >
                 <span class="select-none">{{ text }}</span>
                 <svg
-                    class="
-                        absolute
-                        text-secondary-container
-                        dark:text-secondary-dark-container
-                        h-2
-                        left-0
-                        ml-1
-                    "
+                    class="absolute text-secondary-container dark:text-secondary-dark-container h-2 left-0 ml-1"
                     style="top: 95%"
                     viewBox="0 0 255 127.5"
                 >
@@ -51,6 +29,7 @@
 
 <script lang="ts">
     import { defineComponent, ref } from 'vue'
+
     export default defineComponent({
         name: 'Tooltip',
         props: {

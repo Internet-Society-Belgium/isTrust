@@ -35,11 +35,14 @@
 <script lang="ts">
     import { defineComponent, inject, ref, watch } from 'vue'
     import { useRoute } from 'vue-router'
+
     import { StoreSettingsKey } from '../types/store/settings'
+
     import ViewTransition from '../components/ViewTransition.vue'
     import Footer from './Footer.vue'
     import Header from './Header.vue'
     import Title from './infos/Title.vue'
+
     export default defineComponent({
         name: 'Home',
         components: { Header, Title, Footer, ViewTransition },

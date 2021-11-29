@@ -37,11 +37,7 @@
             </div>
             <div class="flex-grow px-2">
                 <p
-                    class="
-                        text-sm text-left text-secondary
-                        dark:text-dark-secondary
-                        whitespace-nowrap
-                    "
+                    class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                 >
                     {{ extension.methods.i18n('secure') }}
                 </p>
@@ -55,11 +51,7 @@
                 <IdentificationIcon class="flex-none w-6 h-6 text-warning" />
                 <div class="flex-grow px-2">
                     <p
-                        class="
-                            text-sm text-left text-secondary
-                            dark:text-dark-secondary
-                            whitespace-nowrap
-                        "
+                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                     >
                         {{ extension.methods.i18n('certificate_invalid') }}
                     </p>
@@ -73,11 +65,7 @@
                     />
                     <div class="flex-grow px-2">
                         <p
-                            class="
-                                text-sm text-left text-secondary
-                                dark:text-dark-secondary
-                                whitespace-nowrap
-                            "
+                            class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                         >
                             {{
                                 website.states.data?.certificate?.owner
@@ -96,11 +84,7 @@
                     />
                     <div class="flex-grow px-2">
                         <p
-                            class="
-                                text-sm text-left text-secondary
-                                dark:text-dark-secondary
-                                whitespace-nowrap
-                            "
+                            class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                         >
                             {{
                                 [
@@ -131,9 +115,12 @@
         ArrowNarrowRightIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+
     import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreWebsiteKey } from '../../types/store/website'
+
     import Tooltip from '../../components/Tooltip.vue'
+
     export default defineComponent({
         name: 'Communication',
         components: {

@@ -28,14 +28,7 @@
         >
             <div class="flex items-center">
                 <h3
-                    class="
-                        p-1
-                        text-sm
-                        italic
-                        text-secondary
-                        dark:text-dark-secondary
-                        select-none
-                    "
+                    class="p-1 text-sm italic text-secondary dark:text-dark-secondary select-none"
                 >
                     {{ extension.methods.i18n('domain') }}
                 </h3>
@@ -66,14 +59,7 @@
             "
         >
             <h3
-                class="
-                    p-1
-                    text-sm
-                    italic
-                    text-secondary
-                    dark:text-dark-secondary
-                    select-none
-                "
+                class="p-1 text-sm italic text-secondary dark:text-dark-secondary select-none"
             >
                 {{ extension.methods.i18n('communication') }}
             </h3>
@@ -92,13 +78,16 @@
         RefreshIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+
     import { StoreExtensionKey } from '../types/store/extension'
     import { StoreWebsiteKey } from '../types/store/website'
+
     import Loading from '../components/Loading.vue'
     import Tooltip from '../components/Tooltip.vue'
     import Communication from './infos/Communication.vue'
     import Domain from './infos/Domain.vue'
     import Title from './infos/Title.vue'
+
     export default defineComponent({
         name: 'Infos',
         components: {

@@ -1,11 +1,7 @@
 <template>
     <div v-if="!website.states.data?.dns" class="flex justify-center">
         <p
-            class="
-                text-sm text-secondary
-                dark:text-dark-secondary
-                whitespace-nowrap
-            "
+            class="text-sm text-secondary dark:text-dark-secondary whitespace-nowrap"
         >
             {{ extension.methods.i18n('no_info') }}
         </p>
@@ -35,11 +31,7 @@
                             :text="extension.methods.i18n('less_x_month', '6')"
                         >
                             <p
-                                class="
-                                    text-sm text-left text-secondary
-                                    dark:text-dark-secondary
-                                    whitespace-nowrap
-                                "
+                                class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                             >
                                 {{
                                     formatDate(
@@ -75,11 +67,7 @@
                             :text="extension.methods.i18n('less_x_month', '1')"
                         >
                             <p
-                                class="
-                                    text-sm text-left text-secondary
-                                    dark:text-dark-secondary
-                                    whitespace-nowrap
-                                "
+                                class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                             >
                                 {{
                                     formatDate(
@@ -107,11 +95,7 @@
                 />
                 <div class="flex-grow px-2">
                     <p
-                        class="
-                            text-sm text-left text-secondary
-                            dark:text-dark-secondary
-                            whitespace-nowrap
-                        "
+                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                     >
                         {{
                             website.states?.data?.dns?.registrant
@@ -128,11 +112,7 @@
                 <LocationMarkerIcon class="flex-none w-6 h-6 text-neutral" />
                 <div class="flex-grow px-2">
                     <p
-                        class="
-                            text-sm text-left text-secondary
-                            dark:text-dark-secondary
-                            whitespace-nowrap
-                        "
+                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                     >
                         {{
                             [
@@ -161,10 +141,14 @@
         LocationMarkerIcon,
     } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
+
     import { StoreExtensionKey } from '../../types/store/extension'
     import { StoreWebsiteKey } from '../../types/store/website'
+
     import { formatDate } from '../../utils/date'
+
     import Tooltip from '../../components/Tooltip.vue'
+
     export default defineComponent({
         name: 'Domain',
         components: {

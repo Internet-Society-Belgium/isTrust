@@ -24,7 +24,9 @@
     } from '@heroicons/vue/outline'
     import { defineComponent, ref, watch } from 'vue'
     import { useRoute } from 'vue-router'
+
     import ViewTransition from '../components/ViewTransition.vue'
+
     export default defineComponent({
         name: 'Settings',
         components: {

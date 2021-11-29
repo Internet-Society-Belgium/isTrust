@@ -25,11 +25,7 @@
                 <ViewTransition :transition="'scale'" :mode="'out-in'">
                     <p
                         v-if="settingsViewOpened()"
-                        class="
-                            text-sm text-secondary
-                            dark:text-dark-secondary
-                            select-none
-                        "
+                        class="text-sm text-secondary dark:text-dark-secondary select-none"
                         :class="
                             settings.transitioning.dark
                                 ? 'transition-colors duration-500'
@@ -70,12 +66,16 @@
     import { CogIcon, InformationCircleIcon } from '@heroicons/vue/outline'
     import { defineComponent, inject } from 'vue'
     import { useRoute } from 'vue-router'
+
     import { StoreExtensionKey } from '../types/store/extension'
     import { StoreSettingsKey } from '../types/store/settings'
     import { StoreWebsiteKey } from '../types/store/website'
+
     import { openUrl } from '../utils/url'
+
     import Loading from '../components/Loading.vue'
     import ViewTransition from '../components/ViewTransition.vue'
+
     export default defineComponent({
         name: 'Footer',
         components: {
