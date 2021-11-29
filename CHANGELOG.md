@@ -1,3 +1,15 @@
+## [3.8.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.7.1...3.8.0) (2021-11-29)
+
+
+### 🐛 Bug Fixes
+
+* **ui:** no info text color ([ed9d1ed](https://github.com/Internet-Society-Belgium/isTrust/commit/ed9d1edcaf01afad6a5955002f3cbcdfa1630c41))
+
+
+### ✨ Features
+
+* .nl ([8198d8a](https://github.com/Internet-Society-Belgium/isTrust/commit/8198d8a55ee33cb45270b57181fb0f9388b1d01b)), closes [#87](https://github.com/Internet-Society-Belgium/isTrust/issues/87)
+
 ### [3.7.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.7.0...3.7.1) (2021-10-28)
 
 
