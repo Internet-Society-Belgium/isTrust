@@ -1,3 +1,10 @@
+### [3.8.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.8.0...3.8.1) (2021-12-15)
+
+
+### 🐛 Bug Fixes
+
+* update icon on all tabs ([2673e22](https://github.com/Internet-Society-Belgium/isTrust/commit/2673e229efee5e633e3431743bc64739528e72b7)), closes [#95](https://github.com/Internet-Society-Belgium/isTrust/issues/95)
+
 ## [3.8.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.7.1...3.8.0) (2021-11-29)
 
 
