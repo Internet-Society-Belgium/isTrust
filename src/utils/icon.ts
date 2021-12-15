@@ -3,11 +3,13 @@ import browser from 'webextension-polyfill'
 import { Score } from '../types/score'
 
 export async function setIcon({
-    tabId,
+    origin,
     score,
+    tabId,
 }: {
-    tabId: number
+    origin?: string
     score?: Score
+    tabId?: number
 }): Promise<void> {
     const path =
         score === 'ok'
@@ -30,7 +32,21 @@ export async function setIcon({
                   96: '/icons/icon@2x.png',
               }
 
-    if (!path) return
+    if (tabId) {
+        browser.browserAction.setIcon({ tabId, path })
+    } else {
+        if (!origin) return
 
-    await browser.browserAction.setIcon({ tabId, path })
+        const tabs = await browser.tabs.query({})
+
+        for (const tab of tabs) {
+            if (!tab.id || !tab.url) continue
+
+            const { origin: tabOrigin } = new URL(tab.url)
+
+            if (tabOrigin === origin) {
+                browser.browserAction.setIcon({ tabId: tab.id, path })
+            }
+        }
+    }
 }
