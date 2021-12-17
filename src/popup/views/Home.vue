@@ -1,5 +1,8 @@
 <template>
-    <div :class="settings.states.dark ? 'dark' : ''">
+    <div
+        class="h-screen flex justify-center items-center"
+        :class="settings.states.dark ? 'dark' : ''"
+    >
         <div
             class="bg-background dark:bg-dark-background overflow-hidden"
             :class="
