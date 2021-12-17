@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { Events, Registrant } from '../../types/dns'
-import { IanaRDAPList, RDAPData } from '../types/rdap'
+import { IanaRDAPList, RDAPData, Vcard, VcardProperty } from '../types/rdap'
 
 let cachedIanaRdapList: IanaRDAPList
 
@@ -24,12 +24,10 @@ export async function getRdapUrls(tld: string): Promise<string[] | undefined> {
     if (!cachedIanaRdapList) return
 
     const data = cachedIanaRdapList.services.find((e) => {
-        if (e[0]) {
-            return (
-                e[0].findIndex((e) => e.match(new RegExp(`^${tld}$`, 'i'))) !==
-                -1
-            )
-        }
+        if (!e[0]) return
+        return (
+            e[0].findIndex((e) => e.match(new RegExp(`^${tld}$`, 'i'))) !== -1
+        )
     })
     if (!data) return
 
@@ -38,20 +36,25 @@ export async function getRdapUrls(tld: string): Promise<string[] | undefined> {
 
 export function getRdapLinks(data: RDAPData): string[] {
     if (!data.links) return []
-    const links = data.links.filter((e) => !e.rel.match(/^self$/i))
+    const links = data.links.filter((e) => {
+        if (!e.rel || typeof e.rel !== 'string') return
+        return !e.rel.match(/^self$/i)
+    })
 
     return links.map((e) => e.href.replace(/domain\/.*/, ''))
 }
 
 export function getRdapEvents(data: RDAPData): Events | undefined {
-    const registration = data.events.find((e) =>
-        e.eventAction.match(/^registration$/i)
-    )
-    if (!registration) return
+    const registration = data.events.find((e) => {
+        if (!e.eventAction && typeof e.eventAction === 'string') return
+        return e.eventAction.match(/^registration$/i)
+    })
+    if (!registration || !registration.eventDate) return
 
-    const lastChanged = data.events.find((e) =>
-        e.eventAction.match(/^last changed$/i)
-    )
+    const lastChanged = data.events.find((e) => {
+        if (!e.eventAction || typeof e.eventAction !== 'string') return
+        return e.eventAction.match(/^last changed$/i)
+    })
 
     const registrationDate = new Date(registration.eventDate).toISOString()
     const lastChangedDate = lastChanged
@@ -65,17 +68,49 @@ export function getRdapEvents(data: RDAPData): Events | undefined {
 }
 
 export function getRdapRegistrant(data: RDAPData): Registrant | undefined {
-    const company = data.entities.find((e) => {
-        if (e.roles) {
-            return e.roles.findIndex((r) => r.match(/^registrant$/i)) !== -1
-        }
+    const registrant = data.entities.find((e) => {
+        if (!e.roles || !Array.isArray(e.roles)) return
+        return e.roles.findIndex((r) => r.match(/^registrant$/i)) !== -1
     })
-    if (!company) return
 
-    const vCard = company?.vcardArray[1]
-    if (!(vCard instanceof Array)) return
+    if (!registrant) return
 
-    const organisationCard = vCard.find(
+    const vcardArray = registrant?.vcardArray
+    if (!Array.isArray(vcardArray)) return
+
+    let vcard: Vcard = []
+    if (vcardArray.length === 1) {
+        if (Array.isArray(vcardArray[0])) {
+            vcard = vcardArray[0] as Vcard
+        }
+    } else if (vcardArray.length === 2) {
+        if (Array.isArray(vcardArray[1])) {
+            vcard = vcardArray[1] as Vcard
+        }
+    } else if (vcardArray.length > 2) {
+        vcardArray.forEach((c) => {
+            if (Array.isArray(c)) {
+                const v = c as VcardProperty
+                vcard.push(v)
+            }
+        })
+    }
+    if (vcard.length === 0) return
+
+    const organisation = getOrganisation(vcard)
+    if (!organisation) return
+
+    const location = getLocation(vcard)
+    if (!location) return { organisation }
+
+    return {
+        organisation,
+        location,
+    }
+}
+
+function getOrganisation(vcard) {
+    const organisationCard = vcard.find(
         (e) => typeof e[0] === 'string' && e[0].match(/^org$/i)
     )
     if (!organisationCard) return
@@ -83,26 +118,27 @@ export function getRdapRegistrant(data: RDAPData): Registrant | undefined {
     const organisation = organisationCard[3]
     if (typeof organisation !== 'string') return
 
-    const locationCard = vCard.find((e) => e[0].toString().match(/^adr$/i))
-    if (!locationCard) return { organisation }
+    return organisation
+}
+
+function getLocation(vcard) {
+    const locationCard = vcard.find((e) => e[0].toString().match(/^adr$/i))
+    if (!locationCard) return
 
     const locationCardText = locationCard[3]
-    if (!Array.isArray(locationCardText)) return { organisation }
+    if (!Array.isArray(locationCardText)) return
 
     const state = locationCardText[3]
-    if (typeof state !== 'string') return { organisation }
+    if (typeof state !== 'string') return
     const region = locationCardText[4]
-    if (typeof region !== 'string') return { organisation }
+    if (typeof region !== 'string') return
     const country = locationCardText[6]
-    if (typeof country !== 'string') return { organisation }
+    if (typeof country !== 'string') return
 
     return {
-        organisation,
-        location: {
-            state,
-            region,
-            country,
-        },
+        state,
+        region,
+        country,
     }
 }
 

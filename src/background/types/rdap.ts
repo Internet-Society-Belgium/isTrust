@@ -1,7 +1,7 @@
 export interface IanaRDAPList {
     description: string
     publication: Date
-    services: Array<Array<string[]>>
+    services: string[][][]
     version: string
 }
 
@@ -21,12 +21,11 @@ interface RDAPLink {
 
 interface Entity {
     roles: string[]
-    vcardArray: Array<Array<Array<VcardArrayClass | string>> | string>
+    vcardArray: (string | Vcard)[] | VcardProperty[]
 }
 
-interface VcardArrayClass {
-    type?: string
-}
+export type Vcard = VcardProperty[]
+export type VcardProperty = string[]
 
 interface Event {
     eventDate: Date
