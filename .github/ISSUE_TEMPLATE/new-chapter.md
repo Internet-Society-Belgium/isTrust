@@ -4,7 +4,6 @@ about: Propose your chapter
 title: ''
 labels: enhancement
 assignees: Progitiel
-
 ---
 
 **Name**
