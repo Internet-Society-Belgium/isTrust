@@ -1,3 +1,17 @@
+## [3.9.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.8.1...3.9.0) (2021-12-30)
+
+
+### 🐛 Bug Fixes
+
+* center main div ([44b2699](https://github.com/Internet-Society-Belgium/isTrust/commit/44b269941aa8be07bb73b120205f3e21d9e14b3b)), closes [#99](https://github.com/Internet-Society-Belgium/isTrust/issues/99)
+* **rdap:** accept malformed vcardArray ([076b560](https://github.com/Internet-Society-Belgium/isTrust/commit/076b560d2e3b2b7387a36686805b74e330c31d39)), closes [#100](https://github.com/Internet-Society-Belgium/isTrust/issues/100)
+
+
+### ✨ Features
+
+* **api/be:** location ([63ec165](https://github.com/Internet-Society-Belgium/isTrust/commit/63ec165a427e4735d9244e7adca80e8ddec6ebcf))
+* **api/be:** onsite contact ([3b9b2f6](https://github.com/Internet-Society-Belgium/isTrust/commit/3b9b2f640cadcf748a4ceaa911ac28a01c089271))
+
 ### [3.8.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.8.0...3.8.1) (2021-12-15)
 
 
