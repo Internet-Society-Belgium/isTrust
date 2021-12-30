@@ -4,6 +4,7 @@ export interface DnsBelgiumRegistration {
         updated: string
     }
     registrant: string | null
+    onsiteCompanyContacts: string[]
     dnsKeyInfo: {
         dnsKeys: []
     }
