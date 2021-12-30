@@ -12,4 +12,6 @@ export interface DnsBelgiumRegistration {
 
 export interface DnsBelgiumContact {
     companyName: string
+    city: string
+    country: string
 }

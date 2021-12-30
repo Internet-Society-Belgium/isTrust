@@ -55,6 +55,11 @@ export default class Website_be extends Website {
                     if (registrant?.companyName) {
                         dns.registrant = {
                             organisation: registrant.companyName,
+                            location: {
+                                state: registrant.city,
+                                region: '',
+                                country: registrant.country,
+                            },
                         }
                     }
                 }
