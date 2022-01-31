@@ -16,11 +16,9 @@
                     class="absolute text-secondary-container dark:text-secondary-dark-container h-2 left-0 ml-1"
                     style="top: 95%"
                     viewBox="0 0 255 127.5"
+                    fill="currentColor"
                 >
-                    <polygon
-                        class="fill-current"
-                        points="0,0 127.5,127.5 255,0"
-                    />
+                    <polygon points="0,0 127.5,127.5 255,0" />
                 </svg>
             </div>
         </transition>
