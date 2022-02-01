@@ -1,6 +1,6 @@
 <template>
     <div
-        class="h-screen flex justify-center items-center"
+        class="h-full flex justify-center items-center"
         :class="settings.states.dark ? 'dark' : ''"
     >
         <div
