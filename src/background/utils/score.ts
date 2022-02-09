@@ -54,6 +54,8 @@ function getDomainScores({ dns }: { dns?: Dns }): WebsiteScoreDomain {
         } else {
             scores.registration = 'ok'
         }
+    } else if (dns?.technicalError) {
+        scores.registration = 'warning'
     }
 
     if (dns?.events?.lastChanged) {
@@ -66,14 +68,14 @@ function getDomainScores({ dns }: { dns?: Dns }): WebsiteScoreDomain {
         } else {
             scores.lastChanged = 'ok'
         }
+    } else if (dns?.technicalError) {
+        scores.registration = 'warning'
     }
 
-    if (dns) {
-        if (!dns?.registrant) {
-            scores.registrant = 'warning'
-        } else {
-            scores.registrant = 'ok'
-        }
+    if (dns?.registrant) {
+        scores.registrant = 'ok'
+    } else if (dns?.technicalError) {
+        scores.registrant = 'warning'
     }
 
     for (const [k, v] of Object.entries(scores)) {
@@ -98,20 +100,16 @@ function getCommunicationScores({
         certificate: 'neutral',
     }
 
-    if (url) {
-        if (!url.https) {
-            scores.https = 'warning'
-        } else {
-            scores.https = 'ok'
-        }
+    if (url?.https) {
+        scores.https = 'ok'
+    } else {
+        scores.https = 'warning'
     }
 
-    if (certificate) {
-        if (!certificate.valid) {
-            scores.certificate = 'warning'
-        } else {
-            scores.certificate = 'ok'
-        }
+    if (certificate?.valid) {
+        scores.certificate = 'ok'
+    } else {
+        scores.certificate = 'warning'
     }
 
     for (const [k, v] of Object.entries(scores)) {
