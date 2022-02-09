@@ -23,6 +23,9 @@
     "feedback": {
         "message": "Feedback"
     },
+    "insecure": {
+        "message": "Insecure"
+    },
     "legal": {
         "message": "Legal"
     },
