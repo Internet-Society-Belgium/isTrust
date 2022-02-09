@@ -1,5 +1,8 @@
 <template>
-    <div v-if="!website.states.data?.dns" class="flex justify-center">
+    <div
+        v-if="website.states.data?.dns === undefined"
+        class="flex justify-center"
+    >
         <p
             class="text-sm text-secondary dark:text-dark-secondary whitespace-nowrap"
         >
@@ -8,10 +11,7 @@
     </div>
     <div v-else class="grid gap-2 p-2">
         <div>
-            <div
-                v-if="website.states.data?.dns?.events?.registration"
-                class="p-1"
-            >
+            <div v-if="website.states.data.dns.events.registration" class="p-1">
                 <div class="flex items-center">
                     <CakeIcon
                         class="flex-none w-6 h-6"
@@ -44,10 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                v-if="website.states.data?.dns?.events?.lastChanged"
-                class="p-1"
-            >
+            <div v-if="website.states.data.dns.events.lastChanged" class="p-1">
                 <div class="flex items-center">
                     <RefreshIcon
                         class="flex-none w-6 h-6"
@@ -82,7 +79,7 @@
             </div>
         </div>
 
-        <div class="p-1">
+        <div v-if="website.states.data.dns.registrant" class="p-1">
             <div class="flex items-center">
                 <OfficeBuildingIcon
                     class="flex-none w-6 h-6"
@@ -98,15 +95,14 @@
                         class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                     >
                         {{
-                            website.states?.data?.dns?.registrant
-                                ?.organisation ||
+                            website.states.data.dns.registrant.organisation ||
                             extension.methods.i18n('no_organisation')
                         }}
                     </p>
                 </div>
             </div>
             <div
-                v-if="website.states.data?.dns?.registrant?.location"
+                v-if="website.states.data.dns.registrant.location"
                 class="flex items-center pl-6"
             >
                 <LocationMarkerIcon class="flex-none w-6 h-6 text-neutral" />
@@ -116,12 +112,12 @@
                     >
                         {{
                             [
-                                website.states.data?.dns?.registrant?.location
-                                    ?.state || '',
-                                website.states.data?.dns?.registrant?.location
-                                    ?.region || '',
-                                website.states.data?.dns?.registrant?.location
-                                    ?.country || '',
+                                website.states.data.dns.registrant.location
+                                    .state,
+                                website.states.data.dns.registrant.location
+                                    .region,
+                                website.states.data.dns.registrant.location
+                                    .country,
                             ]
                                 .filter((e) => e != '')
                                 .join(' - ')
