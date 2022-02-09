@@ -1,108 +1,96 @@
 <template>
-    <div v-if="website.states.data === undefined" class="flex justify-center">
-        <p
-            class="text-sm text-secondary dark:text-dark-secondary whitespace-nowrap"
-        >
-            {{ extension.methods.i18n('no_info') }}
-        </p>
+    <div v-if="!website.states.data?.url.https" class="grid gap-2 p-2">
+        <div class="flex items-center">
+            <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
+            <button class="flex-grow px-2" @click="website.methods.goToHttps">
+                <div class="flex items-center gap-1">
+                    <span
+                        class="text-sm text-secondary dark:text-dark-secondary"
+                        >http</span
+                    >
+                    <ArrowNarrowRightIcon
+                        class="w-6 h-6 text-neutral mx-1 animate-bounce-right"
+                    />
+                    <span
+                        class="text-sm text-secondary dark:text-dark-secondary"
+                        >https</span
+                    >
+                </div>
+            </button>
+        </div>
     </div>
-    <div v-else>
-        <div v-if="!website.states.data.url.https" class="grid gap-2 p-2">
+    <div v-else class="grid gap-2 p-2">
+        <div
+            v-if="
+                website.states.data.certificate === undefined ||
+                !website.states.data.certificate.valid
+            "
+        >
             <div class="flex items-center">
                 <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
-                <button
-                    class="flex-grow px-2"
-                    @click="website.methods.goToHttps"
-                >
-                    <div class="flex items-center gap-1">
-                        <span
-                            class="text-sm text-secondary dark:text-dark-secondary"
-                            >http</span
-                        >
-                        <ArrowNarrowRightIcon
-                            class="w-6 h-6 text-neutral mx-1 animate-bounce-right"
-                        />
-                        <span
-                            class="text-sm text-secondary dark:text-dark-secondary"
-                            >https</span
-                        >
-                    </div>
-                </button>
+                <div class="flex-grow px-2">
+                    <p
+                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                    >
+                        {{ extension.methods.i18n('insecure') }}
+                    </p>
+                </div>
             </div>
         </div>
-        <div v-else class="grid gap-2 p-2">
-            <div
-                v-if="
-                    website.states.data.certificate === undefined ||
-                    !website.states.data.certificate.valid
-                "
-            >
-                <div class="flex items-center">
-                    <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
-                    <div class="flex-grow px-2">
-                        <p
-                            class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
-                        >
-                            {{ extension.methods.i18n('insecure') }}
-                        </p>
-                    </div>
+        <div v-else>
+            <div class="flex items-center">
+                <Tooltip :text="website.states.data.certificate.protocol">
+                    <LockClosedIcon class="flex-none w-6 h-6 text-neutral"
+                /></Tooltip>
+                <div class="flex-grow px-2">
+                    <p
+                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                    >
+                        {{ extension.methods.i18n('secure') }}
+                    </p>
                 </div>
             </div>
-            <div v-else>
+
+            <div v-if="website.states.data.certificate.owner">
                 <div class="flex items-center">
-                    <Tooltip :text="website.states.data.certificate.protocol">
-                        <LockClosedIcon class="flex-none w-6 h-6 text-neutral"
-                    /></Tooltip>
+                    <IdentificationIcon
+                        class="flex-none w-6 h-6 text-neutral"
+                    />
                     <div class="flex-grow px-2">
                         <p
                             class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                         >
-                            {{ extension.methods.i18n('secure') }}
+                            {{
+                                website.states.data.certificate.owner
+                                    .organisation
+                            }}
                         </p>
                     </div>
                 </div>
-
-                <div v-if="website.states.data.certificate.owner">
-                    <div class="flex items-center">
-                        <IdentificationIcon
-                            class="flex-none w-6 h-6 text-neutral"
-                        />
-                        <div class="flex-grow px-2">
-                            <p
-                                class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
-                            >
-                                {{
+                <div
+                    v-if="website.states.data.certificate.owner.location"
+                    class="flex items-center pl-6"
+                >
+                    <LocationMarkerIcon
+                        class="flex-none w-6 h-6 text-neutral"
+                    />
+                    <div class="flex-grow px-2">
+                        <p
+                            class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                        >
+                            {{
+                                [
                                     website.states.data.certificate.owner
-                                        .organisation
-                                }}
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        v-if="website.states.data.certificate.owner.location"
-                        class="flex items-center pl-6"
-                    >
-                        <LocationMarkerIcon
-                            class="flex-none w-6 h-6 text-neutral"
-                        />
-                        <div class="flex-grow px-2">
-                            <p
-                                class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
-                            >
-                                {{
-                                    [
-                                        website.states.data.certificate.owner
-                                            .location.state,
-                                        website.states.data.certificate.owner
-                                            .location.region,
-                                        website.states.data.certificate.owner
-                                            .location.country,
-                                    ]
-                                        .filter((e) => e != '')
-                                        .join(' - ')
-                                }}
-                            </p>
-                        </div>
+                                        .location.state,
+                                    website.states.data.certificate.owner
+                                        .location.region,
+                                    website.states.data.certificate.owner
+                                        .location.country,
+                                ]
+                                    .filter((e) => e != '')
+                                    .join(' - ')
+                            }}
+                        </p>
                     </div>
                 </div>
             </div>

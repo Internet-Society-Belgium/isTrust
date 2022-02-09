@@ -1,6 +1,10 @@
 <template>
     <div
-        v-if="website.states.data?.dns === undefined"
+        v-if="
+            website.states.data?.dns === undefined ||
+            (Object.keys(website.states.data.dns).length === 1 &&
+                !website.states.data?.dns.technicalError)
+        "
         class="flex justify-center"
     >
         <p
@@ -9,9 +13,22 @@
             {{ extension.methods.i18n('no_info') }}
         </p>
     </div>
+    <div
+        v-else-if="
+            Object.keys(website.states.data.dns).length === 1 &&
+            website.states.data?.dns.technicalError
+        "
+        class="flex justify-center"
+    >
+        <p
+            class="text-sm text-secondary dark:text-dark-secondary whitespace-nowrap"
+        >
+            {{ extension.methods.i18n('unavailable') }}
+        </p>
+    </div>
     <div v-else class="grid gap-2 p-2">
         <div>
-            <div v-if="website.states.data.dns.events.registration" class="p-1">
+            <div class="p-1">
                 <div class="flex items-center">
                     <CakeIcon
                         class="flex-none w-6 h-6"
@@ -34,17 +51,21 @@
                                 class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                             >
                                 {{
-                                    formatDate(
-                                        website.states.data.dns.events
-                                            .registration
-                                    )
+                                    website.states.data.dns.events?.registration
+                                        ? formatDate(
+                                              website.states.data.dns.events
+                                                  .registration
+                                          )
+                                        : website.states.data.dns.technicalError
+                                        ? extension.methods.i18n('unavailable')
+                                        : extension.methods.i18n('no_date')
                                 }}
                             </p>
                         </Tooltip>
                     </div>
                 </div>
             </div>
-            <div v-if="website.states.data.dns.events.lastChanged" class="p-1">
+            <div v-if="website.states.data.dns.events?.lastChanged" class="p-1">
                 <div class="flex items-center">
                     <RefreshIcon
                         class="flex-none w-6 h-6"
@@ -79,7 +100,7 @@
             </div>
         </div>
 
-        <div v-if="website.states.data.dns.registrant" class="p-1">
+        <div class="p-1">
             <div class="flex items-center">
                 <OfficeBuildingIcon
                     class="flex-none w-6 h-6"
@@ -95,14 +116,18 @@
                         class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
                     >
                         {{
-                            website.states.data.dns.registrant.organisation ||
-                            extension.methods.i18n('no_organisation')
+                            website.states.data.dns.registrant?.organisation
+                                ? website.states.data.dns.registrant
+                                      .organisation
+                                : website.states.data.dns.technicalError
+                                ? extension.methods.i18n('unavailable')
+                                : extension.methods.i18n('no_organisation')
                         }}
                     </p>
                 </div>
             </div>
             <div
-                v-if="website.states.data.dns.registrant.location"
+                v-if="website.states.data.dns.registrant?.location"
                 class="flex items-center pl-6"
             >
                 <LocationMarkerIcon class="flex-none w-6 h-6 text-neutral" />

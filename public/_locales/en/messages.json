@@ -40,8 +40,14 @@
     "license": {
         "message": "License"
     },
+    "no_date": {
+        "message": "No date"
+    },
     "no_info": {
         "message": "No info"
+    },
+    "no_organisation": {
+        "message": "No organisation"
     },
     "privacy_policy": {
         "message": "Privacy Policy"
@@ -54,5 +60,8 @@
     },
     "settings": {
         "message": "Settings"
+    },
+    "unavailable": {
+        "message": "Unavailable"
     }
 }

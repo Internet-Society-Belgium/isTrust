@@ -34,15 +34,6 @@
                     >
                         {{ `v${extension.constants.version}` }}
                     </p>
-                    <div v-else>
-                        <div
-                            v-if="
-                                website.states.data?.scores.score === 'warning'
-                            "
-                        >
-                            <!-- report -->
-                        </div>
-                    </div>
                 </ViewTransition>
             </Loading>
         </div>
