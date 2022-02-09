@@ -2,19 +2,19 @@
     <div v-if="!website.states.internal" class="px-6">
         <Loading>
             <h2
-                v-if="website.states?.data?.url"
+                v-if="website.states.data?.url"
                 class="text-lg text-center text-secondary dark:text-dark-secondary whitespace-nowrap"
             >
                 <i
                     v-if="
-                        website.states?.data?.url?.subdomain !== null &&
-                        website.states?.data?.url?.subdomain !== 'www'
+                        website.states.data.url.subdomain !== null &&
+                        website.states.data.url.subdomain !== 'www'
                     "
                 >
-                    {{ `${website.states?.data?.url?.subdomain}.` }}
+                    {{ `${website.states.data.url.subdomain}.` }}
                 </i>
                 <b>
-                    {{ website.states?.data?.url?.domain || '' }}
+                    {{ website.states.data.url.domain || '' }}
                 </b>
             </h2>
         </Loading>
