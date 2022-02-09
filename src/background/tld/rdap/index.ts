@@ -18,7 +18,7 @@ export default class Website_rdap extends Website {
     }
 
     public async dns(): Promise<Dns | undefined> {
-        let data: Dns = {} as Dns
+        let dns: Dns = { technicalError: false }
 
         const urls = await getRdapUrls(this.tld)
         if (!urls) return
@@ -39,9 +39,12 @@ export default class Website_rdap extends Website {
                     }`,
                     { timeout: 5000 }
                 )
-                if (status !== 200) continue
+                if (status !== 200) {
+                    dns.technicalError = true
+                    continue
+                }
 
-                const parsedData: Dns = {} as Dns
+                const parsedData: Dns = {}
 
                 const links = await getRdapLinks(rdapData)
                 for (const link of links) {
@@ -61,12 +64,13 @@ export default class Website_rdap extends Website {
                 const dnssec = await getRdapDnssec(rdapData)
                 parsedData.dnssec = dnssec
 
-                data = { ...parsedData, ...data }
+                dns = { ...parsedData, ...dns }
             } catch (e) {
+                dns.technicalError = true
                 continue
             }
         }
 
-        return data
+        return dns
     }
 }

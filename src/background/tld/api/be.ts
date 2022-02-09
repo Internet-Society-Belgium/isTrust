@@ -14,24 +14,27 @@ export default class Website_be extends Website {
     }
 
     public async dns(): Promise<Dns | undefined> {
+        const dns: Dns = { technicalError: false }
+
         try {
             const { status: registrationStatus, data: registration } =
                 await axios.get<DnsBelgiumRegistration>(
                     `https://api.dnsbelgium.be/whois/registration/${this.domain}`
                 )
-            if (registrationStatus !== 200) return
-
-            const dns: Dns = {
-                events: {
-                    registration: new Date(
-                        registration.domainInfo.created
-                    ).toISOString(),
-                    lastChanged: new Date(
-                        registration.domainInfo.updated
-                    ).toISOString(),
-                },
-                dnssec: registration.dnsKeyInfo.dnsKeys.length !== 0,
+            if (registrationStatus !== 200) {
+                dns.technicalError = true
+                return dns
             }
+
+            dns.events = {
+                registration: new Date(
+                    registration.domainInfo.created
+                ).toISOString(),
+                lastChanged: new Date(
+                    registration.domainInfo.updated
+                ).toISOString(),
+            }
+            dns.dnssec = registration.dnsKeyInfo.dnsKeys.length !== 0
 
             let contact: string | null = null
 
@@ -50,24 +53,26 @@ export default class Website_be extends Website {
                     await axios.get<DnsBelgiumContact>(
                         `https://api.dnsbelgium.be/whois/contact/${contact}`
                     )
+                if (registrantStatus !== 200) {
+                    dns.technicalError = true
+                    return dns
+                }
 
-                if (registrantStatus === 200) {
-                    if (registrant?.companyName) {
-                        dns.registrant = {
-                            organisation: registrant.companyName,
-                            location: {
-                                state: registrant.city,
-                                region: '',
-                                country: registrant.country,
-                            },
-                        }
+                if (registrant?.companyName) {
+                    dns.registrant = {
+                        organisation: registrant.companyName,
+                        location: {
+                            state: registrant.city,
+                            region: '',
+                            country: registrant.country,
+                        },
                     }
                 }
             }
-
-            return dns
         } catch (e) {
-            return
+            dns.technicalError = true
         }
+
+        return dns
     }
 }

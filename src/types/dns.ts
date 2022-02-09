@@ -1,16 +1,17 @@
 export interface Dns {
-    events: Events
+    technicalError?: boolean
+    events?: Events
     registrant?: Registrant
-    dnssec: boolean
+    dnssec?: boolean
 }
 
 export interface Events {
-    registration: string
+    registration?: string
     lastChanged?: string
 }
 
 export interface Registrant {
-    organisation: string
+    organisation?: string
     location?: {
         state: string
         region: string

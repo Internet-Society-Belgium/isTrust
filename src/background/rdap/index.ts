@@ -45,26 +45,22 @@ export function getRdapLinks(data: RDAPData): string[] {
 }
 
 export function getRdapEvents(data: RDAPData): Events | undefined {
-    const registration = data.events.find((e) => {
+    const registrationEvent = data.events.find((e) => {
         if (!e.eventAction && typeof e.eventAction === 'string') return
         return e.eventAction.match(/^registration$/i)
     })
-    if (!registration || !registration.eventDate) return
+    if (!registrationEvent || !registrationEvent.eventDate) return
+    const registration = new Date(registrationEvent.eventDate).toISOString()
 
-    const lastChanged = data.events.find((e) => {
+    const lastChangedEvent = data.events.find((e) => {
         if (!e.eventAction || typeof e.eventAction !== 'string') return
         return e.eventAction.match(/^last changed$/i)
     })
+    if (!lastChangedEvent || !lastChangedEvent.eventDate)
+        return { registration }
 
-    const registrationDate = new Date(registration.eventDate).toISOString()
-    const lastChangedDate = lastChanged
-        ? new Date(lastChanged?.eventDate).toISOString()
-        : undefined
-
-    return {
-        registration: registrationDate,
-        lastChanged: lastChangedDate,
-    }
+    const lastChanged = new Date(lastChangedEvent?.eventDate).toISOString()
+    return { registration, lastChanged }
 }
 
 export function getRdapRegistrant(data: RDAPData): Registrant | undefined {
@@ -103,10 +99,7 @@ export function getRdapRegistrant(data: RDAPData): Registrant | undefined {
     const location = getLocation(vcard)
     if (!location) return { organisation }
 
-    return {
-        organisation,
-        location,
-    }
+    return { organisation, location }
 }
 
 function getOrganisation(vcard) {
@@ -135,13 +128,9 @@ function getLocation(vcard) {
     const country = locationCardText[6]
     if (typeof country !== 'string') return
 
-    return {
-        state,
-        region,
-        country,
-    }
+    return { state, region, country }
 }
 
-export function getRdapDnssec(data: RDAPData): boolean {
-    return data.secureDNS?.delegationSigned || false
+export function getRdapDnssec(data: RDAPData): boolean | undefined {
+    return data.secureDNS?.delegationSigned
 }

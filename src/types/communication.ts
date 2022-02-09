@@ -5,8 +5,8 @@ import { WebsiteScore } from './score'
 export interface WebsiteData {
     url: WebsiteDataUrl
     scores: WebsiteScore
-    certificate?: Certificate
     dns?: Dns
+    certificate?: Certificate
 }
 
 export interface WebsiteDataUrl {
