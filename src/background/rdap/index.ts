@@ -38,7 +38,7 @@ export function getRdapLinks(data: RDAPData): string[] {
     if (!data.links) return []
     const links = data.links.filter((e) => {
         if (!e.rel || typeof e.rel !== 'string') return
-        return !e.rel.match(/^self$/i)
+        return e.rel.match(/^related$/i)
     })
 
     return links.map((e) => e.href.replace(/domain\/.*/, ''))
