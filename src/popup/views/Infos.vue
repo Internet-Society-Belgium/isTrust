@@ -6,7 +6,7 @@
         <EyeOffIcon class="w-12 h-12 text-neutral" />
     </div>
     <div
-        v-else-if="!website.states.loading && !website.states?.data"
+        v-else-if="!website.states.loading && website.states.data === undefined"
         class="flex justify-center items-center h-20"
     >
         <button @click="website.methods.reload">
@@ -33,7 +33,7 @@
                     {{ extension.methods.i18n('domain') }}
                 </h3>
                 <Loading :animation="false">
-                    <div v-if="website.states?.data?.dns?.dnssec">
+                    <div v-if="website.states.data?.dns?.dnssec">
                         <Tooltip :text="'DNSSEC'">
                             <div class="px-1">
                                 <BadgeCheckIcon class="w-4 h-4 text-neutral" />
