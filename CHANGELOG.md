@@ -1,3 +1,13 @@
+### [3.9.1](https://github.com/Internet-Society-Belgium/isTrust/compare/3.9.0...3.9.1) (2022-02-10)
+
+
+### 🐛 Bug Fixes
+
+* https insecure ([86df2db](https://github.com/Internet-Society-Belgium/isTrust/commit/86df2db48355f673676e2fa4f13edd49eae807aa)), closes [#105](https://github.com/Internet-Society-Belgium/isTrust/issues/105)
+* **popup:** height full ([bdf2acc](https://github.com/Internet-Society-Belgium/isTrust/commit/bdf2accb1f3c8d5f13b428dee119fa414406a8a3))
+* **rdap:** get only related links ([a8f0854](https://github.com/Internet-Society-Belgium/isTrust/commit/a8f085458bd612b63f5dd9c88b4c29721139f581))
+* tooltip color ([8d11233](https://github.com/Internet-Society-Belgium/isTrust/commit/8d11233eb0c3f146c0ea594a6cbabb4cf2593baf))
+
 ## [3.9.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.8.1...3.9.0) (2021-12-30)
 
 
