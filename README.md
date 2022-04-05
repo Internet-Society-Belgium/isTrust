@@ -80,7 +80,7 @@
         title="Edge"
     >
         <img
-            src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg"
+            src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/main/shared/img/logo1024.png"
             width="40px"
         />
     </a>
