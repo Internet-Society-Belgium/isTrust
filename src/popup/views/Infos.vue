@@ -1,23 +1,23 @@
 <template>
     <div
         v-if="website.states.internal"
-        class="flex justify-center items-center h-20"
+        class="flex h-20 items-center justify-center"
     >
-        <EyeOffIcon class="w-12 h-12 text-neutral" />
+        <EyeOffIcon class="h-12 w-12 text-neutral" />
     </div>
     <div
         v-else-if="!website.states.loading && website.states.data === undefined"
-        class="flex justify-center items-center h-20"
+        class="flex h-20 items-center justify-center"
     >
         <button @click="website.methods.reload">
-            <RefreshIcon class="w-8 h-8 text-neutral" />
+            <RefreshIcon class="h-8 w-8 text-neutral" />
         </button>
     </div>
     <div v-else class="flex flex-col justify-center gap-4">
         <Title />
 
         <section
-            class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
+            class="rounded-lg bg-container p-2 ring-2 dark:bg-dark-container"
             :class="
                 website.states.data?.scores.domain.score === 'warning'
                     ? ' ring-warning'
@@ -28,7 +28,7 @@
         >
             <div class="flex items-center">
                 <h3
-                    class="p-1 text-sm italic text-secondary dark:text-dark-secondary select-none"
+                    class="select-none p-1 text-sm italic text-secondary dark:text-dark-secondary"
                 >
                     {{ extension.methods.i18n('domain') }}
                 </h3>
@@ -36,7 +36,7 @@
                     <div v-if="website.states.data?.dns?.dnssec">
                         <Tooltip :text="'DNSSEC'">
                             <div class="px-1">
-                                <BadgeCheckIcon class="w-4 h-4 text-neutral" />
+                                <BadgeCheckIcon class="h-4 w-4 text-neutral" />
                             </div>
                         </Tooltip>
                     </div>
@@ -49,7 +49,7 @@
         </section>
 
         <section
-            class="bg-container dark:bg-dark-container rounded-lg p-2 ring-2"
+            class="rounded-lg bg-container p-2 ring-2 dark:bg-dark-container"
             :class="
                 website.states.data?.scores.communication.score === 'warning'
                     ? ' ring-warning'
@@ -59,7 +59,7 @@
             "
         >
             <h3
-                class="p-1 text-sm italic text-secondary dark:text-dark-secondary select-none"
+                class="select-none p-1 text-sm italic text-secondary dark:text-dark-secondary"
             >
                 {{ extension.methods.i18n('communication') }}
             </h3>

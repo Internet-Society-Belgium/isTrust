@@ -1,9 +1,9 @@
 <template>
-    <div class="flex justify-center pointer-events-none select-none">
+    <div class="pointer-events-none flex select-none justify-center">
         <div class="flex items-center gap-2">
-            <img src="../../../assets/icons/icon.svg" alt="" class="w-6 h-6" />
+            <img src="../../../assets/icons/icon.svg" alt="" class="h-6 w-6" />
             <h1
-                class="text-base text-center text-secondary dark:text-dark-secondary font-semibold whitespace-nowrap"
+                class="whitespace-nowrap text-center text-base font-semibold text-secondary dark:text-dark-secondary"
                 :class="
                     settings.transitioning.dark
                         ? 'transition-colors duration-500'

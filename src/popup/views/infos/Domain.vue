@@ -8,7 +8,7 @@
         class="flex justify-center"
     >
         <p
-            class="text-sm text-secondary dark:text-dark-secondary whitespace-nowrap"
+            class="whitespace-nowrap text-sm text-secondary dark:text-dark-secondary"
         >
             {{ extension.methods.i18n('no_info') }}
         </p>
@@ -21,7 +21,7 @@
         class="flex justify-center"
     >
         <p
-            class="text-sm text-secondary dark:text-dark-secondary whitespace-nowrap"
+            class="whitespace-nowrap text-sm text-secondary dark:text-dark-secondary"
         >
             {{ extension.methods.i18n('unavailable') }}
         </p>
@@ -31,7 +31,7 @@
             <div class="p-1">
                 <div class="flex items-center">
                     <CakeIcon
-                        class="flex-none w-6 h-6"
+                        class="h-6 w-6 flex-none"
                         :class="
                             website.states.data.scores.domain.registration ===
                             'warning'
@@ -48,7 +48,7 @@
                             :text="extension.methods.i18n('less_x_month', '6')"
                         >
                             <p
-                                class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                                class="whitespace-nowrap text-left text-sm text-secondary dark:text-dark-secondary"
                             >
                                 {{
                                     website.states.data.dns.events?.registration
@@ -68,7 +68,7 @@
             <div v-if="website.states.data.dns.events?.lastChanged" class="p-1">
                 <div class="flex items-center">
                     <RefreshIcon
-                        class="flex-none w-6 h-6"
+                        class="h-6 w-6 flex-none"
                         :class="
                             website.states.data.scores.domain.lastChanged ===
                             'warning'
@@ -85,7 +85,7 @@
                             :text="extension.methods.i18n('less_x_month', '1')"
                         >
                             <p
-                                class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                                class="whitespace-nowrap text-left text-sm text-secondary dark:text-dark-secondary"
                             >
                                 {{
                                     formatDate(
@@ -103,7 +103,7 @@
         <div class="p-1">
             <div class="flex items-center">
                 <OfficeBuildingIcon
-                    class="flex-none w-6 h-6"
+                    class="h-6 w-6 flex-none"
                     :class="
                         website.states.data.scores.domain.registrant ===
                         'warning'
@@ -113,7 +113,7 @@
                 />
                 <div class="flex-grow px-2">
                     <p
-                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                        class="whitespace-nowrap text-left text-sm text-secondary dark:text-dark-secondary"
                     >
                         {{
                             website.states.data.dns.registrant?.organisation
@@ -130,10 +130,10 @@
                 v-if="website.states.data.dns.registrant?.location"
                 class="flex items-center pl-6"
             >
-                <LocationMarkerIcon class="flex-none w-6 h-6 text-neutral" />
+                <LocationMarkerIcon class="h-6 w-6 flex-none text-neutral" />
                 <div class="flex-grow px-2">
                     <p
-                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                        class="whitespace-nowrap text-left text-sm text-secondary dark:text-dark-secondary"
                     >
                         {{
                             [

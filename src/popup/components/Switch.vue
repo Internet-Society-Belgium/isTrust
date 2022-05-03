@@ -1,11 +1,11 @@
 <template>
     <div
-        class="w-10 h-5 flex items-center rounded-full px-1 transition-colors duration-500"
+        class="flex h-5 w-10 items-center rounded-full px-1 transition-colors duration-500"
         :class="active ? 'bg-primary' : 'bg-neutral'"
         @click="$emit('click')"
     >
         <div
-            class="bg-background dark:bg-dark-background w-3 h-3 rounded-full shadow-md transform transition duration-500"
+            class="h-3 w-3 transform rounded-full bg-background shadow-md transition duration-500 dark:bg-dark-background"
             :class="{ 'translate-x-5': active }"
         ></div>
     </div>

@@ -1,7 +1,7 @@
 <template>
     <div v-if="!website.states.data?.url.https" class="grid gap-2 p-2">
         <div class="flex items-center">
-            <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
+            <LockOpenIcon class="h-6 w-6 flex-none text-warning" />
             <button class="flex-grow px-2" @click="website.methods.goToHttps">
                 <div class="flex items-center gap-1">
                     <span
@@ -9,7 +9,7 @@
                         >http</span
                     >
                     <ArrowNarrowRightIcon
-                        class="w-6 h-6 text-neutral mx-1 animate-bounce-right"
+                        class="mx-1 h-6 w-6 animate-bounce-right text-neutral"
                     />
                     <span
                         class="text-sm text-secondary dark:text-dark-secondary"
@@ -27,10 +27,10 @@
             "
         >
             <div class="flex items-center">
-                <LockOpenIcon class="flex-none w-6 h-6 text-warning" />
+                <LockOpenIcon class="h-6 w-6 flex-none text-warning" />
                 <div class="flex-grow px-2">
                     <p
-                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                        class="whitespace-nowrap text-left text-sm text-secondary dark:text-dark-secondary"
                     >
                         {{ extension.methods.i18n('insecure') }}
                     </p>
@@ -40,11 +40,11 @@
         <div v-else>
             <div class="flex items-center">
                 <Tooltip :text="website.states.data.certificate.protocol">
-                    <LockClosedIcon class="flex-none w-6 h-6 text-neutral"
+                    <LockClosedIcon class="h-6 w-6 flex-none text-neutral"
                 /></Tooltip>
                 <div class="flex-grow px-2">
                     <p
-                        class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                        class="whitespace-nowrap text-left text-sm text-secondary dark:text-dark-secondary"
                     >
                         {{ extension.methods.i18n('secure') }}
                     </p>
@@ -54,11 +54,11 @@
             <div v-if="website.states.data.certificate.owner">
                 <div class="flex items-center">
                     <IdentificationIcon
-                        class="flex-none w-6 h-6 text-neutral"
+                        class="h-6 w-6 flex-none text-neutral"
                     />
                     <div class="flex-grow px-2">
                         <p
-                            class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                            class="whitespace-nowrap text-left text-sm text-secondary dark:text-dark-secondary"
                         >
                             {{
                                 website.states.data.certificate.owner
@@ -72,11 +72,11 @@
                     class="flex items-center pl-6"
                 >
                     <LocationMarkerIcon
-                        class="flex-none w-6 h-6 text-neutral"
+                        class="h-6 w-6 flex-none text-neutral"
                     />
                     <div class="flex-grow px-2">
                         <p
-                            class="text-sm text-left text-secondary dark:text-dark-secondary whitespace-nowrap"
+                            class="whitespace-nowrap text-left text-sm text-secondary dark:text-dark-secondary"
                         >
                             {{
                                 [

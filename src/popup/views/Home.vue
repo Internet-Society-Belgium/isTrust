@@ -1,17 +1,17 @@
 <template>
     <div
-        class="h-full flex justify-center items-center"
+        class="flex h-full items-center justify-center"
         :class="settings.states.dark ? 'dark' : ''"
     >
         <div
-            class="bg-background dark:bg-dark-background overflow-hidden"
+            class="overflow-hidden bg-background dark:bg-dark-background"
             :class="
                 settings.transitioning.dark
                     ? 'transition-colors duration-500'
                     : ''
             "
         >
-            <div class="flex flex-col gap-3 min-w-40 w-min">
+            <div class="flex w-min min-w-40 flex-col gap-3">
                 <div class="p-4">
                     <Header />
                 </div>

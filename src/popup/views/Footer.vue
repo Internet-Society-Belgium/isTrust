@@ -1,10 +1,10 @@
 <template>
-    <div class="grid grid-cols-3 m-0.5">
-        <div class="justify-self-start flex items-center">
+    <div class="m-0.5 grid grid-cols-3">
+        <div class="flex items-center justify-self-start">
             <div v-if="!settingsViewOpened()">
                 <router-link to="/settings" tag="div">
                     <CogIcon
-                        class="w-6 h-6 text-secondary dark:text-dark-secondary"
+                        class="h-6 w-6 text-secondary dark:text-dark-secondary"
                         :class="
                             settings.transitioning.dark
                                 ? 'transition-colors duration-500'
@@ -15,17 +15,17 @@
             </div>
             <div v-else>
                 <router-link to="/" tag="div">
-                    <CogIcon class="w-6 h-6 text-primary" />
+                    <CogIcon class="h-6 w-6 text-primary" />
                 </router-link>
             </div>
         </div>
 
-        <div class="justify-self-center flex items-center">
+        <div class="flex items-center justify-self-center">
             <Loading :animation="false">
                 <ViewTransition :transition="'scale'" :mode="'out-in'">
                     <p
                         v-if="settingsViewOpened()"
-                        class="text-sm text-secondary dark:text-dark-secondary select-none"
+                        class="select-none text-sm text-secondary dark:text-dark-secondary"
                         :class="
                             settings.transitioning.dark
                                 ? 'transition-colors duration-500'
@@ -38,10 +38,10 @@
             </Loading>
         </div>
 
-        <div class="justify-self-end flex items-center">
+        <div class="flex items-center justify-self-end">
             <button @click="openUrl(extension.states.chapterUrl)">
                 <InformationCircleIcon
-                    class="w-6 h-6 text-secondary dark:text-dark-secondary"
+                    class="h-6 w-6 text-secondary dark:text-dark-secondary"
                     :class="
                         settings.transitioning.dark
                             ? 'transition-colors duration-500'

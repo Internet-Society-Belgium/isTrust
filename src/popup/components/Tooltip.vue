@@ -9,11 +9,11 @@
         <transition name="fade">
             <div
                 v-if="isOpen"
-                class="absolute transition duration-500 text-sm text-secondary dark:text-dark-secondary text-center bg-secondary-container dark:bg-secondary-dark-container rounded-lg bottom-full py-1 px-2 my-2 z-10"
+                class="absolute bottom-full z-10 my-2 rounded-lg bg-secondary-container py-1 px-2 text-center text-sm text-secondary transition duration-500 dark:bg-secondary-dark-container dark:text-dark-secondary"
             >
                 <span class="select-none">{{ text }}</span>
                 <svg
-                    class="absolute text-secondary-container dark:text-secondary-dark-container h-2 left-0 ml-1"
+                    class="absolute left-0 ml-1 h-2 text-secondary-container dark:text-secondary-dark-container"
                     style="top: 95%"
                     viewBox="0 0 255 127.5"
                     fill="currentColor"

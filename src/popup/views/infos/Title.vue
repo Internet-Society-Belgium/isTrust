@@ -3,7 +3,7 @@
         <Loading>
             <h2
                 v-if="website.states.data?.url"
-                class="text-lg text-center text-secondary dark:text-dark-secondary whitespace-nowrap"
+                class="whitespace-nowrap text-center text-lg text-secondary dark:text-dark-secondary"
             >
                 <i
                     v-if="
