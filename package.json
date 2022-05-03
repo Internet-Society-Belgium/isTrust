@@ -76,6 +76,7 @@
         "postcss-loader": "^6.1.1",
         "prettier": "^2.4.1",
         "prettier-plugin-sort-json": "^0.0.2",
+        "prettier-plugin-tailwindcss": "^0.1.10",
         "release-it": "^14.11.6",
         "style-loader": "^3.3.0",
         "tailwindcss": "^3.0.18",
