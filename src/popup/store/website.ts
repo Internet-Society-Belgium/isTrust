@@ -1,5 +1,6 @@
 import { reactive, readonly } from 'vue'
 import browser from 'webextension-polyfill'
+import * as psl from 'psl'
 
 import { WebsiteData } from '../../types/communication'
 import {
@@ -70,7 +71,17 @@ async function init() {
 
 async function isInternal(): Promise<boolean> {
     const tab = await getCurrentTab()
-    return !tab.url
+    if (tab.url === undefined) return true
+
+    const url = new URL(tab.url)
+    if (
+        ['http:', 'https:'].includes(url.protocol) &&
+        psl.get(url.hostname) !== null
+    ) {
+        return false
+    }
+
+    return true
 }
 
 ;(async () => {
