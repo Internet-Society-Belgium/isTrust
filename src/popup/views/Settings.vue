@@ -1,5 +1,5 @@
 <template>
-    <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component }: { Component: any }">
         <div class="min-h-40">
             <ViewTransition
                 :transition="toChild ? 'slide-left' : 'slide-right'"

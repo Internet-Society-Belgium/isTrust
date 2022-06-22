@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="p-4">
-                    <router-view v-slot="{ Component }">
+                    <router-view v-slot="{ Component }: { Component: any }">
                         <ViewTransition
                             :transition="toChild ? 'scale' : ''"
                             :mode="toChild ? 'out-in' : 'default'"
