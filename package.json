@@ -22,7 +22,7 @@
         "test": "jest --passWithNoTests",
         "serve:firefox-desktop": "webpack build --mode=development --watch --env target=firefox-desktop",
         "serve:chromium": "webpack build --mode=development --watch --env target=chromium",
-        "build": "webpack build --mode=production",
+        "build": "rm -rf build && webpack build --mode=production",
         "build:safari": "npm run build && ./utils/xcode.sh",
         "pack": "node utils/pack.js",
         "commit": "git pull && cz",
