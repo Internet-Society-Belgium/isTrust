@@ -6,7 +6,7 @@ Please create an [issue](https://github.com/Internet-Society-Belgium/isTrust/iss
 
 Please create an [issue](https://github.com/Internet-Society-Belgium/isTrust/issues/new/choose).
 
-# Propose changes
+# [Propose changes](https://github.com/Internet-Society-Belgium/isTrust/wiki)
 
 ## Prerequisites
 
