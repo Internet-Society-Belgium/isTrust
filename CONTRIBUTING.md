@@ -55,9 +55,9 @@ npm run commit
 git push
 ```
 
-#### 6. Propose changes to the main project
+#### 6. Propose changes to the v1 project
 
-Go to your repo on [github](https://github.com) and make a pull request from the desired branch to `main`
+Go to your repo on [github](https://github.com) and make a pull request from the desired branch to `v1`
 
 #### 7. Wait for review
 

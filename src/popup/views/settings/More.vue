@@ -16,7 +16,7 @@
                     class="flex items-center"
                     @click="
                         openUrl(
-                            'https://github.com/Internet-Society-Belgium/isTrust/blob/main/CREDITS.md'
+                            'https://github.com/Internet-Society-Belgium/isTrust/blob/v1/CREDITS.md'
                         )
                     "
                 >
@@ -37,7 +37,7 @@
                     class="flex items-center"
                     @click="
                         openUrl(
-                            'https://github.com/Internet-Society-Belgium/isTrust/blob/main/PRIVACY.md'
+                            'https://github.com/Internet-Society-Belgium/isTrust/blob/v1/PRIVACY.md'
                         )
                     "
                 >
@@ -58,7 +58,7 @@
                     class="flex items-center"
                     @click="
                         openUrl(
-                            'https://github.com/Internet-Society-Belgium/isTrust/blob/main/LICENSE.md'
+                            'https://github.com/Internet-Society-Belgium/isTrust/blob/v1/LICENSE.md'
                         )
                     "
                 >
