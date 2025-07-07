@@ -1,6 +1,6 @@
 <div align="center">
     <img
-        src="https://github.com/Internet-Society-Belgium/isTrust/blob/main/assets/icons/icon.svg"
+        src="https://github.com/Internet-Society-Belgium/isTrust/blob/v2/assets/icons/icon.svg"
         width="100px"
         alt="isTrust"
     />
@@ -16,7 +16,7 @@
 
 <div align="center">
     <a
-        href="https://github.com/Internet-Society-Belgium/isTrust/blob/main/CONTRIBUTING.md"
+        href="https://github.com/Internet-Society-Belgium/isTrust/blob/v2/CONTRIBUTING.md"
     >
         :writing_hand: CONTRIBUTING.md
     </a>
@@ -24,7 +24,7 @@
 
 <div align="center">
     <a
-        href="https://github.com/Internet-Society-Belgium/isTrust/blob/main/CREDITS.md"
+        href="https://github.com/Internet-Society-Belgium/isTrust/blob/v2/CREDITS.md"
     >
         :family: CREDITS.md
     </a>
@@ -32,7 +32,7 @@
 
 <div align="center">
     <a
-        href="https://github.com/Internet-Society-Belgium/isTrust/blob/main/PRIVACY.md"
+        href="https://github.com/Internet-Society-Belgium/isTrust/blob/v2/PRIVACY.md"
     >
         :shield: PRIVACY.md
     </a>
@@ -40,7 +40,7 @@
 
 <div align="center">
     <a
-        href="https://github.com/Internet-Society-Belgium/isTrust/blob/main/LICENSE.md"
+        href="https://github.com/Internet-Society-Belgium/isTrust/blob/v2/LICENSE.md"
     >
         :balance_scale: LICENSE.md
     </a>
@@ -48,7 +48,7 @@
 
 <div align="center">
     <a
-        href="https://github.com/Internet-Society-Belgium/isTrust/blob/main/CHANGELOG.md"
+        href="https://github.com/Internet-Society-Belgium/isTrust/blob/v2/CHANGELOG.md"
     >
         :pencil: CHANGELOG.md
     </a>
