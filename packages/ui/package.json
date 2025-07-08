@@ -1,0 +1,37 @@
+{
+  "name": "@istrust/ui",
+  "type": "module",
+  "version": "0.0.0",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./style.css": "./dist/style.css",
+    "./*": "./dist/*.jsx"
+  },
+  "scripts": {
+    "build": "npm run build:styles && npm run build:components",
+    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/style.css",
+    "build:components": "tsc",
+    "check-types": "tsc --noEmit",
+    "dev": "npm run dev:styles & npm run dev:components",
+    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/style.css --watch",
+    "dev:components": "tsc --watch",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "devDependencies": {
+    "@istrust/eslint-config": "*",
+    "@istrust/prettier-config": "*",
+    "@istrust/tailwind-config": "*",
+    "@istrust/typescript-config": "*",
+    "@tailwindcss/cli": "^4.1.8",
+    "eslint": "^9.16.0",
+    "postcss": "^8.4.35",
+    "solid-js": "^1.8.17",
+    "tailwindcss": "^4.1.8",
+    "typescript": "^5.3.3"
+  }
+}

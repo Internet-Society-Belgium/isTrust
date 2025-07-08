@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+@import "@istrust/tailwind-config/base";
+@import "@istrust/ui/style.css";

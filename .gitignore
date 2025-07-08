@@ -1,6 +1,6 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,linux,node,react
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,linux,node,react
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,react,node,linux,turbo
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,react,node,linux,turbo
 
 ### Linux ###
 *~
@@ -170,6 +170,10 @@ psd
 thumb
 sketch
 
+### Turbo ###
+# Turborepo task cache
+.turbo
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -189,7 +193,7 @@ sketch
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,linux,node,react
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,react,node,linux,turbo
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
