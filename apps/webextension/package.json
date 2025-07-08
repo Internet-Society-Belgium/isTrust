@@ -1,0 +1,32 @@
+{
+  "name": "webextension",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "bundle": "wxt zip",
+    "bundle:firefox": "wxt zip -b firefox",
+    "check-types": "tsc --noEmit",
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "format": "prettier ./src --write",
+    "postinstall": "wxt prepare",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "dependencies": {
+    "@istrust/ui": "*",
+    "solid-js": "^1.9.3",
+    "@webext-core/messaging": "^2.2.0"
+  },
+  "devDependencies": {
+    "@istrust/eslint-config": "*",
+    "@istrust/prettier-config": "*",
+    "@tailwindcss/vite": "^4.1.8",
+    "@types/chrome": "^0.0.326",
+    "@wxt-dev/module-solid": "^1.1.2",
+    "tailwindcss": "^4.1.8",
+    "typescript": "^5.6.3",
+    "wxt": "^0.20.7"
+  }
+}
