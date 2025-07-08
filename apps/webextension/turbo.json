@@ -6,6 +6,9 @@
     },
     "build": {
       "dependsOn": ["@istrust/ui#build"]
+    },
+    "check-types": {
+      "dependsOn": ["@istrust/ui#build"]
     }
   }
 }
