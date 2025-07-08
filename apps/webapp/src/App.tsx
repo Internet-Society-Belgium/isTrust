@@ -1,4 +1,5 @@
-import { createSignal, type Component } from "solid-js";
+import { Ago } from "@istrust/ui/ago";
+import { createSignal, Show, type Component } from "solid-js";
 
 const App: Component = () => {
   const [url, setURL] = createSignal<URL>();
@@ -23,7 +24,9 @@ const App: Component = () => {
         <button type="submit">Analyze</button>
       </form>
 
-      <div class="flex flex-col justify-start">{url()?.toString() || ""}</div>
+      <Show when={url()}>{(url) => <>{url().toString()}</>}</Show>
+
+      <Ago timestamp={new Date().getTime()} />
     </div>
   );
 };
