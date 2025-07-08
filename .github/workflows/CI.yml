@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: ["v2"]
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  build:
+    name: Format, Lint and Check types
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Format
+        run: npm run format
+
+      - name: Lint
+        run: npm run Lint
+
+      - name: Check types
+        run: npm run check-types
