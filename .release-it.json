@@ -4,19 +4,22 @@
     "commitMessage": "chore: release v${version}"
   },
   "github": {
-    "assets": [],
     "release": true,
+    "assets": ["apps/webapp/out/*.zip", "apps/webextension/dist/*.zip"],
     "releaseName": "${version}"
   },
   "hooks": {
-    "after:bump": "npm run build",
+    "after:bump": "npm run bundle",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}.",
-    "before:init": ["npm run lint", "npm run format", "npm run test"]
+    "before:init": ["npm run format", "npm run lint", "npm run check-types"]
   },
   "npm": {
     "publish": false
   },
   "plugins": {
+    "@release-it/bumper": {
+      "out": ["apps/webapp/package.json", "apps/webextension/package.json"]
+    },
     "@release-it/conventional-changelog": {
       "infile": "CHANGELOG.md",
       "preset": {

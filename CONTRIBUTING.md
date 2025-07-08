@@ -48,7 +48,7 @@ git push -u origin <FEATURE>
 Split modifications into separate commits. And for each :
 
 ```bash
-git add <FILES_TO_STAGED>
+git add <FILES_TO_STAGE>
 npm run commit
 git push
 ```
