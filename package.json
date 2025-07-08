@@ -21,24 +21,17 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "turbo build",
     "build:webapp": "turbo build --filter=webapp",
     "build:webextension": "turbo build --filter=webextension",
+    "bundle:webextension": "turbo bundle --filter=webextension",
     "check-types": "turbo check-types",
     "dev:webapp": "turbo dev --filter=webapp",
     "dev:webextension": "turbo dev --filter=webextension",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json}\" && turbo format",
+    "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
     "lint": "turbo lint"
   },
-  "dependencies": {
-    "vite": "^6.0.3",
-    "vite-plugin-dts": "^4.3.0",
-    "vitest": "^3.2.2"
-  },
   "devDependencies": {
-    "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
-    "eslint": "^9.30.1",
     "prettier": "^3.2.5",
     "turbo": "^2.5.4"
   },

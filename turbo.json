@@ -4,14 +4,14 @@
     "build": {
       "outputs": ["dist/**"]
     },
+    "bundle": {},
     "check-types": {},
     "dev": {
       "cache": false,
       "persistent": true
     },
     "format": {},
-    "lint": {},
-    "bundle": {}
+    "lint": {}
   },
   "ui": "tui"
 }
