@@ -6,27 +6,48 @@
   "bugs": {
     "url": "https://github.com/Internet-Society-Belgium/isTrust/issues"
   },
-  "author": {
-    "name": "etoome",
-    "url": "https://etoo.me/"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Internet-Society-Belgium/isTrust.git"
   },
-  "scripts": {
-    "commit": "git pull && cz",
-    "release": "release-it"
+  "author": {
+    "name": "etoome",
+    "url": "https://etoo.me/"
   },
-  "devDependencies": {
-    "@release-it/conventional-changelog": "^10.0.1",
-    "commitizen": "^4.3.1",
-    "cz-conventional-changelog": "^3.3.0",
-    "release-it": "^19.0.3"
+  "type": "module",
+  "workspaces": [
+    "configs/*",
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build:webapp": "turbo build --filter=webapp",
+    "build:webextension": "turbo build --filter=webextension",
+    "bundle:webextension": "turbo bundle --filter=webextension",
+    "check-types": "turbo check-types",
+    "commit": "git pull && cz",
+    "dev:webapp": "turbo dev --filter=webapp",
+    "dev:webextension": "turbo dev --filter=webextension",
+    "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
+    "lint": "turbo lint",
+    "release": "release-it"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "devDependencies": {
+    "@istrust/prettier-config": "*",
+    "@release-it/conventional-changelog": "^10.0.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "prettier": "^3.2.5",
+    "release-it": "^19.0.3",
+    "turbo": "^2.5.4"
+  },
+  "packageManager": "npm@10.9.2",
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

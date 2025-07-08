@@ -1,0 +1,11 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "dev": {
+      "dependsOn": ["@istrust/ui#build"]
+    },
+    "build": {
+      "dependsOn": ["@istrust/ui#build"]
+    }
+  }
+}

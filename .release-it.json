@@ -1,20 +1,20 @@
 {
   "$schema": "https://unpkg.com/release-it/schema/release-it.json",
-  "hooks": {
-    "before:init": ["npm run lint", "npm run format", "npm run test"],
-    "after:bump": "npm run build",
-    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
-  },
   "git": {
     "commitMessage": "chore: release v${version}"
   },
+  "github": {
+    "assets": [],
+    "release": true,
+    "releaseName": "${version}"
+  },
+  "hooks": {
+    "after:bump": "npm run build",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}.",
+    "before:init": ["npm run lint", "npm run format", "npm run test"]
+  },
   "npm": {
     "publish": false
-  },
-  "github": {
-    "release": true,
-    "releaseName": "${version}",
-    "assets": []
   },
   "plugins": {
     "@release-it/conventional-changelog": {
@@ -23,12 +23,12 @@
         "name": "conventionalcommits",
         "types": [
           {
-            "type": "feat",
-            "section": "✨ Features"
+            "section": "✨ Features",
+            "type": "feat"
           },
           {
-            "type": "fix",
-            "section": "🐛 Bug Fixes"
+            "section": "🐛 Bug Fixes",
+            "type": "fix"
           }
         ]
       }

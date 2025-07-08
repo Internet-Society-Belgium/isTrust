@@ -1,0 +1,35 @@
+{
+  "name": "webextension",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:chrome",
+    "build:chrome": "wxt build -b chrome",
+    "build:firefox": "wxt build -b firefox",
+    "bundle": "npm run bundle:chrome && npm run bundle:firefox",
+    "bundle:chrome": "wxt zip -b chrome",
+    "bundle:firefox": "wxt zip -b firefox",
+    "check-types": "tsc --noEmit",
+    "dev": "npm run dev:chrome",
+    "dev:chrome": "wxt -b chrome",
+    "dev:firefox": "wxt -b firefox",
+    "format": "prettier ./src --write",
+    "postinstall": "wxt prepare",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "dependencies": {
+    "@istrust/ui": "*",
+    "solid-js": "^1.9.3",
+    "@webext-core/messaging": "^2.2.0"
+  },
+  "devDependencies": {
+    "@istrust/eslint-config": "*",
+    "@istrust/prettier-config": "*",
+    "@tailwindcss/vite": "^4.1.8",
+    "@types/chrome": "^0.0.326",
+    "@wxt-dev/module-solid": "^1.1.2",
+    "tailwindcss": "^4.1.8",
+    "typescript": "^5.6.3",
+    "wxt": "^0.20.7"
+  }
+}
