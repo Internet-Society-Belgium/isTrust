@@ -16,9 +16,15 @@ export default defineConfig({
     openDevtools: true,
   },
   manifest: {
+    name: "isTrust",
+    key: "istrust",
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
     permissions: ["activeTab", "contextMenus", "history"],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions
     optional_permissions: [],
+  },
+  zip: {
+    artifactTemplate: "isTrust-webextension-{{version}}-{{browser}}.zip",
+    zipSources: true,
   },
 });

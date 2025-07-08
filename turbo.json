@@ -10,7 +10,8 @@
       "persistent": true
     },
     "format": {},
-    "lint": {}
+    "lint": {},
+    "bundle": {}
   },
   "ui": "tui"
 }
