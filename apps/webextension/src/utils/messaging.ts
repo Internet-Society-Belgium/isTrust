@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { HistoryData } from "@/entrypoints/background/history";
 import { defineExtensionMessaging } from "@webext-core/messaging";
 
