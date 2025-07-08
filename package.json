@@ -14,5 +14,19 @@
     "type": "git",
     "url": "https://github.com/Internet-Society-Belgium/isTrust.git"
   },
-  "scripts": {}
+  "scripts": {
+    "commit": "git pull && cz",
+    "release": "release-it"
+  },
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^10.0.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "release-it": "^19.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
