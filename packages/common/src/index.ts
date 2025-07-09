@@ -1,7 +1,6 @@
+import isFQDN from "validator/es/lib/isFQDN";
 import * as whoisData from "./whois";
 import * as whoisDataType from "./whois/type";
-
-import isFQDN from "validator/es/lib/isFQDN";
 
 export type WHOISData = whoisDataType.WHOISData;
 export async function whois(domain: string) {
