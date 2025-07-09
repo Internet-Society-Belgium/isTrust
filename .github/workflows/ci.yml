@@ -7,6 +7,9 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+permissions:
+  contents: write
+
 jobs:
   format:
     name: Format
@@ -28,6 +31,14 @@ jobs:
 
       - name: Format
         run: npm run format
+
+      - name: Git push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "style: automatic formatting"
+          git push
 
   lint:
     name: Lint
