@@ -32,7 +32,8 @@
     "dev:webextension": "turbo dev --filter=webextension",
     "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
     "lint": "turbo lint",
-    "release": "release-it"
+    "release": "release-it",
+    "test": "turbo test"
   },
   "config": {
     "commitizen": {

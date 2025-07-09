@@ -1,0 +1,27 @@
+{
+  "name": "@istrust/common",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/common.js",
+  "types": "./dist/common.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "lint": "eslint src --max-warnings 0",
+    "format": "prettier ./src --write",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/validator": "^13.15.2",
+    "typescript": "^5.4.5",
+    "vite": "^6.0.3",
+    "vite-plugin-dts": "^4.3.0",
+    "vitest": "^3.2.2"
+  },
+  "dependencies": {
+    "validator": "^13.15.15"
+  }
+}
