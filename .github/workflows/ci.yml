@@ -8,8 +8,8 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  check:
-    name: Format, Lint and Check types
+  setup:
+    name: Install
     timeout-minutes: 1
     runs-on: ubuntu-latest
 
@@ -30,17 +30,62 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "npm"
 
       - name: Install dependencies
         run: npm ci
+
+  format:
+    name: Format
+    needs: setup
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Format
         run: npm run format
 
       - name: Lint
         run: npm run lint
+
+      - name: Check types
+        run: npm run check-types
+
+      - name: Test
+        run: npm run test
+
+  lint:
+    name: Lint
+    needs: setup
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Lint
+        run: npm run lint
+
+  check_types:
+    name: Check types
+    needs: setup
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Check types
         run: npm run check-types
