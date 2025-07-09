@@ -8,16 +8,33 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  format:
-    name: Format
+  setup:
+    name: Setup
     timeout-minutes: 1
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 2
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+  format:
+    name: Format
+    needs: setup
+    timeout-minutes: 1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -33,14 +50,13 @@ jobs:
 
   lint:
     name: Lint
+    needs: setup
     timeout-minutes: 1
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -56,14 +72,13 @@ jobs:
 
   check_types:
     name: Check types
+    needs: setup
     timeout-minutes: 1
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
