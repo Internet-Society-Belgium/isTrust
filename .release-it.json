@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/release-it/schema/release-it.json",
   "git": {
     "commitMessage": "chore: release v${version}",
-    "requireCleanWorkingDir": false
+    "requireBranch": "v2"
   },
   "github": {
     "assets": ["apps/webapp/out/*.zip", "apps/webextension/dist/*.zip"],
