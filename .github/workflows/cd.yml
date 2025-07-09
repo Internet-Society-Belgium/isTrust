@@ -1,4 +1,4 @@
-name: Continuous delivery
+name: CD
 
 on:
   workflow_dispatch:
