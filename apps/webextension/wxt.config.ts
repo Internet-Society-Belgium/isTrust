@@ -24,6 +24,7 @@ export default defineConfig({
     optional_permissions: [],
   },
   zip: {
+    artifactTemplate: "isTrust-{{name}}-{{browser}}-{{version}}.zip",
     zipSources: false,
   },
 });

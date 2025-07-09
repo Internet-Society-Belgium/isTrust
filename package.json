@@ -23,16 +23,31 @@
   "scripts": {
     "build:webapp": "turbo build --filter=webapp",
     "build:webextension": "turbo build --filter=webextension",
+    "bundle": "turbo bundle",
+    "bundle:webapp": "turbo bundle --filter=webapp",
     "bundle:webextension": "turbo bundle --filter=webextension",
     "check-types": "turbo check-types",
+    "commit": "cz",
     "dev:webapp": "turbo dev --filter=webapp",
     "dev:webextension": "turbo dev --filter=webextension",
     "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
-    "lint": "turbo lint"
+    "lint": "turbo lint",
+    "release": "release-it",
+    "test": "turbo test"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "devDependencies": {
     "@istrust/prettier-config": "*",
+    "@release-it/bumper": "^7.0.5",
+    "@release-it/conventional-changelog": "^10.0.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "prettier": "^3.2.5",
+    "release-it": "^19.0.3",
     "turbo": "^2.5.4"
   },
   "packageManager": "npm@10.9.2",

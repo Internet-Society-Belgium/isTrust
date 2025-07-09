@@ -11,7 +11,8 @@
       "persistent": true
     },
     "format": {},
-    "lint": {}
+    "lint": {},
+    "test": {}
   },
   "ui": "tui"
 }

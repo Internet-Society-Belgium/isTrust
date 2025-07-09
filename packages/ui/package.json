@@ -17,9 +17,7 @@
     "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/style.css",
     "build:components": "tsc",
     "check-types": "tsc --noEmit",
-    "dev": "npm run dev:styles & npm run dev:components",
-    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/style.css --watch",
-    "dev:components": "tsc --watch",
+    "format": "prettier ./src --write",
     "lint": "eslint src --max-warnings 0"
   },
   "devDependencies": {

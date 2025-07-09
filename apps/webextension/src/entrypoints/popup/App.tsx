@@ -15,6 +15,7 @@ function App() {
   const [url, setUrl] = createSignal<string>();
 
   const [historyErrorReset, setHistoryErrorReset] = createSignal<() => void>();
+  // eslint-disable-next-line solid/reactivity
   const [history] = createResource(url, async (url) => {
     const reset = historyErrorReset();
     if (reset) reset();

@@ -8,19 +8,21 @@
   "scripts": {
     "dev": "vite --clearScreen false",
     "build": "vite build",
-    "preview": "vite preview",
     "lint": "eslint src --max-warnings 0",
     "format": "prettier ./src --write",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "bundle": "npm run build && node ./scripts/bundle.cjs"
   },
   "dependencies": {
-    "@istrust/ui": "*"
+    "@istrust/ui": "*",
+    "@istrust/common": "*"
   },
   "devDependencies": {
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
     "@istrust/typescript-config": "*",
     "@tailwindcss/vite": "^4.1.8",
+    "archiver": "^7.0.1",
     "eslint": "^9.16.0",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.3.3",

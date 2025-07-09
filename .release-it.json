@@ -1,0 +1,44 @@
+{
+  "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "requireBranch": "v2"
+  },
+  "github": {
+    "assets": ["apps/webapp/out/*.zip", "apps/webextension/dist/*.zip"],
+    "release": true,
+    "releaseName": "${version}"
+  },
+  "hooks": {
+    "after:bump": "npm i && npm run bundle",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "out": [
+        "apps/*/package.json",
+        "configs/*/package.json",
+        "packages/*/package.json"
+      ]
+    },
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "preset": {
+        "name": "conventionalcommits",
+        "types": [
+          {
+            "section": "✨ Features",
+            "type": "feat"
+          },
+          {
+            "section": "🐛 Bug Fixes",
+            "type": "fix"
+          }
+        ]
+      }
+    }
+  }
+}
