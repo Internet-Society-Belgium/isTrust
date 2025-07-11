@@ -1,6 +1,24 @@
 import { Ago } from "@istrust/ui/ago";
-import { whois } from "@istrust/common";
+import { InternalCache, whois } from "@istrust/common";
 import { createResource, createSignal, Show, type Component } from "solid-js";
+
+const cache: InternalCache = {
+  psl: {
+    set: async (key: string, value: string) =>
+      localStorage.setItem(`psl:${key}`, value),
+    get: async (key: string) => localStorage.getItem(`psl:${key}`),
+    flush: async () => {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key === null) continue;
+
+        if (key.startsWith("psl:")) {
+          localStorage.removeItem(key);
+        }
+      }
+    },
+  },
+};
 
 const App: Component = () => {
   const [url, setURL] = createSignal<URL>();
@@ -8,7 +26,7 @@ const App: Component = () => {
   const [whoisData] = createResource(url, async (url: URL) => {
     if (url === undefined) return;
     const domain = url.hostname;
-    return await whois(domain);
+    return await whois(domain, cache);
   });
 
   return (

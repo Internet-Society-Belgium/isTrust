@@ -9,10 +9,14 @@
   ],
   "scripts": {
     "build": "vite build",
-    "test": "vitest run",
-    "lint": "eslint src --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "dev": "vite build --watch",
     "format": "prettier ./src --write",
-    "check-types": "tsc --noEmit"
+    "lint": "eslint src --max-warnings 0",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "validator": "^13.15.15"
   },
   "devDependencies": {
     "@types/validator": "^13.15.2",
@@ -20,8 +24,5 @@
     "vite": "^6.0.3",
     "vite-plugin-dts": "^4.3.0",
     "vitest": "^3.2.2"
-  },
-  "dependencies": {
-    "validator": "^13.15.15"
   }
 }
