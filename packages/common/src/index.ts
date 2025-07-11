@@ -11,7 +11,6 @@ export async function whois(domain: string, cache: InternalCache) {
     throw new Error("Invalid domain");
   }
 
-  await _psl.update(cache);
   const eDomain = await _psl.get_effective_domain(domain, cache);
 
   const data = await _whois.get(eDomain);

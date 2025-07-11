@@ -48,6 +48,8 @@ export async function get_effective_domain(
   domain: string,
   cache: InternalCache,
 ) {
+  await update(cache);
+
   const labels = domain.split(".");
 
   for (let l = 0; l < labels.length; l++) {
