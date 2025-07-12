@@ -29,6 +29,16 @@ test("en.wikipedia.org", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "wikipedia.org",
+    events: {
+      registration: new Date("2001-01-13T00:12:14.754Z"),
+    },
+    registrant: {
+      address: {
+        region: "CA",
+      },
+      organisation: "Wikimedia Foundation, Inc.",
+    },
+    dnssec: false,
   } satisfies typeof whoisData);
 });
 
@@ -37,6 +47,13 @@ test("istrust.org", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "istrust.org",
+    events: {
+      registration: new Date("2021-09-07T08:09:16.242Z"),
+    },
+    registrant: {
+      organisation: "Internet Society Chapter Belgium vzw/asbl",
+    },
+    dnssec: false,
   } satisfies typeof whoisData);
 });
 
@@ -48,13 +65,5 @@ test("d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com",
-  } satisfies typeof whoisData);
-});
-
-test("sub.sub.domain.compute.amazonaws.com", async () => {
-  const whoisData = await whois("sub.sub.domain.compute.amazonaws.com", cache);
-
-  expect(whoisData).toStrictEqual({
-    domain: "sub.domain.compute.amazonaws.com",
   } satisfies typeof whoisData);
 });

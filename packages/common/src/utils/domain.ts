@@ -10,7 +10,7 @@ export function parse_domain(domain: string) {
 
   // exclude IP addresses
   if (/^[0-9\\.]+$/.test(domain)) {
-    throw new Error("Invalid domain");
+    throw new Error("IP addresses are not supported");
   }
 
   return domain;

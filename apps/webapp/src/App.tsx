@@ -1,4 +1,4 @@
-import { InternalCache, whois } from "@istrust/common";
+import * as common from "@istrust/common";
 import {
   createResource,
   createSignal,
@@ -7,7 +7,7 @@ import {
   type Component,
 } from "solid-js";
 
-const cache: InternalCache = {
+const cache: common.InternalCache = {
   psl: {
     set: async (key: string, value: string) =>
       localStorage.setItem(`psl:${key}`, value),
@@ -18,6 +18,21 @@ const cache: InternalCache = {
         if (key === null) continue;
 
         if (key.startsWith("psl:")) {
+          localStorage.removeItem(key);
+        }
+      }
+    },
+  },
+  rdap: {
+    set: async (key: string, value: string) =>
+      localStorage.setItem(`rdap:${key}`, value),
+    get: async (key: string) => localStorage.getItem(`rdap:${key}`),
+    flush: async () => {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key === null) continue;
+
+        if (key.startsWith("rdap:")) {
           localStorage.removeItem(key);
         }
       }
@@ -35,8 +50,12 @@ const App: Component = () => {
 
   const [whoisData] = createResource(domain, async (domain: string) => {
     if (domain === undefined) return;
-    return await whois(domain, cache);
+    return await common.whois(domain, cache);
   });
+
+  const force_reload_cache = async () => {
+    await common.force_reload(cache);
+  };
 
   return (
     <div class="flex flex-col items-center">
@@ -51,8 +70,8 @@ const App: Component = () => {
 
           const formDomain = formUrl
             .toString()
-            .match(/^https?:\/\/(.*)/)
-            ?.at(1);
+            .match(/^(https?:\/\/)?(.*)/)
+            ?.at(2);
 
           const url = new URL(`https://${formDomain}`);
           setDomain(url.hostname);
@@ -87,6 +106,8 @@ const App: Component = () => {
           Persist
         </button>
       )}
+
+      <button onClick={force_reload_cache}>Force reload cache</button>
     </div>
   );
 };

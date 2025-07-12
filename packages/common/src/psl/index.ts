@@ -22,6 +22,7 @@ export async function update(cache: InternalCache) {
 export async function load(cache: InternalCache) {
   await cache.psl.flush();
 
+  // https://publicsuffix.org/list/
   const res = await fetch(
     "https://publicsuffix.org/list/public_suffix_list.dat",
     { cache: "no-cache" },

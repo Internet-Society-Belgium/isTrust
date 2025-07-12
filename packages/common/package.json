@@ -20,5 +20,8 @@
     "vite": "^6.0.3",
     "vite-plugin-dts": "^4.3.0",
     "vitest": "^3.2.2"
+  },
+  "dependencies": {
+    "zod": "^4.0.5"
   }
 }
