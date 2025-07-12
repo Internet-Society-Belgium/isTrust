@@ -1,6 +1,6 @@
 // adapted from https://github.com/validatorjs/validator.js/blob/master/src/lib/isFQDN.js
-export function isFQDN(domain: string) {
-  /* Remove the optional trailing dot before checking validity */
+export function parse_domain(domain: string) {
+  // Remove the optional trailing dot
   if (domain[domain.length - 1] === ".") {
     domain = domain.substring(0, domain.length - 1);
   }
@@ -8,9 +8,8 @@ export function isFQDN(domain: string) {
   const parts = domain.split(".");
   const tld = parts[parts.length - 1];
 
-  // disallow fqdns without tld
   if (parts.length < 2) {
-    return false;
+    throw new Error("No TLD");
   }
 
   if (
@@ -18,33 +17,34 @@ export function isFQDN(domain: string) {
       tld,
     )
   ) {
-    return false;
+    throw new Error("TLD contains invalid character");
   }
 
-  // disallow spaces
   if (/\s/.test(tld)) {
-    return false;
+    throw new Error("TLD cannot contain spaces");
   }
 
-  return parts.every((part) => {
+  if (/^\d+$/.test(tld)) {
+    throw new Error("TLD cannot be all numeric");
+  }
+
+  for (const part of parts) {
     if (part.length > 63) {
-      return false;
+      throw new Error("Domain too long");
     }
 
     if (!/^[a-z_\u00a1-\uffff0-9-]+$/i.test(part)) {
-      return false;
+      throw new Error("Invalid character");
     }
 
-    // disallow full-width chars
     if (/[\uff01-\uff5e]/.test(part)) {
-      return false;
+      throw new Error("Invalid character");
     }
 
-    // disallow parts starting or ending with hyphen
     if (/^-|-$/.test(part)) {
-      return false;
+      throw new Error("Domain parts cannot start or end with hyphen");
     }
+  }
 
-    return true;
-  });
+  return domain;
 }
