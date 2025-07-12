@@ -4,43 +4,42 @@ import { InternalCache } from "../type";
 const CACHING_DAYS = 7;
 
 export async function update(cache: InternalCache) {
+  const lastUpdate = await cache.psl.get("_lastUpdate");
+
   const caching_outdated = new Date().setDate(
     new Date().getDate() - CACHING_DAYS,
   );
+
   if (
-    cache.psl.lastUpdate === undefined ||
-    cache.psl.lastUpdate < caching_outdated
+    lastUpdate === null ||
+    new Date(lastUpdate).getTime() < caching_outdated
   ) {
     await cache.psl.flush();
     await load(cache);
-    cache.psl.lastUpdate = Date.now();
+    await cache.psl.set("_lastUpdate", Date.now().toString());
   }
 }
 
 async function load(cache: InternalCache) {
-  try {
-    const res = await fetch(
-      "https://publicsuffix.org/list/public_suffix_list.dat",
-      { cache: "no-cache" },
-    );
+  const res = await fetch(
+    "https://publicsuffix.org/list/public_suffix_list.dat",
+    { cache: "no-cache" },
+  );
 
-    const text = await res.text();
-    const lines = text.split("\n");
+  const text = await res.text();
+  const lines = text.split("\n");
 
-    const promises: Promise<void>[] = [];
+  const promises: Promise<void>[] = [];
 
-    for (let line of lines) {
-      line = line.trim();
+  for (let line of lines) {
+    line = line.trim();
 
-      if (line === "" || line === "\n" || line.startsWith("//")) continue;
+    if (line === "" || line === "\n" || line.startsWith("//")) continue;
 
-      promises.push(cache.psl.set(line, ""));
-    }
-
-    await Promise.allSettled(promises);
-  } catch (error) {
-    console.error(error);
+    promises.push(cache.psl.set(line, ""));
   }
+
+  await Promise.allSettled(promises);
 }
 
 // https://github.com/publicsuffix/list/wiki/Format#algorithm

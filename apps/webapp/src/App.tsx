@@ -65,6 +65,16 @@ const App: Component = () => {
           </pre>
         </div>
       </div>
+
+      <Show when={navigator.storage && navigator.storage.persist}>
+        <button
+          onClick={async () => {
+            await navigator.storage.persist();
+          }}
+        >
+          Persist
+        </button>
+      </Show>
     </div>
   );
 };
