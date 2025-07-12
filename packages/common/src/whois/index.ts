@@ -1,6 +1,6 @@
 import { WHOISData } from "./type";
 
-export async function get(domain: string) {
+export async function get_data(domain: string) {
   const data: WHOISData = {
     domain,
   };

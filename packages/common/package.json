@@ -15,11 +15,7 @@
     "lint": "eslint src --max-warnings 0",
     "test": "vitest run"
   },
-  "dependencies": {
-    "validator": "^13.15.15"
-  },
   "devDependencies": {
-    "@types/validator": "^13.15.2",
     "typescript": "^5.4.5",
     "vite": "^6.0.3",
     "vite-plugin-dts": "^4.3.0",
