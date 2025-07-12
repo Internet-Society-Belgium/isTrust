@@ -1,4 +1,5 @@
 import { InternalCache } from "../type";
+import { parse_domain } from "../utils/domain";
 
 // https://publicsuffix.org/list/
 const CACHING_DAYS = 7;
@@ -14,13 +15,13 @@ export async function update(cache: InternalCache) {
     lastUpdate === null ||
     new Date(lastUpdate).getTime() < caching_outdated
   ) {
-    await cache.psl.flush();
     await load(cache);
-    await cache.psl.set("_lastUpdate", Date.now().toString());
   }
 }
 
-async function load(cache: InternalCache) {
+export async function load(cache: InternalCache) {
+  await cache.psl.flush();
+
   const res = await fetch(
     "https://publicsuffix.org/list/public_suffix_list.dat",
     { cache: "no-cache" },
@@ -46,12 +47,14 @@ async function load(cache: InternalCache) {
       domain = line.substring(2);
     }
 
-    const url = new URL(`https://${domain}`);
-    const rule = `${prefix}${url.hostname}`;
+    domain = parse_domain(domain);
+    const rule = `${prefix}${domain}`;
     promises.push(cache.psl.set(rule, ""));
   }
 
   await Promise.allSettled(promises);
+
+  await cache.psl.set("_lastUpdate", Date.now().toString());
 }
 
 // https://github.com/publicsuffix/list/wiki/Format#algorithm

@@ -1,15 +1,25 @@
 import { expect, test } from "vitest";
 import { InternalCache, whois } from ".";
 
-let store: Record<string, string> = {};
+let storePsl: Record<string, string> = {};
+let storeRdap: Record<string, string> = {};
 const cache: InternalCache = {
   psl: {
     set: async (key: string, value: string) => {
-      store[key] = value;
+      storePsl[key] = value;
     },
-    get: async (key: string) => store[key] ?? null,
+    get: async (key: string) => storePsl[key] ?? null,
     flush: async () => {
-      store = {};
+      storePsl = {};
+    },
+  },
+  rdap: {
+    set: async (key: string, value: string) => {
+      storeRdap[key] = value;
+    },
+    get: async (key: string) => storeRdap[key] ?? null,
+    flush: async () => {
+      storeRdap = {};
     },
   },
 };

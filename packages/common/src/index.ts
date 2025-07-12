@@ -1,6 +1,6 @@
 import * as _psl from "./psl";
 import type { InternalCache } from "./type";
-import { parse_domain } from "./utils/validate";
+import { parse_domain } from "./utils/domain";
 import * as _whois from "./whois";
 import type { WHOISData } from "./whois/type";
 
@@ -11,9 +11,14 @@ export async function whois(domain: string, cache: InternalCache) {
 
   const eDomain = await _psl.get_effective_domain(domain, cache);
 
-  const data = await _whois.get_data(eDomain);
-  if (data === undefined) throw new Error("No whois data");
+  const data = await _whois.get_data(eDomain, cache);
+  if (data === undefined) throw new Error("No WHOIS data");
   return data;
 }
 
 export { WHOISData };
+
+export function force_reload(cache: InternalCache) {
+  _psl.load(cache);
+  _whois.load(cache);
+}
