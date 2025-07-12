@@ -1,3 +1,4 @@
+import { Ago } from "@istrust/ui/ago";
 import * as common from "@istrust/common";
 import {
   createResource,
@@ -88,9 +89,26 @@ const App: Component = () => {
 
         <div>
           WHOIS:{" "}
-          <pre class="overflow-scroll">
-            {JSON.stringify(whoisData(), undefined, 2)}
-          </pre>
+          <Show when={whoisData()}>
+            {(data) => (
+              <>
+                <Show when={data().registration}>
+                  {(registration) => (
+                    <p>
+                      Registered <Ago timestamp={registration().getTime()} />
+                    </p>
+                  )}
+                </Show>
+
+                <details>
+                  <summary>raw data</summary>
+                  <pre class="overflow-scroll">
+                    {JSON.stringify(whoisData(), undefined, 2)}
+                  </pre>
+                </details>
+              </>
+            )}
+          </Show>
         </div>
       </div>
 

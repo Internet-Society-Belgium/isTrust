@@ -114,15 +114,11 @@ export async function get_data(domain: string, cache: InternalCache) {
 function parse(result: RdapResult) {
   const data: WHOISData = { domain: result.ldhName.toLowerCase() };
 
-  const events: typeof data.events = {};
-
   for (const event of result.events) {
     if (event.eventAction === "registration") {
-      events.registration = new Date(event.eventDate);
+      data.registration = new Date(event.eventDate);
     }
   }
-
-  data.events = events;
 
   const registrant: typeof data.registrant = {};
 
