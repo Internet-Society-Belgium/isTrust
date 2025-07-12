@@ -5,7 +5,7 @@ on:
   push:
     branches: ["v2"]
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, reopened, synchronize, ready_for_review]
 
 permissions:
   contents: write
@@ -15,6 +15,7 @@ jobs:
     name: Format
     timeout-minutes: 1
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
 
     steps:
       - name: Check out code
@@ -48,6 +49,7 @@ jobs:
     name: Lint
     timeout-minutes: 1
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
 
     steps:
       - name: Check out code
@@ -69,6 +71,7 @@ jobs:
     name: Check types
     timeout-minutes: 1
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
 
     steps:
       - name: Check out code
@@ -99,6 +102,7 @@ jobs:
     needs: [lint, check_types]
     timeout-minutes: 5
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
 
     steps:
       - name: Check out code

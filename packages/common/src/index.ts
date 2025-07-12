@@ -1,14 +1,19 @@
-import isFQDN from "validator/es/lib/isFQDN";
-import * as whoisData from "./whois";
-import * as whoisDataType from "./whois/type";
+import * as _psl from "./psl";
+import type { InternalCache } from "./type";
+import { parse_domain } from "./utils/validate";
+import * as _whois from "./whois";
+import type { WHOISData } from "./whois/type";
 
-export type WHOISData = whoisDataType.WHOISData;
-export async function whois(domain: string) {
-  if (!isFQDN(domain)) {
-    throw new Error("Invalid domain");
-  }
+export { InternalCache, parse_domain as isFQDN };
 
-  const data = await whoisData.get(domain);
+export async function whois(domain: string, cache: InternalCache) {
+  domain = parse_domain(domain);
+
+  const eDomain = await _psl.get_effective_domain(domain, cache);
+
+  const data = await _whois.get_data(eDomain);
   if (data === undefined) throw new Error("No whois data");
   return data;
 }
+
+export { WHOISData };

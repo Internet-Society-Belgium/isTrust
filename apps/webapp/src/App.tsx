@@ -1,14 +1,41 @@
-import { Ago } from "@istrust/ui/ago";
-import { whois } from "@istrust/common";
-import { createResource, createSignal, Show, type Component } from "solid-js";
+import { InternalCache, whois } from "@istrust/common";
+import {
+  createResource,
+  createSignal,
+  onMount,
+  Show,
+  type Component,
+} from "solid-js";
+
+const cache: InternalCache = {
+  psl: {
+    set: async (key: string, value: string) =>
+      localStorage.setItem(`psl:${key}`, value),
+    get: async (key: string) => localStorage.getItem(`psl:${key}`),
+    flush: async () => {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key === null) continue;
+
+        if (key.startsWith("psl:")) {
+          localStorage.removeItem(key);
+        }
+      }
+    },
+  },
+};
 
 const App: Component = () => {
-  const [url, setURL] = createSignal<URL>();
+  const [domain, setDomain] = createSignal<string>();
 
-  const [whoisData] = createResource(url, async (url: URL) => {
-    if (url === undefined) return;
-    const domain = url.hostname;
-    return await whois(domain);
+  const [persisted, sepPersisted] = createSignal<boolean>(false);
+  onMount(async () => {
+    sepPersisted(await navigator.storage.persisted());
+  });
+
+  const [whoisData] = createResource(domain, async (domain: string) => {
+    if (domain === undefined) return;
+    return await whois(domain, cache);
   });
 
   return (
@@ -19,12 +46,16 @@ const App: Component = () => {
 
           const formData = new FormData(e.currentTarget);
 
-          const url_form = formData.get("url");
+          const formUrl = formData.get("url");
+          if (formUrl === null) return;
 
-          if (url_form !== null) {
-            const url = new URL(url_form.toString());
-            setURL(url);
-          }
+          const formDomain = formUrl
+            .toString()
+            .match(/^https?:\/\/(.*)/)
+            ?.at(1);
+
+          const url = new URL(`https://${formDomain}`);
+          setDomain(url.hostname);
         }}
       >
         <input type="text" name="url" required class="p-4 pt-2" />
@@ -33,11 +64,7 @@ const App: Component = () => {
 
       <div class="flex w-100 flex-col">
         <div>
-          URL: <Show when={url()}>{(url) => <>{url().toString()}</>}</Show>
-        </div>
-
-        <div>
-          Last visit: <Ago timestamp={new Date().getTime()} />
+          Domain: <Show when={domain()}>{(domain) => <>{domain()}</>}</Show>
         </div>
 
         <div>
@@ -47,6 +74,19 @@ const App: Component = () => {
           </pre>
         </div>
       </div>
+
+      {persisted() ? (
+        <div>Persisted</div>
+      ) : (
+        <button
+          onClick={async () => {
+            await navigator.storage.persist();
+            sepPersisted(await navigator.storage.persisted());
+          }}
+        >
+          Persist
+        </button>
+      )}
     </div>
   );
 };
