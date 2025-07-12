@@ -79,13 +79,21 @@ export async function get_data(domain: string, cache: InternalCache) {
 
   const apis = JSON.parse(bootstrap);
 
-  const apiQueue = [...apis];
+  const apiQueue: string[] = [...apis];
   while (apiQueue.length !== 0 && isDataPartial(data)) {
-    const api = apiQueue.shift();
+    let api = apiQueue.shift();
+if (!api) continue;
 
     try {
       // https://www.rfc-editor.org/rfc/rfc9082.html#name-domain-path-segment-specifi
-      const res = await fetch(`${api}domain/${domain}`, {
+if (!/\/domain\/(.+)$/.test(api)) {
+        if (!api.endsWith("/")) {
+          api += "/";
+        }
+        api += `domain/${domain}`;
+      }
+
+      const res = await fetch(api, {
         cache: "no-cache",
       });
 
