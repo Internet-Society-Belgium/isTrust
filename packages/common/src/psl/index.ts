@@ -36,7 +36,19 @@ async function load(cache: InternalCache) {
 
     if (line === "" || line === "\n" || line.startsWith("//")) continue;
 
-    promises.push(cache.psl.set(line, ""));
+    let prefix = "";
+    let domain = line;
+    if (line.startsWith("!")) {
+      prefix = "!";
+      domain = line.substring(1);
+    } else if (line.startsWith("*.")) {
+      prefix = "*.";
+      domain = line.substring(2);
+    }
+
+    const url = new URL(`https://${domain}`);
+    const rule = `${prefix}${url.hostname}`;
+    promises.push(cache.psl.set(rule, ""));
   }
 
   await Promise.allSettled(promises);

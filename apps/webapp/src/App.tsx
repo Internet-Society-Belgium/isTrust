@@ -1,4 +1,3 @@
-import { Ago } from "@istrust/ui/ago";
 import { InternalCache, whois } from "@istrust/common";
 import { createResource, createSignal, Show, type Component } from "solid-js";
 
@@ -21,11 +20,10 @@ const cache: InternalCache = {
 };
 
 const App: Component = () => {
-  const [url, setURL] = createSignal<URL>();
+  const [domain, setDomain] = createSignal<string>();
 
-  const [whoisData] = createResource(url, async (url: URL) => {
-    if (url === undefined) return;
-    const domain = url.hostname;
+  const [whoisData] = createResource(domain, async (domain: string) => {
+    if (domain === undefined) return;
     return await whois(domain, cache);
   });
 
@@ -37,12 +35,16 @@ const App: Component = () => {
 
           const formData = new FormData(e.currentTarget);
 
-          const url_form = formData.get("url");
+          const formUrl = formData.get("url");
+          if (formUrl === null) return;
 
-          if (url_form !== null) {
-            const url = new URL(url_form.toString());
-            setURL(url);
-          }
+          const formDomain = formUrl
+            .toString()
+            .match(/^https?:\/\/(.*)/)
+            ?.at(1);
+
+          const url = new URL(`https://${formDomain}`);
+          setDomain(url.hostname);
         }}
       >
         <input type="text" name="url" required class="p-4 pt-2" />
@@ -51,11 +53,7 @@ const App: Component = () => {
 
       <div class="flex w-100 flex-col">
         <div>
-          URL: <Show when={url()}>{(url) => <>{url().toString()}</>}</Show>
-        </div>
-
-        <div>
-          Last visit: <Ago timestamp={new Date().getTime()} />
+          Domain: <Show when={domain()}>{(domain) => <>{domain()}</>}</Show>
         </div>
 
         <div>
