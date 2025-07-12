@@ -19,13 +19,9 @@ const jCardSchema = z.tuple([
     .array(
       z.tuple([
         z.string().describe("Name"),
-        z
-          .object({
-            type: z.string().optional(),
-          })
-          .describe("Parameters"),
+        z.record(z.string(), z.string().optional()).describe("Parameters"),
         z.string().describe("Type"),
-        z.union([z.string(), z.array(z.string())]).describe("Value"),
+        z.union([z.string(), z.array(z.string())]).describe("Values"),
       ]),
     )
     .describe("Properties"),
@@ -73,13 +69,9 @@ export interface WHOISData {
   domain: string;
   registration?: Date;
   registrant?: {
-    name?: string;
-    organisation?: string;
-    address?: {
-      state?: string;
-      region?: string;
-      country?: string;
-    };
+    individual?: string;
+    organization?: string;
+    country?: string;
   };
   dnssec?: boolean;
 }

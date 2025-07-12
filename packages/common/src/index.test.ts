@@ -29,14 +29,10 @@ test("en.wikipedia.org", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "wikipedia.org",
-    events: {
-      registration: new Date("2001-01-13T00:12:14.754Z"),
-    },
+    registration: new Date("2001-01-13T00:12:14.754Z"),
     registrant: {
-      address: {
-        region: "CA",
-      },
-      organisation: "Wikimedia Foundation, Inc.",
+      organization: "Wikimedia Foundation, Inc.",
+      country: "US",
     },
     dnssec: false,
   } satisfies typeof whoisData);
@@ -47,11 +43,10 @@ test("istrust.org", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "istrust.org",
-    events: {
-      registration: new Date("2021-09-07T08:09:16.242Z"),
-    },
+    registration: new Date("2021-09-07T08:09:16.242Z"),
     registrant: {
-      organisation: "Internet Society Chapter Belgium vzw/asbl",
+      organization: "Internet Society Chapter Belgium vzw/asbl",
+      country: "BE",
     },
     dnssec: false,
   } satisfies typeof whoisData);

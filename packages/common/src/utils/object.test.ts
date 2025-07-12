@@ -35,7 +35,7 @@ test("WHOIS amazonaws.com merge", async () => {
       registration: new Date("2005-08-18T02:10:45.000Z"),
     },
     registrant: {
-      organisation: "Amazon.com, Inc.",
+      organization: "Amazon.com, Inc.",
       address: {
         state: "Seattle",
         region: "WA",
@@ -52,7 +52,7 @@ test("WHOIS amazonaws.com merge", async () => {
       registration: new Date("2005-08-18T02:10:45.000Z"),
     },
     registrant: {
-      organisation: "Amazon.com, Inc.",
+      organization: "Amazon.com, Inc.",
       address: {
         state: "Seattle",
         region: "WA",

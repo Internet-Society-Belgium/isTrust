@@ -130,43 +130,25 @@ function parse(result: RdapResult) {
     const orgProperty = registrant_entity.vcardArray[1].find(
       (p) => p[0] === "org",
     );
+
+    if (orgProperty !== undefined) {
+      const organization = orgProperty[3];
+      if (!Array.isArray(organization)) {
+        registrant.organization = organization;
+      }
+    }
+
     const adrProperty = registrant_entity.vcardArray[1].find(
       (p) => p[0] === "adr",
     );
 
-    if (orgProperty !== undefined) {
-      const organisation = orgProperty[3];
-      if (!Array.isArray(organisation)) {
-        registrant.organisation = organisation;
-      }
-    }
-
-    const address: typeof registrant.address = {};
-
     if (adrProperty !== undefined) {
-      const address_property = adrProperty[3];
-      if (Array.isArray(address_property)) {
-        // https://www.rfc-editor.org/rfc/rfc6350#section-6.3.1
-        const state = address_property[3].trim();
-        const region = address_property[4].trim();
-        const country = address_property[6].trim();
+      const adrParameter = adrProperty[1];
 
-        if (state !== "") {
-          address.state = state;
-        }
-
-        if (region !== "") {
-          address.region = region;
-        }
-
-        if (country !== "") {
-          address.country = country;
-        }
+      const cc = adrParameter.cc;
+      if (cc !== undefined) {
+        registrant.country = cc;
       }
-    }
-
-    if (Object.keys(address).length > 0) {
-      registrant.address = address;
     }
   }
 
@@ -181,19 +163,11 @@ function parse(result: RdapResult) {
   return data;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isDataPartial(data: any) {
+function isDataPartial(data: WHOISData) {
   if (
-    data.events === undefined ||
-    data.events.registration === undefined ||
-    data.events.lastChanged === undefined ||
-    data.events.expiration === undefined ||
+    data.registration === undefined ||
     data.registrant === undefined ||
-    data.registrant.organisation === undefined ||
-    data.registrant.address === undefined ||
-    data.registrant.address.state === undefined ||
-    data.registrant.address.region === undefined ||
-    data.registrant.address.country === undefined ||
+    data.registrant.organization === undefined ||
     data.dnssec === undefined
   ) {
     return true;
