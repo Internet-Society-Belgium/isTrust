@@ -1,5 +1,11 @@
 import { InternalCache, whois } from "@istrust/common";
-import { createResource, createSignal, Show, type Component } from "solid-js";
+import {
+  createResource,
+  createSignal,
+  onMount,
+  Show,
+  type Component,
+} from "solid-js";
 
 const cache: InternalCache = {
   psl: {
@@ -21,6 +27,11 @@ const cache: InternalCache = {
 
 const App: Component = () => {
   const [domain, setDomain] = createSignal<string>();
+
+  const [persisted, sepPersisted] = createSignal<boolean>(false);
+  onMount(async () => {
+    sepPersisted(await navigator.storage.persisted());
+  });
 
   const [whoisData] = createResource(domain, async (domain: string) => {
     if (domain === undefined) return;
@@ -64,15 +75,18 @@ const App: Component = () => {
         </div>
       </div>
 
-      <Show when={navigator.storage && navigator.storage.persist}>
+      {persisted() ? (
+        <div>Persisted</div>
+      ) : (
         <button
           onClick={async () => {
             await navigator.storage.persist();
+            sepPersisted(await navigator.storage.persisted());
           }}
         >
           Persist
         </button>
-      </Show>
+      )}
     </div>
   );
 };
