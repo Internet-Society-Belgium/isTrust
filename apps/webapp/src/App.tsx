@@ -51,7 +51,7 @@ const App: Component = () => {
     sepPersisted(await navigator.storage.persisted());
   });
 
-  const [whoisData] = createResource(domain, async (domain: string) => {
+  const [whois] = createResource(domain, async (domain) => {
     if (domain === undefined) return;
     return await common.whois(domain, cache);
   });
@@ -71,13 +71,9 @@ const App: Component = () => {
           const formUrl = formData.get("url");
           if (formUrl === null) return;
 
-          const formDomain = formUrl
-            .toString()
-            .match(/^(https?:\/\/)?(.*)/)
-            ?.at(2);
+          const d = common.parse_domain(formUrl.toString());
 
-          const url = new URL(`https://${formDomain}`);
-          setDomain(url.hostname);
+          setDomain(d);
         }}
       >
         <input type="text" name="url" required class="p-4 pt-2" />
@@ -92,13 +88,13 @@ const App: Component = () => {
         <div>
           WHOIS:{" "}
           <Switch>
-            <Match when={whoisData.loading}>
+            <Match when={whois.loading}>
               <span>Loading...</span>
             </Match>
-            <Match when={whoisData.error}>
-              <span>{whoisData.error.message}</span>
+            <Match when={whois.error}>
+              <span>{whois.error.message}</span>
             </Match>
-            <Match when={whoisData()}>
+            <Match when={whois()}>
               {(data) => (
                 <>
                   <Show when={data().registration}>

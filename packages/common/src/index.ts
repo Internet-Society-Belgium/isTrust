@@ -4,7 +4,7 @@ import { parse_domain } from "./utils/domain";
 import * as _whois from "./whois";
 import type { WHOISData } from "./whois/type";
 
-export { InternalCache, parse_domain as isFQDN };
+export { InternalCache, parse_domain };
 
 export async function whois(domain: string, cache: InternalCache) {
   domain = parse_domain(domain);
