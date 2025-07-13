@@ -43,17 +43,18 @@ export async function load(cache: InternalCache) {
     const tlds = service[0];
     const apis = service[1];
 
-    for (let tld of tlds) {
-      tld = parse_domain(tld);
+    for (const tld of tlds) {
+      const t = parse_domain(tld);
+      if (t === undefined) continue;
 
-      const rdapTld = await cache.rdap.get(tld);
+      const rdapTld = await cache.rdap.get(t);
 
       if (rdapTld === null) {
-        promises.push(cache.rdap.set(tld, JSON.stringify([...apis])));
+        promises.push(cache.rdap.set(t, JSON.stringify([...apis])));
       } else {
         const otherApis = JSON.parse(rdapTld);
         promises.push(
-          cache.rdap.set(tld, JSON.stringify([...otherApis, ...apis])),
+          cache.rdap.set(t, JSON.stringify([...otherApis, ...apis])),
         );
       }
     }
