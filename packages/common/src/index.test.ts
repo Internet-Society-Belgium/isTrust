@@ -9,7 +9,7 @@ const cache: InternalCache = {
       storePsl[key] = value;
     },
     get: async (key: string) => storePsl[key] ?? null,
-    flush: async () => {
+    clear: async () => {
       storePsl = {};
     },
   },
@@ -18,7 +18,7 @@ const cache: InternalCache = {
       storeRdap[key] = value;
     },
     get: async (key: string) => storeRdap[key] ?? null,
-    flush: async () => {
+    clear: async () => {
       storeRdap = {};
     },
   },
@@ -29,7 +29,7 @@ test("en.wikipedia.org", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "wikipedia.org",
-    registration: new Date("2001-01-13T00:12:14.754Z"),
+    registration: "2001-01-13T00:12:14.754Z",
     registrant: {
       organization: "Wikimedia Foundation, Inc.",
       country: "US",
@@ -43,7 +43,7 @@ test("istrust.org", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "istrust.org",
-    registration: new Date("2021-09-07T08:09:16.242Z"),
+    registration: "2021-09-07T08:09:16.242Z",
     registrant: {
       organization: "Internet Society Chapter Belgium vzw/asbl",
       country: "BE",

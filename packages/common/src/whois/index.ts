@@ -26,7 +26,7 @@ export async function update(cache: InternalCache) {
 }
 
 export async function load(cache: InternalCache) {
-  await cache.rdap.flush();
+  await cache.rdap.clear();
 
   // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
   const res = await fetch("https://data.iana.org/rdap/dns.json", {
@@ -61,7 +61,7 @@ export async function load(cache: InternalCache) {
 
   await Promise.allSettled(promises);
 
-  await cache.rdap.set("_lastUpdate", Date.now().toString());
+  await cache.rdap.set("_lastUpdate", new Date().toISOString());
 }
 
 export async function get_data(domain: string, cache: InternalCache) {
@@ -124,7 +124,7 @@ function parse(result: RdapResult) {
 
   for (const event of result.events) {
     if (event.eventAction === "registration") {
-      data.registration = new Date(event.eventDate);
+      data.registration = new Date(event.eventDate).toISOString();
     }
   }
 

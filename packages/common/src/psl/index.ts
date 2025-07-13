@@ -20,7 +20,7 @@ export async function update(cache: InternalCache) {
 }
 
 export async function load(cache: InternalCache) {
-  await cache.psl.flush();
+  await cache.psl.clear();
 
   // https://publicsuffix.org/list/
   const res = await fetch(
@@ -55,7 +55,7 @@ export async function load(cache: InternalCache) {
 
   await Promise.allSettled(promises);
 
-  await cache.psl.set("_lastUpdate", Date.now().toString());
+  await cache.psl.set("_lastUpdate", new Date().toISOString());
 }
 
 // https://github.com/publicsuffix/list/wiki/Format#algorithm

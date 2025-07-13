@@ -6,7 +6,7 @@ test("WHOIS amazonaws.com from empty", async () => {
   const source = {
     domain: "amazonaws.com",
     events: {
-      registration: new Date("2005-08-18T02:10:45.000Z"),
+      registration: "2005-08-18T02:10:45.000Z",
     },
     dnssec: false,
   };
@@ -15,7 +15,7 @@ test("WHOIS amazonaws.com from empty", async () => {
   expect(target).toStrictEqual({
     domain: "amazonaws.com",
     events: {
-      registration: new Date("2005-08-18T02:10:45.000Z"),
+      registration: "2005-08-18T02:10:45.000Z",
     },
     dnssec: false,
   });
@@ -25,14 +25,14 @@ test("WHOIS amazonaws.com merge", async () => {
   const target = {
     domain: "amazonaws.com",
     events: {
-      registration: new Date("2005-08-18T02:10:45.000Z"),
+      registration: "2005-08-18T02:10:45.000Z",
     },
     dnssec: false,
   };
   const source = {
     domain: "amazonaws.com",
     events: {
-      registration: new Date("2005-08-18T02:10:45.000Z"),
+      registration: "2005-08-18T02:10:45.000Z",
     },
     registrant: {
       organization: "Amazon.com, Inc.",
@@ -49,7 +49,7 @@ test("WHOIS amazonaws.com merge", async () => {
   expect(target).toStrictEqual({
     domain: "amazonaws.com",
     events: {
-      registration: new Date("2005-08-18T02:10:45.000Z"),
+      registration: "2005-08-18T02:10:45.000Z",
     },
     registrant: {
       organization: "Amazon.com, Inc.",

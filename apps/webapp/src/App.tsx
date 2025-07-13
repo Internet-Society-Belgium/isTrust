@@ -15,7 +15,7 @@ const cache: common.InternalCache = {
     set: async (key: string, value: string) =>
       localStorage.setItem(`psl:${key}`, value),
     get: async (key: string) => localStorage.getItem(`psl:${key}`),
-    flush: async () => {
+    clear: async () => {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key === null) continue;
@@ -30,7 +30,7 @@ const cache: common.InternalCache = {
     set: async (key: string, value: string) =>
       localStorage.setItem(`rdap:${key}`, value),
     get: async (key: string) => localStorage.getItem(`rdap:${key}`),
-    flush: async () => {
+    clear: async () => {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key === null) continue;
@@ -100,7 +100,7 @@ const App: Component = () => {
                   <Show when={data().registration}>
                     {(registration) => (
                       <p>
-                        Registered <Ago timestamp={registration().getTime()} />
+                        Registered <Ago date={registration()} />
                       </p>
                     )}
                   </Show>

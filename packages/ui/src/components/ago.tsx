@@ -1,13 +1,13 @@
 import { type Component } from "solid-js";
 
 interface Props {
-  timestamp: number;
+  date: string;
 }
 
 export const Ago: Component<Props> = (props) => {
-  const getText = (timestamp: number) => {
+  const getText = (date: string) => {
     const now = new Date();
-    const then = new Date(timestamp);
+    const then = new Date(date);
 
     const year = now.getFullYear() - then.getFullYear();
     if (year > 0) {
@@ -27,5 +27,5 @@ export const Ago: Component<Props> = (props) => {
     }
   };
 
-  return <>{getText(props.timestamp)}</>;
+  return <>{getText(props.date)}</>;
 };
