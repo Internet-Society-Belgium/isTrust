@@ -84,12 +84,13 @@ const App: Component = () => {
       </form>
 
       <div class="flex w-100 flex-col">
-        <div>
-          Domain: <Show when={domain()}>{(domain) => <>{domain()}</>}</Show>
+        <div class="flex gap-2">
+          <h2>Domain:</h2>
+          <Show when={domain()}>{(domain) => <>{domain()}</>}</Show>
         </div>
 
-        <div>
-          WHOIS:{" "}
+        <div class="flex gap-2">
+          <h2>Registration:</h2>
           <Switch>
             <Match when={whois.loading}>
               <span>Loading...</span>
@@ -97,37 +98,74 @@ const App: Component = () => {
             <Match when={whois.error}>
               <span>{whois.error.message}</span>
             </Match>
-            <Match when={whois()}>
-              {(data) => (
-                <>
-                  <Show when={data().registration}>
-                    {(registration) => (
-                      <p>
-                        Registered <Ago date={registration()} />
-                      </p>
-                    )}
-                  </Show>
-
-                  <Show when={data().registrant}>
-                    {(registrant) => (
-                      <>
-                        <p>Registrant: {registrant().organization}</p>
-                        <p>Registrant country: {registrant().country}</p>
-                      </>
-                    )}
-                  </Show>
-
-                  <details open>
-                    <summary>raw data</summary>
-                    <pre class="overflow-scroll">
-                      {JSON.stringify(data(), undefined, 2)}
-                    </pre>
-                  </details>
-                </>
+            <Match when={whois()?.registration}>
+              {(registration) => (
+                <p>
+                  <Ago date={registration()} />
+                </p>
               )}
             </Match>
           </Switch>
         </div>
+
+        <div class="flex gap-2">
+          <h2>Registrant organization:</h2>
+          <Switch>
+            <Match when={whois.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={whois.error}>
+              <span>{whois.error.message}</span>
+            </Match>
+            <Match when={whois()?.registrant?.organization}>
+              {(organization) => <p>{organization()}</p>}
+            </Match>
+          </Switch>
+        </div>
+
+        <div class="flex gap-2">
+          <h2>Registrant country:</h2>
+          <Switch>
+            <Match when={whois.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={whois.error}>
+              <span>{whois.error.message}</span>
+            </Match>
+            <Match when={whois()?.registrant?.country}>
+              {(country) => <p>{country()}</p>}
+            </Match>
+          </Switch>
+        </div>
+
+        <div class="flex gap-2">
+          <h2>DNSSEC present:</h2>
+          <Switch>
+            <Match when={whois.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={whois.error}>
+              <span>{whois.error.message}</span>
+            </Match>
+            <Match when={whois()?.dnssecPresent === true}>
+              <p>yes</p>
+            </Match>
+            <Match when={whois()?.dnssecPresent === false}>
+              <p>no</p>
+            </Match>
+          </Switch>
+        </div>
+
+        <details>
+          <summary>WHOIS raw data</summary>
+          <Show when={whois()}>
+            {(data) => (
+              <pre class="overflow-scroll">
+                {JSON.stringify(data(), undefined, 2)}
+              </pre>
+            )}
+          </Show>
+        </details>
       </div>
 
       {persisted() ? (

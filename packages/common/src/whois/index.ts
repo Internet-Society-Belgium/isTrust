@@ -72,7 +72,7 @@ export async function get_data(domain: string, cache: InternalCache) {
   if (tld === undefined) throw new Error("No TLD");
 
   const bootstrap = await cache.rdap.get(tld);
-  if (bootstrap === null) throw new Error(`No RDAP available for .${tld}`);
+  if (bootstrap === null) throw new Error(`No RDAP available for ".${tld}"`);
 
   const data: WHOISData = {
     domain,
@@ -194,7 +194,7 @@ function parse(result: RdapResult) {
   }
 
   if (result.secureDNS) {
-    data.dnssec = result.secureDNS.delegationSigned;
+    data.dnssecPresent = result.secureDNS.delegationSigned;
   }
 
   return data;
@@ -205,7 +205,7 @@ function isDataPartial(data: WHOISData) {
     data.registration === undefined ||
     data.registrant === undefined ||
     data.registrant.organization === undefined ||
-    data.dnssec === undefined
+    data.dnssecPresent === undefined
   ) {
     return true;
   }
