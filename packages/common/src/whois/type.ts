@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/mini";
 
 // https://datatracker.ietf.org/doc/rfc9224/
 const BootstrapSchema = z.object({
@@ -15,26 +15,25 @@ export function validateBootstrap(json: unknown) {
 // https://datatracker.ietf.org/doc/rfc6350/
 const jCardSchema = z.tuple([
   z.literal("vcard"),
-  z
-    .array(
-      z.tuple([
-        z.string().describe("Name"),
-        z
-          .record(
-            z.string(),
-            z.union([z.string(), z.array(z.string())]).optional(),
-          )
-          .describe("Parameters"),
-        z.string().describe("Type"),
-        z
-          .union([
-            z.string(),
-            z.array(z.union([z.string(), z.array(z.string())])),
-          ])
-          .describe("Values"),
+  // Properties
+  z.array(
+    z.tuple([
+      // Name
+      z.string(),
+      // Parameters
+      z.record(
+        z.string(),
+        z.optional(z.union([z.string(), z.array(z.string())])),
+      ),
+      // Type
+      z.string(),
+      // Values
+      z.union([
+        z.string(),
+        z.array(z.union([z.string(), z.array(z.string())])),
       ]),
-    )
-    .describe("Properties"),
+    ]),
+  ),
 ]);
 
 // https://datatracker.ietf.org/doc/rfc7483/
@@ -48,21 +47,21 @@ const RdapResultSchema = z.object({
   ),
   entities: z.array(
     z.object({
-      vcardArray: jCardSchema.optional(),
+      vcardArray: z.optional(jCardSchema),
       roles: z.array(z.string()),
       objectClassName: z.string(),
     }),
   ),
-  secureDNS: z
-    .object({
+  secureDNS: z.optional(
+    z.object({
       delegationSigned: z.boolean(),
-    })
-    .optional(),
+    }),
+  ),
   links: z.array(
     z.object({
       href: z.string(),
-      rel: z.string().optional(),
-      type: z.string().optional(),
+      rel: z.optional(z.string()),
+      type: z.optional(z.string()),
     }),
   ),
 });
