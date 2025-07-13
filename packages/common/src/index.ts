@@ -18,7 +18,12 @@ export async function whois(domain: string, cache: InternalCache) {
 
 export { WHOISData };
 
-export function force_reload_cache(cache: InternalCache) {
+export function update_cache(cache: InternalCache) {
+  _psl.update(cache);
+  _whois.update(cache);
+}
+
+export function force_update_cache(cache: InternalCache) {
   _psl.load(cache);
   _whois.load(cache);
 }

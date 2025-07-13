@@ -56,8 +56,8 @@ const App: Component = () => {
     return await common.whois(domain, cache);
   });
 
-  const force_reload_cache = async () => {
-    await common.force_reload(cache);
+  const force_update_cache = async () => {
+    await common.force_update_cache(cache);
   };
 
   return (
@@ -131,7 +131,7 @@ const App: Component = () => {
         </button>
       )}
 
-      <button onClick={force_reload_cache}>Force reload cache</button>
+      <button onClick={force_update_cache}>Force update cache</button>
     </div>
   );
 };
