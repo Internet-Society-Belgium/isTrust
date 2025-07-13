@@ -82,11 +82,11 @@ export async function get_data(domain: string, cache: InternalCache) {
   const apiQueue: string[] = [...apis];
   while (apiQueue.length !== 0 && isDataPartial(data)) {
     let api = apiQueue.shift();
-if (!api) continue;
+    if (!api) continue;
 
     try {
       // https://www.rfc-editor.org/rfc/rfc9082.html#name-domain-path-segment-specifi
-if (!/\/domain\/(.+)$/.test(api)) {
+      if (!/\/domain\/(.+)$/.test(api)) {
         if (!api.endsWith("/")) {
           api += "/";
         }
@@ -155,7 +155,14 @@ function parse(result: RdapResult) {
 
       const cc = adrParameter.cc;
       if (cc !== undefined) {
-        registrant.country = cc;
+        if (Array.isArray(cc)) {
+          const firstCountry = cc.at(0);
+          if (firstCountry !== undefined) {
+            registrant.country = firstCountry;
+          }
+        } else {
+          registrant.country = cc;
+        }
       }
     }
   }

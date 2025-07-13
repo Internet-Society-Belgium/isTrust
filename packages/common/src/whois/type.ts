@@ -19,9 +19,19 @@ const jCardSchema = z.tuple([
     .array(
       z.tuple([
         z.string().describe("Name"),
-        z.record(z.string(), z.string().optional()).describe("Parameters"),
+        z
+          .record(
+            z.string(),
+            z.union([z.string(), z.array(z.string())]).optional(),
+          )
+          .describe("Parameters"),
         z.string().describe("Type"),
-        z.union([z.string(), z.array(z.string())]).describe("Values"),
+        z
+          .union([
+            z.string(),
+            z.array(z.union([z.string(), z.array(z.string())])),
+          ])
+          .describe("Values"),
       ]),
     )
     .describe("Properties"),
@@ -50,9 +60,9 @@ const RdapResultSchema = z.object({
     .optional(),
   links: z.array(
     z.object({
-      rel: z.string(),
       href: z.string(),
-      type: z.string(),
+      rel: z.string().optional(),
+      type: z.string().optional(),
     }),
   ),
 });
