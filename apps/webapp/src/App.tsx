@@ -3,8 +3,10 @@ import * as common from "@istrust/common";
 import {
   createResource,
   createSignal,
+  Match,
   onMount,
   Show,
+  Switch,
   type Component,
 } from "solid-js";
 
@@ -89,26 +91,34 @@ const App: Component = () => {
 
         <div>
           WHOIS:{" "}
-          <Show when={whoisData()}>
-            {(data) => (
-              <>
-                <Show when={data().registration}>
-                  {(registration) => (
-                    <p>
-                      Registered <Ago timestamp={registration().getTime()} />
-                    </p>
-                  )}
-                </Show>
+          <Switch>
+            <Match when={whoisData.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={whoisData.error}>
+              <span>{whoisData.error.message}</span>
+            </Match>
+            <Match when={whoisData()}>
+              {(data) => (
+                <>
+                  <Show when={data().registration}>
+                    {(registration) => (
+                      <p>
+                        Registered <Ago timestamp={registration().getTime()} />
+                      </p>
+                    )}
+                  </Show>
 
-                <details>
-                  <summary>raw data</summary>
-                  <pre class="overflow-scroll">
-                    {JSON.stringify(whoisData(), undefined, 2)}
-                  </pre>
-                </details>
-              </>
-            )}
-          </Show>
+                  <details>
+                    <summary>raw data</summary>
+                    <pre class="overflow-scroll">
+                      {JSON.stringify(data(), undefined, 2)}
+                    </pre>
+                  </details>
+                </>
+              )}
+            </Match>
+          </Switch>
         </div>
       </div>
 
