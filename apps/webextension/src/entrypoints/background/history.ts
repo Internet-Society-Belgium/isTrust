@@ -8,11 +8,7 @@ export interface HistoryData {
   };
 }
 
-export async function history({
-  domain,
-}: {
-  domain: string;
-}): Promise<HistoryData> {
+export default async function ({ domain }: { domain: string }) {
   const historyItems = await browser.history.search({ text: `${domain}` });
 
   let firstVisit;
@@ -49,5 +45,6 @@ export async function history({
     }
   }
 
-  return { domain, data: { visits, firstVisit } };
+  const data: HistoryData = { domain, data: { visits, firstVisit } };
+  return data;
 }

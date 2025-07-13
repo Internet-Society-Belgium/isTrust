@@ -1,23 +1,41 @@
-import { InternalCache, whois } from "@istrust/common";
+import { Ago } from "@istrust/ui/ago";
+import * as common from "@istrust/common";
 import {
   createResource,
   createSignal,
+  Match,
   onMount,
   Show,
+  Switch,
   type Component,
 } from "solid-js";
 
-const cache: InternalCache = {
+const cache: common.InternalCache = {
   psl: {
     set: async (key: string, value: string) =>
       localStorage.setItem(`psl:${key}`, value),
     get: async (key: string) => localStorage.getItem(`psl:${key}`),
-    flush: async () => {
+    clear: async () => {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key === null) continue;
 
         if (key.startsWith("psl:")) {
+          localStorage.removeItem(key);
+        }
+      }
+    },
+  },
+  rdap: {
+    set: async (key: string, value: string) =>
+      localStorage.setItem(`rdap:${key}`, value),
+    get: async (key: string) => localStorage.getItem(`rdap:${key}`),
+    clear: async () => {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key === null) continue;
+
+        if (key.startsWith("rdap:")) {
           localStorage.removeItem(key);
         }
       }
@@ -33,10 +51,14 @@ const App: Component = () => {
     sepPersisted(await navigator.storage.persisted());
   });
 
-  const [whoisData] = createResource(domain, async (domain: string) => {
+  const [whois] = createResource(domain, async (domain) => {
     if (domain === undefined) return;
-    return await whois(domain, cache);
+    return await common.whois(domain, cache);
   });
+
+  const force_update_cache = async () => {
+    await common.force_update_cache(cache);
+  };
 
   return (
     <div class="flex flex-col items-center">
@@ -49,13 +71,9 @@ const App: Component = () => {
           const formUrl = formData.get("url");
           if (formUrl === null) return;
 
-          const formDomain = formUrl
-            .toString()
-            .match(/^https?:\/\/(.*)/)
-            ?.at(1);
+          const d = common.parse_domain(formUrl.toString());
 
-          const url = new URL(`https://${formDomain}`);
-          setDomain(url.hostname);
+          setDomain(d);
         }}
       >
         <input type="text" name="url" required class="p-4 pt-2" />
@@ -69,9 +87,34 @@ const App: Component = () => {
 
         <div>
           WHOIS:{" "}
-          <pre class="overflow-scroll">
-            {JSON.stringify(whoisData(), undefined, 2)}
-          </pre>
+          <Switch>
+            <Match when={whois.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={whois.error}>
+              <span>{whois.error.message}</span>
+            </Match>
+            <Match when={whois()}>
+              {(data) => (
+                <>
+                  <Show when={data().registration}>
+                    {(registration) => (
+                      <p>
+                        Registered <Ago date={registration()} />
+                      </p>
+                    )}
+                  </Show>
+
+                  <details>
+                    <summary>raw data</summary>
+                    <pre class="overflow-scroll">
+                      {JSON.stringify(data(), undefined, 2)}
+                    </pre>
+                  </details>
+                </>
+              )}
+            </Match>
+          </Switch>
         </div>
       </div>
 
@@ -87,6 +130,8 @@ const App: Component = () => {
           Persist
         </button>
       )}
+
+      <button onClick={force_update_cache}>Force update cache</button>
     </div>
   );
 };

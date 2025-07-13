@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@istrust/ui": "*",
+    "@istrust/common": "*",
     "solid-js": "^1.9.3",
     "@webext-core/messaging": "^2.2.0"
   },

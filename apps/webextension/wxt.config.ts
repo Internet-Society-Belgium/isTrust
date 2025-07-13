@@ -17,9 +17,8 @@ export default defineConfig({
   },
   manifest: {
     name: "isTrust",
-    key: "istrust",
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
-    permissions: ["activeTab", "contextMenus", "history"],
+    permissions: ["activeTab", "contextMenus", "storage", "history"],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions
     optional_permissions: [],
   },

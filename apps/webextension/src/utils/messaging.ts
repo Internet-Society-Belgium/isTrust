@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { HistoryData } from "@/entrypoints/background/history";
+import { WHOISData } from "@istrust/common";
 import { defineExtensionMessaging } from "@webext-core/messaging";
 
 interface ProtocolMap {
-  history(data: { domain: string }): HistoryData;
+  whois(data: { domain: string }): WHOISData;
+  force_update_cache(): void;
 }
 
 export const { sendMessage, onMessage } =

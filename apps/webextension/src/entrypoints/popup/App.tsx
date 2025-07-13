@@ -1,28 +1,23 @@
 import { sendMessage } from "@/utils/messaging";
-import { extractDomain } from "@/utils/url";
+import * as common from "@istrust/common";
 import { Ago } from "@istrust/ui/ago";
 import { getActiveTab } from "@/utils/tab";
 import {
   Show,
-  ErrorBoundary,
-  Suspense,
   createResource,
   createSignal,
   onMount,
+  Switch,
+  Match,
 } from "solid-js";
 
 function App() {
-  const [url, setUrl] = createSignal<string>();
+  const [domain, setDomain] = createSignal<string>();
 
-  const [historyErrorReset, setHistoryErrorReset] = createSignal<() => void>();
-  // eslint-disable-next-line solid/reactivity
-  const [history] = createResource(url, async (url) => {
-    const reset = historyErrorReset();
-    if (reset) reset();
+  const [whois] = createResource(domain, async (domain) => {
+    if (domain === undefined) return;
 
-    const domain = extractDomain(url);
-
-    return await sendMessage("history", {
+    return await sendMessage("whois", {
       domain,
     });
   });
@@ -30,55 +25,58 @@ function App() {
   onMount(async () => {
     const params = new URLSearchParams(document.location.search);
 
-    const paramUrl = params.get("url");
+    const paramUrl = params.get("q");
     if (paramUrl !== null) {
-      setUrl(paramUrl);
+      const d = common.parse_domain(paramUrl);
+      setDomain(d);
     } else {
       const tab = await getActiveTab();
       if (tab.url) {
-        setUrl(tab.url);
+        const d = common.parse_domain(tab.url);
+        setDomain(d);
       }
     }
   });
 
+  const force_update_cache = async () => {
+    return await sendMessage("force_update_cache");
+  };
+
   return (
     <div>
-      <Show when={url()}>
-        {(url) => (
-          <>
-            <p>{extractDomain(url())}</p>
-
-            <ErrorBoundary
-              fallback={(err: Error, reset) => {
-                setHistoryErrorReset(() => reset);
-                return <span>Error: {err.message}</span>;
-              }}
-            >
-              <Suspense fallback={<div>Loading...</div>}>
-                <Show when={history()}>
-                  {(history) => (
-                    <>
-                      {/* <pre class="w-80 overflow-scroll">
-                  {JSON.stringify(history(), undefined, 2)}
-                </pre> */}
-
-                      <div>Number of known visits: {history().data.visits}</div>
-
-                      <Show when={history().data.firstVisit}>
-                        {(firstVisit) => (
-                          <>
-                            First known visit: <Ago timestamp={firstVisit()} />
-                          </>
-                        )}
-                      </Show>
-                    </>
+      <div>
+        WHOIS:{" "}
+        <Switch>
+          <Match when={whois.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whois.error}>
+            <span>{whois.error.message}</span>
+          </Match>
+          <Match when={whois()}>
+            {(data) => (
+              <>
+                <Show when={data().registration}>
+                  {(registration) => (
+                    <p>
+                      Registered <Ago date={registration()} />
+                    </p>
                   )}
                 </Show>
-              </Suspense>
-            </ErrorBoundary>
-          </>
-        )}
-      </Show>
+
+                <details>
+                  <summary>raw data</summary>
+                  <pre class="overflow-scroll">
+                    {JSON.stringify(data(), undefined, 2)}
+                  </pre>
+                </details>
+              </>
+            )}
+          </Match>
+        </Switch>
+      </div>
+
+      <button onClick={force_update_cache}>Force update cache</button>
     </div>
   );
 }

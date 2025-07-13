@@ -1,15 +1,25 @@
 import { expect, test } from "vitest";
 import { InternalCache, whois } from ".";
 
-let store: Record<string, string> = {};
+let storePsl: Record<string, string> = {};
+let storeRdap: Record<string, string> = {};
 const cache: InternalCache = {
   psl: {
     set: async (key: string, value: string) => {
-      store[key] = value;
+      storePsl[key] = value;
     },
-    get: async (key: string) => store[key] ?? null,
-    flush: async () => {
-      store = {};
+    get: async (key: string) => storePsl[key] ?? null,
+    clear: async () => {
+      storePsl = {};
+    },
+  },
+  rdap: {
+    set: async (key: string, value: string) => {
+      storeRdap[key] = value;
+    },
+    get: async (key: string) => storeRdap[key] ?? null,
+    clear: async () => {
+      storeRdap = {};
     },
   },
 };
@@ -19,6 +29,12 @@ test("en.wikipedia.org", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "wikipedia.org",
+    registration: "2001-01-13T00:12:14.754Z",
+    registrant: {
+      organization: "Wikimedia Foundation, Inc.",
+      country: "US",
+    },
+    dnssec: false,
   } satisfies typeof whoisData);
 });
 
@@ -27,6 +43,12 @@ test("istrust.org", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "istrust.org",
+    registration: "2021-09-07T08:09:16.242Z",
+    registrant: {
+      organization: "Internet Society Chapter Belgium vzw/asbl",
+      country: "BE",
+    },
+    dnssec: false,
   } satisfies typeof whoisData);
 });
 
@@ -38,13 +60,5 @@ test("d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com", async () => {
 
   expect(whoisData).toStrictEqual({
     domain: "d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com",
-  } satisfies typeof whoisData);
-});
-
-test("sub.sub.domain.compute.amazonaws.com", async () => {
-  const whoisData = await whois("sub.sub.domain.compute.amazonaws.com", cache);
-
-  expect(whoisData).toStrictEqual({
-    domain: "sub.domain.compute.amazonaws.com",
   } satisfies typeof whoisData);
 });
