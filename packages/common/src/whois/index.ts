@@ -97,6 +97,8 @@ export async function get_data(domain: string, cache: InternalCache) {
         cache: "no-cache",
       });
 
+      if (!res.ok) throw new Error("No RDAP response");
+
       const json = await res.json();
 
       const rdapResult = validateRdapResult(json);
@@ -110,7 +112,7 @@ export async function get_data(domain: string, cache: InternalCache) {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       continue;
     }
