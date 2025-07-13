@@ -156,12 +156,31 @@ function parse(result: RdapResult) {
       const cc = adrParameter.cc;
       if (cc !== undefined) {
         if (Array.isArray(cc)) {
-          const firstCountry = cc.at(0);
-          if (firstCountry !== undefined) {
+          const firstCountry = cc.at(0)?.trim();
+          if (firstCountry !== undefined && firstCountry !== "") {
             registrant.country = firstCountry;
           }
         } else {
           registrant.country = cc;
+        }
+      }
+
+      if (registrant.country === undefined) {
+        const addressValue = adrProperty[3];
+        if (Array.isArray(addressValue)) {
+          // https://www.rfc-editor.org/rfc/rfc6350#section-6.3.1
+          const country = addressValue[6];
+
+          if (Array.isArray(country)) {
+            const firstCountry = country.at(0)?.trim();
+            if (firstCountry !== undefined && firstCountry !== "") {
+              registrant.country = firstCountry;
+            }
+          } else {
+            if (country !== "") {
+              registrant.country = country;
+            }
+          }
         }
       }
     }
