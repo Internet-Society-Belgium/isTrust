@@ -24,6 +24,10 @@ export default defineBackground(() => {
     return await common.update_cache(cache);
   });
 
+  onMessage("get_domain", async ({ data: { query } }) => {
+    return await common.get_domain(query, cache);
+  });
+
   onMessage("whois", async ({ data: { domain } }) => {
     return await common.whois(domain, cache);
   });

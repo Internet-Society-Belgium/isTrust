@@ -1,5 +1,4 @@
 import { sendMessage } from "@/utils/messaging";
-import * as common from "@istrust/common";
 import { Ago } from "@istrust/ui/ago";
 import { getActiveTab } from "@/utils/tab";
 import {
@@ -12,7 +11,14 @@ import {
 } from "solid-js";
 
 function App() {
-  const [domain, setDomain] = createSignal<string>();
+  const [query, setQuery] = createSignal<string>();
+
+  const [domain] = createResource(query, async (query) => {
+    if (query === undefined) return;
+    return await sendMessage("get_domain", {
+      query,
+    });
+  });
 
   const [whois] = createResource(domain, async (domain) => {
     if (domain === undefined) return;
@@ -27,13 +33,11 @@ function App() {
 
     const paramUrl = params.get("q");
     if (paramUrl !== null) {
-      const d = common.parse_domain(paramUrl);
-      setDomain(d);
+      setQuery(paramUrl);
     } else {
       const tab = await getActiveTab();
       if (tab.url) {
-        const d = common.parse_domain(tab.url);
-        setDomain(d);
+        setQuery(tab.url);
       }
     }
   });
@@ -44,6 +48,10 @@ function App() {
 
   return (
     <div>
+      <div>
+        Domain: <Show when={domain()}>{(domain) => <>{domain()}</>}</Show>
+      </div>
+
       <div>
         WHOIS:{" "}
         <Switch>
@@ -64,7 +72,16 @@ function App() {
                   )}
                 </Show>
 
-                <details>
+                <Show when={data().registrant}>
+                  {(registrant) => (
+                    <>
+                      <p>Registrant: {registrant().organization}</p>
+                      <p>Registrant country: {registrant().country}</p>
+                    </>
+                  )}
+                </Show>
+
+                <details open>
                   <summary>raw data</summary>
                   <pre class="overflow-scroll">
                     {JSON.stringify(data(), undefined, 2)}

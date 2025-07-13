@@ -44,16 +44,21 @@ const cache: common.InternalCache = {
 };
 
 const App: Component = () => {
-  const [domain, setDomain] = createSignal<string>();
+  const [query, setQuery] = createSignal<string>();
 
-  const [persisted, sepPersisted] = createSignal<boolean>(false);
-  onMount(async () => {
-    sepPersisted(await navigator.storage.persisted());
+  const [domain] = createResource(query, async (query) => {
+    if (query === undefined) return;
+    return await common.get_domain(query, cache);
   });
 
   const [whois] = createResource(domain, async (domain) => {
     if (domain === undefined) return;
     return await common.whois(domain, cache);
+  });
+
+  const [persisted, sepPersisted] = createSignal<boolean>(false);
+  onMount(async () => {
+    sepPersisted(await navigator.storage.persisted());
   });
 
   const force_update_cache = async () => {
@@ -71,9 +76,7 @@ const App: Component = () => {
           const formUrl = formData.get("url");
           if (formUrl === null) return;
 
-          const d = common.parse_domain(formUrl.toString());
-
-          setDomain(d);
+          setQuery(formUrl.toString());
         }}
       >
         <input type="text" name="url" required class="p-4 pt-2" />
@@ -105,7 +108,16 @@ const App: Component = () => {
                     )}
                   </Show>
 
-                  <details>
+                  <Show when={data().registrant}>
+                    {(registrant) => (
+                      <>
+                        <p>Registrant: {registrant().organization}</p>
+                        <p>Registrant country: {registrant().country}</p>
+                      </>
+                    )}
+                  </Show>
+
+                  <details open>
                     <summary>raw data</summary>
                     <pre class="overflow-scroll">
                       {JSON.stringify(data(), undefined, 2)}

@@ -24,8 +24,8 @@ const cache: InternalCache = {
   },
 };
 
-test("en.wikipedia.org", async () => {
-  const whoisData = await whois("en.wikipedia.org", cache);
+test("wikipedia.org", async () => {
+  const whoisData = await whois("wikipedia.org", cache);
 
   expect(whoisData).toStrictEqual({
     domain: "wikipedia.org",
@@ -34,7 +34,7 @@ test("en.wikipedia.org", async () => {
       organization: "Wikimedia Foundation, Inc.",
       country: "US",
     },
-    dnssec: false,
+    dnssecPresent: false,
   } satisfies typeof whoisData);
 });
 
@@ -48,17 +48,6 @@ test("istrust.org", async () => {
       organization: "Internet Society Chapter Belgium vzw/asbl",
       country: "BE",
     },
-    dnssec: false,
-  } satisfies typeof whoisData);
-});
-
-test("d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com", async () => {
-  const whoisData = await whois(
-    "d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com",
-    cache,
-  );
-
-  expect(whoisData).toStrictEqual({
-    domain: "d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com",
+    dnssecPresent: false,
   } satisfies typeof whoisData);
 });

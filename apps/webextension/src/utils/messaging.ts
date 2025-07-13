@@ -4,6 +4,7 @@ import { defineExtensionMessaging } from "@webext-core/messaging";
 
 interface ProtocolMap {
   whois(data: { domain: string }): WHOISData;
+  get_domain(data: { query: string }): string | undefined;
   force_update_cache(): void;
 }
 
