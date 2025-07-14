@@ -86,7 +86,15 @@ const App: Component = () => {
       <div class="flex w-100 flex-col">
         <div class="flex gap-2">
           <h2>Domain:</h2>
-          <Show when={domain()}>{(domain) => <>{domain()}</>}</Show>
+          <Switch>
+            <Match when={domain.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={domain.error}>
+              <span>{domain.error.message}</span>
+            </Match>
+            <Match when={domain()}>{(domain) => <p>{domain()}</p>}</Match>
+          </Switch>
         </div>
 
         <div class="flex gap-2">

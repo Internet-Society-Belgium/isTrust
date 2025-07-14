@@ -47,13 +47,22 @@ function App() {
   };
 
   return (
-    <div>
-      <div>
-        Domain: <Show when={domain()}>{(domain) => <>{domain()}</>}</Show>
+    <div class="flex w-100 flex-col">
+      <div class="flex gap-2">
+        <h2>Domain:</h2>
+        <Switch>
+          <Match when={domain.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={domain.error}>
+            <span>{domain.error.message}</span>
+          </Match>
+          <Match when={domain()}>{(domain) => <p>{domain()}</p>}</Match>
+        </Switch>
       </div>
 
-      <div>
-        WHOIS:{" "}
+      <div class="flex gap-2">
+        <h2>Registration:</h2>
         <Switch>
           <Match when={whois.loading}>
             <span>Loading...</span>
@@ -61,37 +70,79 @@ function App() {
           <Match when={whois.error}>
             <span>{whois.error.message}</span>
           </Match>
-          <Match when={whois()}>
-            {(data) => (
-              <>
-                <Show when={data().registration}>
-                  {(registration) => (
-                    <p>
-                      Registered <Ago date={registration()} />
-                    </p>
-                  )}
-                </Show>
-
-                <Show when={data().registrant}>
-                  {(registrant) => (
-                    <>
-                      <p>Registrant: {registrant().organization}</p>
-                      <p>Registrant country: {registrant().country}</p>
-                    </>
-                  )}
-                </Show>
-
-                <details open>
-                  <summary>raw data</summary>
-                  <pre class="overflow-scroll">
-                    {JSON.stringify(data(), undefined, 2)}
-                  </pre>
-                </details>
-              </>
+          <Match when={whois()?.registration}>
+            {(registration) => (
+              <p>
+                <Ago date={registration()} />
+              </p>
             )}
           </Match>
         </Switch>
       </div>
+
+      <div class="flex gap-2">
+        <h2>Registrant organization:</h2>
+        <Switch>
+          <Match when={whois.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whois.error}>
+            <span>{whois.error.message}</span>
+          </Match>
+          <Match when={whois()?.registrant?.organization}>
+            {(organization) => <p>{organization()}</p>}
+          </Match>
+        </Switch>
+      </div>
+
+      <div class="flex gap-2">
+        <h2>Registrant country:</h2>
+        <Switch>
+          <Match when={whois.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whois.error}>
+            <span>{whois.error.message}</span>
+          </Match>
+          <Match when={whois()?.registrant?.country}>
+            {(country) => (
+              <Switch>
+                <Match when={country().code}>{(code) => <p>{code()}</p>}</Match>
+                <Match when={country().name}>{(name) => <p>{name()}</p>}</Match>
+              </Switch>
+            )}
+          </Match>
+        </Switch>
+      </div>
+
+      <div class="flex gap-2">
+        <h2>DNSSEC present:</h2>
+        <Switch>
+          <Match when={whois.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whois.error}>
+            <span>{whois.error.message}</span>
+          </Match>
+          <Match when={whois()?.dnssecPresent === true}>
+            <p>yes</p>
+          </Match>
+          <Match when={whois()?.dnssecPresent === false}>
+            <p>no</p>
+          </Match>
+        </Switch>
+      </div>
+
+      <details>
+        <summary>WHOIS raw data</summary>
+        <Show when={whois()}>
+          {(data) => (
+            <pre class="overflow-scroll">
+              {JSON.stringify(data(), undefined, 2)}
+            </pre>
+          )}
+        </Show>
+      </details>
 
       <button onClick={force_update_cache}>Force update cache</button>
     </div>
