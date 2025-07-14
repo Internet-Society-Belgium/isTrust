@@ -78,9 +78,11 @@ export interface WHOISData {
   domain: string;
   registration?: string;
   registrant?: {
-    individual?: string;
     organization?: string;
-    country?: string;
+    country?: {
+      code?: string;
+      name?: string;
+    };
   };
-  dnssec?: boolean;
+  dnssecPresent?: boolean;
 }

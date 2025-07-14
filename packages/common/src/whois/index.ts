@@ -43,17 +43,18 @@ export async function load(cache: InternalCache) {
     const tlds = service[0];
     const apis = service[1];
 
-    for (let tld of tlds) {
-      tld = parse_domain(tld);
+    for (const tld of tlds) {
+      const t = parse_domain(tld);
+      if (t === undefined) continue;
 
-      const rdapTld = await cache.rdap.get(tld);
+      const rdapTld = await cache.rdap.get(t);
 
       if (rdapTld === null) {
-        promises.push(cache.rdap.set(tld, JSON.stringify([...apis])));
+        promises.push(cache.rdap.set(t, JSON.stringify([...apis])));
       } else {
         const otherApis = JSON.parse(rdapTld);
         promises.push(
-          cache.rdap.set(tld, JSON.stringify([...otherApis, ...apis])),
+          cache.rdap.set(t, JSON.stringify([...otherApis, ...apis])),
         );
       }
     }
@@ -71,7 +72,7 @@ export async function get_data(domain: string, cache: InternalCache) {
   if (tld === undefined) throw new Error("No TLD");
 
   const bootstrap = await cache.rdap.get(tld);
-  if (bootstrap === null) throw new Error(`No RDAP available for .${tld}`);
+  if (bootstrap === null) throw new Error(`No RDAP available for ".${tld}"`);
 
   const data: WHOISData = {
     domain,
@@ -155,15 +156,17 @@ function parse(result: RdapResult) {
     if (adrProperty !== undefined) {
       const adrParameter = adrProperty[1];
 
+      const country: typeof registrant.country = {};
+
       const cc = adrParameter.cc;
       if (cc !== undefined) {
         if (Array.isArray(cc)) {
           const firstCountry = cc.at(0)?.trim();
           if (firstCountry !== undefined && firstCountry !== "") {
-            registrant.country = firstCountry;
+            country.code = firstCountry;
           }
         } else {
-          registrant.country = cc;
+          country.code = cc;
         }
       }
 
@@ -171,19 +174,23 @@ function parse(result: RdapResult) {
         const addressValue = adrProperty[3];
         if (Array.isArray(addressValue)) {
           // https://www.rfc-editor.org/rfc/rfc6350#section-6.3.1
-          const country = addressValue[6];
+          const countryName = addressValue[6];
 
-          if (Array.isArray(country)) {
-            const firstCountry = country.at(0)?.trim();
+          if (Array.isArray(countryName)) {
+            const firstCountry = countryName.at(0)?.trim();
             if (firstCountry !== undefined && firstCountry !== "") {
-              registrant.country = firstCountry;
+              country.name = firstCountry;
             }
           } else {
-            if (country !== "") {
-              registrant.country = country;
+            if (countryName !== "") {
+              country.name = countryName;
             }
           }
         }
+      }
+
+      if (Object.keys(country).length > 0) {
+        registrant.country = country;
       }
     }
   }
@@ -193,7 +200,7 @@ function parse(result: RdapResult) {
   }
 
   if (result.secureDNS) {
-    data.dnssec = result.secureDNS.delegationSigned;
+    data.dnssecPresent = result.secureDNS.delegationSigned;
   }
 
   return data;
@@ -204,7 +211,7 @@ function isDataPartial(data: WHOISData) {
     data.registration === undefined ||
     data.registrant === undefined ||
     data.registrant.organization === undefined ||
-    data.dnssec === undefined
+    data.dnssecPresent === undefined
   ) {
     return true;
   }

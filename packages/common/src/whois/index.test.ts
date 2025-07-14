@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
-import { InternalCache, whois } from ".";
+import { get_data } from ".";
+import { InternalCache } from "../type";
 
 let storePsl: Record<string, string> = {};
 let storeRdap: Record<string, string> = {};
@@ -24,41 +25,34 @@ const cache: InternalCache = {
   },
 };
 
-test("en.wikipedia.org", async () => {
-  const whoisData = await whois("en.wikipedia.org", cache);
+test("wikipedia.org", async () => {
+  const whoisData = await get_data("wikipedia.org", cache);
 
   expect(whoisData).toStrictEqual({
     domain: "wikipedia.org",
     registration: "2001-01-13T00:12:14.754Z",
     registrant: {
       organization: "Wikimedia Foundation, Inc.",
-      country: "US",
+      country: {
+        code: "US",
+      },
     },
-    dnssec: false,
+    dnssecPresent: false,
   } satisfies typeof whoisData);
 });
 
 test("istrust.org", async () => {
-  const whoisData = await whois("istrust.org", cache);
+  const whoisData = await get_data("istrust.org", cache);
 
   expect(whoisData).toStrictEqual({
     domain: "istrust.org",
     registration: "2021-09-07T08:09:16.242Z",
     registrant: {
       organization: "Internet Society Chapter Belgium vzw/asbl",
-      country: "BE",
+      country: {
+        code: "BE",
+      },
     },
-    dnssec: false,
-  } satisfies typeof whoisData);
-});
-
-test("d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com", async () => {
-  const whoisData = await whois(
-    "d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com",
-    cache,
-  );
-
-  expect(whoisData).toStrictEqual({
-    domain: "d-5bnjadnof8.execute-api.eu-west-3.amazonaws.com",
+    dnssecPresent: false,
   } satisfies typeof whoisData);
 });

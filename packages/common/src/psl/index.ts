@@ -48,8 +48,10 @@ export async function load(cache: InternalCache) {
       domain = line.substring(2);
     }
 
-    domain = parse_domain(domain);
-    const rule = `${prefix}${domain}`;
+    const d = parse_domain(domain);
+    if (d === undefined) continue;
+
+    const rule = `${prefix}${d}`;
     promises.push(cache.psl.set(rule, ""));
   }
 

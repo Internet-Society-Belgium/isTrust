@@ -1,5 +1,4 @@
 import { sendMessage } from "@/utils/messaging";
-import * as common from "@istrust/common";
 import { Ago } from "@istrust/ui/ago";
 import { getActiveTab } from "@/utils/tab";
 import {
@@ -12,30 +11,43 @@ import {
 } from "solid-js";
 
 function App() {
-  const [domain, setDomain] = createSignal<string>();
-
-  const [whois] = createResource(domain, async (domain) => {
-    if (domain === undefined) return;
-
-    return await sendMessage("whois", {
-      domain,
-    });
-  });
+  const [query, setQuery] = createSignal<string>();
 
   onMount(async () => {
     const params = new URLSearchParams(document.location.search);
 
     const paramUrl = params.get("q");
     if (paramUrl !== null) {
-      const d = common.parse_domain(paramUrl);
-      setDomain(d);
+      setQuery(paramUrl);
     } else {
       const tab = await getActiveTab();
       if (tab.url) {
-        const d = common.parse_domain(tab.url);
-        setDomain(d);
+        setQuery(tab.url);
       }
     }
+  });
+
+  const [domain] = createResource(query, async (query) => {
+    if (query === undefined) return;
+    return await sendMessage("get_domain", {
+      query,
+    });
+  });
+
+  const [whoisData] = createResource(domain, async (domain) => {
+    if (domain === undefined) return;
+
+    return await sendMessage("get_whois_data", {
+      domain,
+    });
+  });
+
+  const [dnssecValid] = createResource(domain, async (domain) => {
+    if (domain === undefined) return;
+
+    return await sendMessage("is_dnssec_valid", {
+      domain,
+    });
   });
 
   const force_update_cache = async () => {
@@ -43,38 +55,120 @@ function App() {
   };
 
   return (
-    <div>
-      <div>
-        WHOIS:{" "}
+    <div class="flex w-100 flex-col">
+      <div class="flex gap-2">
+        <h2>Domain:</h2>
         <Switch>
-          <Match when={whois.loading}>
+          <Match when={domain.loading}>
             <span>Loading...</span>
           </Match>
-          <Match when={whois.error}>
-            <span>{whois.error.message}</span>
+          <Match when={domain.error}>
+            <span>{domain.error.message}</span>
           </Match>
-          <Match when={whois()}>
-            {(data) => (
-              <>
-                <Show when={data().registration}>
-                  {(registration) => (
-                    <p>
-                      Registered <Ago date={registration()} />
-                    </p>
-                  )}
-                </Show>
+          <Match when={domain()}>{(domain) => <p>{domain()}</p>}</Match>
+        </Switch>
+      </div>
 
-                <details>
-                  <summary>raw data</summary>
-                  <pre class="overflow-scroll">
-                    {JSON.stringify(data(), undefined, 2)}
-                  </pre>
-                </details>
-              </>
+      <div class="flex gap-2">
+        <h2>Registration:</h2>
+        <Switch>
+          <Match when={whoisData.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whoisData.error}>
+            <span>{whoisData.error.message}</span>
+          </Match>
+          <Match when={whoisData()?.registration}>
+            {(registration) => (
+              <p>
+                <Ago date={registration()} />
+              </p>
             )}
           </Match>
         </Switch>
       </div>
+
+      <div class="flex gap-2">
+        <h2>Registrant organization:</h2>
+        <Switch>
+          <Match when={whoisData.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whoisData.error}>
+            <span>{whoisData.error.message}</span>
+          </Match>
+          <Match when={whoisData()?.registrant?.organization}>
+            {(organization) => <p>{organization()}</p>}
+          </Match>
+        </Switch>
+      </div>
+
+      <div class="flex gap-2">
+        <h2>Registrant country:</h2>
+        <Switch>
+          <Match when={whoisData.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whoisData.error}>
+            <span>{whoisData.error.message}</span>
+          </Match>
+          <Match when={whoisData()?.registrant?.country}>
+            {(country) => (
+              <Switch>
+                <Match when={country().code}>{(code) => <p>{code()}</p>}</Match>
+                <Match when={country().name}>{(name) => <p>{name()}</p>}</Match>
+              </Switch>
+            )}
+          </Match>
+        </Switch>
+      </div>
+
+      <div class="flex gap-2">
+        <h2>DNSSEC present:</h2>
+        <Switch>
+          <Match when={whoisData.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whoisData.error}>
+            <span>{whoisData.error.message}</span>
+          </Match>
+          <Match when={whoisData()?.dnssecPresent === true}>
+            <p>yes</p>
+          </Match>
+          <Match when={whoisData()?.dnssecPresent === false}>
+            <p>no</p>
+          </Match>
+        </Switch>
+      </div>
+
+      <div class="flex gap-2">
+        <h2>DNSSEC valid:</h2>
+        <Switch>
+          <Match when={dnssecValid.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={dnssecValid.error}>
+            <span>{dnssecValid.error.message}</span>
+          </Match>
+          <Match when={dnssecValid() === true}>
+            <p>yes</p>
+          </Match>
+          <Match when={dnssecValid() === false}>
+            <p>no</p>
+          </Match>
+        </Switch>
+      </div>
+
+      <details>
+        <summary>WHOIS raw data</summary>
+        <Show when={whoisData()}>
+          {(data) => (
+            <pre class="overflow-scroll">
+              {JSON.stringify(data(), undefined, 2)}
+            </pre>
+          )}
+        </Show>
+      </details>
 
       <button onClick={force_update_cache}>Force update cache</button>
     </div>
