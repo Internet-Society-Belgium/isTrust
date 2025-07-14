@@ -17,7 +17,7 @@ export async function get_history_data(domain: string) {
     if (!pageUrl) continue;
 
     const pageDomain = new URL(pageUrl).hostname;
-    if (pageDomain !== domain) continue;
+    if (!(pageDomain === domain || pageDomain.endsWith(`.${domain}`))) continue;
 
     const visitItems = await browser.history.getVisits({ url: pageUrl });
     for (const visitItem of visitItems) {
