@@ -14,6 +14,10 @@ export function parse_domain(text: string) {
     domain = domain.substring(0, domain.length - 1);
   }
 
+  if (!domain.includes(".")) {
+    throw new Error("Invalid domain name");
+  }
+
   // https://developer.mozilla.org/en-US/docs/Web/API/URL/hostname
   // exclude IP addresses
   if (/^[0-9\\.]+$/.test(domain)) {

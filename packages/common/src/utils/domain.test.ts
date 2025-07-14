@@ -34,3 +34,7 @@ test("10.10.10.10", async () => {
     "IP addresses are not supported",
   );
 });
+
+test("tld", async () => {
+  expect(() => parse_domain("tld")).toThrowError("Invalid domain name");
+});
