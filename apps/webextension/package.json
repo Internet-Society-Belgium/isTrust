@@ -10,7 +10,7 @@
     "bundle:chrome": "wxt zip -b chrome",
     "bundle:firefox": "wxt zip -b firefox",
     "check-types": "tsc --noEmit",
-    "dev": "npm run dev:chrome",
+    "dev": "sleep 5 && npm run dev:chrome",
     "dev:chrome": "wxt -b chrome",
     "dev:firefox": "wxt -b firefox",
     "format": "prettier ./src --write",
