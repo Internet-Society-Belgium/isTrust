@@ -1,5 +1,5 @@
 import { InternalCache } from "../type";
-import { parse_domain } from "../utils/domain";
+import { parse_tld } from "../utils/domain";
 
 // https://publicsuffix.org/list/
 const CACHING_DAYS = 7;
@@ -39,19 +39,19 @@ export async function load(cache: InternalCache) {
     if (line === "" || line === "\n" || line.startsWith("//")) continue;
 
     let prefix = "";
-    let domain = line;
+    let tld = line;
     if (line.startsWith("!")) {
       prefix = "!";
-      domain = line.substring(1);
+      tld = line.substring(1);
     } else if (line.startsWith("*.")) {
       prefix = "*.";
-      domain = line.substring(2);
+      tld = line.substring(2);
     }
 
-    const d = parse_domain(domain);
-    if (d === undefined) continue;
+    tld = parse_tld(tld);
+    if (tld === undefined) continue;
 
-    const rule = `${prefix}${d}`;
+    const rule = `${prefix}${tld}`;
     promises.push(cache.psl.set(rule, ""));
   }
 

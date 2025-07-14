@@ -1,5 +1,9 @@
 import { expect, test } from "vitest";
-import { parse_domain } from "./domain";
+import { parse_domain, parse_tld } from "./domain";
+
+test("рф", async () => {
+  expect(parse_tld("рф")).toStrictEqual("xn--p1ai");
+});
 
 test("wikipedia.org.", async () => {
   expect(parse_domain("wikipedia.org.")).toStrictEqual("wikipedia.org");

@@ -1,5 +1,5 @@
 import { InternalCache } from "../type";
-import { parse_domain } from "../utils/domain";
+import { parse_tld } from "../utils/domain";
 import { deepMerge } from "../utils/object";
 import {
   RdapResult,
@@ -43,18 +43,18 @@ export async function load(cache: InternalCache) {
     const tlds = service[0];
     const apis = service[1];
 
-    for (const tld of tlds) {
-      const t = parse_domain(tld);
-      if (t === undefined) continue;
+    for (let tld of tlds) {
+      tld = parse_tld(tld);
+      if (tld === undefined) continue;
 
-      const rdapTld = await cache.rdap.get(t);
+      const rdapTld = await cache.rdap.get(tld);
 
       if (rdapTld === null) {
-        promises.push(cache.rdap.set(t, JSON.stringify([...apis])));
+        promises.push(cache.rdap.set(tld, JSON.stringify([...apis])));
       } else {
         const otherApis = JSON.parse(rdapTld);
         promises.push(
-          cache.rdap.set(t, JSON.stringify([...otherApis, ...apis])),
+          cache.rdap.set(tld, JSON.stringify([...otherApis, ...apis])),
         );
       }
     }
@@ -72,7 +72,7 @@ export async function get_data(domain: string, cache: InternalCache) {
   if (tld === undefined) throw new Error("No TLD");
 
   const bootstrap = await cache.rdap.get(tld);
-  if (bootstrap === null) throw new Error(`No RDAP available for ".${tld}"`);
+  if (bootstrap === null) throw new Error(`No RDAP available for .${tld}`);
 
   const data: WHOISData = {
     domain,
@@ -98,7 +98,8 @@ export async function get_data(domain: string, cache: InternalCache) {
         cache: "no-cache",
       });
 
-      if (!res.ok) throw new Error("No RDAP response");
+      if (!res.ok)
+        throw new Error(`No RDAP response from ${new URL(api).hostname}`);
 
       const json = await res.json();
 
