@@ -1,6 +1,6 @@
 import { sendMessage } from "@/utils/messaging";
 import { Ago } from "@istrust/ui/ago";
-import { getActiveTab } from "@/utils/tab";
+import { get_active_tab } from "@/utils/tab";
 import {
   Show,
   createResource,
@@ -20,7 +20,7 @@ function App() {
     if (paramUrl !== null) {
       setQuery(paramUrl);
     } else {
-      const tab = await getActiveTab();
+      const tab = await get_active_tab();
       if (tab.url) {
         setQuery(tab.url);
       }
@@ -31,6 +31,14 @@ function App() {
     if (query === undefined) return;
     return await sendMessage("get_domain", {
       query,
+    });
+  });
+
+  const [historyData] = createResource(domain, async (domain) => {
+    if (domain === undefined) return;
+
+    return await sendMessage("get_history_data", {
+      domain,
     });
   });
 
@@ -46,14 +54,6 @@ function App() {
     if (domain === undefined) return;
 
     return await sendMessage("is_dnssec_valid", {
-      domain,
-    });
-  });
-
-  const [historyData] = createResource(domain, async (domain) => {
-    if (domain === undefined) return;
-
-    return await sendMessage("get_history_data", {
       domain,
     });
   });
@@ -78,7 +78,7 @@ function App() {
       </div>
 
       <div class="flex gap-2">
-        <h2>Number of known visits:</h2>
+        <h2>Number of days with known visits:</h2>
         <Switch>
           <Match when={historyData.loading}>
             <span>Loading...</span>
@@ -86,8 +86,8 @@ function App() {
           <Match when={historyData.error}>
             <span>{historyData.error.message}</span>
           </Match>
-          <Match when={historyData()?.visits}>
-            {(visits) => <p>{visits()}</p>}
+          <Match when={historyData()?.daysWithVisit}>
+            {(daysWithVisit) => <p>{daysWithVisit()}</p>}
           </Match>
         </Switch>
       </div>

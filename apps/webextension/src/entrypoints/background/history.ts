@@ -2,15 +2,15 @@ import { browser } from "#imports";
 
 export interface HistoryData {
   domain: string;
-  visits: number;
+  daysWithVisit: number;
   firstVisit?: string;
 }
 
 export async function get_history_data(domain: string) {
   const historyItems = await browser.history.search({ text: `${domain}` });
 
-  let firstVisit: Date | undefined;
-  let visits = 0;
+  const daysWithVisit = new Set<string>();
+  let firstVisit;
 
   for (const historyItem of historyItems) {
     const pageUrl = historyItem.url;
@@ -30,11 +30,13 @@ export async function get_history_data(domain: string) {
         visitItem.transition === "keyword" ||
         visitItem.transition === "keyword_generated"
       ) {
-        visits += 1;
+        if (visitItem.visitTime !== undefined) {
+          const visitDate = new Date(visitItem.visitTime);
 
-        if (visitItem.visitTime) {
-          const visitTime = new Date(visitItem.visitTime);
+          const visitDay = visitDate.toDateString();
+          daysWithVisit.add(visitDay);
 
+          const visitTime = visitDate.getTime();
           if (firstVisit === undefined || visitTime < firstVisit) {
             firstVisit = visitTime;
           }
@@ -45,11 +47,11 @@ export async function get_history_data(domain: string) {
 
   const data: HistoryData = {
     domain,
-    visits,
+    daysWithVisit: daysWithVisit.size,
   };
 
   if (firstVisit !== undefined) {
-    data.firstVisit = firstVisit.toISOString();
+    data.firstVisit = new Date(firstVisit).toISOString();
   }
 
   return data;

@@ -1,17 +1,21 @@
 import { browser } from "#imports";
 
-export async function getActiveTab() {
-  let tab = await browser.tabs.query({
+async function get_tab() {
+  const tabs = await browser.tabs.query({
     active: true,
     currentWindow: true,
   });
-  while (!tab || tab.length === 0 || tab[0].status === "loading") {
+
+  return tabs.at(0);
+}
+
+export async function get_active_tab() {
+  let tab = await get_tab();
+
+  while (tab === undefined) {
+    tab = await get_tab();
     await new Promise((resolve) => setTimeout(resolve, 100));
-    tab = await browser.tabs.query({
-      active: true,
-      currentWindow: true,
-    });
   }
 
-  return tab[0];
+  return tab;
 }
