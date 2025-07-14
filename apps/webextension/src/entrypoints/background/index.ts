@@ -28,8 +28,12 @@ export default defineBackground(() => {
     return await common.get_domain(query, cache);
   });
 
-  onMessage("whois", async ({ data: { domain } }) => {
-    return await common.whois(domain, cache);
+  onMessage("get_whois_data", async ({ data: { domain } }) => {
+    return await common.get_whois_data(domain, cache);
+  });
+
+  onMessage("is_dnssec_valid", async ({ data: { domain, resolver } }) => {
+    return await common.is_dnssec_valid(domain, resolver);
   });
 
   onMessage("force_update_cache", async () => {

@@ -51,9 +51,14 @@ const App: Component = () => {
     return await common.get_domain(query, cache);
   });
 
-  const [whois] = createResource(domain, async (domain) => {
+  const [whoisData] = createResource(domain, async (domain) => {
     if (domain === undefined) return;
-    return await common.whois(domain, cache);
+    return await common.get_whois_data(domain, cache);
+  });
+
+  const [dnssecValid] = createResource(domain, async (domain) => {
+    if (domain === undefined) return;
+    return await common.is_dnssec_valid(domain);
   });
 
   const [persisted, sepPersisted] = createSignal<boolean>(false);
@@ -100,13 +105,13 @@ const App: Component = () => {
         <div class="flex gap-2">
           <h2>Registration:</h2>
           <Switch>
-            <Match when={whois.loading}>
+            <Match when={whoisData.loading}>
               <span>Loading...</span>
             </Match>
-            <Match when={whois.error}>
-              <span>{whois.error.message}</span>
+            <Match when={whoisData.error}>
+              <span>{whoisData.error.message}</span>
             </Match>
-            <Match when={whois()?.registration}>
+            <Match when={whoisData()?.registration}>
               {(registration) => (
                 <p>
                   <Ago date={registration()} />
@@ -119,13 +124,13 @@ const App: Component = () => {
         <div class="flex gap-2">
           <h2>Registrant organization:</h2>
           <Switch>
-            <Match when={whois.loading}>
+            <Match when={whoisData.loading}>
               <span>Loading...</span>
             </Match>
-            <Match when={whois.error}>
-              <span>{whois.error.message}</span>
+            <Match when={whoisData.error}>
+              <span>{whoisData.error.message}</span>
             </Match>
-            <Match when={whois()?.registrant?.organization}>
+            <Match when={whoisData()?.registrant?.organization}>
               {(organization) => <p>{organization()}</p>}
             </Match>
           </Switch>
@@ -134,13 +139,13 @@ const App: Component = () => {
         <div class="flex gap-2">
           <h2>Registrant country:</h2>
           <Switch>
-            <Match when={whois.loading}>
+            <Match when={whoisData.loading}>
               <span>Loading...</span>
             </Match>
-            <Match when={whois.error}>
-              <span>{whois.error.message}</span>
+            <Match when={whoisData.error}>
+              <span>{whoisData.error.message}</span>
             </Match>
-            <Match when={whois()?.registrant?.country}>
+            <Match when={whoisData()?.registrant?.country}>
               {(country) => (
                 <Switch>
                   <Match when={country().code}>
@@ -158,16 +163,34 @@ const App: Component = () => {
         <div class="flex gap-2">
           <h2>DNSSEC present:</h2>
           <Switch>
-            <Match when={whois.loading}>
+            <Match when={whoisData.loading}>
               <span>Loading...</span>
             </Match>
-            <Match when={whois.error}>
-              <span>{whois.error.message}</span>
+            <Match when={whoisData.error}>
+              <span>{whoisData.error.message}</span>
             </Match>
-            <Match when={whois()?.dnssecPresent === true}>
+            <Match when={whoisData()?.dnssecPresent === true}>
               <p>yes</p>
             </Match>
-            <Match when={whois()?.dnssecPresent === false}>
+            <Match when={whoisData()?.dnssecPresent === false}>
+              <p>no</p>
+            </Match>
+          </Switch>
+        </div>
+
+        <div class="flex gap-2">
+          <h2>DNSSEC valid:</h2>
+          <Switch>
+            <Match when={dnssecValid.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={dnssecValid.error}>
+              <span>{dnssecValid.error.message}</span>
+            </Match>
+            <Match when={dnssecValid() === true}>
+              <p>yes</p>
+            </Match>
+            <Match when={dnssecValid() === false}>
               <p>no</p>
             </Match>
           </Switch>
@@ -175,7 +198,7 @@ const App: Component = () => {
 
         <details>
           <summary>WHOIS raw data</summary>
-          <Show when={whois()}>
+          <Show when={whoisData()}>
             {(data) => (
               <pre class="overflow-scroll">
                 {JSON.stringify(data(), undefined, 2)}

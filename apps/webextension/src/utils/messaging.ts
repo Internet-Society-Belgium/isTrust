@@ -3,8 +3,9 @@ import { WHOISData } from "@istrust/common";
 import { defineExtensionMessaging } from "@webext-core/messaging";
 
 interface ProtocolMap {
-  whois(data: { domain: string }): WHOISData;
   get_domain(data: { query: string }): string | undefined;
+  get_whois_data(data: { domain: string }): WHOISData;
+  is_dnssec_valid(data: { domain: string; resolver?: string }): boolean;
   force_update_cache(): void;
 }
 

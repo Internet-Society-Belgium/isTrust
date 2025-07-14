@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { InternalCache, whois } from ".";
+import { InternalCache, get_whois_data } from ".";
 
 let storePsl: Record<string, string> = {};
 let storeRdap: Record<string, string> = {};
@@ -25,7 +25,7 @@ const cache: InternalCache = {
 };
 
 test("wikipedia.org", async () => {
-  const whoisData = await whois("wikipedia.org", cache);
+  const whoisData = await get_whois_data("wikipedia.org", cache);
 
   expect(whoisData).toStrictEqual({
     domain: "wikipedia.org",
@@ -41,7 +41,7 @@ test("wikipedia.org", async () => {
 });
 
 test("istrust.org", async () => {
-  const whoisData = await whois("istrust.org", cache);
+  const whoisData = await get_whois_data("istrust.org", cache);
 
   expect(whoisData).toStrictEqual({
     domain: "istrust.org",
