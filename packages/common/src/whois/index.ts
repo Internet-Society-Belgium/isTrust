@@ -74,9 +74,7 @@ export async function get_data(domain: string, cache: InternalCache) {
   const bootstrap = await cache.rdap.get(tld);
   if (bootstrap === null) throw new Error(`No RDAP available for .${tld}`);
 
-  const data: WHOISData = {
-    domain,
-  };
+  const data: WHOISData = {};
 
   const apis = JSON.parse(bootstrap);
 
@@ -120,11 +118,13 @@ export async function get_data(domain: string, cache: InternalCache) {
     }
   }
 
+  if (Object.keys(data).length === 0) return;
+
   return data;
 }
 
 function parse(result: RdapResult) {
-  const data: WHOISData = { domain: result.ldhName.toLowerCase() };
+  const data: WHOISData = {};
 
   for (const event of result.events) {
     if (event.eventAction === "registration") {

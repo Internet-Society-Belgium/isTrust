@@ -29,7 +29,7 @@ function App() {
 
   const [domain] = createResource(query, async (query) => {
     if (query === undefined) return;
-    return await sendMessage("get_domain", {
+    return await sendMessage("get_effective_domain", {
       query,
     });
   });

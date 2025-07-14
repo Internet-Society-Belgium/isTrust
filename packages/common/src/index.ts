@@ -7,7 +7,10 @@ import type { WHOISData } from "./whois/type";
 
 export { InternalCache };
 
-export async function get_domain(query: string, cache: InternalCache) {
+export async function get_effective_domain(
+  query: string,
+  cache: InternalCache,
+) {
   const domain = parse_domain(query);
   if (domain === undefined) return;
   return await _psl.get_effective_domain(domain, cache);

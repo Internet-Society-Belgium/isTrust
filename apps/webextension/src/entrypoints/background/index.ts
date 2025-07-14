@@ -25,8 +25,8 @@ export default defineBackground(() => {
     return await common.update_cache(cache);
   });
 
-  onMessage("get_domain", async ({ data: { query } }) => {
-    return await common.get_domain(query, cache);
+  onMessage("get_effective_domain", async ({ data: { query } }) => {
+    return await common.get_effective_domain(query, cache);
   });
 
   onMessage("get_whois_data", async ({ data: { domain } }) => {
