@@ -50,6 +50,14 @@ function App() {
     });
   });
 
+  const [historyData] = createResource(domain, async (domain) => {
+    if (domain === undefined) return;
+
+    return await sendMessage("get_history_data", {
+      domain,
+    });
+  });
+
   const force_update_cache = async () => {
     return await sendMessage("force_update_cache");
   };
@@ -66,6 +74,40 @@ function App() {
             <span>{domain.error.message}</span>
           </Match>
           <Match when={domain()}>{(domain) => <p>{domain()}</p>}</Match>
+        </Switch>
+      </div>
+
+      <div class="flex gap-2">
+        <h2>Number of known visits:</h2>
+        <Switch>
+          <Match when={historyData.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={historyData.error}>
+            <span>{historyData.error.message}</span>
+          </Match>
+          <Match when={historyData()?.visits}>
+            {(visits) => <p>{visits()}</p>}
+          </Match>
+        </Switch>
+      </div>
+
+      <div class="flex gap-2">
+        <h2>First known visit:</h2>
+        <Switch>
+          <Match when={historyData.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={historyData.error}>
+            <span>{historyData.error.message}</span>
+          </Match>
+          <Match when={historyData()?.firstVisit}>
+            {(firstVisit) => (
+              <p>
+                <Ago date={firstVisit()} />
+              </p>
+            )}
+          </Match>
         </Switch>
       </div>
 
@@ -158,6 +200,17 @@ function App() {
           </Match>
         </Switch>
       </div>
+
+      <details>
+        <summary>history raw data</summary>
+        <Show when={historyData()}>
+          {(data) => (
+            <pre class="overflow-scroll">
+              {JSON.stringify(data(), undefined, 2)}
+            </pre>
+          )}
+        </Show>
+      </details>
 
       <details>
         <summary>WHOIS raw data</summary>

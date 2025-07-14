@@ -2,16 +2,14 @@ import { browser } from "#imports";
 
 export interface HistoryData {
   domain: string;
-  data: {
-    visits: number;
-    firstVisit?: number;
-  };
+  visits: number;
+  firstVisit?: string;
 }
 
-export default async function ({ domain }: { domain: string }) {
+export async function get_history_data(domain: string) {
   const historyItems = await browser.history.search({ text: `${domain}` });
 
-  let firstVisit;
+  let firstVisit: Date | undefined;
   let visits = 0;
 
   for (const historyItem of historyItems) {
@@ -35,7 +33,7 @@ export default async function ({ domain }: { domain: string }) {
         visits += 1;
 
         if (visitItem.visitTime) {
-          const visitTime = new Date(visitItem.visitTime).getTime();
+          const visitTime = new Date(visitItem.visitTime);
 
           if (firstVisit === undefined || visitTime < firstVisit) {
             firstVisit = visitTime;
@@ -45,6 +43,14 @@ export default async function ({ domain }: { domain: string }) {
     }
   }
 
-  const data: HistoryData = { domain, data: { visits, firstVisit } };
+  const data: HistoryData = {
+    domain,
+    visits,
+  };
+
+  if (firstVisit !== undefined) {
+    data.firstVisit = firstVisit.toISOString();
+  }
+
   return data;
 }
