@@ -133,7 +133,16 @@ const App: Component = () => {
               <span>{whois.error.message}</span>
             </Match>
             <Match when={whois()?.registrant?.country}>
-              {(country) => <p>{country()}</p>}
+              {(country) => (
+                <Switch>
+                  <Match when={country().code}>
+                    {(code) => <p>{code()}</p>}
+                  </Match>
+                  <Match when={country().name}>
+                    {(name) => <p>{name()}</p>}
+                  </Match>
+                </Switch>
+              )}
             </Match>
           </Switch>
         </div>

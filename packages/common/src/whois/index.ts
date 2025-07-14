@@ -156,15 +156,17 @@ function parse(result: RdapResult) {
     if (adrProperty !== undefined) {
       const adrParameter = adrProperty[1];
 
+      const country: typeof registrant.country = {};
+
       const cc = adrParameter.cc;
       if (cc !== undefined) {
         if (Array.isArray(cc)) {
           const firstCountry = cc.at(0)?.trim();
           if (firstCountry !== undefined && firstCountry !== "") {
-            registrant.country = firstCountry;
+            country.code = firstCountry;
           }
         } else {
-          registrant.country = cc;
+          country.code = cc;
         }
       }
 
@@ -172,19 +174,23 @@ function parse(result: RdapResult) {
         const addressValue = adrProperty[3];
         if (Array.isArray(addressValue)) {
           // https://www.rfc-editor.org/rfc/rfc6350#section-6.3.1
-          const country = addressValue[6];
+          const countryName = addressValue[6];
 
-          if (Array.isArray(country)) {
-            const firstCountry = country.at(0)?.trim();
+          if (Array.isArray(countryName)) {
+            const firstCountry = countryName.at(0)?.trim();
             if (firstCountry !== undefined && firstCountry !== "") {
-              registrant.country = firstCountry;
+              country.name = firstCountry;
             }
           } else {
-            if (country !== "") {
-              registrant.country = country;
+            if (countryName !== "") {
+              country.name = countryName;
             }
           }
         }
+      }
+
+      if (Object.keys(country).length > 0) {
+        registrant.country = country;
       }
     }
   }

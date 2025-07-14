@@ -32,7 +32,9 @@ test("wikipedia.org", async () => {
     registration: "2001-01-13T00:12:14.754Z",
     registrant: {
       organization: "Wikimedia Foundation, Inc.",
-      country: "US",
+      country: {
+        code: "US",
+      },
     },
     dnssecPresent: false,
   } satisfies typeof whoisData);
@@ -46,7 +48,9 @@ test("istrust.org", async () => {
     registration: "2021-09-07T08:09:16.242Z",
     registrant: {
       organization: "Internet Society Chapter Belgium vzw/asbl",
-      country: "BE",
+      country: {
+        code: "BE",
+      },
     },
     dnssecPresent: false,
   } satisfies typeof whoisData);
