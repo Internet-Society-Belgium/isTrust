@@ -1,8 +1,8 @@
+import * as _dnssec from "./dnssec";
 import * as _psl from "./psl";
 import type { InternalCache } from "./type";
 import { parse_domain } from "./utils/domain";
 import * as _whois from "./whois";
-import * as _dnssec from "./dnssec";
 import type { WHOISData } from "./whois/type";
 
 export { InternalCache };

@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { InternalCache } from "../type";
 import { get_effective_domain } from ".";
+import { InternalCache } from "../type";
 
 let storePsl: Record<string, string> = {};
 let storeRdap: Record<string, string> = {};

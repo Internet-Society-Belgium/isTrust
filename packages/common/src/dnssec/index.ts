@@ -1,6 +1,6 @@
+import { Buffer as BufferPolyfill } from "buffer";
 import dnsPacket from "dns-packet";
 
-import { Buffer as BufferPolyfill } from "buffer";
 // declare var Buffer: typeof BufferPolyfill;
 globalThis.Buffer = BufferPolyfill;
 
