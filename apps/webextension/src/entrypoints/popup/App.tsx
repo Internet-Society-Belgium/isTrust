@@ -34,29 +34,38 @@ function App() {
     });
   });
 
-  const [historyData] = createResource(domain, async (domain) => {
-    if (domain === undefined) return;
+  const [historyData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      if (domain === undefined) return;
 
-    return await sendMessage("get_history_data", {
-      domain,
-    });
-  });
+      return await sendMessage("get_history_data", {
+        domain,
+      });
+    },
+  );
 
-  const [whoisData] = createResource(domain, async (domain) => {
-    if (domain === undefined) return;
+  const [whoisData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      if (domain === undefined) return;
 
-    return await sendMessage("get_whois_data", {
-      domain,
-    });
-  });
+      return await sendMessage("get_whois_data", {
+        domain,
+      });
+    },
+  );
 
-  const [dnssecValid] = createResource(domain, async (domain) => {
-    if (domain === undefined) return;
+  const [dnssecValid] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      if (domain === undefined) return;
 
-    return await sendMessage("is_dnssec_valid", {
-      domain,
-    });
-  });
+      return await sendMessage("is_dnssec_valid", {
+        domain,
+      });
+    },
+  );
 
   const force_update_cache = async () => {
     return await sendMessage("force_update_cache");
