@@ -79,6 +79,7 @@ export async function get_data(domain: string, cache: InternalCache) {
   const apis = JSON.parse(bootstrap);
 
   const apiQueue: string[] = [...apis];
+  const apiHistory: string[] = [];
   while (apiQueue.length !== 0 && isDataPartial(data)) {
     let api = apiQueue.shift();
     if (!api) continue;
@@ -91,6 +92,9 @@ export async function get_data(domain: string, cache: InternalCache) {
         }
         api += `domain/${domain}`;
       }
+
+      if (apiHistory.includes(api)) continue;
+      apiHistory.push(api);
 
       const res = await fetch(api, {
         cache: "no-cache",
