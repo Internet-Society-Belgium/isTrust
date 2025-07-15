@@ -125,6 +125,21 @@ const App: Component = () => {
         </div>
 
         <div class="flex gap-2">
+          <h2>Registrant individual:</h2>
+          <Switch>
+            <Match when={whoisData.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={whoisData.error}>
+              <span>{whoisData.error.message}</span>
+            </Match>
+            <Match when={whoisData()?.registrant?.individual}>
+              {(individual) => <p>{individual()}</p>}
+            </Match>
+          </Switch>
+        </div>
+
+        <div class="flex gap-2">
           <h2>Registrant organization:</h2>
           <Switch>
             <Match when={whoisData.loading}>

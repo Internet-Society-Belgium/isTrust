@@ -38,7 +38,6 @@ const jCardSchema = z.tuple([
 
 // https://datatracker.ietf.org/doc/rfc7483/
 const RdapResultSchema = z.object({
-  ldhName: z.string(),
   events: z.array(
     z.object({
       eventAction: z.string(),
@@ -78,6 +77,7 @@ export interface WHOISData {
   registration?: string;
   registrant?: {
     organization?: string;
+    individual?: string;
     country?: {
       code?: string;
       name?: string;

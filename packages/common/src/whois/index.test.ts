@@ -54,3 +54,19 @@ test("istrust.org", async () => {
     dnssecPresent: false,
   } satisfies typeof whoisData);
 });
+
+test("newtab.com", async () => {
+  const whoisData = await get_data("newtab.com", cache);
+
+  expect(whoisData).toStrictEqual({
+    dnssecPresent: false,
+    registrant: {
+      country: {
+        name: "CN",
+      },
+      individual: "Redacted for Privacy",
+      organization: "广西云奥网络科技有限公司",
+    },
+    registration: "2005-04-24T00:12:17.000Z",
+  } satisfies typeof whoisData);
+});

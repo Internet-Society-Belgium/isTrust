@@ -134,23 +134,70 @@ function parse(result: RdapResult) {
 
   const registrant: typeof data.registrant = {};
 
-  const registrant_entity = result.entities.find((e) => {
+  const registrantEntity = result.entities.find((e) => {
     return e.roles.findIndex((r) => r === "registrant") !== -1;
   });
 
-  if (registrant_entity !== undefined && registrant_entity.vcardArray) {
-    const orgProperty = registrant_entity.vcardArray[1].find(
+  if (registrantEntity !== undefined && registrantEntity.vcardArray) {
+    // https://www.rfc-editor.org/rfc/rfc6350#section-6.1.4
+    let isIndividual = false;
+
+    const kindProperty = registrantEntity.vcardArray[1].find(
+      (p) => p[0] === "kind",
+    );
+
+    if (kindProperty !== undefined) {
+      const kindValue = kindProperty[3];
+
+      if (kindValue === "individual") {
+        isIndividual = true;
+      }
+    } else {
+      isIndividual = true;
+    }
+
+    if (isIndividual) {
+      // https://www.rfc-editor.org/rfc/rfc6350#section-6.2.1
+      const fnProperty = registrantEntity.vcardArray[1].find(
+        (p) => p[0] === "fn",
+      );
+
+      if (fnProperty !== undefined) {
+        const fnValue = fnProperty[3];
+
+        let fn = "";
+        if (Array.isArray(fnValue)) {
+          fn = fnValue.join(" ").trim();
+        } else {
+          fn = fnValue.trim();
+        }
+
+        if (fn !== "") {
+          registrant.individual = fn;
+        }
+      }
+    }
+
+    const orgProperty = registrantEntity.vcardArray[1].find(
       (p) => p[0] === "org",
     );
 
     if (orgProperty !== undefined) {
-      const organization = orgProperty[3];
-      if (!Array.isArray(organization)) {
+      const orgValue = orgProperty[3];
+
+      let organization = "";
+      if (Array.isArray(orgValue)) {
+        organization = orgValue.join(" ").trim();
+      } else {
+        organization = orgValue.trim();
+      }
+
+      if (organization !== "") {
         registrant.organization = organization;
       }
     }
 
-    const adrProperty = registrant_entity.vcardArray[1].find(
+    const adrProperty = registrantEntity.vcardArray[1].find(
       (p) => p[0] === "adr",
     );
 
@@ -161,13 +208,15 @@ function parse(result: RdapResult) {
 
       const cc = adrParameter.cc;
       if (cc !== undefined) {
+        let countryCode = "";
         if (Array.isArray(cc)) {
-          const firstCountry = cc.at(0)?.trim();
-          if (firstCountry !== undefined && firstCountry !== "") {
-            country.code = firstCountry;
-          }
+          countryCode = cc.at(0)?.trim() || "";
         } else {
-          country.code = cc;
+          countryCode = cc.trim();
+        }
+
+        if (countryCode !== "") {
+          country.code = countryCode;
         }
       }
 
@@ -175,17 +224,17 @@ function parse(result: RdapResult) {
         const addressValue = adrProperty[3];
         if (Array.isArray(addressValue)) {
           // https://www.rfc-editor.org/rfc/rfc6350#section-6.3.1
-          const countryName = addressValue[6];
+          const countryValue = addressValue[6];
 
-          if (Array.isArray(countryName)) {
-            const firstCountry = countryName.at(0)?.trim();
-            if (firstCountry !== undefined && firstCountry !== "") {
-              country.name = firstCountry;
-            }
+          let countryName = "";
+          if (Array.isArray(countryValue)) {
+            countryName = countryValue.at(0)?.trim() || "";
           } else {
-            if (countryName !== "") {
-              country.name = countryName;
-            }
+            countryName = countryValue.trim();
+          }
+
+          if (countryName !== "") {
+            country.name = countryName;
           }
         }
       }
@@ -212,6 +261,7 @@ function isDataPartial(data: WHOISData) {
     data.registration === undefined ||
     data.registrant === undefined ||
     data.registrant.organization === undefined ||
+    data.registrant.country === undefined ||
     data.dnssecPresent === undefined
   ) {
     return true;
