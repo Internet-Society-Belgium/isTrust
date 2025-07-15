@@ -1,4 +1,4 @@
-import { Ago } from "@istrust/ui/ago";
+import { DateDifference } from "@istrust/ui/date-difference";
 import * as common from "@istrust/common";
 import {
   createResource,
@@ -117,7 +117,32 @@ const App: Component = () => {
             <Match when={whoisData()?.registration}>
               {(registration) => (
                 <p>
-                  <Ago date={registration()} locale={navigator.language} />
+                  <DateDifference
+                    date={registration()}
+                    locale={navigator.language}
+                  />
+                </p>
+              )}
+            </Match>
+          </Switch>
+        </div>
+
+        <div class="flex gap-2">
+          <h2>Expiration:</h2>
+          <Switch>
+            <Match when={whoisData.loading}>
+              <span>Loading...</span>
+            </Match>
+            <Match when={whoisData.error}>
+              <span>{whoisData.error.message}</span>
+            </Match>
+            <Match when={whoisData()?.expiration}>
+              {(expiration) => (
+                <p>
+                  <DateDifference
+                    date={expiration()}
+                    locale={navigator.language}
+                  />
                 </p>
               )}
             </Match>

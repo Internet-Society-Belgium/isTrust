@@ -70,3 +70,18 @@ test("newtab.com", async () => {
     registration: "2005-04-24T00:12:17.000Z",
   } satisfies typeof whoisData);
 });
+
+test("phishurl.com", async () => {
+  const whoisData = await get_data("phishurl.com", cache);
+
+  expect(whoisData).toStrictEqual({
+    dnssecPresent: false,
+    expiration: "2025-05-27T15:31:15.000Z",
+    registrant: {
+      country: {
+        code: "BE",
+      },
+    },
+    registration: "2024-05-27T15:31:15.000Z",
+  } satisfies typeof whoisData);
+});

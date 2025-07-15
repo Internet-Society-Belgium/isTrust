@@ -133,6 +133,8 @@ function parse(result: RdapResult) {
   for (const event of result.events) {
     if (event.eventAction === "registration") {
       data.registration = new Date(event.eventDate).toISOString();
+    } else if (event.eventAction === "expiration") {
+      data.expiration = new Date(event.eventDate).toISOString();
     }
   }
 

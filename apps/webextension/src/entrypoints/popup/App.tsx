@@ -1,5 +1,5 @@
 import { sendMessage } from "@/utils/messaging";
-import { Ago } from "@istrust/ui/ago";
+import { DateDifference } from "@istrust/ui/date-difference";
 import { get_active_tab } from "@/utils/tab";
 import {
   Show,
@@ -109,7 +109,10 @@ function App() {
           <Match when={historyData()?.firstVisit}>
             {(firstVisit) => (
               <p>
-                <Ago date={firstVisit()} locale={navigator.language} />
+                <DateDifference
+                  date={firstVisit()}
+                  locale={navigator.language}
+                />
               </p>
             )}
           </Match>
@@ -131,7 +134,32 @@ function App() {
           <Match when={whoisData()?.registration}>
             {(registration) => (
               <p>
-                <Ago date={registration()} locale={navigator.language} />
+                <DateDifference
+                  date={registration()}
+                  locale={navigator.language}
+                />
+              </p>
+            )}
+          </Match>
+        </Switch>
+      </div>
+
+      <div class="flex gap-2">
+        <h2>Expiration:</h2>
+        <Switch>
+          <Match when={whoisData.loading}>
+            <span>Loading...</span>
+          </Match>
+          <Match when={whoisData.error}>
+            <span>{whoisData.error.message}</span>
+          </Match>
+          <Match when={whoisData()?.expiration}>
+            {(expiration) => (
+              <p>
+                <DateDifference
+                  date={expiration()}
+                  locale={navigator.language}
+                />
               </p>
             )}
           </Match>
