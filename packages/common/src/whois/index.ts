@@ -1,4 +1,4 @@
-import { InternalCache } from "../type";
+import { DataCache } from "../type";
 import { parse_tld } from "../utils/domain";
 import { deepMerge } from "../utils/object";
 import {
@@ -10,7 +10,7 @@ import {
 
 const CACHING_DAYS = 7;
 
-export async function update(cache: InternalCache) {
+export async function update(cache: DataCache) {
   const lastUpdate = await cache.rdap.get("_lastUpdate");
 
   const caching_outdated = new Date().setDate(
@@ -25,7 +25,7 @@ export async function update(cache: InternalCache) {
   }
 }
 
-export async function load(cache: InternalCache) {
+export async function load(cache: DataCache) {
   await cache.rdap.clear();
 
   // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
@@ -65,7 +65,7 @@ export async function load(cache: InternalCache) {
   await cache.rdap.set("_lastUpdate", new Date().toISOString());
 }
 
-export async function get_data(domain: string, cache: InternalCache) {
+export async function get_data(domain: string, cache: DataCache) {
   await update(cache);
 
   const tld = domain.split(".").at(-1);
