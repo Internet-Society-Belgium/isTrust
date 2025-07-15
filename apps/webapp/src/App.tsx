@@ -3,9 +3,11 @@ import * as common from "@istrust/common";
 import {
   createResource,
   createSignal,
+  ErrorBoundary,
   Match,
   onMount,
   Show,
+  Suspense,
   Switch,
   type Component,
 } from "solid-js";
@@ -91,165 +93,119 @@ const App: Component = () => {
         <button type="submit">Analyze</button>
       </form>
 
-      <div class="flex w-100 flex-col">
-        <div class="flex gap-2">
-          <h2>Domain:</h2>
-          <Switch>
-            <Match when={domain.loading}>
-              <span>Loading...</span>
-            </Match>
-            <Match when={domain.error}>
-              <span>{domain.error.message}</span>
-            </Match>
-            <Match when={domain()}>{(domain) => <p>{domain()}</p>}</Match>
-          </Switch>
-        </div>
+      <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
+        <div class="flex w-100 flex-col">
+          <div class="flex gap-2">
+            <h2>Domain:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={domain()}>{(domain) => <p>{domain()}</p>}</Show>
+            </Suspense>
+          </div>
 
-        <div class="flex gap-2">
-          <h2>Registration:</h2>
-          <Switch>
-            <Match when={whoisData.loading}>
-              <span>Loading...</span>
-            </Match>
-            <Match when={whoisData.error}>
-              <span>{whoisData.error.message}</span>
-            </Match>
-            <Match when={whoisData()?.registration}>
-              {(registration) => (
-                <p>
-                  <DateDifference
-                    date={registration()}
-                    locale={navigator.language}
-                  />
-                </p>
+          <div class="flex gap-2">
+            <h2>Registration:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={whoisData()?.registration}>
+                {(registration) => (
+                  <p>
+                    <DateDifference
+                      date={registration()}
+                      locale={navigator.language}
+                    />
+                  </p>
+                )}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
+            <h2>Expiration:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={whoisData()?.expiration}>
+                {(expiration) => (
+                  <p>
+                    <DateDifference
+                      date={expiration()}
+                      locale={navigator.language}
+                    />
+                  </p>
+                )}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
+            <h2>Registrant individual:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={whoisData()?.registrant?.individual}>
+                {(individual) => <p>{individual()}</p>}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
+            <h2>Registrant organization:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={whoisData()?.registrant?.organization}>
+                {(organization) => <p>{organization()}</p>}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
+            <h2>Registrant country:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={whoisData()?.registrant?.country}>
+                {(country) => (
+                  <Switch>
+                    <Match when={country().code}>
+                      {(code) => <p>{code()}</p>}
+                    </Match>
+                    <Match when={country().name}>
+                      {(name) => <p>{name()}</p>}
+                    </Match>
+                  </Switch>
+                )}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
+            <h2>DNSSEC present:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={whoisData()?.dnssecPresent === true}>
+                <p>yes</p>
+              </Show>
+              <Show when={whoisData()?.dnssecPresent === false}>
+                <p>no</p>
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
+            <h2>DNSSEC valid:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={dnssecValid() === true}>
+                <p>yes</p>
+              </Show>
+              <Show when={dnssecValid() === false}>
+                <p>no</p>
+              </Show>
+            </Suspense>
+          </div>
+
+          <details>
+            <summary>WHOIS raw data</summary>
+            <Show when={whoisData()}>
+              {(data) => (
+                <pre class="overflow-scroll">
+                  {JSON.stringify(data(), undefined, 2)}
+                </pre>
               )}
-            </Match>
-          </Switch>
+            </Show>
+          </details>
         </div>
-
-        <div class="flex gap-2">
-          <h2>Expiration:</h2>
-          <Switch>
-            <Match when={whoisData.loading}>
-              <span>Loading...</span>
-            </Match>
-            <Match when={whoisData.error}>
-              <span>{whoisData.error.message}</span>
-            </Match>
-            <Match when={whoisData()?.expiration}>
-              {(expiration) => (
-                <p>
-                  <DateDifference
-                    date={expiration()}
-                    locale={navigator.language}
-                  />
-                </p>
-              )}
-            </Match>
-          </Switch>
-        </div>
-
-        <div class="flex gap-2">
-          <h2>Registrant individual:</h2>
-          <Switch>
-            <Match when={whoisData.loading}>
-              <span>Loading...</span>
-            </Match>
-            <Match when={whoisData.error}>
-              <span>{whoisData.error.message}</span>
-            </Match>
-            <Match when={whoisData()?.registrant?.individual}>
-              {(individual) => <p>{individual()}</p>}
-            </Match>
-          </Switch>
-        </div>
-
-        <div class="flex gap-2">
-          <h2>Registrant organization:</h2>
-          <Switch>
-            <Match when={whoisData.loading}>
-              <span>Loading...</span>
-            </Match>
-            <Match when={whoisData.error}>
-              <span>{whoisData.error.message}</span>
-            </Match>
-            <Match when={whoisData()?.registrant?.organization}>
-              {(organization) => <p>{organization()}</p>}
-            </Match>
-          </Switch>
-        </div>
-
-        <div class="flex gap-2">
-          <h2>Registrant country:</h2>
-          <Switch>
-            <Match when={whoisData.loading}>
-              <span>Loading...</span>
-            </Match>
-            <Match when={whoisData.error}>
-              <span>{whoisData.error.message}</span>
-            </Match>
-            <Match when={whoisData()?.registrant?.country}>
-              {(country) => (
-                <Switch>
-                  <Match when={country().code}>
-                    {(code) => <p>{code()}</p>}
-                  </Match>
-                  <Match when={country().name}>
-                    {(name) => <p>{name()}</p>}
-                  </Match>
-                </Switch>
-              )}
-            </Match>
-          </Switch>
-        </div>
-
-        <div class="flex gap-2">
-          <h2>DNSSEC present:</h2>
-          <Switch>
-            <Match when={whoisData.loading}>
-              <span>Loading...</span>
-            </Match>
-            <Match when={whoisData.error}>
-              <span>{whoisData.error.message}</span>
-            </Match>
-            <Match when={whoisData()?.dnssecPresent === true}>
-              <p>yes</p>
-            </Match>
-            <Match when={whoisData()?.dnssecPresent === false}>
-              <p>no</p>
-            </Match>
-          </Switch>
-        </div>
-
-        <div class="flex gap-2">
-          <h2>DNSSEC valid:</h2>
-          <Switch>
-            <Match when={dnssecValid.loading}>
-              <span>Loading...</span>
-            </Match>
-            <Match when={dnssecValid.error}>
-              <span>{dnssecValid.error.message}</span>
-            </Match>
-            <Match when={dnssecValid() === true}>
-              <p>yes</p>
-            </Match>
-            <Match when={dnssecValid() === false}>
-              <p>no</p>
-            </Match>
-          </Switch>
-        </div>
-
-        <details>
-          <summary>WHOIS raw data</summary>
-          <Show when={whoisData()}>
-            {(data) => (
-              <pre class="overflow-scroll">
-                {JSON.stringify(data(), undefined, 2)}
-              </pre>
-            )}
-          </Show>
-        </details>
-      </div>
+      </ErrorBoundary>
 
       {persisted() ? (
         <div>Persisted</div>
