@@ -30,6 +30,7 @@ test("wikipedia.org", async () => {
 
   expect(whoisData).toStrictEqual({
     registration: "2001-01-13T00:12:14.754Z",
+    expiration: "2026-01-13T00:12:14.000Z",
     registrant: {
       organization: "Wikimedia Foundation, Inc.",
       country: {
@@ -45,6 +46,7 @@ test("istrust.org", async () => {
 
   expect(whoisData).toStrictEqual({
     registration: "2021-09-07T08:09:16.242Z",
+    expiration: "2025-09-07T08:09:16.242Z",
     registrant: {
       organization: "Internet Society Chapter Belgium vzw/asbl",
       country: {
@@ -60,6 +62,7 @@ test("newtab.com", async () => {
 
   expect(whoisData).toStrictEqual({
     dnssecPresent: false,
+    expiration: "2029-04-24T00:12:17.000Z",
     registrant: {
       country: {
         name: "CN",
