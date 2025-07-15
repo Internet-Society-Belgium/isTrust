@@ -1,35 +1,33 @@
 import { deepMerge } from "../utils/object";
-import * as crtsh from "./crtsh";
 import * as sslmate from "./sslmate";
 import { CertificateData, CertificateType } from "./type";
 
 export async function get_data(domain: string) {
-  let data: CertificateData[] | undefined;
+  let certificatesData = await sslmate.get_data(domain);
 
-  data = await sslmate.get_data(domain);
+  if (certificatesData === undefined || certificatesData.length === 0) return;
 
-  if (data === undefined || data.length === 0) return;
-
-  let bestType: CertificateType = "DV";
-  for (const d of data) {
-    if (d.type !== undefined) {
-      if (certificateTypeScore(d.type) > certificateTypeScore(bestType)) {
-        bestType = d.type;
-      }
+  let bestType: CertificateType | undefined;
+  for (const d of certificatesData) {
+    if (
+      bestType === undefined ||
+      certificateTypeScore(d.type) > certificateTypeScore(bestType)
+    ) {
+      bestType = d.type;
     }
   }
 
-  data = data.filter((d) => d.type === bestType);
+  certificatesData = certificatesData.filter((d) => d.type === bestType);
 
-  const c: CertificateData = {};
-  for (const d of data) {
-    deepMerge(c, d);
+  const certificateData: CertificateData = {};
+  for (const d of certificatesData) {
+    deepMerge(certificateData, d);
   }
 
-  return c;
+  return certificateData;
 }
 
-function certificateTypeScore(type: CertificateType) {
+function certificateTypeScore(type?: CertificateType) {
   if (type === "EV") return 4;
   else if (type === "EV (.onion)") return 3;
   else if (type === "IV") return 2;

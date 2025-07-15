@@ -17,6 +17,9 @@ interface ProtocolMap {
   get_history_data(data: {
     domain: string;
   }): Awaited<ReturnType<typeof history.get_history_data>>;
+  get_certificate_data(data: {
+    domain: string;
+  }): Awaited<ReturnType<typeof common.get_certificate_data>>;
   force_update_cache(): Awaited<ReturnType<typeof common.force_update_cache>>;
 }
 

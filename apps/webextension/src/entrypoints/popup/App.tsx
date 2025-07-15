@@ -62,6 +62,15 @@ function App() {
     },
   );
 
+  const [certificateData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await sendMessage("get_certificate_data", {
+        domain,
+      });
+    },
+  );
+
   const force_update_cache = async () => {
     return await sendMessage("force_update_cache");
   };
@@ -153,6 +162,15 @@ function App() {
           </div>
 
           <div class="flex gap-2">
+            <h2>Certificate organization:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={certificateData()?.organisation}>
+                {(organization) => <p>{organization()}</p>}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
             <h2>Registrant country:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.registrant?.country}>
@@ -166,6 +184,15 @@ function App() {
                     </Match>
                   </Switch>
                 )}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
+            <h2>Certificate country:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={certificateData()?.country}>
+                {(country) => <p>{country()}</p>}
               </Show>
             </Suspense>
           </div>
@@ -194,6 +221,24 @@ function App() {
             </Suspense>
           </div>
 
+          <div class="flex gap-2">
+            <h2>Certificate type:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={certificateData()?.type}>
+                {(type) => <p>{type()}</p>}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
+            <h2>Certificate business category:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={certificateData()?.businessCategory}>
+                {(businessCategory) => <p>{businessCategory()}</p>}
+              </Show>
+            </Suspense>
+          </div>
+
           <details>
             <summary>history raw data</summary>
             <Show when={historyData()}>
@@ -208,6 +253,17 @@ function App() {
           <details>
             <summary>WHOIS raw data</summary>
             <Show when={whoisData()}>
+              {(data) => (
+                <pre class="overflow-scroll">
+                  {JSON.stringify(data(), undefined, 2)}
+                </pre>
+              )}
+            </Show>
+          </details>
+
+          <details>
+            <summary>Certificate raw data</summary>
+            <Show when={certificateData()}>
               {(data) => (
                 <pre class="overflow-scroll">
                   {JSON.stringify(data(), undefined, 2)}
