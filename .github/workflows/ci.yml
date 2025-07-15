@@ -50,12 +50,14 @@ jobs:
     timeout-minutes: 1
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
+    env:
+      TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
 
     steps:
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -74,12 +76,14 @@ jobs:
     timeout-minutes: 1
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
+    env:
+      TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
 
     steps:
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - name: Cache turbo build setup
         uses: actions/cache@v4
@@ -107,12 +111,14 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
+    env:
+      TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
 
     steps:
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - name: Cache turbo build setup
         uses: actions/cache@v4
