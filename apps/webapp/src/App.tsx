@@ -47,19 +47,22 @@ const App: Component = () => {
   const [query, setQuery] = createSignal<string>();
 
   const [domain] = createResource(query, async (query) => {
-    if (query === undefined) return;
-    return await common.get_domain(query, cache);
+    return await common.get_effective_domain(query, cache);
   });
 
-  const [whoisData] = createResource(domain, async (domain) => {
-    if (domain === undefined) return;
-    return await common.get_whois_data(domain, cache);
-  });
+  const [whoisData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await common.get_whois_data(domain, cache);
+    },
+  );
 
-  const [dnssecValid] = createResource(domain, async (domain) => {
-    if (domain === undefined) return;
-    return await common.is_dnssec_valid(domain);
-  });
+  const [dnssecValid] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await common.is_dnssec_valid(domain);
+    },
+  );
 
   const [persisted, sepPersisted] = createSignal<boolean>(false);
   onMount(async () => {

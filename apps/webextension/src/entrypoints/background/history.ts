@@ -1,7 +1,6 @@
 import { browser } from "#imports";
 
 export interface HistoryData {
-  domain: string;
   daysWithVisit: number;
   firstVisit?: string;
 }
@@ -46,7 +45,6 @@ export async function get_history_data(domain: string) {
   }
 
   const data: HistoryData = {
-    domain,
     daysWithVisit: daysWithVisit.size,
   };
 
