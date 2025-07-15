@@ -2,10 +2,11 @@ import { type Component } from "solid-js";
 
 interface Props {
   date: string;
+  locale: Intl.LocalesArgument;
 }
 
 export const Ago: Component<Props> = (props) => {
-  const getText = (date: string) => {
+  const getText = (date: string, locale: Intl.LocalesArgument) => {
     const now = new Date();
     const then = new Date(date);
 
@@ -21,11 +22,15 @@ export const Ago: Component<Props> = (props) => {
         if (day > 0) {
           return `${day} ${day === 1 ? "day" : "days"} ago`;
         } else {
-          return "today";
+          const timeString = then.toLocaleTimeString(locale, {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          return `today at ${timeString}`;
         }
       }
     }
   };
 
-  return <>{getText(props.date)}</>;
+  return <>{getText(props.date, props.locale)}</>;
 };

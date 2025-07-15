@@ -1,25 +1,22 @@
 import { browser } from "#imports";
 
 export interface HistoryData {
-  domain: string;
-  data: {
-    visits: number;
-    firstVisit?: number;
-  };
+  daysWithVisit: number;
+  firstVisit?: string;
 }
 
-export default async function ({ domain }: { domain: string }) {
+export async function get_history_data(domain: string) {
   const historyItems = await browser.history.search({ text: `${domain}` });
 
+  const daysWithVisit = new Set<string>();
   let firstVisit;
-  let visits = 0;
 
   for (const historyItem of historyItems) {
     const pageUrl = historyItem.url;
     if (!pageUrl) continue;
 
     const pageDomain = new URL(pageUrl).hostname;
-    if (pageDomain !== domain) continue;
+    if (!(pageDomain === domain || pageDomain.endsWith(`.${domain}`))) continue;
 
     const visitItems = await browser.history.getVisits({ url: pageUrl });
     for (const visitItem of visitItems) {
@@ -32,11 +29,13 @@ export default async function ({ domain }: { domain: string }) {
         visitItem.transition === "keyword" ||
         visitItem.transition === "keyword_generated"
       ) {
-        visits += 1;
+        if (visitItem.visitTime !== undefined) {
+          const visitDate = new Date(visitItem.visitTime);
 
-        if (visitItem.visitTime) {
-          const visitTime = new Date(visitItem.visitTime).getTime();
+          const visitDay = visitDate.toDateString();
+          daysWithVisit.add(visitDay);
 
+          const visitTime = visitDate.getTime();
           if (firstVisit === undefined || visitTime < firstVisit) {
             firstVisit = visitTime;
           }
@@ -45,6 +44,13 @@ export default async function ({ domain }: { domain: string }) {
     }
   }
 
-  const data: HistoryData = { domain, data: { visits, firstVisit } };
+  const data: HistoryData = {
+    daysWithVisit: daysWithVisit.size,
+  };
+
+  if (firstVisit !== undefined) {
+    data.firstVisit = new Date(firstVisit).toISOString();
+  }
+
   return data;
 }

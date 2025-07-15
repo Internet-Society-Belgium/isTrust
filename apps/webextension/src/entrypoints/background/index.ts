@@ -2,6 +2,7 @@ import { onMessage } from "@/utils/messaging";
 import { browser, defineBackground } from "#imports";
 import { cache } from "./cache";
 import * as common from "@istrust/common";
+import * as history from "./history";
 
 export default defineBackground(() => {
   browser.contextMenus.create({
@@ -24,8 +25,8 @@ export default defineBackground(() => {
     return await common.update_cache(cache);
   });
 
-  onMessage("get_domain", async ({ data: { query } }) => {
-    return await common.get_domain(query, cache);
+  onMessage("get_effective_domain", async ({ data: { query } }) => {
+    return await common.get_effective_domain(query, cache);
   });
 
   onMessage("get_whois_data", async ({ data: { domain } }) => {
@@ -34,6 +35,10 @@ export default defineBackground(() => {
 
   onMessage("is_dnssec_valid", async ({ data: { domain, resolver } }) => {
     return await common.is_dnssec_valid(domain, resolver);
+  });
+
+  onMessage("get_history_data", async ({ data: { domain } }) => {
+    return await history.get_history_data(domain);
   });
 
   onMessage("force_update_cache", async () => {

@@ -13,6 +13,9 @@
     "./*": "./dist/*.jsx"
   },
   "scripts": {
+    "dev": "npm run dev:styles & npm run dev:components",
+    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/style.css --watch",
+    "dev:components": "tsc --watch",
     "build": "npm run build:styles && npm run build:components",
     "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/style.css",
     "build:components": "tsc",
