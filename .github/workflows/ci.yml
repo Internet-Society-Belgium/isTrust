@@ -54,6 +54,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -65,7 +67,7 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint
+        run: npm run lint -- --affected
 
   check_types:
     name: Check types
@@ -76,6 +78,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Cache turbo build setup
         uses: actions/cache@v4
@@ -95,7 +99,7 @@ jobs:
         run: npm ci
 
       - name: Check types
-        run: npm run check-types
+        run: npm run check-types -- --affected
 
   test:
     name: Test
@@ -107,6 +111,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Cache turbo build setup
         uses: actions/cache@v4
@@ -126,4 +132,4 @@ jobs:
         run: npm ci
 
       - name: Test
-        run: npm run test
+        run: npm run test -- --affected
