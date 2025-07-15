@@ -29,7 +29,6 @@ test("wikipedia.org", async () => {
   const whoisData = await get_data("wikipedia.org", cache);
 
   expect(whoisData).toStrictEqual({
-    domain: "wikipedia.org",
     registration: "2001-01-13T00:12:14.754Z",
     registrant: {
       organization: "Wikimedia Foundation, Inc.",
@@ -45,7 +44,6 @@ test("istrust.org", async () => {
   const whoisData = await get_data("istrust.org", cache);
 
   expect(whoisData).toStrictEqual({
-    domain: "istrust.org",
     registration: "2021-09-07T08:09:16.242Z",
     registrant: {
       organization: "Internet Society Chapter Belgium vzw/asbl",
