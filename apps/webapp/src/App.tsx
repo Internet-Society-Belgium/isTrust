@@ -114,7 +114,7 @@ const App: Component = () => {
             <Match when={whoisData()?.registration}>
               {(registration) => (
                 <p>
-                  <Ago date={registration()} />
+                  <Ago date={registration()} locale={navigator.language} />
                 </p>
               )}
             </Match>

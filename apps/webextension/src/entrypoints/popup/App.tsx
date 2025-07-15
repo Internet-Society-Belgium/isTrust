@@ -98,6 +98,9 @@ function App() {
           <Match when={historyData()?.daysWithVisit}>
             {(daysWithVisit) => <p>{daysWithVisit()}</p>}
           </Match>
+          <Match when={true}>
+            <p>No previous history</p>
+          </Match>
         </Switch>
       </div>
 
@@ -113,9 +116,12 @@ function App() {
           <Match when={historyData()?.firstVisit}>
             {(firstVisit) => (
               <p>
-                <Ago date={firstVisit()} />
+                <Ago date={firstVisit()} locale={navigator.language} />
               </p>
             )}
+          </Match>
+          <Match when={true}>
+            <p>No previous history</p>
           </Match>
         </Switch>
       </div>
@@ -132,7 +138,7 @@ function App() {
           <Match when={whoisData()?.registration}>
             {(registration) => (
               <p>
-                <Ago date={registration()} />
+                <Ago date={registration()} locale={navigator.language} />
               </p>
             )}
           </Match>
