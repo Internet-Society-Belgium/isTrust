@@ -1,14 +1,9 @@
 import { deepMerge } from "../utils/object";
-import * as crtsh from "./crtsh";
 import * as sslmate from "./sslmate";
 import { CertificateType } from "./type";
 
 export async function get_data(domain: string) {
   let certificatesData = await sslmate.get_data(domain);
-
-  if (certificatesData === undefined || certificatesData.length === 0) {
-    certificatesData = await crtsh.get_data(domain);
-  }
 
   if (certificatesData === undefined || certificatesData.length === 0) return;
 
