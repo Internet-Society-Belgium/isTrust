@@ -13,7 +13,12 @@
     "dev": "vite build --watch",
     "format": "prettier ./src --write",
     "lint": "eslint src --max-warnings 0",
-    "test": "vitest run"
+    "test": "vitest run --project minimal"
+  },
+  "dependencies": {
+    "@peculiar/x509": "^1.13.0",
+    "dns-packet": "^5.6.1",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@types/dns-packet": "^5.6.5",
@@ -21,10 +26,5 @@
     "vite": "^6.0.3",
     "vite-plugin-dts": "^4.3.0",
     "vitest": "^3.2.2"
-  },
-  "dependencies": {
-    "@peculiar/x509": "^1.13.0",
-    "dns-packet": "^5.6.1",
-    "zod": "^4.0.5"
   }
 }

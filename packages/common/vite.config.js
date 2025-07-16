@@ -12,6 +12,27 @@ export default defineConfig({
   },
   plugins: [dts({ rollupTypes: true })],
   test: {
-    testTimeout: 3 * 60 * 1000,
+    projects: [
+      {
+        test: {
+          name: "minimal",
+          include: ["./src/**/*.test.ts"],
+          exclude: [
+            "src/certificate/crtsh/index.test.ts",
+            "src/certificate/sslmate/index.test.ts",
+          ],
+        },
+      },
+      {
+        test: {
+          name: "manual",
+          include: [
+            "src/certificate/crtsh/index.test.ts",
+            "src/certificate/sslmate/index.test.ts",
+          ],
+          testTimeout: 0,
+        },
+      },
+    ],
   },
 });
