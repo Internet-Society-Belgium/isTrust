@@ -19,6 +19,18 @@ test("icann.org", async () => {
   } satisfies typeof data);
 });
 
+test("worldbank.org", async () => {
+  const data = await get_data("worldbank.org");
+
+  expect(data).toStrictEqual({
+    businessCategory: "Non-Commercial Entity",
+    country: "US",
+    incCountry: "US",
+    organisation: "World Bank Group",
+    type: "EV",
+  } satisfies typeof data);
+});
+
 test("iana.org", async () => {
   const data = await get_data("iana.org");
 

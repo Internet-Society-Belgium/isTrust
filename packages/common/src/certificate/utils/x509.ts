@@ -34,7 +34,15 @@ export function parseCert(cert: x509.X509Certificate) {
     cert.subjectName.getField(oid.BusinessCategory),
   );
   if (business_category) {
-    data.businessCategory = business_category;
+    if (business_category === "Private Organization") {
+      data.businessCategory = "Private Organization";
+    } else if (business_category === "Government Entity") {
+      data.businessCategory = "Government Entity";
+    } else if (business_category === "Business Entity") {
+      data.businessCategory = "Business Entity";
+    } else if (business_category === "Non-Commercial Entity") {
+      data.businessCategory = "Non-Commercial Entity";
+    }
   }
 
   const inc_country = arrayToString(cert.subjectName.getField(oid.IncCountry));
