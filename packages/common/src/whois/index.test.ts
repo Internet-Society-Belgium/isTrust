@@ -1,10 +1,10 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
-import { InternalCache } from "../type";
+import { DataCache } from "../type";
 
 let storePsl: Record<string, string> = {};
 let storeRdap: Record<string, string> = {};
-const cache: InternalCache = {
+const cache: DataCache = {
   psl: {
     set: async (key: string, value: string) => {
       storePsl[key] = value;

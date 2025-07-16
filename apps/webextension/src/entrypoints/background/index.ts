@@ -41,6 +41,10 @@ export default defineBackground(() => {
     return await history.get_history_data(domain);
   });
 
+  onMessage("get_certificate_data", async ({ data: { domain } }) => {
+    return await common.get_certificate_data(domain);
+  });
+
   onMessage("force_update_cache", async () => {
     return await common.force_update_cache(cache);
   });

@@ -12,6 +12,6 @@ export default defineConfig({
   },
   plugins: [dts({ rollupTypes: true })],
   test: {
-    testTimeout: 3 * 60 * 1000,
+    include: ["./src/**/*.test.ts"],
   },
 });
