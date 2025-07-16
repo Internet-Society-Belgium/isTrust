@@ -1,13 +1,12 @@
 import { sendMessage } from "@/utils/messaging";
 import { DateDifference } from "@istrust/ui/date-difference";
+import { Country } from "@istrust/ui/country";
 import { get_active_tab } from "@/utils/tab";
 import {
   Show,
   createResource,
   createSignal,
   onMount,
-  Switch,
-  Match,
   ErrorBoundary,
   Suspense,
 } from "solid-js";
@@ -175,14 +174,7 @@ function App() {
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.registrant?.country}>
                 {(country) => (
-                  <Switch>
-                    <Match when={country().code}>
-                      {(code) => <p>{code()}</p>}
-                    </Match>
-                    <Match when={country().name}>
-                      {(name) => <p>{name()}</p>}
-                    </Match>
-                  </Switch>
+                  <Country value={country()} locale={navigator.language} />
                 )}
               </Show>
             </Suspense>
@@ -191,8 +183,10 @@ function App() {
           <div class="flex gap-2">
             <h2>Certificate country:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.countryCode}>
-                {(countryCode) => <p>{countryCode()}</p>}
+              <Show when={certificateData()?.country}>
+                {(country) => (
+                  <Country value={country()} locale={navigator.language} />
+                )}
               </Show>
             </Suspense>
           </div>

@@ -210,8 +210,6 @@ function parse(result: RdapResult) {
     if (adrProperty !== undefined) {
       const adrParameter = adrProperty[1];
 
-      const country: typeof registrant.country = {};
-
       const cc = adrParameter.cc;
       if (cc !== undefined) {
         let countryCode = "";
@@ -222,7 +220,7 @@ function parse(result: RdapResult) {
         }
 
         if (countryCode !== "") {
-          country.code = countryCode;
+          registrant.country = countryCode;
         }
       }
 
@@ -240,13 +238,9 @@ function parse(result: RdapResult) {
           }
 
           if (countryName !== "") {
-            country.name = countryName;
+            registrant.country = countryName;
           }
         }
-      }
-
-      if (Object.keys(country).length > 0) {
-        registrant.country = country;
       }
     }
   }

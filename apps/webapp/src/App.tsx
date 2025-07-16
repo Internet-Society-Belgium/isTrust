@@ -1,14 +1,13 @@
 import { DateDifference } from "@istrust/ui/date-difference";
+import { Country } from "@istrust/ui/country";
 import * as common from "@istrust/common";
 import {
   createResource,
   createSignal,
   ErrorBoundary,
-  Match,
   onMount,
   Show,
   Suspense,
-  Switch,
   type Component,
 } from "solid-js";
 
@@ -173,14 +172,7 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.registrant?.country}>
                 {(country) => (
-                  <Switch>
-                    <Match when={country().code}>
-                      {(code) => <p>{code()}</p>}
-                    </Match>
-                    <Match when={country().name}>
-                      {(name) => <p>{name()}</p>}
-                    </Match>
-                  </Switch>
+                  <Country value={country()} locale={navigator.language} />
                 )}
               </Show>
             </Suspense>
@@ -189,8 +181,10 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>Certificate country:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.countryCode}>
-                {(countryCode) => <p>{countryCode()}</p>}
+              <Show when={certificateData()?.country}>
+                {(country) => (
+                  <Country value={country()} locale={navigator.language} />
+                )}
               </Show>
             </Suspense>
           </div>

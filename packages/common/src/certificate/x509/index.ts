@@ -58,7 +58,12 @@ export function get_data(cert: X509Certificate) {
 
   const country = atos(cert.subjectName.getField(oid.Country));
   if (country) {
-    data.countryCode = country;
+    data.country = country;
+  }
+
+  const inc_country = atos(cert.subjectName.getField(oid.IncCountry));
+  if (inc_country) {
+    data.country = inc_country;
   }
 
   const business_category = atos(
@@ -74,11 +79,6 @@ export function get_data(cert: X509Certificate) {
     } else if (business_category === "Non-Commercial Entity") {
       data.businessCategory = "Non-Commercial Entity";
     }
-  }
-
-  const inc_country = atos(cert.subjectName.getField(oid.IncCountry));
-  if (inc_country) {
-    data.incCountryCode = inc_country;
   }
 
   return data;
