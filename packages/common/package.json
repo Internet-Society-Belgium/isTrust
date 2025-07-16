@@ -13,7 +13,7 @@
     "dev": "vite build --watch",
     "format": "prettier ./src --write",
     "lint": "eslint src --max-warnings 0",
-    "test": "vitest run --project minimal"
+    "test": "vitest run"
   },
   "dependencies": {
     "@peculiar/x509": "^1.13.0",
