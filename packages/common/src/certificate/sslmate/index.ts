@@ -27,8 +27,7 @@ export async function get_data(domain: string) {
 
     return data;
   } catch (e) {
-    const error = e as Error;
-    console.error(error.message);
+    console.error(e);
 
     return;
   }
