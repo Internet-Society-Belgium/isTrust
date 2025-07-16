@@ -189,8 +189,8 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>Certificate country:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.country}>
-                {(country) => <p>{country()}</p>}
+              <Show when={certificateData()?.countryCode}>
+                {(countryCode) => <p>{countryCode()}</p>}
               </Show>
             </Suspense>
           </div>
@@ -249,7 +249,7 @@ const App: Component = () => {
           </details>
 
           <details>
-            <summary>Certificate raw data</summary>
+            <summary>certificate raw data</summary>
             <Show when={certificateData()}>
               {(data) => (
                 <pre class="overflow-scroll">
