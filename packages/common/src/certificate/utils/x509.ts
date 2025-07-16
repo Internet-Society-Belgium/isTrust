@@ -11,45 +11,6 @@ function arrayToString(array: string[]) {
 export function parseCert(cert: x509.X509Certificate) {
   const data: CertificateData = {};
 
-  const organisation = arrayToString(
-    cert.subjectName.getField(oid.Organization),
-  );
-  if (organisation) {
-    const organisation_unit = arrayToString(
-      cert.subjectName.getField(oid.OrganizationalUnit),
-    );
-    if (organisation_unit) {
-      data.organisation = `${organisation} (${organisation_unit})`;
-    } else {
-      data.organisation = organisation;
-    }
-  }
-
-  const country = arrayToString(cert.subjectName.getField(oid.Country));
-  if (country) {
-    data.country = country;
-  }
-
-  const business_category = arrayToString(
-    cert.subjectName.getField(oid.BusinessCategory),
-  );
-  if (business_category) {
-    if (business_category === "Private Organization") {
-      data.businessCategory = "Private Organization";
-    } else if (business_category === "Government Entity") {
-      data.businessCategory = "Government Entity";
-    } else if (business_category === "Business Entity") {
-      data.businessCategory = "Business Entity";
-    } else if (business_category === "Non-Commercial Entity") {
-      data.businessCategory = "Non-Commercial Entity";
-    }
-  }
-
-  const inc_country = arrayToString(cert.subjectName.getField(oid.IncCountry));
-  if (inc_country) {
-    data.incCountry = inc_country;
-  }
-
   const certificatePolicyExtension = cert.getExtension(
     x509.CertificatePolicyExtension,
   );
@@ -75,6 +36,45 @@ export function parseCert(cert: x509.X509Certificate) {
     ) {
       data.type = "DV";
     }
+  }
+
+  const organisation = arrayToString(
+    cert.subjectName.getField(oid.Organization),
+  );
+  if (organisation) {
+    const organisation_unit = arrayToString(
+      cert.subjectName.getField(oid.OrganizationalUnit),
+    );
+    if (organisation_unit) {
+      data.organisation = `${organisation} (${organisation_unit})`;
+    } else {
+      data.organisation = organisation;
+    }
+  }
+
+  const country = arrayToString(cert.subjectName.getField(oid.Country));
+  if (country) {
+    data.countryCode = country;
+  }
+
+  const business_category = arrayToString(
+    cert.subjectName.getField(oid.BusinessCategory),
+  );
+  if (business_category) {
+    if (business_category === "Private Organization") {
+      data.businessCategory = "Private Organization";
+    } else if (business_category === "Government Entity") {
+      data.businessCategory = "Government Entity";
+    } else if (business_category === "Business Entity") {
+      data.businessCategory = "Business Entity";
+    } else if (business_category === "Non-Commercial Entity") {
+      data.businessCategory = "Non-Commercial Entity";
+    }
+  }
+
+  const inc_country = arrayToString(cert.subjectName.getField(oid.IncCountry));
+  if (inc_country) {
+    data.incCountryCode = inc_country;
   }
 
   return data;

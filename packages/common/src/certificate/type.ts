@@ -1,10 +1,11 @@
-export type CertificateType = "EV (.onion)" | "EV" | "IV" | "OV" | "DV";
+export type CertificateType = "DV" | "IV" | "OV" | "EV" | "EV (.onion)";
 
+// https://cabforum.org/working-groups/server/baseline-requirements/documents/
+// https://cabforum.org/working-groups/server/extended-validation/documents/
 export interface CertificateData {
   organisation?: string;
-  country?: string;
-  incCountry?: string;
-  // https://cabforum.org/working-groups/server/extended-validation/documents/ Section 7.1.4.2.3
+  countryCode?: string;
+  incCountryCode?: string;
   businessCategory?:
     | "Private Organization"
     | "Government Entity"
