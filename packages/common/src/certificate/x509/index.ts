@@ -1,14 +1,20 @@
 import * as x509 from "@peculiar/x509";
-import * as oid from "../oid";
 import { CertificateData } from "../type";
+import * as oid from "./oid";
 
-function arrayToString(array: string[]) {
+function atos(array: string[]) {
   const text = array.join(" ").trim();
   if (text === "") return;
   return text;
 }
 
-export function parseCert(cert: x509.X509Certificate) {
+export type X509Certificate = x509.X509Certificate;
+
+export function parse_cert(raw: string) {
+  return new x509.X509Certificate(raw);
+}
+
+export function get_data(cert: X509Certificate) {
   const data: CertificateData = {};
 
   const certificatePolicyExtension = cert.getExtension(
@@ -38,11 +44,9 @@ export function parseCert(cert: x509.X509Certificate) {
     }
   }
 
-  const organisation = arrayToString(
-    cert.subjectName.getField(oid.Organization),
-  );
+  const organisation = atos(cert.subjectName.getField(oid.Organization));
   if (organisation) {
-    const organisation_unit = arrayToString(
+    const organisation_unit = atos(
       cert.subjectName.getField(oid.OrganizationalUnit),
     );
     if (organisation_unit) {
@@ -52,12 +56,12 @@ export function parseCert(cert: x509.X509Certificate) {
     }
   }
 
-  const country = arrayToString(cert.subjectName.getField(oid.Country));
+  const country = atos(cert.subjectName.getField(oid.Country));
   if (country) {
     data.countryCode = country;
   }
 
-  const business_category = arrayToString(
+  const business_category = atos(
     cert.subjectName.getField(oid.BusinessCategory),
   );
   if (business_category) {
@@ -72,7 +76,7 @@ export function parseCert(cert: x509.X509Certificate) {
     }
   }
 
-  const inc_country = arrayToString(cert.subjectName.getField(oid.IncCountry));
+  const inc_country = atos(cert.subjectName.getField(oid.IncCountry));
   if (inc_country) {
     data.incCountryCode = inc_country;
   }
@@ -80,25 +84,25 @@ export function parseCert(cert: x509.X509Certificate) {
   return data;
 }
 
-export async function isValidCert(cert: x509.X509Certificate, domain: string) {
-  if (isExpired(cert)) return false;
+export async function is_valid_cert(cert: X509Certificate, domain: string) {
+  if (is_expired(cert)) return false;
 
   if (await cert.isSelfSigned()) return false;
 
-  if (!isTLSCapable(cert)) return false;
+  if (!is_tls_capable(cert)) return false;
 
-  if (!isForDomain(cert, domain)) return false;
+  if (!is_same_domain(cert, domain)) return false;
 
   return true;
 }
 
-function isExpired(cert: x509.X509Certificate) {
+function is_expired(cert: X509Certificate) {
   const now = new Date();
   if (now < cert.notBefore || now > cert.notAfter) return true;
   return false;
 }
 
-function isTLSCapable(cert: x509.X509Certificate) {
+function is_tls_capable(cert: X509Certificate) {
   // https://wiki.mozilla.org/CA/EV_Processing_for_CAs#EV_TLS_Capable
   const extendedKeyUsageExtension = cert.getExtension(
     x509.ExtendedKeyUsageExtension,
@@ -113,10 +117,10 @@ function isTLSCapable(cert: x509.X509Certificate) {
   return false;
 }
 
-function isForDomain(cert: x509.X509Certificate, domain: string) {
+function is_same_domain(cert: X509Certificate, domain: string) {
   const dnsNames = [];
 
-  const commonName = arrayToString(cert.subjectName.getField(oid.CommonName));
+  const commonName = atos(cert.subjectName.getField(oid.CommonName));
   if (commonName !== undefined) {
     dnsNames.push(commonName);
   }

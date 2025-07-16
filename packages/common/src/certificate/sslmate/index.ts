@@ -1,6 +1,5 @@
-import * as x509 from "@peculiar/x509";
 import { CertificateData } from "../type";
-import { isValidCert, parseCert } from "../utils/x509";
+import * as x509 from "../x509";
 import { validateSSLMateSearch } from "./type";
 
 export async function get_data(domain: string) {
@@ -18,11 +17,11 @@ export async function get_data(domain: string) {
     for (const resultSearch of resultsSearch) {
       if (resultSearch.revoked) continue;
 
-      const cert = new x509.X509Certificate(resultSearch.cert_der);
+      const cert = x509.parse_cert(resultSearch.cert_der);
 
-      if (!isValidCert(cert, domain)) continue;
+      if (!x509.is_valid_cert(cert, domain)) continue;
 
-      data.push(parseCert(cert));
+      data.push(x509.get_data(cert));
     }
 
     return data;
