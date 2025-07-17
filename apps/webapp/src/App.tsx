@@ -1,4 +1,4 @@
-import { DateDifference } from "@istrust/ui/date-difference";
+import { DateDifference } from "@istrust/ui/date";
 import { Country } from "@istrust/ui/country";
 import * as common from "@istrust/common";
 import {
@@ -100,7 +100,7 @@ const App: Component = () => {
       </form>
 
       <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
-        <div class="flex w-100 flex-col">
+        <div class="flex w-120 flex-col">
           <div class="flex gap-2">
             <h2>Domain:</h2>
             <Suspense fallback={<span>Loading...</span>}>

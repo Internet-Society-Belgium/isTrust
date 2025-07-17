@@ -6,7 +6,7 @@
     "**/*.css"
   ],
   "scripts": {
-    "dev": "vite --clearScreen false",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --max-warnings 0",
     "format": "prettier ./src --write",

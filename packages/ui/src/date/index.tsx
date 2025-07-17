@@ -1,4 +1,5 @@
 import { type Component } from "solid-js";
+import "../styles.css";
 
 interface Props {
   date: string;
@@ -55,5 +56,5 @@ export const DateDifference: Component<Props> = (props) => {
     }
   };
 
-  return <>{getText(props.date, props.locale)}</>;
+  return <p>{getText(props.date, props.locale)}</p>;
 };
