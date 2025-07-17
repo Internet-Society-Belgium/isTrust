@@ -152,6 +152,15 @@ function App() {
           </div>
 
           <div class="flex gap-2">
+            <h2>Certificate individual:</h2>
+            <Suspense fallback={<span>Loading...</span>}>
+              <Show when={certificateData()?.individual}>
+                {(individual) => <p>{individual()}</p>}
+              </Show>
+            </Suspense>
+          </div>
+
+          <div class="flex gap-2">
             <h2>Registrant organization:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.registrant?.organization}>

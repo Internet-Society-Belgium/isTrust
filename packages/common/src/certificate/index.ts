@@ -28,8 +28,7 @@ export async function get_data(domain: string) {
 }
 
 function certificateTypeScore(type?: CertificateType) {
-  if (type === "EV (.onion)") return 5;
-  else if (type === "EV") return 4;
+  if (type === "EV") return 4;
   else if (type === "IV") return 3;
   else if (type === "OV") return 2;
   else if (type === "DV") return 1;

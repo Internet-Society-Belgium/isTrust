@@ -14,6 +14,8 @@ export function parse_cert(raw: string) {
   return new x509.X509Certificate(raw);
 }
 
+// https://cabforum.org/working-groups/server/baseline-requirements/documents/
+// https://cabforum.org/working-groups/server/extended-validation/documents/
 export function get_data(cert: X509Certificate) {
   const data: CertificateData = {};
 
@@ -21,22 +23,16 @@ export function get_data(cert: X509Certificate) {
     x509.CertificatePolicyExtension,
   );
   if (certificatePolicyExtension) {
-    if (
-      certificatePolicyExtension.policies.includes(oid.onionExtendedValidation)
-    ) {
-      data.type = "EV (.onion)";
-    } else if (
-      certificatePolicyExtension.policies.includes(oid.ExtendedValidation)
-    ) {
+    if (certificatePolicyExtension.policies.includes(oid.ExtendedValidation)) {
       data.type = "EV";
-    } else if (
-      certificatePolicyExtension.policies.includes(oid.IndividualValidation)
-    ) {
-      data.type = "IV";
     } else if (
       certificatePolicyExtension.policies.includes(oid.OrganizationValidation)
     ) {
       data.type = "OV";
+    } else if (
+      certificatePolicyExtension.policies.includes(oid.IndividualValidation)
+    ) {
+      data.type = "IV";
     } else if (
       certificatePolicyExtension.policies.includes(oid.DomainValidation)
     ) {
@@ -79,6 +75,11 @@ export function get_data(cert: X509Certificate) {
     } else if (business_category === "Non-Commercial Entity") {
       data.businessCategory = "Non-Commercial Entity";
     }
+  }
+
+  const given_name = atos(cert.subjectName.getField(oid.GivenName));
+  if (given_name) {
+    data.individual = given_name;
   }
 
   return data;
