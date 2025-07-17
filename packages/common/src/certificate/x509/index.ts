@@ -1,6 +1,6 @@
 import * as x509 from "@peculiar/x509";
-import { CertificateData } from "../type";
 import * as oid from "./oid";
+import { X509Data } from "./type";
 
 function atos(array: string[]) {
   const text = array.join(" ").trim();
@@ -17,7 +17,7 @@ export function parse_cert(raw: string) {
 // https://cabforum.org/working-groups/server/baseline-requirements/documents/
 // https://cabforum.org/working-groups/server/extended-validation/documents/
 export function get_data(cert: X509Certificate) {
-  const data: CertificateData = {};
+  const data: X509Data = {};
 
   const certificatePolicyExtension = cert.getExtension(
     x509.CertificatePolicyExtension,
@@ -40,15 +40,15 @@ export function get_data(cert: X509Certificate) {
     }
   }
 
-  const organisation = atos(cert.subjectName.getField(oid.Organization));
-  if (organisation) {
-    const organisation_unit = atos(
+  const organization = atos(cert.subjectName.getField(oid.Organization));
+  if (organization) {
+    const organization_unit = atos(
       cert.subjectName.getField(oid.OrganizationalUnit),
     );
-    if (organisation_unit) {
-      data.organisation = `${organisation} (${organisation_unit})`;
+    if (organization_unit) {
+      data.organization = `${organization} (${organization_unit})`;
     } else {
-      data.organisation = organisation;
+      data.organization = organization;
     }
   }
 

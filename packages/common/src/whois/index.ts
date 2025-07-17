@@ -1,6 +1,6 @@
 import { DataCache } from "../type";
+import { improve_array } from "../utils/array";
 import { parse_tld } from "../utils/domain";
-import { addNewValue } from "../utils/value";
 import {
   RdapResult,
   stringifyRdapValue,
@@ -173,9 +173,9 @@ function improveData(data: WHOISData, result: RdapResult) {
 
         const fn = stringifyRdapValue(fnValue);
 
-        const newValue = addNewValue(data.individual, fn);
-        if (newValue) {
-          data.individual = newValue;
+        const improvedIndividual = improve_array(data.individual, fn);
+        if (improvedIndividual) {
+          data.individual = improvedIndividual;
         }
       }
     }
@@ -189,9 +189,12 @@ function improveData(data: WHOISData, result: RdapResult) {
 
       const organization = stringifyRdapValue(orgValue);
 
-      const newValue = addNewValue(data.organization, organization);
-      if (newValue) {
-        data.organization = newValue;
+      const improvedOrganization = improve_array(
+        data.organization,
+        organization,
+      );
+      if (improvedOrganization) {
+        data.organization = improvedOrganization;
       }
     }
 
@@ -206,9 +209,9 @@ function improveData(data: WHOISData, result: RdapResult) {
       if (cc !== undefined) {
         const countryCode = stringifyRdapValue(cc);
 
-        const newValue = addNewValue(data.country, countryCode);
-        if (newValue) {
-          data.country = newValue;
+        const improvedCountry = improve_array(data.country, countryCode);
+        if (improvedCountry) {
+          data.country = improvedCountry;
         }
       }
 
@@ -220,9 +223,9 @@ function improveData(data: WHOISData, result: RdapResult) {
 
           const countryName = stringifyRdapValue(countryValue);
 
-          const newValue = addNewValue(data.country, countryName);
-          if (newValue) {
-            data.country = newValue;
+          const improvedCountry = improve_array(data.country, countryName);
+          if (improvedCountry) {
+            data.country = improvedCountry;
           }
         }
       }

@@ -1,5 +1,5 @@
-import { CertificateData } from "../type";
 import * as x509 from "../x509";
+import { X509Data } from "../x509/type";
 import { validateSSLMateSearch } from "./type";
 
 export async function get_data(domain: string) {
@@ -13,7 +13,7 @@ export async function get_data(domain: string) {
     const resultsSearch = validateSSLMateSearch(jsonSearch);
     if (resultsSearch.length === 0) return;
 
-    const data: CertificateData[] = [];
+    const data: X509Data[] = [];
     for (const resultSearch of resultsSearch) {
       if (resultSearch.revoked) continue;
 

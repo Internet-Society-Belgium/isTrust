@@ -1,27 +1,55 @@
-import { deepMerge } from "../utils/object";
+import { improve_array } from "../utils/array";
 import * as sslmate from "./sslmate";
-import { CertificateType } from "./type";
+import { CertificateData, CertificateType } from "./type";
 
 export async function get_data(domain: string) {
-  let certificatesData = await sslmate.get_data(domain);
+  const x509sData = await sslmate.get_data(domain);
 
-  if (certificatesData === undefined || certificatesData.length === 0) return;
+  if (x509sData === undefined || x509sData.length === 0) return;
 
-  let bestType: CertificateType | undefined;
-  for (const d of certificatesData) {
-    if (
-      bestType === undefined ||
-      certificateTypeScore(d.type) > certificateTypeScore(bestType)
-    ) {
-      bestType = d.type;
+  const certificateData: CertificateData = {};
+
+  x509sData.sort(
+    (a, b) => certificateTypeScore(b.type) - certificateTypeScore(a.type),
+  );
+
+  for (const x509Data of x509sData) {
+    const improvedType = improve_array(certificateData.type, x509Data.type);
+    if (improvedType) {
+      certificateData.type = improvedType;
     }
-  }
 
-  certificatesData = certificatesData.filter((d) => d.type === bestType);
+    const improvedIndividual = improve_array(
+      certificateData.individual,
+      x509Data.individual,
+    );
+    if (improvedIndividual) {
+      certificateData.individual = improvedIndividual;
+    }
 
-  const certificateData = certificatesData.shift();
-  for (const d of certificatesData) {
-    deepMerge(certificateData, d);
+    const improvedOrganization = improve_array(
+      certificateData.organization,
+      x509Data.organization,
+    );
+    if (improvedOrganization) {
+      certificateData.organization = improvedOrganization;
+    }
+
+    const improvedCountry = improve_array(
+      certificateData.country,
+      x509Data.country,
+    );
+    if (improvedCountry) {
+      certificateData.country = improvedCountry;
+    }
+
+    const improvedBusinessCategory = improve_array(
+      certificateData.businessCategory,
+      x509Data.businessCategory,
+    );
+    if (improvedBusinessCategory) {
+      certificateData.businessCategory = improvedBusinessCategory;
+    }
   }
 
   return certificateData;
