@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 // https://searchfox.org/mozilla-central/source/toolkit/components/certviewer/content/certDecoder.mjs
 
 export const CommonName = "2.5.4.3";

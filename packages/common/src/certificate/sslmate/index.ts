@@ -9,7 +9,7 @@ export async function get_data(domain: string) {
       `https://api.certspotter.com/v1/issuances?domain=${domain}&match_wildcards=true&expand=dns_names&expand=cert_der`,
       { cache: "no-cache" },
     );
-    const jsonSearch = await resSearch.json();
+    const jsonSearch: unknown = await resSearch.json();
     const resultsSearch = validateSSLMateSearch(jsonSearch);
     if (resultsSearch.length === 0) return;
 
@@ -19,7 +19,7 @@ export async function get_data(domain: string) {
 
       const cert = x509.parse_cert(resultSearch.cert_der);
 
-      if (!x509.is_valid_cert(cert, domain)) continue;
+      if (!(await x509.is_valid_cert(cert, domain))) continue;
 
       data.push(x509.get_data(cert));
     }

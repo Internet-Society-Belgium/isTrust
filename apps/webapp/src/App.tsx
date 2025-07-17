@@ -5,6 +5,7 @@ import {
   createResource,
   createSignal,
   ErrorBoundary,
+  For,
   onMount,
   Show,
   Suspense,
@@ -143,7 +144,7 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>Registrant individual:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.registrant?.individual}>
+              <Show when={whoisData()?.individual}>
                 {(individual) => <p>{individual()}</p>}
               </Show>
             </Suspense>
@@ -161,7 +162,7 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>Registrant organization:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.registrant?.organization}>
+              <Show when={whoisData()?.organization}>
                 {(organization) => <p>{organization()}</p>}
               </Show>
             </Suspense>
@@ -170,7 +171,7 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>Certificate organization:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.organisation}>
+              <Show when={certificateData()?.organization}>
                 {(organization) => <p>{organization()}</p>}
               </Show>
             </Suspense>
@@ -179,9 +180,11 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>Registrant country:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.registrant?.country}>
+              <Show when={whoisData()?.country}>
                 {(country) => (
-                  <Country value={country()} locale={navigator.language} />
+                  <For each={country()}>
+                    {(c) => <Country value={c} locale={navigator.language} />}
+                  </For>
                 )}
               </Show>
             </Suspense>
@@ -192,7 +195,9 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.country}>
                 {(country) => (
-                  <Country value={country()} locale={navigator.language} />
+                  <For each={country()}>
+                    {(c) => <Country value={c} locale={navigator.language} />}
+                  </For>
                 )}
               </Show>
             </Suspense>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { z } from "zod/mini";
 
 // https://sslmate.com/help/reference/ct_search_api_v1#api_issuance

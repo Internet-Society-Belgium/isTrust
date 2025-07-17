@@ -172,7 +172,7 @@ function App() {
           <div class="flex gap-2">
             <h2>Certificate organization:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.organisation}>
+              <Show when={certificateData()?.organization}>
                 {(organization) => <p>{organization()}</p>}
               </Show>
             </Suspense>

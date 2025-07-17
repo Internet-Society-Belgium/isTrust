@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { z } from "zod/mini";
 
 // https://datatracker.ietf.org/doc/rfc9224/

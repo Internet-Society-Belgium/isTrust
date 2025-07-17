@@ -6,7 +6,7 @@ globalThis.Buffer = BufferPolyfill;
 
 const DEFAULT_RESOLVER = "https://cloudflare-dns.com/dns-query";
 
-export async function isValid(domain: string, resolver?: string) {
+export async function is_valid(domain: string, resolver?: string) {
   if (resolver === undefined) {
     resolver = DEFAULT_RESOLVER;
   }
@@ -29,6 +29,7 @@ export async function isValid(domain: string, resolver?: string) {
 
     const res = await fetch(`${resolver}?dns=${dnsQueryParam}`, {
       headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         Accept: "application/dns-message",
       },
     });

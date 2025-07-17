@@ -7,14 +7,11 @@ const CACHING_DAYS = 7;
 export async function update(cache: DataCache) {
   const lastUpdate = await cache.psl.get("_lastUpdate");
 
-  const caching_outdated = new Date().setDate(
+  const cachingOutdated = new Date().setDate(
     new Date().getDate() - CACHING_DAYS,
   );
 
-  if (
-    lastUpdate === null ||
-    new Date(lastUpdate).getTime() < caching_outdated
-  ) {
+  if (lastUpdate === null || new Date(lastUpdate).getTime() < cachingOutdated) {
     await load(cache);
   }
 }

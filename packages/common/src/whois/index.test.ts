@@ -2,6 +2,7 @@ import { expect, test } from "vitest";
 import { get_data } from ".";
 import { DataCache } from "../type";
 
+/* eslint-disable @typescript-eslint/require-await */
 let storePsl: Record<string, string> = {};
 let storeRdap: Record<string, string> = {};
 const cache: DataCache = {

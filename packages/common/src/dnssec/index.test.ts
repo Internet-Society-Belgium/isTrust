@@ -1,12 +1,12 @@
 import { expect, test } from "vitest";
-import { isValid } from ".";
+import { is_valid } from ".";
 
 test("wikipedia.org", async () => {
-  const valid = await isValid("wikipedia.org");
+  const valid = await is_valid("wikipedia.org");
   expect(valid).toStrictEqual(false);
 });
 
 test("internetsociety.org", async () => {
-  const valid = await isValid("internetsociety.org");
+  const valid = await is_valid("internetsociety.org");
   expect(valid).toStrictEqual(true);
 });

@@ -63,3 +63,14 @@ test("digicert.com", async () => {
     type: ["EV", "OV"],
   } satisfies typeof data);
 });
+
+test("google.com", async () => {
+  const data = await get_data("google.com");
+
+  expect(data).toStrictEqual({
+    businessCategory: ["Private Organization"],
+    country: ["BR"],
+    organization: ["GOOGLE PAY BRASIL INSTITUICAO DE PAGAMENTO LTDA"],
+    type: ["OV", "DV"],
+  } satisfies typeof data);
+});

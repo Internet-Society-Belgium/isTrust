@@ -10,7 +10,7 @@ export async function get_data(domain: string) {
   const certificateData: CertificateData = {};
 
   x509sData.sort(
-    (a, b) => certificateTypeScore(b.type) - certificateTypeScore(a.type),
+    (a, b) => certificate_type_score(b.type) - certificate_type_score(a.type),
   );
 
   for (const x509Data of x509sData) {
@@ -55,7 +55,7 @@ export async function get_data(domain: string) {
   return certificateData;
 }
 
-function certificateTypeScore(type?: CertificateType) {
+function certificate_type_score(type?: CertificateType) {
   if (type === "EV") return 4;
   else if (type === "IV") return 3;
   else if (type === "OV") return 2;

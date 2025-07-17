@@ -9,15 +9,40 @@ export default [
     recommendedConfig: typeScriptEsLintPlugin.configs["recommended"],
   }).config({
     env: { node: true },
-    extends: ["plugin:@typescript-eslint/recommended"],
+    extends: ["plugin:@typescript-eslint/strict-type-checked"],
     parser: "@typescript-eslint/parser",
     parserOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
+      projectService: true,
     },
     plugins: ["@typescript-eslint"],
     rules: {
-      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/naming-convention": [
+        "warn",
+        {
+          selector: "default",
+          format: ["camelCase"],
+          leadingUnderscore: "forbid",
+        },
+        {
+          selector: "variable",
+          format: ["camelCase", "UPPER_CASE"],
+          leadingUnderscore: "forbid",
+        },
+        {
+          selector: "function",
+          format: ["snake_case"],
+        },
+        {
+          selector: "typeLike",
+          format: ["PascalCase"],
+        },
+        {
+          selector: "enumMember",
+          format: ["UPPER_CASE"],
+        },
+      ],
     },
   }),
   esLintConfigPrettier,

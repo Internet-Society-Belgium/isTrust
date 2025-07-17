@@ -14,14 +14,11 @@ const CACHING_DAYS = 7;
 export async function update(cache: DataCache) {
   const lastUpdate = await cache.rdap.get("_lastUpdate");
 
-  const caching_outdated = new Date().setDate(
+  const cachingOutdated = new Date().setDate(
     new Date().getDate() - CACHING_DAYS,
   );
 
-  if (
-    lastUpdate === null ||
-    new Date(lastUpdate).getTime() < caching_outdated
-  ) {
+  if (lastUpdate === null || new Date(lastUpdate).getTime() < cachingOutdated) {
     await load(cache);
   }
 }
@@ -34,7 +31,7 @@ export async function load(cache: DataCache) {
     cache: "no-cache",
   });
 
-  const json = await res.json();
+  const json: unknown = await res.json();
 
   const bootstrap = validateBootstrap(json);
 
@@ -48,16 +45,10 @@ export async function load(cache: DataCache) {
       tld = parse_tld(tld);
       if (tld === undefined) continue;
 
-      const rdapTld = await cache.rdap.get(tld);
+      const cachedData = await cache.rdap.get(tld);
+      const cachedApis = cachedData?.split(",") || [];
 
-      if (rdapTld === null) {
-        promises.push(cache.rdap.set(tld, JSON.stringify([...apis])));
-      } else {
-        const otherApis = JSON.parse(rdapTld);
-        promises.push(
-          cache.rdap.set(tld, JSON.stringify([...otherApis, ...apis])),
-        );
-      }
+      promises.push(cache.rdap.set(tld, [...cachedApis, ...apis].join(",")));
     }
   }
 
@@ -77,7 +68,7 @@ export async function get_data(domain: string, cache: DataCache) {
 
   const data: WHOISData = {};
 
-  const apis = JSON.parse(bootstrap);
+  const apis = bootstrap.split(",");
 
   const apiQueue: string[] = [...apis];
   const apiHistory: string[] = [];
@@ -104,7 +95,7 @@ export async function get_data(domain: string, cache: DataCache) {
       if (!res.ok)
         throw new Error(`No RDAP response from ${new URL(api).hostname}`);
 
-      const json = await res.json();
+      const json: unknown = await res.json();
 
       const rdapResult = validateRdapResult(json);
 

@@ -42,11 +42,11 @@ export function get_data(cert: X509Certificate) {
 
   const organization = atos(cert.subjectName.getField(oid.Organization));
   if (organization) {
-    const organization_unit = atos(
+    const organizationUnit = atos(
       cert.subjectName.getField(oid.OrganizationalUnit),
     );
-    if (organization_unit) {
-      data.organization = `${organization} (${organization_unit})`;
+    if (organizationUnit) {
+      data.organization = `${organization} (${organizationUnit})`;
     } else {
       data.organization = organization;
     }
@@ -57,29 +57,28 @@ export function get_data(cert: X509Certificate) {
     data.country = country;
   }
 
-  const inc_country = atos(cert.subjectName.getField(oid.IncCountry));
-  if (inc_country) {
-    data.country = inc_country;
+  const incCountry = atos(cert.subjectName.getField(oid.IncCountry));
+  if (incCountry) {
+    data.country = incCountry;
   }
 
-  const business_category = atos(
+  const businessCategory = atos(
     cert.subjectName.getField(oid.BusinessCategory),
   );
-  if (business_category) {
-    if (business_category === "Private Organization") {
-      data.businessCategory = "Private Organization";
-    } else if (business_category === "Government Entity") {
-      data.businessCategory = "Government Entity";
-    } else if (business_category === "Business Entity") {
-      data.businessCategory = "Business Entity";
-    } else if (business_category === "Non-Commercial Entity") {
-      data.businessCategory = "Non-Commercial Entity";
-    }
+
+  if (businessCategory === "Private Organization") {
+    data.businessCategory = "Private Organization";
+  } else if (businessCategory === "Government Entity") {
+    data.businessCategory = "Government Entity";
+  } else if (businessCategory === "Business Entity") {
+    data.businessCategory = "Business Entity";
+  } else if (businessCategory === "Non-Commercial Entity") {
+    data.businessCategory = "Non-Commercial Entity";
   }
 
-  const given_name = atos(cert.subjectName.getField(oid.GivenName));
-  if (given_name) {
-    data.individual = given_name;
+  const givenName = atos(cert.subjectName.getField(oid.GivenName));
+  if (givenName) {
+    data.individual = givenName;
   }
 
   return data;
