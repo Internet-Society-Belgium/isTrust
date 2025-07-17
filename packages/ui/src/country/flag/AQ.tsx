@@ -1,4 +1,4 @@
-export function BE() {
+export function AQ() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,11 +10,13 @@ export function BE() {
         <circle cx="256" cy="256" r="256" fill="#fff" />
       </mask>
       <g mask="url(#circle)">
-        <path fill="#333" d="M0 0h167l38.2 252.6L167 512H0z" />
-        <path fill="#d80027" d="M345 0h167v512H345l-36.7-256z" />
-        <path fill="#ffda44" d="M167 0h178v512H167z" />
+        <path fill="#338af3" d="M0 0h512v512H0z" />
+        <path
+          fill="#eee"
+          d="m135 343-41-70 17-38-40-51-9-37 74 51 45-11 19-67 50-29 75 11 87 45 4 74 28 10v76l-53 94-64 20-59-14 15-25-7-26-8 7z"
+        />
       </g>
     </svg>
   );
 }
-export default BE;
+export default AQ;

@@ -1,4 +1,4 @@
-export function BE() {
+export function RU() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,11 +10,11 @@ export function BE() {
         <circle cx="256" cy="256" r="256" fill="#fff" />
       </mask>
       <g mask="url(#circle)">
-        <path fill="#333" d="M0 0h167l38.2 252.6L167 512H0z" />
-        <path fill="#d80027" d="M345 0h167v512H345l-36.7-256z" />
-        <path fill="#ffda44" d="M167 0h178v512H167z" />
+        <path fill="#0052b4" d="M512 170v172l-256 32L0 342V170l256-32z" />
+        <path fill="#eee" d="M512 0v170H0V0Z" />
+        <path fill="#d80027" d="M512 342v170H0V342Z" />
       </g>
     </svg>
   );
 }
-export default BE;
+export default RU;
