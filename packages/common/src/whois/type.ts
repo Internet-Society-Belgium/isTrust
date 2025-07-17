@@ -11,6 +11,20 @@ export function validateBootstrap(json: unknown) {
   return bootstrap.data;
 }
 
+const rdapValueSchema = z.union([
+  z.string(),
+  z.array(z.union([z.string(), z.array(z.string())])),
+]);
+
+type RdapValue = z.infer<typeof rdapValueSchema>;
+
+export function stringifyRdapValue(value: RdapValue): string {
+  if (Array.isArray(value)) {
+    return value.map((v) => stringifyRdapValue(v)).join(" ");
+  }
+  return value;
+}
+
 // https://datatracker.ietf.org/doc/rfc7095/
 // https://datatracker.ietf.org/doc/rfc6350/
 const jCardSchema = z.tuple([
@@ -28,10 +42,7 @@ const jCardSchema = z.tuple([
       // Type
       z.string(),
       // Values
-      z.union([
-        z.string(),
-        z.array(z.union([z.string(), z.array(z.string())])),
-      ]),
+      rdapValueSchema,
     ]),
   ),
 ]);
@@ -76,10 +87,8 @@ export function validateRdapResult(json: unknown) {
 export interface WHOISData {
   registration?: string;
   expiration?: string;
-  registrant?: {
-    organization?: string;
-    individual?: string;
-    country?: string;
-  };
+  organization?: string[];
+  individual?: string[];
+  country?: string[];
   dnssecPresent?: boolean;
 }

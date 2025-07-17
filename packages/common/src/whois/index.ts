@@ -1,8 +1,9 @@
 import { DataCache } from "../type";
 import { parse_tld } from "../utils/domain";
-import { deepMerge } from "../utils/object";
+import { addNewValue } from "../utils/value";
 import {
   RdapResult,
+  stringifyRdapValue,
   validateBootstrap,
   validateRdapResult,
   WHOISData,
@@ -80,7 +81,7 @@ export async function get_data(domain: string, cache: DataCache) {
 
   const apiQueue: string[] = [...apis];
   const apiHistory: string[] = [];
-  while (apiQueue.length !== 0 && isDataPartial(data)) {
+  while (apiQueue.length !== 0) {
     let api = apiQueue.shift();
     if (!api) continue;
 
@@ -107,8 +108,7 @@ export async function get_data(domain: string, cache: DataCache) {
 
       const rdapResult = validateRdapResult(json);
 
-      const parse_result = parse(rdapResult);
-      deepMerge(data, parse_result);
+      improveData(data, rdapResult);
 
       for (const link of rdapResult.links) {
         if (link.rel === "related" && link.type === "application/rdap+json") {
@@ -127,18 +127,18 @@ export async function get_data(domain: string, cache: DataCache) {
   return data;
 }
 
-function parse(result: RdapResult) {
-  const data: WHOISData = {};
-
+function improveData(data: WHOISData, result: RdapResult) {
   for (const event of result.events) {
     if (event.eventAction === "registration") {
-      data.registration = new Date(event.eventDate).toISOString();
+      if (data.registration === undefined) {
+        data.registration = new Date(event.eventDate).toISOString();
+      }
     } else if (event.eventAction === "expiration") {
-      data.expiration = new Date(event.eventDate).toISOString();
+      if (data.expiration === undefined) {
+        data.expiration = new Date(event.eventDate).toISOString();
+      }
     }
   }
-
-  const registrant: typeof data.registrant = {};
 
   const registrantEntity = result.entities.find((e) => {
     return e.roles.findIndex((r) => r === "registrant") !== -1;
@@ -171,15 +171,11 @@ function parse(result: RdapResult) {
       if (fnProperty !== undefined) {
         const fnValue = fnProperty[3];
 
-        let fn = "";
-        if (Array.isArray(fnValue)) {
-          fn = fnValue.join(" ").trim();
-        } else {
-          fn = fnValue.trim();
-        }
+        const fn = stringifyRdapValue(fnValue);
 
-        if (fn !== "") {
-          registrant.individual = fn;
+        const newValue = addNewValue(data.individual, fn);
+        if (newValue) {
+          data.individual = newValue;
         }
       }
     }
@@ -191,15 +187,11 @@ function parse(result: RdapResult) {
     if (orgProperty !== undefined) {
       const orgValue = orgProperty[3];
 
-      let organization = "";
-      if (Array.isArray(orgValue)) {
-        organization = orgValue.join(" ").trim();
-      } else {
-        organization = orgValue.trim();
-      }
+      const organization = stringifyRdapValue(orgValue);
 
-      if (organization !== "") {
-        registrant.organization = organization;
+      const newValue = addNewValue(data.organization, organization);
+      if (newValue) {
+        data.organization = newValue;
       }
     }
 
@@ -212,60 +204,41 @@ function parse(result: RdapResult) {
 
       const cc = adrParameter.cc;
       if (cc !== undefined) {
-        let countryCode = "";
-        if (Array.isArray(cc)) {
-          countryCode = cc.at(0)?.trim() || "";
-        } else {
-          countryCode = cc.trim();
-        }
+        const countryCode = stringifyRdapValue(cc);
 
-        if (countryCode !== "") {
-          registrant.country = countryCode;
+        const newValue = addNewValue(data.country, countryCode);
+        if (newValue) {
+          data.country = newValue;
         }
       }
 
-      if (registrant.country === undefined) {
+      if (data.country === undefined) {
         const addressValue = adrProperty[3];
         if (Array.isArray(addressValue)) {
           // https://www.rfc-editor.org/rfc/rfc6350#section-6.3.1
           const countryValue = addressValue[6];
 
-          let countryName = "";
-          if (Array.isArray(countryValue)) {
-            countryName = countryValue.at(0)?.trim() || "";
-          } else {
-            countryName = countryValue.trim();
-          }
+          const countryName = stringifyRdapValue(countryValue);
 
-          if (countryName !== "") {
-            registrant.country = countryName;
+          const newValue = addNewValue(data.country, countryName);
+          if (newValue) {
+            data.country = newValue;
           }
         }
       }
     }
   }
 
-  if (Object.keys(registrant).length > 0) {
-    data.registrant = registrant;
-  }
-
   if (result.secureDNS) {
-    data.dnssecPresent = result.secureDNS.delegationSigned;
+    if (result.secureDNS.delegationSigned === true) {
+      data.dnssecPresent = true;
+    } else if (
+      result.secureDNS.delegationSigned === false &&
+      data.dnssecPresent !== true
+    ) {
+      data.dnssecPresent = false;
+    }
   }
 
   return data;
-}
-
-function isDataPartial(data: WHOISData) {
-  if (
-    data.registration === undefined ||
-    data.registrant === undefined ||
-    data.registrant.organization === undefined ||
-    data.registrant.country === undefined ||
-    data.dnssecPresent === undefined
-  ) {
-    return true;
-  }
-
-  return false;
 }

@@ -31,10 +31,8 @@ test("wikipedia.org", async () => {
   expect(whoisData).toStrictEqual({
     registration: "2001-01-13T00:12:14.754Z",
     expiration: "2026-01-13T00:12:14.000Z",
-    registrant: {
-      organization: "Wikimedia Foundation, Inc.",
-      country: "US",
-    },
+    organization: ["Wikimedia Foundation, Inc."],
+    country: ["US"],
     dnssecPresent: false,
   } satisfies typeof whoisData);
 });
@@ -45,10 +43,9 @@ test("istrust.org", async () => {
   expect(whoisData).toStrictEqual({
     registration: "2021-09-07T08:09:16.242Z",
     expiration: "2025-09-07T08:09:16.242Z",
-    registrant: {
-      organization: "Internet Society Chapter Belgium vzw/asbl",
-      country: "BE",
-    },
+    individual: ["Redacted for Privacy"],
+    organization: ["Internet Society Chapter Belgium vzw/asbl"],
+    country: ["BE"],
     dnssecPresent: false,
   } satisfies typeof whoisData);
 });
@@ -59,11 +56,9 @@ test("newtab.com", async () => {
   expect(whoisData).toStrictEqual({
     dnssecPresent: false,
     expiration: "2029-04-24T00:12:17.000Z",
-    registrant: {
-      country: "CN",
-      individual: "Redacted for Privacy",
-      organization: "广西云奥网络科技有限公司",
-    },
+    country: ["CN"],
+    individual: ["Redacted for Privacy"],
+    organization: ["广西云奥网络科技有限公司"],
     registration: "2005-04-24T00:12:17.000Z",
   } satisfies typeof whoisData);
 });
@@ -74,9 +69,7 @@ test("phishurl.com", async () => {
   expect(whoisData).toStrictEqual({
     dnssecPresent: false,
     expiration: "2025-05-27T15:31:15.000Z",
-    registrant: {
-      country: "BE",
-    },
+    country: ["BE"],
     registration: "2024-05-27T15:31:15.000Z",
   } satisfies typeof whoisData);
 });
