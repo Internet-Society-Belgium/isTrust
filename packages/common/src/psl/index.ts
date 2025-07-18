@@ -44,11 +44,14 @@ export async function load(cache: DataCache) {
       tld = line.substring(2);
     }
 
-    tld = parse_tld(tld);
-    if (tld === undefined) continue;
+    try {
+      tld = parse_tld(tld);
 
-    const rule = `${prefix}${tld}`;
-    promises.push(cache.psl.set(rule, ""));
+      const rule = `${prefix}${tld}`;
+      promises.push(cache.psl.set(rule, ""));
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   await Promise.allSettled(promises);
@@ -79,7 +82,7 @@ export async function get_effective_domain(domain: string, cache: DataCache) {
       }
     }
 
-    const rule = `${labels.slice(l).join(".")}`;
+    const rule = labels.slice(l).join(".");
     const ruleMatch = await cache.psl.get(rule);
     if (ruleMatch !== null) {
       return eDomain;

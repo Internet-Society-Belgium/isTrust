@@ -40,12 +40,16 @@ export async function load(cache: DataCache) {
     const apis = service[1];
 
     for (let tld of tlds) {
-      tld = parse_tld(tld);
+      try {
+        tld = parse_tld(tld);
 
-      const cachedData = await cache.rdap.get(tld);
-      const cachedApis = cachedData?.split(",") || [];
+        const cachedData = await cache.rdap.get(tld);
+        const cachedApis = cachedData?.split(",") || [];
 
-      promises.push(cache.rdap.set(tld, [...cachedApis, ...apis].join(",")));
+        promises.push(cache.rdap.set(tld, [...cachedApis, ...apis].join(",")));
+      } catch (e) {
+        console.error(e);
+      }
     }
   }
 
@@ -94,7 +98,7 @@ export async function get_data(domain: string, cache: DataCache) {
 
       const rdapResult = validateRdapResult(json);
 
-      improveData(data, rdapResult);
+      improve_data(data, rdapResult);
 
       for (const link of rdapResult.links) {
         if (link.rel === "related" && link.type === "application/rdap+json") {
@@ -113,7 +117,7 @@ export async function get_data(domain: string, cache: DataCache) {
   return data;
 }
 
-function improveData(data: WHOISData, result: RdapResult) {
+function improve_data(data: WHOISData, result: RdapResult) {
   for (const event of result.events) {
     if (event.eventAction === "registration") {
       if (data.registration === undefined) {
@@ -123,6 +127,14 @@ function improveData(data: WHOISData, result: RdapResult) {
       if (data.expiration === undefined) {
         data.expiration = new Date(event.eventDate).toISOString();
       }
+    }
+  }
+
+  if (result.secureDNS) {
+    if (result.secureDNS.delegationSigned) {
+      data.dnssecPresent = true;
+    } else if (data.dnssecPresent !== true) {
+      data.dnssecPresent = false;
     }
   }
 
@@ -159,9 +171,11 @@ function improveData(data: WHOISData, result: RdapResult) {
 
         const fn = stringifyRdapValue(fnValue);
 
-        const improvedIndividual = improve_array(data.individual, fn);
-        if (improvedIndividual) {
-          data.individual = improvedIndividual;
+        if (fn !== undefined) {
+          const improvedIndividual = improve_array(data.individual, fn);
+          if (improvedIndividual) {
+            data.individual = improvedIndividual;
+          }
         }
       }
     }
@@ -175,12 +189,14 @@ function improveData(data: WHOISData, result: RdapResult) {
 
       const organization = stringifyRdapValue(orgValue);
 
-      const improvedOrganization = improve_array(
-        data.organization,
-        organization,
-      );
-      if (improvedOrganization) {
-        data.organization = improvedOrganization;
+      if (organization !== undefined) {
+        const improvedOrganization = improve_array(
+          data.organization,
+          organization,
+        );
+        if (improvedOrganization) {
+          data.organization = improvedOrganization;
+        }
       }
     }
 
@@ -195,9 +211,11 @@ function improveData(data: WHOISData, result: RdapResult) {
       if (cc !== undefined) {
         const countryCode = stringifyRdapValue(cc);
 
-        const improvedCountry = improve_array(data.country, countryCode);
-        if (improvedCountry) {
-          data.country = improvedCountry;
+        if (countryCode !== undefined) {
+          const improvedCountry = improve_array(data.country, countryCode);
+          if (improvedCountry) {
+            data.country = improvedCountry;
+          }
         }
       }
 
@@ -209,20 +227,14 @@ function improveData(data: WHOISData, result: RdapResult) {
 
           const countryName = stringifyRdapValue(countryValue);
 
-          const improvedCountry = improve_array(data.country, countryName);
-          if (improvedCountry) {
-            data.country = improvedCountry;
+          if (countryName !== undefined) {
+            const improvedCountry = improve_array(data.country, countryName);
+            if (improvedCountry) {
+              data.country = improvedCountry;
+            }
           }
         }
       }
-    }
-  }
-
-  if (result.secureDNS) {
-    if (result.secureDNS.delegationSigned) {
-      data.dnssecPresent = true;
-    } else if (data.dnssecPresent !== true) {
-      data.dnssecPresent = false;
     }
   }
 

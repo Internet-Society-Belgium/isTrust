@@ -5,5 +5,6 @@ export interface X509Data {
   individual?: string;
   organization?: string;
   country?: string;
+  incCountry?: string;
   businessCategory?: BusinessCategory;
 }

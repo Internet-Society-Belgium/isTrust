@@ -101,7 +101,7 @@ const App: Component = () => {
       </form>
 
       <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
-        <div class="flex w-120 flex-col">
+        <div class="flex w-150 flex-col">
           <div class="flex gap-2">
             <h2>Domain:</h2>
             <Suspense fallback={<span>Loading...</span>}>
@@ -145,7 +145,11 @@ const App: Component = () => {
             <h2>Registrant individual:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.individual}>
-                {(individual) => <p>{individual()}</p>}
+                {(individuals) => (
+                  <For each={individuals()}>
+                    {(individual) => <p>{individual}</p>}
+                  </For>
+                )}
               </Show>
             </Suspense>
           </div>
@@ -154,7 +158,11 @@ const App: Component = () => {
             <h2>Certificate individual:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.individual}>
-                {(individual) => <p>{individual()}</p>}
+                {(individuals) => (
+                  <For each={individuals()}>
+                    {(individual) => <p>{individual}</p>}
+                  </For>
+                )}
               </Show>
             </Suspense>
           </div>
@@ -163,7 +171,11 @@ const App: Component = () => {
             <h2>Registrant organization:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.organization}>
-                {(organization) => <p>{organization()}</p>}
+                {(organizations) => (
+                  <For each={organizations()}>
+                    {(organization) => <p>{organization}</p>}
+                  </For>
+                )}
               </Show>
             </Suspense>
           </div>
@@ -172,7 +184,11 @@ const App: Component = () => {
             <h2>Certificate organization:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.organization}>
-                {(organization) => <p>{organization()}</p>}
+                {(organizations) => (
+                  <For each={organizations()}>
+                    {(organization) => <p>{organization}</p>}
+                  </For>
+                )}
               </Show>
             </Suspense>
           </div>
@@ -181,9 +197,13 @@ const App: Component = () => {
             <h2>Registrant country:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.country}>
-                {(country) => (
-                  <For each={country()}>
-                    {(c) => <Country value={c} locale={navigator.language} />}
+                {(countries) => (
+                  <For each={countries()}>
+                    {(country) => (
+                      <p>
+                        <Country value={country} locale={navigator.language} />
+                      </p>
+                    )}
                   </For>
                 )}
               </Show>
@@ -194,9 +214,13 @@ const App: Component = () => {
             <h2>Certificate country:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.country}>
-                {(country) => (
-                  <For each={country()}>
-                    {(c) => <Country value={c} locale={navigator.language} />}
+                {(countries) => (
+                  <For each={countries()}>
+                    {(country) => (
+                      <p>
+                        <Country value={country} locale={navigator.language} />
+                      </p>
+                    )}
                   </For>
                 )}
               </Show>
@@ -206,11 +230,10 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>DNSSEC present:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.dnssecPresent === true}>
-                <p>yes</p>
-              </Show>
-              <Show when={whoisData()?.dnssecPresent === false}>
-                <p>no</p>
+              <Show when={whoisData()?.dnssecPresent}>
+                {(dnssecPresent) => (
+                  <>{dnssecPresent() === true ? "yes" : "no"}</>
+                )}
               </Show>
             </Suspense>
           </div>
@@ -218,11 +241,8 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>DNSSEC valid:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={dnssecValid() === true}>
-                <p>yes</p>
-              </Show>
-              <Show when={dnssecValid() === false}>
-                <p>no</p>
+              <Show when={dnssecValid()}>
+                {(dnssecValid) => <>{dnssecValid() === true ? "yes" : "no"}</>}
               </Show>
             </Suspense>
           </div>
@@ -231,7 +251,7 @@ const App: Component = () => {
             <h2>Certificate type:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.type}>
-                {(type) => <p>{type()}</p>}
+                {(types) => <For each={types()}>{(type) => <p>{type}</p>}</For>}
               </Show>
             </Suspense>
           </div>
@@ -240,7 +260,11 @@ const App: Component = () => {
             <h2>Certificate business category:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.businessCategory}>
-                {(businessCategory) => <p>{businessCategory()}</p>}
+                {(businessCategory) => (
+                  <For each={businessCategory()}>
+                    {(businessCategory) => <p>{businessCategory}</p>}
+                  </For>
+                )}
               </Show>
             </Suspense>
           </div>

@@ -59,7 +59,7 @@ export function get_data(cert: X509Certificate) {
 
   const incCountry = atos(cert.subjectName.getField(oid.IncCountry));
   if (incCountry) {
-    data.country = incCountry;
+    data.incCountry = incCountry;
   }
 
   const businessCategory = atos(

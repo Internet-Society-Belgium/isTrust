@@ -13,6 +13,9 @@ export function parse_tld(text: string) {
 export function parse_domain(text: string) {
   const domainWithoutProtocol = text.match(/^(\w+:\/\/)?(.*)/)?.at(2);
 
+  if (domainWithoutProtocol === undefined)
+    throw new Error(`Invalid URL or domain name (${text})`);
+
   let domain;
   try {
     const url = new URL(`https://${domainWithoutProtocol}`);

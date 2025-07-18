@@ -14,41 +14,61 @@ export async function get_data(domain: string) {
   );
 
   for (const x509Data of x509sData) {
-    const improvedType = improve_array(certificateData.type, x509Data.type);
-    if (improvedType) {
-      certificateData.type = improvedType;
+    if (x509Data.type) {
+      const improvedType = improve_array(certificateData.type, x509Data.type);
+      if (improvedType) {
+        certificateData.type = improvedType;
+      }
     }
 
-    const improvedIndividual = improve_array(
-      certificateData.individual,
-      x509Data.individual,
-    );
-    if (improvedIndividual) {
-      certificateData.individual = improvedIndividual;
+    if (x509Data.individual) {
+      const improvedIndividual = improve_array(
+        certificateData.individual,
+        x509Data.individual,
+      );
+      if (improvedIndividual) {
+        certificateData.individual = improvedIndividual;
+      }
     }
 
-    const improvedOrganization = improve_array(
-      certificateData.organization,
-      x509Data.organization,
-    );
-    if (improvedOrganization) {
-      certificateData.organization = improvedOrganization;
+    if (x509Data.country) {
+      const improvedCountry = improve_array(
+        certificateData.country,
+        x509Data.country,
+      );
+      if (improvedCountry) {
+        certificateData.country = improvedCountry;
+      }
     }
 
-    const improvedCountry = improve_array(
-      certificateData.country,
-      x509Data.country,
-    );
-    if (improvedCountry) {
-      certificateData.country = improvedCountry;
+    if (x509Data.organization) {
+      const improvedOrganization = improve_array(
+        certificateData.organization,
+        x509Data.organization,
+      );
+      if (improvedOrganization) {
+        certificateData.organization = improvedOrganization;
+      }
     }
 
-    const improvedBusinessCategory = improve_array(
-      certificateData.businessCategory,
-      x509Data.businessCategory,
-    );
-    if (improvedBusinessCategory) {
-      certificateData.businessCategory = improvedBusinessCategory;
+    if (x509Data.incCountry) {
+      const improvedCountry = improve_array(
+        certificateData.country,
+        x509Data.incCountry,
+      );
+      if (improvedCountry) {
+        certificateData.country = improvedCountry;
+      }
+    }
+
+    if (x509Data.businessCategory) {
+      const improvedBusinessCategory = improve_array(
+        certificateData.businessCategory,
+        x509Data.businessCategory,
+      );
+      if (improvedBusinessCategory) {
+        certificateData.businessCategory = improvedBusinessCategory;
+      }
     }
   }
 

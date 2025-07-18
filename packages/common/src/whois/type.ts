@@ -19,11 +19,19 @@ const rdapValueSchema = z.union([
 
 type RdapValue = z.infer<typeof rdapValueSchema>;
 
-export function stringifyRdapValue(value: RdapValue): string {
+export function stringifyRdapValue(value: RdapValue): string | undefined {
+  let rdapValueString = "";
+
   if (Array.isArray(value)) {
-    return value.map((v) => stringifyRdapValue(v)).join(" ");
+    rdapValueString = value.map((v) => stringifyRdapValue(v)).join(" ");
+  } else {
+    rdapValueString = value;
   }
-  return value;
+
+  rdapValueString = rdapValueString.trim();
+  if (rdapValueString === "") return;
+
+  return rdapValueString;
 }
 
 // https://datatracker.ietf.org/doc/rfc7095/
@@ -88,8 +96,8 @@ export function validateRdapResult(json: unknown) {
 export interface WHOISData {
   registration?: string;
   expiration?: string;
+  dnssecPresent?: boolean;
   organization?: string[];
   individual?: string[];
   country?: string[];
-  dnssecPresent?: boolean;
 }

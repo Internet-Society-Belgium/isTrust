@@ -18,6 +18,7 @@ export default [
     },
     plugins: ["@typescript-eslint"],
     rules: {
+      eqeqeq: ["error", "always"],
       "@typescript-eslint/naming-convention": [
         "warn",
         {
