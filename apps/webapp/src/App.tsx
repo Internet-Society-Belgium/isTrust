@@ -6,9 +6,11 @@ import {
   createSignal,
   ErrorBoundary,
   For,
+  Match,
   onMount,
   Show,
   Suspense,
+  Switch,
   type Component,
 } from "solid-js";
 
@@ -142,11 +144,16 @@ const App: Component = () => {
           </div>
 
           <div class="flex gap-2">
-            <h2>Registrant individual:</h2>
+            <h2>Individual:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.individual}>
-                {(individuals) => (
-                  <For each={individuals()}>
+              <Show
+                when={[
+                  ...(certificateData()?.individual || []),
+                  ...(whoisData()?.individual || []),
+                ]}
+              >
+                {(data) => (
+                  <For each={new Set(data()).values().toArray()}>
                     {(individual) => <p>{individual}</p>}
                   </For>
                 )}
@@ -155,24 +162,16 @@ const App: Component = () => {
           </div>
 
           <div class="flex gap-2">
-            <h2>Certificate individual:</h2>
+            <h2>Organization:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.individual}>
-                {(individuals) => (
-                  <For each={individuals()}>
-                    {(individual) => <p>{individual}</p>}
-                  </For>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Registrant organization:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.organization}>
-                {(organizations) => (
-                  <For each={organizations()}>
+              <Show
+                when={[
+                  ...(certificateData()?.organization || []),
+                  ...(whoisData()?.organization || []),
+                ]}
+              >
+                {(data) => (
+                  <For each={new Set(data()).values().toArray()}>
                     {(organization) => <p>{organization}</p>}
                   </For>
                 )}
@@ -181,24 +180,16 @@ const App: Component = () => {
           </div>
 
           <div class="flex gap-2">
-            <h2>Certificate organization:</h2>
+            <h2>Country:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.organization}>
-                {(organizations) => (
-                  <For each={organizations()}>
-                    {(organization) => <p>{organization}</p>}
-                  </For>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Registrant country:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.country}>
-                {(countries) => (
-                  <For each={countries()}>
+              <Show
+                when={[
+                  ...(certificateData()?.country || []),
+                  ...(whoisData()?.country || []),
+                ]}
+              >
+                {(data) => (
+                  <For each={new Set(data()).values().toArray()}>
                     {(country) => (
                       <p>
                         <Country value={country} locale={navigator.language} />
@@ -211,39 +202,22 @@ const App: Component = () => {
           </div>
 
           <div class="flex gap-2">
-            <h2>Certificate country:</h2>
+            <h2>DNSSEC:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.country}>
-                {(countries) => (
-                  <For each={countries()}>
-                    {(country) => (
-                      <p>
-                        <Country value={country} locale={navigator.language} />
-                      </p>
-                    )}
-                  </For>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>DNSSEC present:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.dnssecPresent}>
-                {(dnssecPresent) => (
-                  <>{dnssecPresent() === true ? "yes" : "no"}</>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>DNSSEC valid:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={dnssecValid()}>
-                {(dnssecValid) => <>{dnssecValid() === true ? "yes" : "no"}</>}
-              </Show>
+              <Switch>
+                <Match when={dnssecValid() === true}>valid</Match>
+                <Match when={whoisData()?.dnssecPresent === true}>
+                  present
+                </Match>
+                <Match
+                  when={
+                    dnssecValid() === false &&
+                    whoisData()?.dnssecPresent === false
+                  }
+                >
+                  no
+                </Match>
+              </Switch>
             </Suspense>
           </div>
 
@@ -251,7 +225,20 @@ const App: Component = () => {
             <h2>Certificate type:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.type}>
-                {(types) => <For each={types()}>{(type) => <p>{type}</p>}</For>}
+                {(types) => (
+                  <For each={types()}>
+                    {(type) => (
+                      <Switch>
+                        <Match when={type === "DV"}>Domain validated</Match>
+                        <Match when={type === "IV"}>Individual validated</Match>
+                        <Match when={type === "OV"}>
+                          Organization validated
+                        </Match>
+                        <Match when={type === "EV"}>Extended validation</Match>
+                      </Switch>
+                    )}
+                  </For>
+                )}
               </Show>
             </Suspense>
           </div>
