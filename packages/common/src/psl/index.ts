@@ -22,7 +22,6 @@ export async function load(cache: DataCache) {
   // https://publicsuffix.org/list/
   const res = await fetch(
     "https://publicsuffix.org/list/public_suffix_list.dat",
-    { cache: "no-cache" },
   );
 
   const text = await res.text();

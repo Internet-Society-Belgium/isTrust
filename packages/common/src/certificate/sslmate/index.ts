@@ -7,7 +7,6 @@ export async function get_data(domain: string) {
     // https://sslmate.com/help/reference/ct_search_api_v1#api_list
     const resSearch = await fetch(
       `https://api.certspotter.com/v1/issuances?domain=${domain}&match_wildcards=true&expand=dns_names&expand=cert_der`,
-      { cache: "no-cache" },
     );
     const jsonSearch: unknown = await resSearch.json();
     const resultsSearch = validateSSLMateSearch(jsonSearch);

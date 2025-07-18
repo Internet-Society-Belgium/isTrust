@@ -27,9 +27,7 @@ export async function load(cache: DataCache) {
   await cache.rdap.clear();
 
   // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
-  const res = await fetch("https://data.iana.org/rdap/dns.json", {
-    cache: "no-cache",
-  });
+  const res = await fetch("https://data.iana.org/rdap/dns.json");
 
   const json: unknown = await res.json();
 
@@ -43,7 +41,6 @@ export async function load(cache: DataCache) {
 
     for (let tld of tlds) {
       tld = parse_tld(tld);
-      if (tld === undefined) continue;
 
       const cachedData = await cache.rdap.get(tld);
       const cachedApis = cachedData?.split(",") || [];
@@ -88,9 +85,7 @@ export async function get_data(domain: string, cache: DataCache) {
       if (apiHistory.includes(api)) continue;
       apiHistory.push(api);
 
-      const res = await fetch(api, {
-        cache: "no-cache",
-      });
+      const res = await fetch(api);
 
       if (!res.ok)
         throw new Error(`No RDAP response from ${new URL(api).hostname}`);
@@ -224,12 +219,9 @@ function improveData(data: WHOISData, result: RdapResult) {
   }
 
   if (result.secureDNS) {
-    if (result.secureDNS.delegationSigned === true) {
+    if (result.secureDNS.delegationSigned) {
       data.dnssecPresent = true;
-    } else if (
-      result.secureDNS.delegationSigned === false &&
-      data.dnssecPresent !== true
-    ) {
+    } else if (data.dnssecPresent !== true) {
       data.dnssecPresent = false;
     }
   }
