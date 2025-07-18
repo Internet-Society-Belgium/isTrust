@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { z } from "zod/mini";
+import { Data } from "../type";
 
 // https://datatracker.ietf.org/doc/rfc9224/
 const BootstrapSchema = z.object({
   services: z.array(z.array(z.array(z.string()))),
 });
 
-export function validateBootstrap(json: unknown) {
+export function validate_bootstrap(json: unknown) {
   const bootstrap = BootstrapSchema.safeParse(json);
   if (!bootstrap.success) throw new Error("Invalid RDAP bootstrap file format");
   return bootstrap.data;
@@ -19,11 +20,11 @@ const rdapValueSchema = z.union([
 
 type RdapValue = z.infer<typeof rdapValueSchema>;
 
-export function stringifyRdapValue(value: RdapValue): string | undefined {
+export function stringify_rdap_value(value: RdapValue): string | undefined {
   let rdapValueString = "";
 
   if (Array.isArray(value)) {
-    rdapValueString = value.map((v) => stringifyRdapValue(v)).join(" ");
+    rdapValueString = value.map((v) => stringify_rdap_value(v)).join(" ");
   } else {
     rdapValueString = value;
   }
@@ -56,6 +57,15 @@ const jCardSchema = z.tuple([
   ),
 ]);
 
+export type JCard = z.infer<typeof jCardSchema>;
+
+// https://www.rfc-editor.org/rfc/rfc7483.html#section-4.2
+const LinkSchema = z.object({
+  href: z.string(),
+  rel: z.optional(z.string()),
+  type: z.optional(z.string()),
+});
+
 // https://datatracker.ietf.org/doc/rfc7483/
 const RdapResultSchema = z.object({
   events: z.array(
@@ -69,6 +79,7 @@ const RdapResultSchema = z.object({
       vcardArray: z.optional(jCardSchema),
       roles: z.array(z.string()),
       objectClassName: z.string(),
+      links: z.optional(z.array(LinkSchema)),
     }),
   ),
   secureDNS: z.optional(
@@ -76,13 +87,7 @@ const RdapResultSchema = z.object({
       delegationSigned: z.boolean(),
     }),
   ),
-  links: z.array(
-    z.object({
-      href: z.string(),
-      rel: z.optional(z.string()),
-      type: z.optional(z.string()),
-    }),
-  ),
+  links: z.array(LinkSchema),
 });
 
 export type RdapResult = z.infer<typeof RdapResultSchema>;
@@ -94,10 +99,10 @@ export function validateRdapResult(json: unknown) {
 }
 
 export interface WHOISData {
-  registration?: string;
-  expiration?: string;
-  dnssecPresent?: boolean;
-  organization?: string[];
-  individual?: string[];
-  country?: string[];
+  registration?: Data<string>[];
+  expiration?: Data<string>[];
+  dnssecPresent?: Data<boolean>[];
+  organizations?: Data<string>[];
+  individuals?: Data<string>[];
+  countries?: Data<string>[];
 }

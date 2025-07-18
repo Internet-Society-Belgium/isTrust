@@ -118,7 +118,7 @@ const App: Component = () => {
                 {(registration) => (
                   <p>
                     <DateDifference
-                      date={registration()}
+                      date={registration().value}
                       locale={navigator.language}
                     />
                   </p>
@@ -134,7 +134,7 @@ const App: Component = () => {
                 {(expiration) => (
                   <p>
                     <DateDifference
-                      date={expiration()}
+                      date={expiration().value}
                       locale={navigator.language}
                     />
                   </p>
@@ -148,13 +148,13 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Show
                 when={[
-                  ...(certificateData()?.individual || []),
-                  ...(whoisData()?.individual || []),
+                  ...(certificateData()?.individuals || []),
+                  ...(whoisData()?.individuals || []),
                 ]}
               >
                 {(data) => (
                   <For each={new Set(data()).values().toArray()}>
-                    {(individual) => <p>{individual}</p>}
+                    {(individual) => <p>{individual.value}</p>}
                   </For>
                 )}
               </Show>
@@ -166,13 +166,13 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Show
                 when={[
-                  ...(certificateData()?.organization || []),
-                  ...(whoisData()?.organization || []),
+                  ...(certificateData()?.organizations || []),
+                  ...(whoisData()?.organizations || []),
                 ]}
               >
                 {(data) => (
                   <For each={new Set(data()).values().toArray()}>
-                    {(organization) => <p>{organization}</p>}
+                    {(organization) => <p>{organization.value}</p>}
                   </For>
                 )}
               </Show>
@@ -184,15 +184,18 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Show
                 when={[
-                  ...(certificateData()?.country || []),
-                  ...(whoisData()?.country || []),
+                  ...(certificateData()?.countries || []),
+                  ...(whoisData()?.countries || []),
                 ]}
               >
                 {(data) => (
                   <For each={new Set(data()).values().toArray()}>
                     {(country) => (
                       <p>
-                        <Country value={country} locale={navigator.language} />
+                        <Country
+                          value={country.value}
+                          locale={navigator.language}
+                        />
                       </p>
                     )}
                   </For>
@@ -206,13 +209,13 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Switch>
                 <Match when={dnssecValid() === true}>valid</Match>
-                <Match when={whoisData()?.dnssecPresent === true}>
+                <Match when={whoisData()?.dnssecPresent?.value === true}>
                   present
                 </Match>
                 <Match
                   when={
                     dnssecValid() === false &&
-                    whoisData()?.dnssecPresent === false
+                    whoisData()?.dnssecPresent?.value === false
                   }
                 >
                   no
@@ -229,12 +232,18 @@ const App: Component = () => {
                   <For each={types()}>
                     {(type) => (
                       <Switch>
-                        <Match when={type === "DV"}>Domain validated</Match>
-                        <Match when={type === "IV"}>Individual validated</Match>
-                        <Match when={type === "OV"}>
+                        <Match when={type.value === "DV"}>
+                          Domain validated
+                        </Match>
+                        <Match when={type.value === "IV"}>
+                          Individual validated
+                        </Match>
+                        <Match when={type.value === "OV"}>
                           Organization validated
                         </Match>
-                        <Match when={type === "EV"}>Extended validation</Match>
+                        <Match when={type.value === "EV"}>
+                          Extended validation
+                        </Match>
                       </Switch>
                     )}
                   </For>
@@ -246,10 +255,10 @@ const App: Component = () => {
           <div class="flex gap-2">
             <h2>Certificate business category:</h2>
             <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.businessCategory}>
+              <Show when={certificateData()?.businessCategories}>
                 {(businessCategory) => (
                   <For each={businessCategory()}>
-                    {(businessCategory) => <p>{businessCategory}</p>}
+                    {(businessCategory) => <p>{businessCategory.value}</p>}
                   </For>
                 )}
               </Show>

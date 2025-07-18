@@ -1,7 +1,14 @@
 import { BusinessCategory, CertificateType } from "../type";
 
+export interface X509Issuer {
+  organization?: string;
+  country?: string;
+  links?: string[];
+}
+
 export interface X509Data {
-  type?: CertificateType;
+  type: CertificateType;
+  issuer: X509Issuer;
   individual?: string;
   organization?: string;
   country?: string;

@@ -1,27 +1,27 @@
 import { expect, test } from "vitest";
-import { stringifyRdapValue } from "./type";
+import { stringify_rdap_value } from "./type";
 
-test("stringifyRdapValue string", async () => {
-  expect(stringifyRdapValue("string")).toStrictEqual("string");
+test("stringify_rdap_value string", () => {
+  expect(stringify_rdap_value("string")).toStrictEqual("string");
 });
 
-test("stringifyRdapValue string[]", async () => {
-  expect(stringifyRdapValue(["string1", "string2"])).toStrictEqual(
+test("stringify_rdap_value string[]", () => {
+  expect(stringify_rdap_value(["string1", "string2"])).toStrictEqual(
     "string1 string2",
   );
 });
 
-test("stringifyRdapValue string[][]", async () => {
+test("stringify_rdap_value string[][]", () => {
   expect(
-    stringifyRdapValue([
+    stringify_rdap_value([
       ["string1", "string2"],
       ["string3", "string4"],
     ]),
   ).toStrictEqual("string1 string2 string3 string4");
 });
 
-test("stringifyRdapValue (string | string[])[]", async () => {
+test("stringify_rdap_value (string | string[])[]", () => {
   expect(
-    stringifyRdapValue(["string1", "string2", ["string3", "string4"]]),
+    stringify_rdap_value(["string1", "string2", ["string3", "string4"]]),
   ).toStrictEqual("string1 string2 string3 string4");
 });

@@ -1,9 +1,11 @@
-import { improve_array } from "../utils/array";
+import { improve_data_array } from "../type";
 import * as sslmate from "./sslmate";
 import { CertificateData, CertificateType } from "./type";
 
 export async function get_data(domain: string) {
   const x509sData = await sslmate.get_data(domain);
+
+  // await new Promise((resolve) => setTimeout(resolve, 2 * 1000));
 
   if (x509sData === undefined || x509sData.length === 0) return;
 
@@ -14,60 +16,88 @@ export async function get_data(domain: string) {
   );
 
   for (const x509Data of x509sData) {
-    if (x509Data.type) {
-      const improvedType = improve_array(certificateData.type, x509Data.type);
-      if (improvedType) {
-        certificateData.type = improvedType;
-      }
+    const improvedType = improve_data_array(certificateData.type, {
+      value: x509Data.type,
+      verification: {
+        status: "verified",
+        by: x509Data.issuer,
+      },
+    });
+    if (improvedType.length > 0) {
+      certificateData.type = improvedType;
     }
 
     if (x509Data.individual) {
-      const improvedIndividual = improve_array(
-        certificateData.individual,
-        x509Data.individual,
+      const improvedIndividual = improve_data_array(
+        certificateData.individuals,
+        {
+          value: x509Data.individual,
+          verification: {
+            status: "verified",
+            by: x509Data.issuer,
+          },
+        },
       );
-      if (improvedIndividual) {
-        certificateData.individual = improvedIndividual;
+      if (improvedIndividual.length > 0) {
+        certificateData.individuals = improvedIndividual;
       }
     }
 
     if (x509Data.country) {
-      const improvedCountry = improve_array(
-        certificateData.country,
-        x509Data.country,
-      );
-      if (improvedCountry) {
-        certificateData.country = improvedCountry;
+      const improvedCountry = improve_data_array(certificateData.countries, {
+        value: x509Data.country,
+        verification: {
+          status: "verified",
+          by: x509Data.issuer,
+        },
+      });
+      if (improvedCountry.length > 0) {
+        certificateData.countries = improvedCountry;
       }
     }
 
     if (x509Data.organization) {
-      const improvedOrganization = improve_array(
-        certificateData.organization,
-        x509Data.organization,
+      const improvedOrganization = improve_data_array(
+        certificateData.organizations,
+        {
+          value: x509Data.organization,
+          verification: {
+            status: "verified",
+            by: x509Data.issuer,
+          },
+        },
       );
-      if (improvedOrganization) {
-        certificateData.organization = improvedOrganization;
+      if (improvedOrganization.length > 0) {
+        certificateData.organizations = improvedOrganization;
       }
     }
 
     if (x509Data.incCountry) {
-      const improvedCountry = improve_array(
-        certificateData.country,
-        x509Data.incCountry,
-      );
-      if (improvedCountry) {
-        certificateData.country = improvedCountry;
+      const improvedCountry = improve_data_array(certificateData.countries, {
+        value: x509Data.incCountry,
+        verification: {
+          status: "verified",
+          by: x509Data.issuer,
+        },
+      });
+      if (improvedCountry.length > 0) {
+        certificateData.countries = improvedCountry;
       }
     }
 
     if (x509Data.businessCategory) {
-      const improvedBusinessCategory = improve_array(
-        certificateData.businessCategory,
-        x509Data.businessCategory,
+      const improvedBusinessCategory = improve_data_array(
+        certificateData.businessCategories,
+        {
+          value: x509Data.businessCategory,
+          verification: {
+            status: "verified",
+            by: x509Data.issuer,
+          },
+        },
       );
-      if (improvedBusinessCategory) {
-        certificateData.businessCategory = improvedBusinessCategory;
+      if (improvedBusinessCategory.length > 0) {
+        certificateData.businessCategories = improvedBusinessCategory;
       }
     }
   }

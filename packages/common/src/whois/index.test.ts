@@ -30,11 +30,66 @@ test("wikipedia.org", async () => {
   const whoisData = await get_data("wikipedia.org", cache);
 
   expect(whoisData).toStrictEqual({
-    registration: "2001-01-13T00:12:14.754Z",
-    expiration: "2026-01-13T00:12:14.000Z",
-    organization: ["Wikimedia Foundation, Inc."],
-    country: ["US"],
-    dnssecPresent: false,
+    countries: [
+      {
+        value: "US",
+        verification: {
+          by: {
+            links: ["https://rdap.publicinterestregistry.org/rdap/entity/292"],
+            organization: "MarkMonitor Inc.",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    dnssecPresent: [
+      {
+        value: false,
+        verification: {
+          by: {
+            links: ["https://rdap.publicinterestregistry.org/rdap/entity/292"],
+            organization: "MarkMonitor Inc.",
+          },
+          status: "verified",
+        },
+      },
+    ],
+    expiration: [
+      {
+        value: "2026-01-12T23:00:00.000Z",
+        verification: {
+          by: {
+            links: ["https://rdap.publicinterestregistry.org/rdap/entity/292"],
+            organization: "MarkMonitor Inc.",
+          },
+          status: "verified",
+        },
+      },
+    ],
+    organizations: [
+      {
+        value: "Wikimedia Foundation, Inc.",
+        verification: {
+          by: {
+            links: ["https://rdap.publicinterestregistry.org/rdap/entity/292"],
+            organization: "MarkMonitor Inc.",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    registration: [
+      {
+        value: "2001-01-12T23:00:00.000Z",
+        verification: {
+          by: {
+            links: ["https://rdap.publicinterestregistry.org/rdap/entity/292"],
+            organization: "MarkMonitor Inc.",
+          },
+          status: "verified",
+        },
+      },
+    ],
   } satisfies typeof whoisData);
 });
 
@@ -42,12 +97,93 @@ test("istrust.org", async () => {
   const whoisData = await get_data("istrust.org", cache);
 
   expect(whoisData).toStrictEqual({
-    registration: "2021-09-07T08:09:16.242Z",
-    expiration: "2025-09-07T08:09:16.242Z",
-    individual: ["Redacted for Privacy"],
-    organization: ["Internet Society Chapter Belgium vzw/asbl"],
-    country: ["BE"],
-    dnssecPresent: false,
+    countries: [
+      {
+        value: "BE",
+        verification: {
+          by: {
+            links: [
+              "https://rdap.publicinterestregistry.org/rdap/entity/81",
+              "https://www.gandi.net/",
+            ],
+            organization: "Gandi SAS",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    dnssecPresent: [
+      {
+        value: false,
+        verification: {
+          by: {
+            links: [
+              "https://rdap.publicinterestregistry.org/rdap/entity/81",
+              "https://www.gandi.net/",
+            ],
+            organization: "Gandi SAS",
+          },
+          status: "verified",
+        },
+      },
+    ],
+    expiration: [
+      {
+        value: "2025-09-06T22:00:00.000Z",
+        verification: {
+          by: {
+            links: [
+              "https://rdap.publicinterestregistry.org/rdap/entity/81",
+              "https://www.gandi.net/",
+            ],
+            organization: "Gandi SAS",
+          },
+          status: "verified",
+        },
+      },
+    ],
+    individuals: [
+      {
+        value: "Redacted for Privacy",
+        verification: {
+          by: {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    organizations: [
+      {
+        value: "Internet Society Chapter Belgium vzw/asbl",
+        verification: {
+          by: {
+            links: [
+              "https://rdap.publicinterestregistry.org/rdap/entity/81",
+              "https://www.gandi.net/",
+            ],
+            organization: "Gandi SAS",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    registration: [
+      {
+        value: "2021-09-06T22:00:00.000Z",
+        verification: {
+          by: {
+            links: [
+              "https://rdap.publicinterestregistry.org/rdap/entity/81",
+              "https://www.gandi.net/",
+            ],
+            organization: "Gandi SAS",
+          },
+          status: "verified",
+        },
+      },
+    ],
   } satisfies typeof whoisData);
 });
 
@@ -55,12 +191,81 @@ test("newtab.com", async () => {
   const whoisData = await get_data("newtab.com", cache);
 
   expect(whoisData).toStrictEqual({
-    dnssecPresent: false,
-    expiration: "2029-04-24T00:12:17.000Z",
-    country: ["CN"],
-    individual: ["Redacted for Privacy"],
-    organization: ["广西云奥网络科技有限公司"],
-    registration: "2005-04-24T00:12:17.000Z",
+    countries: [
+      {
+        value: "CN",
+        verification: {
+          by: {
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    dnssecPresent: [
+      {
+        value: false,
+        verification: {
+          by: {
+            links: ["http://wanwang.aliyun.com"],
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+          },
+          status: "verified",
+        },
+      },
+    ],
+    expiration: [
+      {
+        value: "2029-04-23T22:00:00.000Z",
+        verification: {
+          by: {
+            links: ["http://wanwang.aliyun.com"],
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+          },
+          status: "verified",
+        },
+      },
+    ],
+    individuals: [
+      {
+        value: "Redacted for Privacy",
+        verification: {
+          by: {
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    organizations: [
+      {
+        value: "广西云奥网络科技有限公司",
+        verification: {
+          by: {
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    registration: [
+      {
+        value: "2005-04-23T22:00:00.000Z",
+        verification: {
+          by: {
+            links: ["http://wanwang.aliyun.com"],
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+          },
+          status: "verified",
+        },
+      },
+    ],
   } satisfies typeof whoisData);
 });
 
@@ -68,9 +273,53 @@ test("phishurl.com", async () => {
   const whoisData = await get_data("phishurl.com", cache);
 
   expect(whoisData).toStrictEqual({
-    dnssecPresent: false,
-    expiration: "2025-05-27T15:31:15.000Z",
-    country: ["BE"],
-    registration: "2024-05-27T15:31:15.000Z",
+    countries: [
+      {
+        value: "BE",
+        verification: {
+          by: {
+            links: ["https://rdap.ovh.com/"],
+            organization: "OVH, SAS",
+          },
+          status: "unverified",
+        },
+      },
+    ],
+    dnssecPresent: [
+      {
+        value: false,
+        verification: {
+          by: {
+            links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
+            organization: "OVH sas",
+          },
+          status: "verified",
+        },
+      },
+    ],
+    expiration: [
+      {
+        value: "2025-05-26T22:00:00.000Z",
+        verification: {
+          by: {
+            links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
+            organization: "OVH sas",
+          },
+          status: "verified",
+        },
+      },
+    ],
+    registration: [
+      {
+        value: "2024-05-26T22:00:00.000Z",
+        verification: {
+          by: {
+            links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
+            organization: "OVH sas",
+          },
+          status: "verified",
+        },
+      },
+    ],
   } satisfies typeof whoisData);
 });

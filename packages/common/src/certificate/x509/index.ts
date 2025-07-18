@@ -1,12 +1,7 @@
 import * as x509 from "@peculiar/x509";
+import { CertificateType } from "../type";
 import * as oid from "./oid";
-import { X509Data } from "./type";
-
-function atos(array: string[]) {
-  const text = array.join(" ").trim();
-  if (text === "") return;
-  return text;
-}
+import { X509Data, X509Issuer } from "./type";
 
 export type X509Certificate = x509.X509Certificate;
 
@@ -17,71 +12,87 @@ export function parse_cert(raw: string) {
 // https://cabforum.org/working-groups/server/baseline-requirements/documents/
 // https://cabforum.org/working-groups/server/extended-validation/documents/
 export function get_data(cert: X509Certificate) {
-  const data: X509Data = {};
+  let type: CertificateType;
 
   const certificatePolicyExtension = cert.getExtension(
     x509.CertificatePolicyExtension,
   );
-  if (certificatePolicyExtension) {
-    if (certificatePolicyExtension.policies.includes(oid.ExtendedValidation)) {
-      data.type = "EV";
-    } else if (
-      certificatePolicyExtension.policies.includes(oid.OrganizationValidation)
-    ) {
-      data.type = "OV";
-    } else if (
-      certificatePolicyExtension.policies.includes(oid.IndividualValidation)
-    ) {
-      data.type = "IV";
-    } else if (
-      certificatePolicyExtension.policies.includes(oid.DomainValidation)
-    ) {
-      data.type = "DV";
-    }
+  if (certificatePolicyExtension?.policies.includes(oid.ExtendedValidation)) {
+    type = "EV";
+  } else if (
+    certificatePolicyExtension?.policies.includes(oid.OrganizationValidation)
+  ) {
+    type = "OV";
+  } else if (
+    certificatePolicyExtension?.policies.includes(oid.IndividualValidation)
+  ) {
+    type = "IV";
+  } else {
+    type = "DV";
   }
 
-  const organization = atos(cert.subjectName.getField(oid.Organization));
-  if (organization) {
+  const issuer: X509Issuer = {};
+
+  const issuerOrganization = atos(cert.issuerName.getField(oid.Organization));
+  if (issuerOrganization !== undefined) {
+    issuer.organization = issuerOrganization;
+  }
+
+  const issuerCountry = atos(cert.issuerName.getField(oid.Country));
+  if (issuerCountry !== undefined) {
+    issuer.country = issuerCountry;
+  }
+
+  const data: X509Data = { type, issuer };
+
+  const subjectOrganization = atos(cert.subjectName.getField(oid.Organization));
+  if (subjectOrganization) {
     const organizationUnit = atos(
       cert.subjectName.getField(oid.OrganizationalUnit),
     );
     if (organizationUnit) {
-      data.organization = `${organization} (${organizationUnit})`;
+      data.organization = `${subjectOrganization} (${organizationUnit})`;
     } else {
-      data.organization = organization;
+      data.organization = subjectOrganization;
     }
   }
 
-  const country = atos(cert.subjectName.getField(oid.Country));
-  if (country) {
-    data.country = country;
+  const subjectCountry = atos(cert.subjectName.getField(oid.Country));
+  if (subjectCountry) {
+    data.country = subjectCountry;
   }
 
-  const incCountry = atos(cert.subjectName.getField(oid.IncCountry));
-  if (incCountry) {
-    data.incCountry = incCountry;
+  const subjectIncCountry = atos(cert.subjectName.getField(oid.IncCountry));
+  if (subjectIncCountry) {
+    data.incCountry = subjectIncCountry;
   }
 
-  const businessCategory = atos(
+  const subjectBusinessCategory = atos(
     cert.subjectName.getField(oid.BusinessCategory),
   );
 
-  if (businessCategory === "Private Organization") {
+  if (subjectBusinessCategory === "Private Organization") {
     data.businessCategory = "Private Organization";
-  } else if (businessCategory === "Government Entity") {
+  } else if (subjectBusinessCategory === "Government Entity") {
     data.businessCategory = "Government Entity";
-  } else if (businessCategory === "Business Entity") {
+  } else if (subjectBusinessCategory === "Business Entity") {
     data.businessCategory = "Business Entity";
-  } else if (businessCategory === "Non-Commercial Entity") {
+  } else if (subjectBusinessCategory === "Non-Commercial Entity") {
     data.businessCategory = "Non-Commercial Entity";
   }
 
-  const givenName = atos(cert.subjectName.getField(oid.GivenName));
-  if (givenName) {
-    data.individual = givenName;
+  const subjectGivenName = atos(cert.subjectName.getField(oid.GivenName));
+  if (subjectGivenName) {
+    data.individual = subjectGivenName;
   }
 
   return data;
+}
+
+function atos(array: string[]) {
+  const text = array.join(" ").trim();
+  if (text === "") return;
+  return text;
 }
 
 export async function is_valid_cert(cert: X509Certificate, domain: string) {
