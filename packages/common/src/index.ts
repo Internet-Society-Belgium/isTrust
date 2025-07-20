@@ -1,11 +1,11 @@
 import * as certificate from "./certificate";
 import * as dnssec from "./dnssec";
 import * as psl from "./psl";
-import type { DataCache } from "./type";
+import type { Data, DataCache } from "./type";
 import { parse_domain } from "./utils/domain";
 import * as whois from "./whois";
 
-export { DataCache as InternalCache };
+export { Data, DataCache };
 
 export async function get_effective_domain(query: string, cache: DataCache) {
   const domain = parse_domain(query);

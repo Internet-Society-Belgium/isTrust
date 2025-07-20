@@ -278,44 +278,46 @@ function improve_data(data: WHOISData, result: RdapResult) {
 function get_name(jCard: JCard) {
   const fnProperty = jCard[1].find((p) => p[0] === "fn");
 
-  if (fnProperty !== undefined) {
-    const fnValue = fnProperty[3];
+  if (fnProperty === undefined) return;
 
-    return stringify_rdap_value(fnValue);
-  }
+  const fnValue = fnProperty[3];
+
+  return stringify_rdap_value(fnValue);
 }
 
 function get_organization(jCard: JCard) {
   const orgProperty = jCard[1].find((p) => p[0] === "org");
 
-  if (orgProperty !== undefined) {
-    const orgValue = orgProperty[3];
+  if (orgProperty === undefined) return;
 
-    return stringify_rdap_value(orgValue);
-  }
+  const orgValue = orgProperty[3];
+
+  return stringify_rdap_value(orgValue);
 }
 
 function get_country(vcardArray: JCard) {
   const adrProperty = vcardArray[1].find((p) => p[0] === "adr");
 
-  if (adrProperty !== undefined) {
-    const adrParameter = adrProperty[1];
+  if (adrProperty === undefined) return;
 
-    const cc = adrParameter.cc;
-    if (cc !== undefined) {
-      const countryCode = stringify_rdap_value(cc);
+  const adrParameter = adrProperty[1];
 
-      return countryCode;
-    }
+  const cc = adrParameter.cc;
+  if (cc !== undefined) {
+    const countryCode = stringify_rdap_value(cc);
 
-    const addressValue = adrProperty[3];
-    if (Array.isArray(addressValue)) {
-      // https://www.rfc-editor.org/rfc/rfc6350#section-6.3.1
-      const countryValue = addressValue[6];
-
-      const countryName = stringify_rdap_value(countryValue);
-
-      return countryName;
-    }
+    return countryCode;
   }
+
+  const addressValue = adrProperty[3];
+  if (Array.isArray(addressValue)) {
+    // https://www.rfc-editor.org/rfc/rfc6350#section-6.3.1
+    const countryValue = addressValue[6];
+
+    const countryName = stringify_rdap_value(countryValue);
+
+    return countryName;
+  }
+
+  return;
 }

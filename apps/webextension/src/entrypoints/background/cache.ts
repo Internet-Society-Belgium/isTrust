@@ -1,7 +1,7 @@
 import * as common from "@istrust/common";
 import { storage } from "#imports";
 
-export const cache: common.InternalCache = {
+export const cache: common.DataCache = {
   psl: {
     set: async (key: string, value: string) =>
       storage.setItem(`local:psl:${key}`, value),

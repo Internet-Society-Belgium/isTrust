@@ -14,7 +14,7 @@ import {
   type Component,
 } from "solid-js";
 
-const cache: common.InternalCache = {
+const cache: common.DataCache = {
   psl: {
     set: async (key: string, value: string) =>
       localStorage.setItem(`psl:${key}`, value),
