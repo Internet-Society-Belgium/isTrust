@@ -24,10 +24,10 @@ test("improve_data_array same", () => {
         status: "unverified",
       },
     },
-  ]);
+  ] satisfies typeof array);
 });
 
-test("improve_data_array different", () => {
+test("improve_data_array different status", () => {
   const array: Data<string>[] = [
     {
       value: "value",
@@ -40,7 +40,7 @@ test("improve_data_array different", () => {
     value: "value",
     verification: {
       status: "verified",
-      by: {},
+      authority: [],
     },
   };
 
@@ -54,23 +54,25 @@ test("improve_data_array different", () => {
     {
       value: "value",
       verification: {
-        by: {},
+        authority: [],
         status: "verified",
       },
     },
-  ]);
+  ] satisfies typeof array);
 });
 
-test("improve_data_array links", () => {
+test("improve_data_array add link", () => {
   const array: Data<string>[] = [
     {
       value: "value",
       verification: {
         status: "verified",
-        by: {
-          organization: "organization",
-          links: ["link1"],
-        },
+        authority: [
+          {
+            organization: "organization",
+            links: ["link1"],
+          },
+        ],
       },
     },
   ];
@@ -78,10 +80,12 @@ test("improve_data_array links", () => {
     value: "value",
     verification: {
       status: "verified",
-      by: {
-        organization: "organization",
-        links: ["link2"],
-      },
+      authority: [
+        {
+          organization: "organization",
+          links: ["link2"],
+        },
+      ],
     },
   };
 
@@ -90,13 +94,15 @@ test("improve_data_array links", () => {
       value: "value",
       verification: {
         status: "verified",
-        by: {
-          organization: "organization",
-          links: ["link1", "link2"],
-        },
+        authority: [
+          {
+            organization: "organization",
+            links: ["link1", "link2"],
+          },
+        ],
       },
     },
-  ]);
+  ] satisfies typeof array);
 });
 
 test("improve_data_array same link", () => {
@@ -105,10 +111,12 @@ test("improve_data_array same link", () => {
       value: "value",
       verification: {
         status: "verified",
-        by: {
-          organization: "organization",
-          links: ["link"],
-        },
+        authority: [
+          {
+            organization: "organization",
+            links: ["link"],
+          },
+        ],
       },
     },
   ];
@@ -116,10 +124,12 @@ test("improve_data_array same link", () => {
     value: "value",
     verification: {
       status: "verified",
-      by: {
-        organization: "organization",
-        links: ["link"],
-      },
+      authority: [
+        {
+          organization: "organization",
+          links: ["link"],
+        },
+      ],
     },
   };
 
@@ -128,35 +138,41 @@ test("improve_data_array same link", () => {
       value: "value",
       verification: {
         status: "verified",
-        by: {
-          organization: "organization",
-          links: ["link"],
-        },
+        authority: [
+          {
+            organization: "organization",
+            links: ["link"],
+          },
+        ],
       },
     },
-  ]);
+  ] satisfies typeof array);
 });
 
-test("improve_data_array different", () => {
+test("improve_data_array different organisation", () => {
   const array: Data<string>[] = [
     {
       value: "value",
       verification: {
         status: "verified",
-        by: {
-          organization: "organization1",
-          links: ["link"],
-        },
+        authority: [
+          {
+            organization: "organization1",
+            links: ["link"],
+          },
+        ],
       },
     },
     {
       value: "value",
       verification: {
         status: "verified",
-        by: {
-          organization: "organization2",
-          links: ["link"],
-        },
+        authority: [
+          {
+            organization: "organization2",
+            links: ["link"],
+          },
+        ],
       },
     },
   ];
@@ -164,10 +180,12 @@ test("improve_data_array different", () => {
     value: "value",
     verification: {
       status: "verified",
-      by: {
-        organization: "organization1",
-        links: ["link"],
-      },
+      authority: [
+        {
+          organization: "organization1",
+          links: ["link"],
+        },
+      ],
     },
   };
 
@@ -176,21 +194,68 @@ test("improve_data_array different", () => {
       value: "value",
       verification: {
         status: "verified",
-        by: {
-          organization: "organization1",
-          links: ["link"],
-        },
+        authority: [
+          {
+            organization: "organization1",
+            links: ["link"],
+          },
+        ],
       },
     },
     {
       value: "value",
       verification: {
         status: "verified",
-        by: {
-          organization: "organization2",
-          links: ["link"],
-        },
+        authority: [
+          {
+            organization: "organization2",
+            links: ["link"],
+          },
+        ],
       },
     },
-  ]);
+  ] satisfies typeof array);
+});
+
+test("improve_data_array add country", () => {
+  const array: Data<string>[] = [
+    {
+      value: "value",
+      verification: {
+        status: "verified",
+        authority: [
+          {
+            organization: "org",
+          },
+        ],
+      },
+    },
+  ];
+  const data: Data<string> = {
+    value: "value",
+    verification: {
+      status: "verified",
+      authority: [
+        {
+          organization: "org",
+          country: "country",
+        },
+      ],
+    },
+  };
+
+  expect(improve_data_array(array, data)).toStrictEqual([
+    {
+      value: "value",
+      verification: {
+        status: "verified",
+        authority: [
+          {
+            organization: "org",
+            country: "country",
+          },
+        ],
+      },
+    },
+  ] satisfies typeof array);
 });

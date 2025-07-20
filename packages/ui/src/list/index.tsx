@@ -7,13 +7,18 @@ export function List<T extends Data<any>[]>(props: {
   // eslint-disable-next-line no-unused-vars
   children: (item: T[number]) => JSX.Element;
 }) {
-  const removeDuplicates = (data: T) => {
-    return new Set(data).values().toArray();
+  const filter = (data: T) => {
+    const unique = new Set(data).values().toArray();
+
+    const verified = unique.filter((u) => u.verification.status === "verified");
+    if (verified.length > 0) return verified;
+
+    return unique;
   };
 
   return (
     <ol>
-      <For each={removeDuplicates(props.each)}>
+      <For each={filter(props.each)}>
         {(item) => (
           <li class="flex-col gap-1">
             {props.children(item)}

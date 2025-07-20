@@ -165,7 +165,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: new Date(dateString).toISOString(),
         verification: {
           status: "verified",
-          by: registrar,
+          authority: [registrar],
         },
       });
       if (improvedRegistration.length > 0) {
@@ -176,7 +176,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: new Date(dateString).toISOString(),
         verification: {
           status: "verified",
-          by: registrar,
+          authority: [registrar],
         },
       });
       if (improvedExpiration.length > 0) {
@@ -190,7 +190,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
       value: result.secureDNS.delegationSigned,
       verification: {
         status: "verified",
-        by: registrar,
+        authority: [registrar],
       },
     });
     if (improvedDnssecPresent.length > 0) {
@@ -232,7 +232,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
           value: fn,
           verification: {
             status: "unverified",
-            by: registrar,
+            authority: [registrar],
           },
         });
         if (improvedIndividual.length > 0) {
@@ -248,7 +248,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: organization,
         verification: {
           status: "unverified",
-          by: registrar,
+          authority: [registrar],
         },
       });
       if (improvedOrganization.length > 0) {
@@ -263,7 +263,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: country,
         verification: {
           status: "unverified",
-          by: registrar,
+          authority: [registrar],
         },
       });
       if (improvedCountry.length > 0) {

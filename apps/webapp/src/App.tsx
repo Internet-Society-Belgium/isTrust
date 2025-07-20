@@ -217,17 +217,16 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Switch>
                 <Match when={dnssecValid() === true}>valid</Match>
-                <Match when={whoisData()?.dnssecPresent?.value === true}>
-                  present
-                </Match>
                 <Match
-                  when={
-                    dnssecValid() === false &&
-                    whoisData()?.dnssecPresent?.value === false
-                  }
+                  when={whoisData()?.dnssecPresent?.find(
+                    (v) => v.value === true,
+                  )}
                 >
-                  no
+                  {(dnssecPresent) => (
+                    <>{`present (${dnssecPresent().verification.status})`}</>
+                  )}
                 </Match>
+                <Match when={true}>no</Match>
               </Switch>
             </Suspense>
           </div>

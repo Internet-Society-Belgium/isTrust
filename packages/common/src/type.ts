@@ -9,11 +9,11 @@ export interface Data<T> {
   verification:
     | {
         status: "unverified";
-        by?: VerificationAuthority;
+        authority?: VerificationAuthority[];
       }
     | {
         status: "verified";
-        by: VerificationAuthority;
+        authority: VerificationAuthority[];
       };
 }
 
@@ -27,12 +27,46 @@ export function improve_data_array<T>(
   for (const a of array) {
     if (
       normalize(a.value) === normalize(data.value) &&
-      normalize(a.verification.status) ===
-        normalize(data.verification.status) &&
-      normalize(a.verification.by?.organization) ===
-        normalize(data.verification.by?.organization) &&
-      normalize(a.verification.by?.country) ===
-        normalize(data.verification.by?.country)
+      normalize(a.verification.status) === normalize(data.verification.status)
+    ) {
+      match = a;
+      break;
+    }
+  }
+
+  if (match !== undefined) {
+    if (match.verification.authority !== undefined) {
+      if (data.verification.authority !== undefined) {
+        for (const authority of data.verification.authority) {
+          const improvedAuthority = improve_authority_array(
+            match.verification.authority,
+            authority,
+          );
+          if (improvedAuthority.length > 0) {
+            match.verification.authority = improvedAuthority;
+          }
+        }
+      }
+    }
+  } else {
+    array.push(data);
+  }
+
+  return array;
+}
+
+function improve_authority_array(
+  array: VerificationAuthority[] | undefined,
+  data: VerificationAuthority,
+) {
+  if (array === undefined) return [data];
+
+  let match: VerificationAuthority | undefined;
+  for (const a of array) {
+    if (
+      normalize(a.organization) === normalize(data.organization) &&
+      (a.country === undefined ||
+        normalize(a.country) === normalize(data.country))
     ) {
       match = a;
       break;
@@ -40,10 +74,16 @@ export function improve_data_array<T>(
   }
 
   if (match) {
-    if (match.verification.by?.links) {
-      for (const link of data.verification.by?.links || []) {
-        if (!match.verification.by.links.includes(link)) {
-          match.verification.by.links.push(link);
+    if (match.country === undefined && data.country !== undefined) {
+      match.country = data.country;
+    }
+
+    if (match.links !== undefined) {
+      if (data.links !== undefined) {
+        for (const link of data.links) {
+          if (!match.links.includes(link)) {
+            match.links.push(link);
+          }
         }
       }
     }
@@ -57,6 +97,7 @@ export function improve_data_array<T>(
 function normalize(value: unknown) {
   if (typeof value === "string") {
     return value
+      .normalize("NFKD")
       .replaceAll(/[^\w\d\s]/g, "")
       .trim()
       .toLowerCase();

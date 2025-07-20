@@ -9,10 +9,12 @@ test("istrust.org", async () => {
       {
         value: "DV",
         verification: {
-          by: {
-            country: "FR",
-            organization: "Gandi",
-          },
+          authority: [
+            {
+              country: "FR",
+              organization: "Gandi",
+            },
+          ],
           status: "verified",
         },
       },
@@ -28,10 +30,12 @@ test("icann.org", async () => {
       {
         value: "US",
         verification: {
-          by: {
-            country: "GB",
-            organization: "Sectigo Limited",
-          },
+          authority: [
+            {
+              country: "GB",
+              organization: "Sectigo Limited",
+            },
+          ],
           status: "verified",
         },
       },
@@ -40,10 +44,12 @@ test("icann.org", async () => {
       {
         value: "Internet Corporation For Assigned Names and Numbers",
         verification: {
-          by: {
-            country: "GB",
-            organization: "Sectigo Limited",
-          },
+          authority: [
+            {
+              country: "GB",
+              organization: "Sectigo Limited",
+            },
+          ],
           status: "verified",
         },
       },
@@ -52,30 +58,28 @@ test("icann.org", async () => {
       {
         value: "OV",
         verification: {
-          by: {
-            country: "GB",
-            organization: "Sectigo Limited",
-          },
+          authority: [
+            {
+              country: "GB",
+              organization: "Sectigo Limited",
+            },
+          ],
           status: "verified",
         },
       },
       {
         value: "DV",
         verification: {
-          by: {
-            country: "US",
-            organization: "Amazon",
-          },
-          status: "verified",
-        },
-      },
-      {
-        value: "DV",
-        verification: {
-          by: {
-            country: "US",
-            organization: "Let's Encrypt",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "Amazon",
+            },
+            {
+              country: "US",
+              organization: "Let's Encrypt",
+            },
+          ],
           status: "verified",
         },
       },
@@ -91,10 +95,12 @@ test("worldbank.org", async () => {
       {
         value: "Non-Commercial Entity",
         verification: {
-          by: {
-            country: "GB",
-            organization: "COMODO CA Limited",
-          },
+          authority: [
+            {
+              country: "GB",
+              organization: "COMODO CA Limited",
+            },
+          ],
           status: "verified",
         },
       },
@@ -103,10 +109,12 @@ test("worldbank.org", async () => {
       {
         value: "US",
         verification: {
-          by: {
-            country: "GB",
-            organization: "COMODO CA Limited",
-          },
+          authority: [
+            {
+              country: "GB",
+              organization: "COMODO CA Limited",
+            },
+          ],
           status: "verified",
         },
       },
@@ -115,10 +123,12 @@ test("worldbank.org", async () => {
       {
         value: "World Bank Group",
         verification: {
-          by: {
-            country: "GB",
-            organization: "COMODO CA Limited",
-          },
+          authority: [
+            {
+              country: "GB",
+              organization: "COMODO CA Limited",
+            },
+          ],
           status: "verified",
         },
       },
@@ -127,30 +137,28 @@ test("worldbank.org", async () => {
       {
         value: "EV",
         verification: {
-          by: {
-            country: "GB",
-            organization: "COMODO CA Limited",
-          },
+          authority: [
+            {
+              country: "GB",
+              organization: "COMODO CA Limited",
+            },
+          ],
           status: "verified",
         },
       },
       {
         value: "DV",
         verification: {
-          by: {
-            country: "US",
-            organization: "Amazon",
-          },
-          status: "verified",
-        },
-      },
-      {
-        value: "DV",
-        verification: {
-          by: {
-            country: "US",
-            organization: "Google Trust Services",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "Amazon",
+            },
+            {
+              country: "US",
+              organization: "Google Trust Services",
+            },
+          ],
           status: "verified",
         },
       },
@@ -166,10 +174,12 @@ test("example.com", async () => {
       {
         value: "US",
         verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "DigiCert Inc",
+            },
+          ],
           status: "verified",
         },
       },
@@ -178,20 +188,12 @@ test("example.com", async () => {
       {
         value: "Internet Corporation for Assigned Names and Numbers",
         verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
-          status: "verified",
-        },
-      },
-      {
-        value: "Internet Corporation for Assigned Names and Numbers",
-        verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "DigiCert Inc",
+            },
+          ],
           status: "verified",
         },
       },
@@ -200,10 +202,12 @@ test("example.com", async () => {
       {
         value: "OV",
         verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "DigiCert Inc",
+            },
+          ],
           status: "verified",
         },
       },
@@ -219,10 +223,12 @@ test("digicert.com", async () => {
       {
         value: "Private Organization",
         verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "DigiCert Inc",
+            },
+          ],
           status: "verified",
         },
       },
@@ -231,10 +237,12 @@ test("digicert.com", async () => {
       {
         value: "US",
         verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "DigiCert Inc",
+            },
+          ],
           status: "verified",
         },
       },
@@ -243,10 +251,12 @@ test("digicert.com", async () => {
       {
         value: "DigiCert, Inc.",
         verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "DigiCert Inc",
+            },
+          ],
           status: "verified",
         },
       },
@@ -255,20 +265,24 @@ test("digicert.com", async () => {
       {
         value: "EV",
         verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "DigiCert Inc",
+            },
+          ],
           status: "verified",
         },
       },
       {
         value: "OV",
         verification: {
-          by: {
-            country: "US",
-            organization: "DigiCert Inc",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "DigiCert Inc",
+            },
+          ],
           status: "verified",
         },
       },
@@ -284,10 +298,12 @@ test("google.com", async () => {
       {
         value: "Private Organization",
         verification: {
-          by: {
-            country: "BR",
-            organization: "ICP-Brasil",
-          },
+          authority: [
+            {
+              country: "BR",
+              organization: "ICP-Brasil",
+            },
+          ],
           status: "verified",
         },
       },
@@ -296,10 +312,12 @@ test("google.com", async () => {
       {
         value: "BR",
         verification: {
-          by: {
-            country: "BR",
-            organization: "ICP-Brasil",
-          },
+          authority: [
+            {
+              country: "BR",
+              organization: "ICP-Brasil",
+            },
+          ],
           status: "verified",
         },
       },
@@ -308,10 +326,12 @@ test("google.com", async () => {
       {
         value: "GOOGLE PAY BRASIL INSTITUICAO DE PAGAMENTO LTDA",
         verification: {
-          by: {
-            country: "BR",
-            organization: "ICP-Brasil",
-          },
+          authority: [
+            {
+              country: "BR",
+              organization: "ICP-Brasil",
+            },
+          ],
           status: "verified",
         },
       },
@@ -320,20 +340,24 @@ test("google.com", async () => {
       {
         value: "OV",
         verification: {
-          by: {
-            country: "BR",
-            organization: "ICP-Brasil",
-          },
+          authority: [
+            {
+              country: "BR",
+              organization: "ICP-Brasil",
+            },
+          ],
           status: "verified",
         },
       },
       {
         value: "DV",
         verification: {
-          by: {
-            country: "US",
-            organization: "Google Trust Services",
-          },
+          authority: [
+            {
+              country: "US",
+              organization: "Google Trust Services",
+            },
+          ],
           status: "verified",
         },
       },

@@ -20,7 +20,7 @@ export async function get_data(domain: string) {
       value: x509Data.type,
       verification: {
         status: "verified",
-        by: x509Data.issuer,
+        authority: [x509Data.issuer],
       },
     });
     if (improvedType.length > 0) {
@@ -34,7 +34,7 @@ export async function get_data(domain: string) {
           value: x509Data.individual,
           verification: {
             status: "verified",
-            by: x509Data.issuer,
+            authority: [x509Data.issuer],
           },
         },
       );
@@ -48,7 +48,7 @@ export async function get_data(domain: string) {
         value: x509Data.country,
         verification: {
           status: "verified",
-          by: x509Data.issuer,
+          authority: [x509Data.issuer],
         },
       });
       if (improvedCountry.length > 0) {
@@ -63,7 +63,7 @@ export async function get_data(domain: string) {
           value: x509Data.organization,
           verification: {
             status: "verified",
-            by: x509Data.issuer,
+            authority: [x509Data.issuer],
           },
         },
       );
@@ -77,7 +77,7 @@ export async function get_data(domain: string) {
         value: x509Data.incCountry,
         verification: {
           status: "verified",
-          by: x509Data.issuer,
+          authority: [x509Data.issuer],
         },
       });
       if (improvedCountry.length > 0) {
@@ -92,7 +92,7 @@ export async function get_data(domain: string) {
           value: x509Data.businessCategory,
           verification: {
             status: "verified",
-            by: x509Data.issuer,
+            authority: [x509Data.issuer],
           },
         },
       );
