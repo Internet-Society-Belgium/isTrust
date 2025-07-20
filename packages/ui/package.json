@@ -23,6 +23,7 @@
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
     "@istrust/typescript-config": "*",
+    "@istrust/common": "*",
     "@tailwindcss/vite": "^4.1.11",
     "solid-js": "^1.8.17",
     "tailwindcss": "^4.1.11",

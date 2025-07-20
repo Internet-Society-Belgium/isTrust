@@ -1,11 +1,11 @@
 import { DateDifference } from "@istrust/ui/date";
 import { Country } from "@istrust/ui/country";
+import { List } from "@istrust/ui/list";
 import * as common from "@istrust/common";
 import {
   createResource,
   createSignal,
   ErrorBoundary,
-  For,
   Match,
   onMount,
   Show,
@@ -115,13 +115,17 @@ const App: Component = () => {
             <h2>Registration:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.registration}>
-                {(registration) => (
-                  <p>
-                    <DateDifference
-                      date={registration().value}
-                      locale={navigator.language}
-                    />
-                  </p>
+                {(registrations) => (
+                  <List each={registrations()}>
+                    {(registration) => (
+                      <p>
+                        <DateDifference
+                          date={registration.value}
+                          locale={navigator.language}
+                        />
+                      </p>
+                    )}
+                  </List>
                 )}
               </Show>
             </Suspense>
@@ -131,13 +135,17 @@ const App: Component = () => {
             <h2>Expiration:</h2>
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={whoisData()?.expiration}>
-                {(expiration) => (
-                  <p>
-                    <DateDifference
-                      date={expiration().value}
-                      locale={navigator.language}
-                    />
-                  </p>
+                {(expirations) => (
+                  <List each={expirations()}>
+                    {(expiration) => (
+                      <p>
+                        <DateDifference
+                          date={expiration.value}
+                          locale={navigator.language}
+                        />
+                      </p>
+                    )}
+                  </List>
                 )}
               </Show>
             </Suspense>
@@ -153,9 +161,9 @@ const App: Component = () => {
                 ]}
               >
                 {(data) => (
-                  <For each={new Set(data()).values().toArray()}>
+                  <List each={data()}>
                     {(individual) => <p>{individual.value}</p>}
-                  </For>
+                  </List>
                 )}
               </Show>
             </Suspense>
@@ -171,9 +179,9 @@ const App: Component = () => {
                 ]}
               >
                 {(data) => (
-                  <For each={new Set(data()).values().toArray()}>
+                  <List each={data()}>
                     {(organization) => <p>{organization.value}</p>}
-                  </For>
+                  </List>
                 )}
               </Show>
             </Suspense>
@@ -189,7 +197,7 @@ const App: Component = () => {
                 ]}
               >
                 {(data) => (
-                  <For each={new Set(data()).values().toArray()}>
+                  <List each={data()}>
                     {(country) => (
                       <p>
                         <Country
@@ -198,7 +206,7 @@ const App: Component = () => {
                         />
                       </p>
                     )}
-                  </For>
+                  </List>
                 )}
               </Show>
             </Suspense>
@@ -229,7 +237,7 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.type}>
                 {(types) => (
-                  <For each={types()}>
+                  <List each={types()}>
                     {(type) => (
                       <Switch>
                         <Match when={type.value === "DV"}>
@@ -246,7 +254,7 @@ const App: Component = () => {
                         </Match>
                       </Switch>
                     )}
-                  </For>
+                  </List>
                 )}
               </Show>
             </Suspense>
@@ -257,9 +265,9 @@ const App: Component = () => {
             <Suspense fallback={<span>Loading...</span>}>
               <Show when={certificateData()?.businessCategories}>
                 {(businessCategory) => (
-                  <For each={businessCategory()}>
+                  <List each={businessCategory()}>
                     {(businessCategory) => <p>{businessCategory.value}</p>}
-                  </For>
+                  </List>
                 )}
               </Show>
             </Suspense>
