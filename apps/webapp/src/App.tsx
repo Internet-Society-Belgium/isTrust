@@ -13,6 +13,7 @@ import {
   Switch,
   type Component,
 } from "solid-js";
+import { Modal } from "@istrust/ui/modal";
 
 const cache: common.DataCache = {
   psl: {
@@ -103,32 +104,18 @@ const App: Component = () => {
       </form>
 
       <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
-        <div class="flex w-150 flex-col">
-          <div class="flex gap-2">
-            <h2>Domain:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={domain()}>{(domain) => <p>{domain()}</p>}</Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Registration:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.registration}>
-                {(registrations) => (
-                  <List each={registrations()}>
-                    {(registration) => (
-                      <p>
-                        <DateDifference
-                          date={registration.value}
-                          locale={navigator.language}
-                        />
-                      </p>
-                    )}
-                  </List>
-                )}
-              </Show>
-            </Suspense>
+          <div class="flex items-center justify-center">
+            <Switch>
+              <Match when={domain.loading}>
+                <Modal>
+                  <div>
+                    <p>Analyzing URL...</p>
+                  </div>
+                </Modal>
+              </Match>
+              <Match when={domain.error}>Invalid URL</Match>
+              <Match when={domain()}>{(domain) => <h1>{domain()}</h1>}</Match>
+            </Switch>
           </div>
 
           <div class="flex gap-2">
