@@ -56,5 +56,5 @@ export const DateDifference: Component<Props> = (props) => {
     }
   };
 
-  return <p>{getText(props.date, props.locale)}</p>;
+  return <span>{getText(props.date, props.locale)}</span>;
 };

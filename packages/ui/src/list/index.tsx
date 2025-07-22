@@ -19,12 +19,7 @@ export function List<T extends Data<any>[]>(props: {
   return (
     <ol>
       <For each={filter(props.each)}>
-        {(item) => (
-          <li class="flex-col gap-1">
-            {props.children(item)}
-            <p>{`(${item.verification.status})`}</p>
-          </li>
-        )}
+        {(item) => <li>{props.children(item)}</li>}
       </For>
     </ol>
   );
