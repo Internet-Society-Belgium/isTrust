@@ -5,8 +5,6 @@ import { CertificateData, CertificateType } from "./type";
 export async function get_data(domain: string) {
   const x509sData = await sslmate.get_data(domain);
 
-  // await new Promise((resolve) => setTimeout(resolve, 2 * 1000));
-
   if (x509sData === undefined || x509sData.length === 0) return;
 
   const certificateData: CertificateData = {};

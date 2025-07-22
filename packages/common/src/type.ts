@@ -4,17 +4,19 @@ export interface VerificationAuthority {
   links?: string[];
 }
 
+export type Verification =
+  | {
+      status: "unverified";
+      authority?: VerificationAuthority[];
+    }
+  | {
+      status: "verified";
+      authority: VerificationAuthority[];
+    };
+
 export interface Data<T> {
   value: T;
-  verification:
-    | {
-        status: "unverified";
-        authority?: VerificationAuthority[];
-      }
-    | {
-        status: "verified";
-        authority: VerificationAuthority[];
-      };
+  verification: Verification;
 }
 
 export function improve_data_array<T>(
