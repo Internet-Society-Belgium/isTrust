@@ -506,9 +506,5 @@ export const Flag: Component<Props> = (props) => {
     else if (code === "ZW") return <ZW />;
     else return <Other />;
   };
-  return (
-    <div class="inline-flex align-text-top">
-      <div class="ml-1">{getFlag(props.code)}</div>
-    </div>
-  );
+  return <>{getFlag(props.code)}</>;
 };

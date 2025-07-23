@@ -1,6 +1,7 @@
 import { DateDifference } from "@istrust/ui/date";
 import { Country } from "@istrust/ui/country";
 import { List } from "@istrust/ui/list";
+import { Container } from "@istrust/ui/container";
 import * as common from "@istrust/common";
 import {
   createResource,
@@ -14,6 +15,7 @@ import {
   type Component,
 } from "solid-js";
 import { Modal } from "@istrust/ui/modal";
+import { Verification } from "@istrust/ui/verification";
 
 const cache: common.DataCache = {
   psl: {
@@ -86,7 +88,7 @@ const App: Component = () => {
   };
 
   return (
-    <div class="flex flex-col items-center">
+    <div class="bg-background flex flex-col items-center">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -104,6 +106,7 @@ const App: Component = () => {
       </form>
 
       <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
+        <div class="flex w-md flex-col">
           <div class="flex items-center justify-center">
             <Switch>
               <Match when={domain.loading}>
@@ -118,168 +121,212 @@ const App: Component = () => {
             </Switch>
           </div>
 
-          <div class="flex gap-2">
-            <h2>Expiration:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.expiration}>
-                {(expirations) => (
-                  <List each={expirations()}>
-                    {(expiration) => (
-                      <p>
-                        <DateDifference
-                          date={expiration.value}
-                          locale={navigator.language}
-                        />
-                      </p>
-                    )}
-                  </List>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Individual:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show
-                when={[
-                  ...(certificateData()?.individuals || []),
-                  ...(whoisData()?.individuals || []),
-                ]}
-              >
-                {(data) => (
-                  <List each={data()}>
-                    {(individual) => <p>{individual.value}</p>}
-                  </List>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Organization:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show
-                when={[
-                  ...(certificateData()?.organizations || []),
-                  ...(whoisData()?.organizations || []),
-                ]}
-              >
-                {(data) => (
-                  <List each={data()}>
-                    {(organization) => <p>{organization.value}</p>}
-                  </List>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Country:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show
-                when={[
-                  ...(certificateData()?.countries || []),
-                  ...(whoisData()?.countries || []),
-                ]}
-              >
-                {(data) => (
-                  <List each={data()}>
-                    {(country) => (
-                      <p>
-                        <Country
-                          value={country.value}
-                          locale={navigator.language}
-                        />
-                      </p>
-                    )}
-                  </List>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>DNSSEC:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Switch>
-                <Match when={dnssecValid() === true}>valid</Match>
-                <Match
-                  when={whoisData()?.dnssecPresent?.find(
-                    (v) => v.value === true,
-                  )}
-                >
-                  {(dnssecPresent) => (
-                    <>{`present (${dnssecPresent().verification.status})`}</>
-                  )}
-                </Match>
-                <Match when={true}>no</Match>
-              </Switch>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Certificate type:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.type}>
-                {(types) => (
-                  <List each={types()}>
-                    {(type) => (
-                      <Switch>
-                        <Match when={type.value === "DV"}>
-                          Domain validated
-                        </Match>
-                        <Match when={type.value === "IV"}>
-                          Individual validated
-                        </Match>
-                        <Match when={type.value === "OV"}>
-                          Organization validated
-                        </Match>
-                        <Match when={type.value === "EV"}>
-                          Extended validation
-                        </Match>
-                      </Switch>
-                    )}
-                  </List>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Certificate business category:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.businessCategories}>
-                {(businessCategory) => (
-                  <List each={businessCategory()}>
-                    {(businessCategory) => <p>{businessCategory.value}</p>}
-                  </List>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <details>
-            <summary>WHOIS raw data</summary>
-            <Show when={whoisData()}>
-              {(data) => (
-                <pre class="overflow-scroll">
-                  {JSON.stringify(data(), undefined, 2)}
-                </pre>
+          <div class="flex flex-col gap-4">
+            <Show
+              when={certificateData()?.types?.some(
+                (type) => type.value === "EV",
               )}
+            >
+              <div class="flex gap-2">
+                Organization legitimacy has been verified by the certificate
+                authority using strict verification
+              </div>
             </Show>
-          </details>
 
-          <details>
-            <summary>certificate raw data</summary>
-            <Show when={certificateData()}>
-              {(data) => (
-                <pre class="overflow-scroll">
-                  {JSON.stringify(data(), undefined, 2)}
-                </pre>
-              )}
-            </Show>
-          </details>
+            <Container title="Owner">
+              <div class="flex gap-2">
+                <h3>Individual:</h3>
+                <Suspense fallback={<span>Loading...</span>}>
+                  <Show
+                    when={[
+                      ...(certificateData()?.individuals || []),
+                      ...(whoisData()?.individuals || []),
+                    ]}
+                  >
+                    {(individuals) => (
+                      <List
+                        each={individuals()}
+                        suffix={(individual) => (
+                          <Verification
+                            verification={individual.verification}
+                            locale={navigator.language}
+                          />
+                        )}
+                      >
+                        {(individual) => <>{individual.value}</>}
+                      </List>
+                    )}
+                  </Show>
+                </Suspense>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <h3>Organization:</h3>
+                <Suspense fallback={<span>Loading...</span>}>
+                  <Show
+                    when={[
+                      ...(certificateData()?.organizations || []),
+                      ...(whoisData()?.organizations || []),
+                    ]}
+                  >
+                    {(organizations) => (
+                      <List
+                        each={organizations()}
+                        suffix={(organization) => (
+                          <Verification
+                            verification={organization.verification}
+                            locale={navigator.language}
+                          />
+                        )}
+                      >
+                        {(organization) => <>{organization.value}</>}
+                      </List>
+                    )}
+                  </Show>
+                </Suspense>
+              </div>
+
+              <div class="flex gap-2">
+                <h3>Country:</h3>
+                <Suspense fallback={<span>Loading...</span>}>
+                  <Show
+                    when={[
+                      ...(certificateData()?.countries || []),
+                      ...(whoisData()?.countries || []),
+                    ]}
+                  >
+                    {(countries) => (
+                      <List
+                        each={countries()}
+                        suffix={(country) => (
+                          <Verification
+                            verification={country.verification}
+                            locale={navigator.language}
+                          />
+                        )}
+                      >
+                        {(country) => (
+                          <Country
+                            value={country.value}
+                            locale={navigator.language}
+                          />
+                        )}
+                      </List>
+                    )}
+                  </Show>
+                </Suspense>
+              </div>
+
+              <div class="flex gap-2">
+                <h3>Business category:</h3>
+                <Suspense fallback={<span>Loading...</span>}>
+                  <Show when={certificateData()?.businessCategories}>
+                    {(businessCategories) => (
+                      <List
+                        each={businessCategories()}
+                        suffix={(businessCategory) => (
+                          <Verification
+                            verification={businessCategory.verification}
+                            locale={navigator.language}
+                          />
+                        )}
+                      >
+                        {(businessCategory) => <>{businessCategory.value}</>}
+                      </List>
+                    )}
+                  </Show>
+                </Suspense>
+              </div>
+            </Container>
+
+            <Container title="Domain">
+              <div class="flex gap-2">
+                <h3>Registration:</h3>
+                <Suspense fallback={<span>Loading...</span>}>
+                  <Show when={whoisData()?.registrations}>
+                    {(registrations) => (
+                      <List
+                        each={registrations()}
+                        suffix={(registration) => (
+                          <Verification
+                            verification={registration.verification}
+                            locale={navigator.language}
+                          />
+                        )}
+                      >
+                        {(registration) => (
+                          <DateDifference
+                            date={registration.value}
+                            locale={navigator.language}
+                          />
+                        )}
+                      </List>
+                    )}
+                  </Show>
+                </Suspense>
+              </div>
+
+              <div class="flex gap-2">
+                <h3>Expiration:</h3>
+                <Suspense fallback={<span>Loading...</span>}>
+                  <Show when={whoisData()?.expirations}>
+                    {(expirations) => (
+                      <List
+                        each={expirations()}
+                        suffix={(expiration) => (
+                          <Verification
+                            verification={expiration.verification}
+                            locale={navigator.language}
+                          />
+                        )}
+                      >
+                        {(expiration) => (
+                          <DateDifference
+                            date={expiration.value}
+                            locale={navigator.language}
+                          />
+                        )}
+                      </List>
+                    )}
+                  </Show>
+                </Suspense>
+              </div>
+
+              <div class="flex gap-2">
+                <h3>DNSSEC:</h3>
+                <Suspense fallback={<span>Loading...</span>}>
+                  <Switch>
+                    <Match when={dnssecValid() === true}>valid</Match>
+                    <Match when={dnssecValid() === false}>no</Match>
+                  </Switch>
+                </Suspense>
+              </div>
+            </Container>
+
+            <Container title="Debug">
+              <details>
+                <summary>WHOIS raw data</summary>
+                <Show when={whoisData()}>
+                  {(data) => (
+                    <pre class="overflow-scroll">
+                      {JSON.stringify(data(), undefined, 2)}
+                    </pre>
+                  )}
+                </Show>
+              </details>
+
+              <details>
+                <summary>certificate raw data</summary>
+                <Show when={certificateData()}>
+                  {(data) => (
+                    <pre class="overflow-scroll">
+                      {JSON.stringify(data(), undefined, 2)}
+                    </pre>
+                  )}
+                </Show>
+              </details>
+            </Container>
+          </div>
         </div>
       </ErrorBoundary>
 

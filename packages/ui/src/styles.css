@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+  /* https://tailwindcss.com/docs/colors */
+  --color-primary: oklch(20.5% 0 0); /* neutral 900 */
+  --color-secondary: oklch(55.6% 0 0); /* neutral 500 */
+  --color-container: oklch(98.4% 0.003 247.858); /* slate 50 */
+  --color-border: oklch(92.9% 0.013 255.508); /* slate 200 */
+  --color-background: oklch(93.2% 0.032 255.585); /* blue 100 */
+}

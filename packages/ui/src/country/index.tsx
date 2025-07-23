@@ -22,9 +22,9 @@ export const Country: Component<Props> = (props) => {
   };
 
   return (
-    <>
+    <div class="flex items-center gap-1">
       <span>{getRegionName(props.value, props.locale)}</span>
       <Flag code={props.value} />
-    </>
+    </div>
   );
 };
