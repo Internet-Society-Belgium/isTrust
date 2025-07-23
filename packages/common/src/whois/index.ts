@@ -161,40 +161,27 @@ function improve_data(data: WHOISData, result: RdapResult) {
     const dateString = new Date(event.eventDate).toDateString();
 
     if (event.eventAction === "registration") {
-      const improvedRegistration = improve_data_array(data.registration, {
+      const improvedRegistrations = improve_data_array(data.registrations, {
         value: new Date(dateString).toISOString(),
         verification: {
           status: "verified",
           authority: [registrar],
         },
       });
-      if (improvedRegistration.length > 0) {
-        data.registration = improvedRegistration;
+      if (improvedRegistrations.length > 0) {
+        data.registrations = improvedRegistrations;
       }
     } else if (event.eventAction === "expiration") {
-      const improvedExpiration = improve_data_array(data.expiration, {
+      const improvedExpirations = improve_data_array(data.expirations, {
         value: new Date(dateString).toISOString(),
         verification: {
           status: "verified",
           authority: [registrar],
         },
       });
-      if (improvedExpiration.length > 0) {
-        data.expiration = improvedExpiration;
+      if (improvedExpirations.length > 0) {
+        data.expirations = improvedExpirations;
       }
-    }
-  }
-
-  if (result.secureDNS?.delegationSigned !== undefined) {
-    const improvedDnssecPresent = improve_data_array(data.dnssecPresent, {
-      value: result.secureDNS.delegationSigned,
-      verification: {
-        status: "verified",
-        authority: [registrar],
-      },
-    });
-    if (improvedDnssecPresent.length > 0) {
-      data.dnssecPresent = improvedDnssecPresent;
     }
   }
 
@@ -228,15 +215,15 @@ function improve_data(data: WHOISData, result: RdapResult) {
       const fn = get_name(registrantEntity.vcardArray);
 
       if (fn !== undefined) {
-        const improvedIndividual = improve_data_array(data.individuals, {
+        const improvedIndividuals = improve_data_array(data.individuals, {
           value: fn,
           verification: {
             status: "unverified",
             authority: [registrar],
           },
         });
-        if (improvedIndividual.length > 0) {
-          data.individuals = improvedIndividual;
+        if (improvedIndividuals.length > 0) {
+          data.individuals = improvedIndividuals;
         }
       }
     }
@@ -244,30 +231,30 @@ function improve_data(data: WHOISData, result: RdapResult) {
     const organization = get_organization(registrantEntity.vcardArray);
 
     if (organization !== undefined) {
-      const improvedOrganization = improve_data_array(data.organizations, {
+      const improvedOrganizations = improve_data_array(data.organizations, {
         value: organization,
         verification: {
           status: "unverified",
           authority: [registrar],
         },
       });
-      if (improvedOrganization.length > 0) {
-        data.organizations = improvedOrganization;
+      if (improvedOrganizations.length > 0) {
+        data.organizations = improvedOrganizations;
       }
     }
 
     const country = get_country(registrantEntity.vcardArray);
 
     if (country !== undefined) {
-      const improvedCountry = improve_data_array(data.countries, {
+      const improvedCountries = improve_data_array(data.countries, {
         value: country,
         verification: {
           status: "unverified",
           authority: [registrar],
         },
       });
-      if (improvedCountry.length > 0) {
-        data.countries = improvedCountry;
+      if (improvedCountries.length > 0) {
+        data.countries = improvedCountries;
       }
     }
   }

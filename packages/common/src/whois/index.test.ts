@@ -46,23 +46,7 @@ test("wikipedia.org", async () => {
         },
       },
     ],
-    dnssecPresent: [
-      {
-        value: false,
-        verification: {
-          authority: [
-            {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/292",
-              ],
-              organization: "MarkMonitor Inc.",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
-    expiration: [
+    expirations: [
       {
         value: "2026-01-12T23:00:00.000Z",
         verification: {
@@ -94,7 +78,7 @@ test("wikipedia.org", async () => {
         },
       },
     ],
-    registration: [
+    registrations: [
       {
         value: "2001-01-12T23:00:00.000Z",
         verification: {
@@ -134,24 +118,7 @@ test("istrust.org", async () => {
         },
       },
     ],
-    dnssecPresent: [
-      {
-        value: false,
-        verification: {
-          authority: [
-            {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/81",
-                "https://www.gandi.net/",
-              ],
-              organization: "Gandi SAS",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
-    expiration: [
+    expirations: [
       {
         value: "2025-09-06T22:00:00.000Z",
         verification: {
@@ -199,7 +166,7 @@ test("istrust.org", async () => {
         },
       },
     ],
-    registration: [
+    registrations: [
       {
         value: "2021-09-06T22:00:00.000Z",
         verification: {
@@ -237,22 +204,7 @@ test("newtab.com", async () => {
         },
       },
     ],
-    dnssecPresent: [
-      {
-        value: false,
-        verification: {
-          authority: [
-            {
-              links: ["http://wanwang.aliyun.com"],
-              organization:
-                "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
-    expiration: [
+    expirations: [
       {
         value: "2029-04-23T22:00:00.000Z",
         verification: {
@@ -295,7 +247,7 @@ test("newtab.com", async () => {
         },
       },
     ],
-    registration: [
+    registrations: [
       {
         value: "2005-04-23T22:00:00.000Z",
         verification: {
@@ -331,21 +283,7 @@ test("phishurl.com", async () => {
         },
       },
     ],
-    dnssecPresent: [
-      {
-        value: false,
-        verification: {
-          authority: [
-            {
-              links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
-              organization: "OVH sas",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
-    expiration: [
+    expirations: [
       {
         value: "2025-05-26T22:00:00.000Z",
         verification: {
@@ -359,7 +297,7 @@ test("phishurl.com", async () => {
         },
       },
     ],
-    registration: [
+    registrations: [
       {
         value: "2024-05-26T22:00:00.000Z",
         verification: {

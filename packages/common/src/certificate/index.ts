@@ -14,19 +14,19 @@ export async function get_data(domain: string) {
   );
 
   for (const x509Data of x509sData) {
-    const improvedType = improve_data_array(certificateData.type, {
+    const improvedTypes = improve_data_array(certificateData.types, {
       value: x509Data.type,
       verification: {
         status: "verified",
         authority: [x509Data.issuer],
       },
     });
-    if (improvedType.length > 0) {
-      certificateData.type = improvedType;
+    if (improvedTypes.length > 0) {
+      certificateData.types = improvedTypes;
     }
 
     if (x509Data.individual) {
-      const improvedIndividual = improve_data_array(
+      const improvedIndividuals = improve_data_array(
         certificateData.individuals,
         {
           value: x509Data.individual,
@@ -36,26 +36,26 @@ export async function get_data(domain: string) {
           },
         },
       );
-      if (improvedIndividual.length > 0) {
-        certificateData.individuals = improvedIndividual;
+      if (improvedIndividuals.length > 0) {
+        certificateData.individuals = improvedIndividuals;
       }
     }
 
     if (x509Data.country) {
-      const improvedCountry = improve_data_array(certificateData.countries, {
+      const improvedCountries = improve_data_array(certificateData.countries, {
         value: x509Data.country,
         verification: {
           status: "verified",
           authority: [x509Data.issuer],
         },
       });
-      if (improvedCountry.length > 0) {
-        certificateData.countries = improvedCountry;
+      if (improvedCountries.length > 0) {
+        certificateData.countries = improvedCountries;
       }
     }
 
     if (x509Data.organization) {
-      const improvedOrganization = improve_data_array(
+      const improvedOrganizations = improve_data_array(
         certificateData.organizations,
         {
           value: x509Data.organization,
@@ -65,26 +65,26 @@ export async function get_data(domain: string) {
           },
         },
       );
-      if (improvedOrganization.length > 0) {
-        certificateData.organizations = improvedOrganization;
+      if (improvedOrganizations.length > 0) {
+        certificateData.organizations = improvedOrganizations;
       }
     }
 
     if (x509Data.incCountry) {
-      const improvedCountry = improve_data_array(certificateData.countries, {
+      const improvedCountries = improve_data_array(certificateData.countries, {
         value: x509Data.incCountry,
         verification: {
           status: "verified",
           authority: [x509Data.issuer],
         },
       });
-      if (improvedCountry.length > 0) {
-        certificateData.countries = improvedCountry;
+      if (improvedCountries.length > 0) {
+        certificateData.countries = improvedCountries;
       }
     }
 
     if (x509Data.businessCategory) {
-      const improvedBusinessCategory = improve_data_array(
+      const improvedBusinessCategories = improve_data_array(
         certificateData.businessCategories,
         {
           value: x509Data.businessCategory,
@@ -94,8 +94,8 @@ export async function get_data(domain: string) {
           },
         },
       );
-      if (improvedBusinessCategory.length > 0) {
-        certificateData.businessCategories = improvedBusinessCategory;
+      if (improvedBusinessCategories.length > 0) {
+        certificateData.businessCategories = improvedBusinessCategories;
       }
     }
   }

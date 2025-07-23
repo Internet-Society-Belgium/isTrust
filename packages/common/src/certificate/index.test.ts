@@ -5,7 +5,7 @@ test("istrust.org", async () => {
   const data = await get_data("istrust.org");
 
   expect(data).toStrictEqual({
-    type: [
+    types: [
       {
         value: "DV",
         verification: {
@@ -54,7 +54,7 @@ test("icann.org", async () => {
         },
       },
     ],
-    type: [
+    types: [
       {
         value: "OV",
         verification: {
@@ -133,7 +133,7 @@ test("worldbank.org", async () => {
         },
       },
     ],
-    type: [
+    types: [
       {
         value: "EV",
         verification: {
@@ -198,7 +198,7 @@ test("example.com", async () => {
         },
       },
     ],
-    type: [
+    types: [
       {
         value: "OV",
         verification: {
@@ -261,7 +261,7 @@ test("digicert.com", async () => {
         },
       },
     ],
-    type: [
+    types: [
       {
         value: "EV",
         verification: {
@@ -336,7 +336,7 @@ test("google.com", async () => {
         },
       },
     ],
-    type: [
+    types: [
       {
         value: "OV",
         verification: {

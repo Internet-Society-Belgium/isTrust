@@ -9,7 +9,7 @@ export type BusinessCategory =
   | "Non-Commercial Entity";
 
 export interface CertificateData {
-  type?: Data<CertificateType>[];
+  types?: Data<CertificateType>[];
   individuals?: Data<string>[];
   organizations?: Data<string>[];
   countries?: Data<string>[];
