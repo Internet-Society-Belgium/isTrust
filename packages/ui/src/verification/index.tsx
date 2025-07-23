@@ -1,7 +1,7 @@
 import { For, Match, Show, Switch, type Component } from "solid-js";
 import "../styles.css";
 import { Data } from "@istrust/common";
-import { Tooltip } from "../tooltip";
+import { Popover } from "../popover";
 import { Country } from "../country";
 
 interface Props extends Pick<Data<any>, "verification"> {
@@ -10,7 +10,7 @@ interface Props extends Pick<Data<any>, "verification"> {
 
 export const Verification: Component<Props> = (props) => {
   return (
-    <Tooltip
+    <Popover
       trigger={
         <Switch>
           <Match when={props.verification.status === "verified"}>
@@ -58,19 +58,30 @@ export const Verification: Component<Props> = (props) => {
     >
       <For each={props.verification.authority}>
         {(authority) => (
-          <>
+          <div class="flex items-center gap-1">
+            Verified by{" "}
             <Show when={authority.organization}>
               {(organization) => <>{organization()}</>}
             </Show>
             <Show when={authority.country}>
-              {(country) => <Country value={country()} locale={props.locale} />}
+              {(country) => (
+                <Country type="icon" value={country()} locale={props.locale} />
+              )}
             </Show>
             <Show when={authority.links}>
-              {(links) => <For each={links()}>{(link) => <>{link}</>}</For>}
+              {(links) => (
+                <For each={links()}>
+                  {(link) => (
+                    <a href={link} target="_blank" rel="noopener noreferrer">
+                      ^
+                    </a>
+                  )}
+                </For>
+              )}
             </Show>
-          </>
+          </div>
         )}
       </For>
-    </Tooltip>
+    </Popover>
   );
 };

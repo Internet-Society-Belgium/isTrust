@@ -1,8 +1,9 @@
-import { type Component } from "solid-js";
+import { Show, type Component } from "solid-js";
 import { Flag } from "./flag";
 import "../styles.css";
 
 interface Props {
+  type: "full" | "icon";
   value: string;
   locale: Intl.LocalesArgument;
 }
@@ -23,7 +24,9 @@ export const Country: Component<Props> = (props) => {
 
   return (
     <div class="flex items-center gap-1">
-      <span>{getRegionName(props.value, props.locale)}</span>
+      <Show when={props.type === "full"}>
+        <span>{getRegionName(props.value, props.locale)}</span>
+      </Show>
       <Flag code={props.value} />
     </div>
   );
