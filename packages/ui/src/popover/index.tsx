@@ -59,17 +59,6 @@ export const Popover: Component<Props> = (props) => {
     };
   };
 
-  const getContentRect = () => {
-    const rect = content.getBoundingClientRect();
-
-    return {
-      y: rect.y,
-      x: rect.x,
-      width: rect.width,
-      height: rect.height,
-    };
-  };
-
   const computeRect = () => {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
@@ -137,51 +126,11 @@ export const Popover: Component<Props> = (props) => {
   const click = (event: MouseEvent) => {
     if (open() !== true) return;
 
-    const x = event.pageX;
-    const y = event.pageY;
+    const target = event.target as Node;
 
-    const contentRect = getContentRect();
-    const triggerRect = getTriggerRect();
-
-    const polygon: { x: number; y: number }[] = [
-      {
-        x: contentRect.x,
-        y: contentRect.y,
-      },
-      {
-        x: contentRect.x,
-        y: contentRect.y + contentRect.height,
-      },
-      {
-        x: triggerRect.x,
-        y: triggerRect.y + triggerRect.height,
-      },
-      {
-        x: triggerRect.x + triggerRect.width,
-        y: triggerRect.y + triggerRect.height,
-      },
-      {
-        x: contentRect.x + contentRect.width,
-        y: contentRect.y + contentRect.height,
-      },
-      {
-        x: contentRect.x + contentRect.width,
-        y: contentRect.y,
-      },
-    ];
-
-    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-      const xi = polygon[i].x;
-      const yi = polygon[i].y;
-      const xj = polygon[j].x;
-      const yj = polygon[j].y;
-
-      const intersect =
-        yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
-      if (intersect) return;
+    if (!trigger.contains(target) && !content.contains(target)) {
+      setOpen(false);
     }
-
-    setOpen(false);
   };
 
   return (
@@ -195,6 +144,7 @@ export const Popover: Component<Props> = (props) => {
 
           setOpen(true);
         }}
+        class="h-4 w-4"
       >
         {props.trigger}
       </button>
