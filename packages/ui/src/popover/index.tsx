@@ -131,6 +131,17 @@ export const Popover: Component<Props> = (props) => {
     }
   };
 
+  const blurEvent = (event: FocusEvent) => {
+    const target = event.target as Node;
+
+    if (
+      target === null ||
+      (!trigger.contains(target) && !content.contains(target))
+    ) {
+      setOpen(false);
+    }
+  };
+
   return (
     <>
       <button
@@ -212,9 +223,7 @@ export const Popover: Component<Props> = (props) => {
                   ref={content}
                   class="bg-background ring-border rounded-md p-2 shadow-lg ring"
                   tabIndex={0}
-                  onBlur={() => {
-                    setOpen(false);
-                  }}
+                  onBlur={blurEvent}
                 >
                   {props.children}
                 </div>
