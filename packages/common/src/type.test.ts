@@ -27,7 +27,7 @@ test("improve_data_array same", () => {
   ] satisfies typeof array);
 });
 
-test("improve_data_array different status", () => {
+test("improve_data_array better status", () => {
   const array: Data<string>[] = [
     {
       value: "value",
@@ -48,9 +48,31 @@ test("improve_data_array different status", () => {
     {
       value: "value",
       verification: {
-        status: "unverified",
+        authority: [],
+        status: "verified",
       },
     },
+  ] satisfies typeof array);
+});
+
+test("improve_data_array worst status", () => {
+  const array: Data<string>[] = [
+    {
+      value: "value",
+      verification: {
+        status: "verified",
+        authority: [],
+      },
+    },
+  ];
+  const data: Data<string> = {
+    value: "value",
+    verification: {
+      status: "unverified",
+    },
+  };
+
+  expect(improve_data_array(array, data)).toStrictEqual([
     {
       value: "value",
       verification: {

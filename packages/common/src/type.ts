@@ -27,31 +27,45 @@ export function improve_data_array<T>(
 
   let match: Data<T> | undefined;
   for (const a of array) {
-    if (
-      normalize(a.value) === normalize(data.value) &&
-      normalize(a.verification.status) === normalize(data.verification.status)
-    ) {
+    if (normalize(a.value) === normalize(data.value)) {
       match = a;
       break;
     }
   }
 
-  if (match !== undefined) {
-    if (match.verification.authority !== undefined) {
-      if (data.verification.authority !== undefined) {
-        for (const authority of data.verification.authority) {
-          const improvedAuthority = improve_authority_array(
-            match.verification.authority,
-            authority,
-          );
-          if (improvedAuthority.length > 0) {
-            match.verification.authority = improvedAuthority;
-          }
-        }
+  if (match === undefined) {
+    array.push(data);
+    return array;
+  }
+
+  if (
+    match.verification.status === "verified" &&
+    data.verification.status === "unverified"
+  ) {
+    return array;
+  }
+
+  if (
+    match.verification.status === "unverified" &&
+    data.verification.status === "verified"
+  ) {
+    match.verification = { ...data.verification };
+    return array;
+  }
+
+  if (
+    match.verification.authority !== undefined &&
+    data.verification.authority !== undefined
+  ) {
+    for (const authority of data.verification.authority) {
+      const improvedAuthority = improve_authority_array(
+        match.verification.authority,
+        authority,
+      );
+      if (improvedAuthority.length > 0) {
+        match.verification.authority = improvedAuthority;
       }
     }
-  } else {
-    array.push(data);
   }
 
   return array;
