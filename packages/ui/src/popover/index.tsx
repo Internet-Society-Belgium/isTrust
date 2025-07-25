@@ -8,7 +8,6 @@ import {
   Switch,
   type Component,
 } from "solid-js";
-import { Portal } from "solid-js/web";
 import "../styles.css";
 
 interface Props {
@@ -36,34 +35,30 @@ export const Popover: Component<Props> = (props) => {
     document.addEventListener("resize", computeRect);
     document.addEventListener("scroll", computeRect);
 
-    document.addEventListener("keydown", keyDown);
-    document.addEventListener("click", click);
+    document.addEventListener("keydown", keyDownEvent);
+    document.addEventListener("pointerdown", pointerDownEvent);
   });
 
   onCleanup(() => {
     document.removeEventListener("resize", computeRect);
     document.removeEventListener("scroll", computeRect);
 
-    document.removeEventListener("keydown", keyDown);
-    document.removeEventListener("click", click);
+    document.removeEventListener("keydown", keyDownEvent);
+    document.removeEventListener("pointerdown", pointerDownEvent);
   });
-
-  const getTriggerRect = () => {
-    const rect = trigger.getBoundingClientRect();
-
-    return {
-      y: rect.y + window.scrollY,
-      x: rect.x + window.scrollX,
-      width: rect.width,
-      height: rect.height,
-    };
-  };
 
   const computeRect = () => {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
-    const triggerRect = getTriggerRect();
+    const triggerDomRect = trigger.getBoundingClientRect();
+
+    const triggerRect = {
+      y: triggerDomRect.y + window.scrollY,
+      x: triggerDomRect.x + window.scrollX,
+      width: triggerDomRect.width,
+      height: triggerDomRect.height,
+    };
 
     const marginProportion = 25 / 100;
     const windowWidthMargin = windowWidth * marginProportion;
@@ -72,7 +67,7 @@ export const Popover: Component<Props> = (props) => {
     const triggerWindowHeightProportion = triggerRect.y / windowHeight;
 
     const align: RectAlign =
-      triggerWindowHeightProportion < 0.5 ? "top" : "bottom";
+      triggerWindowHeightProportion < 0.5 ? "bottom" : "top";
 
     const arrowMargin = 10;
 
@@ -115,7 +110,7 @@ export const Popover: Component<Props> = (props) => {
     });
   };
 
-  const keyDown = (event: KeyboardEvent) => {
+  const keyDownEvent = (event: KeyboardEvent) => {
     if (open() !== true) return;
 
     if (event.key === "Escape") {
@@ -123,12 +118,15 @@ export const Popover: Component<Props> = (props) => {
     }
   };
 
-  const click = (event: MouseEvent) => {
+  const pointerDownEvent = (event: PointerEvent) => {
     if (open() !== true) return;
 
     const target = event.target as Node;
 
-    if (!trigger.contains(target) && !content.contains(target)) {
+    if (
+      target === null ||
+      (!trigger.contains(target) && !content.contains(target))
+    ) {
       setOpen(false);
     }
   };
@@ -143,8 +141,9 @@ export const Popover: Component<Props> = (props) => {
           computeRect();
 
           setOpen(true);
+
+          content.focus();
         }}
-        class="h-4 w-4"
       >
         {props.trigger}
       </button>
@@ -152,7 +151,7 @@ export const Popover: Component<Props> = (props) => {
       <Show when={open() === true}>
         <Show when={rect()}>
           {(rect) => (
-            <Portal>
+            <>
               <Switch>
                 <Match when={rect().align === "top"}>
                   <div
@@ -211,12 +210,16 @@ export const Popover: Component<Props> = (props) => {
               >
                 <div
                   ref={content}
-                  class="bg-background ring-border pointer-events-auto rounded-md p-2 shadow-lg ring"
+                  class="bg-background ring-border rounded-md p-2 shadow-lg ring"
+                  tabIndex={0}
+                  onBlur={() => {
+                    setOpen(false);
+                  }}
                 >
                   {props.children}
                 </div>
               </div>
-            </Portal>
+            </>
           )}
         </Show>
       </Show>

@@ -1,4 +1,4 @@
-import { Show, type Component } from "solid-js";
+import { Match, Switch, type Component } from "solid-js";
 import { Flag } from "./flag";
 import "../styles.css";
 
@@ -24,10 +24,17 @@ export const Country: Component<Props> = (props) => {
 
   return (
     <div class="flex items-center gap-1">
-      <Show when={props.type === "full"}>
-        <span>{getRegionName(props.value, props.locale)}</span>
-      </Show>
-      <Flag code={props.value} />
+      <Switch>
+        <Match when={props.type === "full"}>
+          <span>{getRegionName(props.value, props.locale)}</span>
+          <Flag code={props.value} />
+        </Match>
+        <Match when={props.type === "icon"}>
+          <div title={getRegionName(props.value, props.locale)}>
+            <Flag code={props.value} />
+          </div>
+        </Match>
+      </Switch>
     </div>
   );
 };
