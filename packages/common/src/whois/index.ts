@@ -151,7 +151,11 @@ function improve_data(data: WHOISData, result: RdapResult) {
       registrar.country = country;
     }
 
-    const links = registrarEntity.links?.map((link) => link.href);
+    let links = registrarEntity.links?.map((link) => link.href);
+
+    // https://www.rfc-editor.org/rfc/rfc9082.html#name-entity-path-segment-specifi
+    links = links?.filter((link) => !/\/entity\/.*$/i.test(link));
+
     if (links !== undefined) {
       registrar.links = links;
     }
