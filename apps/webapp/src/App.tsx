@@ -65,10 +65,10 @@ const App: Component = () => {
     },
   );
 
-  const [dnssecValid] = createResource(
+  const [dnssecData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.is_dnssec_valid(domain);
+      return await common.get_dnssec_data(domain);
     },
   );
 
@@ -336,7 +336,7 @@ const App: Component = () => {
                     viewBox="0 0 24 24"
                   >
                     {/* Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE */}
-                    <g
+                    {/* <g
                       fill="none"
                       stroke="currentColor"
                       stroke-linecap="round"
@@ -346,6 +346,17 @@ const App: Component = () => {
                       <path d="M8 2v4m8-4v4" />
                       <rect width="18" height="18" x="3" y="4" rx="2" />
                       <path d="M3 10h18m-11 6h4m-2-2v4" />
+                    </g> */}
+
+                    <g
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    >
+                      <path d="M11 14h1v4m4-16v4M3 10h18M8 2v4" />
+                      <rect width="18" height="18" x="3" y="4" rx="2" />
                     </g>
                   </svg>
                 }
@@ -431,32 +442,91 @@ const App: Component = () => {
               <Item
                 title="DNSSEC"
                 prefix={
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 24 24"
-                  >
-                    {/* Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE */}
-                    <g
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                    >
-                      <path d="M7 3.34V5a3 3 0 0 0 3 3m1 13.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05m19.49 4H17a2 2 0 0 0-2 2v4.54" />
-                      <path d="M12 2a10 10 0 1 0 9.54 13M20 6V4a2 2 0 1 0-4 0v2" />
-                      <rect width="8" height="5" x="14" y="6" rx="1" />
-                    </g>
-                  </svg>
+                  <Switch>
+                    <Match when={dnssecData()?.valid.value === true}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 24 24"
+                      >
+                        {/* Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE */}
+                        <g
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        >
+                          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                          <path d="m9 12l2 2l4-4" />
+                        </g>
+                      </svg>
+                    </Match>
+                    <Match when={dnssecData()?.valid.value === false}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 24 24"
+                      >
+                        {/* Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE */}
+                        <path
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zm-5.5-3.5l-5 5m0-5l5 5"
+                        />
+                      </svg>
+                    </Match>
+                    <Match when={true}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 24 24"
+                      >
+                        {/* Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE */}
+                        <path
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+                        />
+                      </svg>
+                    </Match>
+                  </Switch>
                 }
               >
                 <Suspense fallback={<span>Loading...</span>}>
-                  <Switch>
-                    <Match when={dnssecValid() === true}>valid</Match>
-                    <Match when={dnssecValid() === false}>no</Match>
-                  </Switch>
+                  <Show when={dnssecData()?.valid}>
+                    {(valid) => (
+                      <List
+                        each={[valid()]}
+                        suffix={(valid) => (
+                          <Verification
+                            verification={valid.verification}
+                            locale={navigator.language}
+                          />
+                        )}
+                      >
+                        {(valid) => (
+                          <Switch>
+                            <Match when={valid.value === true}>
+                              The domain name is protected
+                            </Match>
+                            <Match when={valid.value === false}>
+                              The domain name is not protected
+                            </Match>
+                          </Switch>
+                        )}
+                      </List>
+                    )}
+                  </Show>
                 </Suspense>
               </Item>
             </Section>
