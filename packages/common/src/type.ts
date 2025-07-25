@@ -7,11 +7,11 @@ export interface VerificationAuthority {
 export type Verification =
   | {
       status: "unverified";
-      authority?: VerificationAuthority[];
+      authorities?: VerificationAuthority[];
     }
   | {
       status: "verified";
-      authority: VerificationAuthority[];
+      authorities: VerificationAuthority[];
     };
 
 export interface Data<T> {
@@ -54,16 +54,16 @@ export function improve_data_array<T>(
   }
 
   if (
-    match.verification.authority !== undefined &&
-    data.verification.authority !== undefined
+    match.verification.authorities !== undefined &&
+    data.verification.authorities !== undefined
   ) {
-    for (const authority of data.verification.authority) {
+    for (const authority of data.verification.authorities) {
       const improvedAuthority = improve_authority_array(
-        match.verification.authority,
+        match.verification.authorities,
         authority,
       );
       if (improvedAuthority.length > 0) {
-        match.verification.authority = improvedAuthority;
+        match.verification.authorities = improvedAuthority;
       }
     }
   }

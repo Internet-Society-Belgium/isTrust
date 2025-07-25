@@ -34,7 +34,7 @@ test("wikipedia.org", async () => {
       {
         value: "US",
         verification: {
-          authority: [
+          authorities: [
             {
               links: [
                 "https://rdap.publicinterestregistry.org/rdap/entity/292",
@@ -50,7 +50,7 @@ test("wikipedia.org", async () => {
       {
         value: "2026-01-12T23:00:00.000Z",
         verification: {
-          authority: [
+          authorities: [
             {
               links: [
                 "https://rdap.publicinterestregistry.org/rdap/entity/292",
@@ -66,7 +66,7 @@ test("wikipedia.org", async () => {
       {
         value: "Wikimedia Foundation, Inc.",
         verification: {
-          authority: [
+          authorities: [
             {
               links: [
                 "https://rdap.publicinterestregistry.org/rdap/entity/292",
@@ -82,7 +82,7 @@ test("wikipedia.org", async () => {
       {
         value: "2001-01-12T23:00:00.000Z",
         verification: {
-          authority: [
+          authorities: [
             {
               links: [
                 "https://rdap.publicinterestregistry.org/rdap/entity/292",
@@ -105,7 +105,7 @@ test("istrust.org", async () => {
       {
         value: "BE",
         verification: {
-          authority: [
+          authorities: [
             {
               links: [
                 "https://rdap.publicinterestregistry.org/rdap/entity/81",
@@ -122,7 +122,7 @@ test("istrust.org", async () => {
       {
         value: "2025-09-06T22:00:00.000Z",
         verification: {
-          authority: [
+          authorities: [
             {
               links: [
                 "https://rdap.publicinterestregistry.org/rdap/entity/81",
@@ -139,7 +139,7 @@ test("istrust.org", async () => {
       {
         value: "Redacted for Privacy",
         verification: {
-          authority: [
+          authorities: [
             {
               links: ["https://www.gandi.net/"],
               organization: "Gandi SAS",
@@ -153,7 +153,7 @@ test("istrust.org", async () => {
       {
         value: "Internet Society Chapter Belgium vzw/asbl",
         verification: {
-          authority: [
+          authorities: [
             {
               links: [
                 "https://rdap.publicinterestregistry.org/rdap/entity/81",
@@ -170,7 +170,7 @@ test("istrust.org", async () => {
       {
         value: "2021-09-06T22:00:00.000Z",
         verification: {
-          authority: [
+          authorities: [
             {
               links: [
                 "https://rdap.publicinterestregistry.org/rdap/entity/81",
@@ -194,7 +194,7 @@ test("newtab.com", async () => {
       {
         value: "CN",
         verification: {
-          authority: [
+          authorities: [
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
@@ -208,7 +208,7 @@ test("newtab.com", async () => {
       {
         value: "2029-04-23T22:00:00.000Z",
         verification: {
-          authority: [
+          authorities: [
             {
               links: ["http://wanwang.aliyun.com"],
               organization:
@@ -223,7 +223,7 @@ test("newtab.com", async () => {
       {
         value: "Redacted for Privacy",
         verification: {
-          authority: [
+          authorities: [
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
@@ -237,7 +237,7 @@ test("newtab.com", async () => {
       {
         value: "广西云奥网络科技有限公司",
         verification: {
-          authority: [
+          authorities: [
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
@@ -251,7 +251,7 @@ test("newtab.com", async () => {
       {
         value: "2005-04-23T22:00:00.000Z",
         verification: {
-          authority: [
+          authorities: [
             {
               links: ["http://wanwang.aliyun.com"],
               organization:
@@ -273,7 +273,7 @@ test("phishurl.com", async () => {
       {
         value: "BE",
         verification: {
-          authority: [
+          authorities: [
             {
               links: ["https://rdap.ovh.com/"],
               organization: "OVH, SAS",
@@ -287,7 +287,7 @@ test("phishurl.com", async () => {
       {
         value: "2025-05-26T22:00:00.000Z",
         verification: {
-          authority: [
+          authorities: [
             {
               links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
               organization: "OVH sas",
@@ -301,7 +301,7 @@ test("phishurl.com", async () => {
       {
         value: "2024-05-26T22:00:00.000Z",
         verification: {
-          authority: [
+          authorities: [
             {
               links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
               organization: "OVH sas",

@@ -165,7 +165,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: new Date(dateString).toISOString(),
         verification: {
           status: "verified",
-          authority: [registrar],
+          authorities: [registrar],
         },
       });
       if (improvedRegistrations.length > 0) {
@@ -176,7 +176,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: new Date(dateString).toISOString(),
         verification: {
           status: "verified",
-          authority: [registrar],
+          authorities: [registrar],
         },
       });
       if (improvedExpirations.length > 0) {
@@ -219,7 +219,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
           value: fn,
           verification: {
             status: "unverified",
-            authority: [registrar],
+            authorities: [registrar],
           },
         });
         if (improvedIndividuals.length > 0) {
@@ -235,7 +235,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: organization,
         verification: {
           status: "unverified",
-          authority: [registrar],
+          authorities: [registrar],
         },
       });
       if (improvedOrganizations.length > 0) {
@@ -250,7 +250,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: country,
         verification: {
           status: "unverified",
-          authority: [registrar],
+          authorities: [registrar],
         },
       });
       if (improvedCountries.length > 0) {

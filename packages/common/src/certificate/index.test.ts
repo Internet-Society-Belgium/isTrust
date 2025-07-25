@@ -9,7 +9,7 @@ test("istrust.org", async () => {
       {
         value: "DV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "FR",
               organization: "Gandi",
@@ -30,7 +30,7 @@ test("icann.org", async () => {
       {
         value: "US",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "GB",
               organization: "Sectigo Limited",
@@ -44,7 +44,7 @@ test("icann.org", async () => {
       {
         value: "Internet Corporation For Assigned Names and Numbers",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "GB",
               organization: "Sectigo Limited",
@@ -58,7 +58,7 @@ test("icann.org", async () => {
       {
         value: "OV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "GB",
               organization: "Sectigo Limited",
@@ -70,7 +70,7 @@ test("icann.org", async () => {
       {
         value: "DV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "Amazon",
@@ -95,7 +95,7 @@ test("worldbank.org", async () => {
       {
         value: "Non-Commercial Entity",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "GB",
               organization: "COMODO CA Limited",
@@ -109,7 +109,7 @@ test("worldbank.org", async () => {
       {
         value: "US",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "GB",
               organization: "COMODO CA Limited",
@@ -123,7 +123,7 @@ test("worldbank.org", async () => {
       {
         value: "World Bank Group",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "GB",
               organization: "COMODO CA Limited",
@@ -137,7 +137,7 @@ test("worldbank.org", async () => {
       {
         value: "EV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "GB",
               organization: "COMODO CA Limited",
@@ -149,7 +149,7 @@ test("worldbank.org", async () => {
       {
         value: "DV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "Amazon",
@@ -174,7 +174,7 @@ test("example.com", async () => {
       {
         value: "US",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "DigiCert Inc",
@@ -188,7 +188,7 @@ test("example.com", async () => {
       {
         value: "Internet Corporation for Assigned Names and Numbers",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "DigiCert Inc",
@@ -202,7 +202,7 @@ test("example.com", async () => {
       {
         value: "OV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "DigiCert Inc",
@@ -223,7 +223,7 @@ test("digicert.com", async () => {
       {
         value: "Private Organization",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "DigiCert Inc",
@@ -237,7 +237,7 @@ test("digicert.com", async () => {
       {
         value: "US",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "DigiCert Inc",
@@ -251,7 +251,7 @@ test("digicert.com", async () => {
       {
         value: "DigiCert, Inc.",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "DigiCert Inc",
@@ -265,7 +265,7 @@ test("digicert.com", async () => {
       {
         value: "EV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "DigiCert Inc",
@@ -277,7 +277,7 @@ test("digicert.com", async () => {
       {
         value: "OV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "DigiCert Inc",
@@ -298,7 +298,7 @@ test("google.com", async () => {
       {
         value: "Private Organization",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "BR",
               organization: "ICP-Brasil",
@@ -312,7 +312,7 @@ test("google.com", async () => {
       {
         value: "BR",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "BR",
               organization: "ICP-Brasil",
@@ -326,7 +326,7 @@ test("google.com", async () => {
       {
         value: "GOOGLE PAY BRASIL INSTITUICAO DE PAGAMENTO LTDA",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "BR",
               organization: "ICP-Brasil",
@@ -340,7 +340,7 @@ test("google.com", async () => {
       {
         value: "OV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "BR",
               organization: "ICP-Brasil",
@@ -352,7 +352,7 @@ test("google.com", async () => {
       {
         value: "DV",
         verification: {
-          authority: [
+          authorities: [
             {
               country: "US",
               organization: "Google Trust Services",

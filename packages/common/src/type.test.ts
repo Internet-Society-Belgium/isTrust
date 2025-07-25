@@ -40,7 +40,7 @@ test("improve_data_array better status", () => {
     value: "value",
     verification: {
       status: "verified",
-      authority: [],
+      authorities: [],
     },
   };
 
@@ -48,7 +48,7 @@ test("improve_data_array better status", () => {
     {
       value: "value",
       verification: {
-        authority: [],
+        authorities: [],
         status: "verified",
       },
     },
@@ -61,7 +61,7 @@ test("improve_data_array worst status", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [],
+        authorities: [],
       },
     },
   ];
@@ -76,7 +76,7 @@ test("improve_data_array worst status", () => {
     {
       value: "value",
       verification: {
-        authority: [],
+        authorities: [],
         status: "verified",
       },
     },
@@ -89,7 +89,7 @@ test("improve_data_array add link", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "organization",
             links: ["link1"],
@@ -102,7 +102,7 @@ test("improve_data_array add link", () => {
     value: "value",
     verification: {
       status: "verified",
-      authority: [
+      authorities: [
         {
           organization: "organization",
           links: ["link2"],
@@ -116,7 +116,7 @@ test("improve_data_array add link", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "organization",
             links: ["link1", "link2"],
@@ -133,7 +133,7 @@ test("improve_data_array same link", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "organization",
             links: ["link"],
@@ -146,7 +146,7 @@ test("improve_data_array same link", () => {
     value: "value",
     verification: {
       status: "verified",
-      authority: [
+      authorities: [
         {
           organization: "organization",
           links: ["link"],
@@ -160,7 +160,7 @@ test("improve_data_array same link", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "organization",
             links: ["link"],
@@ -177,7 +177,7 @@ test("improve_data_array different organisation", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "organization1",
             links: ["link"],
@@ -189,7 +189,7 @@ test("improve_data_array different organisation", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "organization2",
             links: ["link"],
@@ -202,7 +202,7 @@ test("improve_data_array different organisation", () => {
     value: "value",
     verification: {
       status: "verified",
-      authority: [
+      authorities: [
         {
           organization: "organization1",
           links: ["link"],
@@ -216,7 +216,7 @@ test("improve_data_array different organisation", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "organization1",
             links: ["link"],
@@ -228,7 +228,7 @@ test("improve_data_array different organisation", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "organization2",
             links: ["link"],
@@ -245,7 +245,7 @@ test("improve_data_array add country", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "org",
           },
@@ -257,7 +257,7 @@ test("improve_data_array add country", () => {
     value: "value",
     verification: {
       status: "verified",
-      authority: [
+      authorities: [
         {
           organization: "org",
           country: "country",
@@ -271,7 +271,7 @@ test("improve_data_array add country", () => {
       value: "value",
       verification: {
         status: "verified",
-        authority: [
+        authorities: [
           {
             organization: "org",
             country: "country",

@@ -18,7 +18,7 @@ export async function get_data(domain: string) {
       value: x509Data.type,
       verification: {
         status: "verified",
-        authority: [x509Data.issuer],
+        authorities: [x509Data.issuer],
       },
     });
     if (improvedTypes.length > 0) {
@@ -32,7 +32,7 @@ export async function get_data(domain: string) {
           value: x509Data.individual,
           verification: {
             status: "verified",
-            authority: [x509Data.issuer],
+            authorities: [x509Data.issuer],
           },
         },
       );
@@ -46,7 +46,7 @@ export async function get_data(domain: string) {
         value: x509Data.country,
         verification: {
           status: "verified",
-          authority: [x509Data.issuer],
+          authorities: [x509Data.issuer],
         },
       });
       if (improvedCountries.length > 0) {
@@ -61,7 +61,7 @@ export async function get_data(domain: string) {
           value: x509Data.organization,
           verification: {
             status: "verified",
-            authority: [x509Data.issuer],
+            authorities: [x509Data.issuer],
           },
         },
       );
@@ -75,7 +75,7 @@ export async function get_data(domain: string) {
         value: x509Data.incCountry,
         verification: {
           status: "verified",
-          authority: [x509Data.issuer],
+          authorities: [x509Data.issuer],
         },
       });
       if (improvedCountries.length > 0) {
@@ -90,7 +90,7 @@ export async function get_data(domain: string) {
           value: x509Data.businessCategory,
           verification: {
             status: "verified",
-            authority: [x509Data.issuer],
+            authorities: [x509Data.issuer],
           },
         },
       );
