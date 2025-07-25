@@ -19,6 +19,24 @@ export interface Data<T> {
   verification: Verification;
 }
 
+export function get_best_data_array<T>(array: Data<T>[]) {
+  const verified = array.filter(
+    (data) => data.verification.status === "verified",
+  );
+  if (verified.length > 0) {
+    array = verified;
+  }
+
+  const unique: Data<T>[] = [];
+  for (const item of array) {
+    if (!unique.some((obj) => JSON.stringify(obj) === JSON.stringify(item))) {
+      unique.push(item);
+    }
+  }
+
+  return unique;
+}
+
 export function improve_data_array<T>(
   array: Data<T>[] | undefined,
   data: Data<T>,

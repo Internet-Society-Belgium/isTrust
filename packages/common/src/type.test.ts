@@ -1,5 +1,54 @@
 import { expect, test } from "vitest";
-import { Data, improve_data_array } from "./type";
+import { Data, get_best_data_array, improve_data_array } from "./type";
+
+test("get_best_data_array", () => {
+  const array: Data<string>[] = [
+    {
+      value: "value1",
+      verification: {
+        status: "verified",
+        authorities: [],
+      },
+    },
+    {
+      value: "value1",
+      verification: {
+        status: "verified",
+        authorities: [],
+      },
+    },
+    {
+      value: "value2",
+      verification: {
+        status: "verified",
+        authorities: [],
+      },
+    },
+    {
+      value: "value3",
+      verification: {
+        status: "unverified",
+      },
+    },
+  ];
+
+  expect(get_best_data_array(array)).toStrictEqual([
+    {
+      value: "value1",
+      verification: {
+        status: "verified",
+        authorities: [],
+      },
+    },
+    {
+      value: "value2",
+      verification: {
+        status: "verified",
+        authorities: [],
+      },
+    },
+  ] satisfies typeof array);
+});
 
 test("improve_data_array same", () => {
   const array: Data<string>[] = [

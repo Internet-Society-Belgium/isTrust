@@ -160,10 +160,10 @@ const App: Component = () => {
               >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show
-                    when={[
+                    when={common.get_best_data_array([
                       ...(certificateData()?.individuals || []),
                       ...(whoisData()?.individuals || []),
-                    ]}
+                    ])}
                   >
                     {(individuals) => (
                       <List
@@ -207,10 +207,10 @@ const App: Component = () => {
               >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show
-                    when={[
+                    when={common.get_best_data_array([
                       ...(certificateData()?.organizations || []),
                       ...(whoisData()?.organizations || []),
-                    ]}
+                    ])}
                   >
                     {(organizations) => (
                       <List
@@ -254,10 +254,10 @@ const App: Component = () => {
               >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show
-                    when={[
+                    when={common.get_best_data_array([
                       ...(certificateData()?.countries || []),
                       ...(whoisData()?.countries || []),
-                    ]}
+                    ])}
                   >
                     {(countries) => (
                       <List
