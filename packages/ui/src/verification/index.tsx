@@ -3,6 +3,7 @@ import "../styles.css";
 import { Data } from "@istrust/common";
 import { Popover } from "../popover";
 import { Country } from "../country";
+import { List } from "../list";
 
 interface Props extends Pick<Data<any>, "verification"> {
   locale: Intl.LocalesArgument;
@@ -58,32 +59,56 @@ export const Verification: Component<Props> = (props) => {
         </div>
       }
     >
-      <For each={props.verification.authority}>
-        {(authority) => (
-          <div class="flex items-center gap-1">
-            Verified by{" "}
-            <Show when={authority.organization}>
-              {(organization) => <>{organization()}</>}
-            </Show>
-            <Show when={authority.country}>
-              {(country) => (
-                <Country type="icon" value={country()} locale={props.locale} />
+      <Switch>
+        <Match when={props.verification.status === "unverified"}>
+          Information could not be verified
+        </Match>
+        <Match when={props.verification.status === "verified"}>
+          Information have been verified
+        </Match>
+      </Switch>
+
+      <Show when={props.verification.authorities}>
+        {(authorities) => (
+          <>
+            {" "}
+            by{" "}
+            <List each={authorities()}>
+              {(authority) => (
+                <div class="flex items-center gap-1">
+                  <Show when={authority.organization}>
+                    {(organization) => <>{organization()}</>}
+                  </Show>
+                  <Show when={authority.country}>
+                    {(country) => (
+                      <Country
+                        type="icon"
+                        value={country()}
+                        locale={props.locale}
+                      />
+                    )}
+                  </Show>
+                  <Show when={authority.links}>
+                    {(links) => (
+                      <For each={links()}>
+                        {(link) => (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            ^
+                          </a>
+                        )}
+                      </For>
+                    )}
+                  </Show>
+                </div>
               )}
-            </Show>
-            <Show when={authority.links}>
-              {(links) => (
-                <For each={links()}>
-                  {(link) => (
-                    <a href={link} target="_blank" rel="noopener noreferrer">
-                      ^
-                    </a>
-                  )}
-                </For>
-              )}
-            </Show>
-          </div>
+            </List>
+          </>
         )}
-      </For>
+      </Show>
     </Popover>
   );
 };

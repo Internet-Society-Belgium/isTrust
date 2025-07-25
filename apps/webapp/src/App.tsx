@@ -1,7 +1,7 @@
 import { DateDifference } from "@istrust/ui/date";
 import { Country } from "@istrust/ui/country";
 import { List } from "@istrust/ui/list";
-import { Container } from "@istrust/ui/container";
+import { Section } from "@istrust/ui/section";
 import * as common from "@istrust/common";
 import {
   createResource,
@@ -16,6 +16,7 @@ import {
 } from "solid-js";
 import { Modal } from "@istrust/ui/modal";
 import { Verification } from "@istrust/ui/verification";
+import { Item } from "@istrust/ui/item";
 
 const cache: common.DataCache = {
   psl: {
@@ -88,7 +89,7 @@ const App: Component = () => {
   };
 
   return (
-    <div class="bg-background flex flex-col items-center">
+    <div class="bg-background flex min-h-screen flex-col items-center">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -106,7 +107,7 @@ const App: Component = () => {
       </form>
 
       <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
-        <div class="flex w-md flex-col">
+        <div class="flex w-xs flex-col">
           <div class="flex items-center justify-center">
             <Switch>
               <Match when={domain.loading}>
@@ -133,9 +134,10 @@ const App: Component = () => {
               </div>
             </Show>
 
-            <Container title={<h2>Owner</h2>}>
-              <div class="flex gap-2">
-                <div class="flex items-center gap-1">
+            <Section title="Owner">
+              <Item
+                title="Individual"
+                prefix={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
@@ -154,9 +156,8 @@ const App: Component = () => {
                       <circle cx="12" cy="7" r="4" />
                     </g>
                   </svg>
-
-                  <h3>Individual:</h3>
-                </div>
+                }
+              >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show
                     when={[
@@ -179,10 +180,11 @@ const App: Component = () => {
                     )}
                   </Show>
                 </Suspense>
-              </div>
+              </Item>
 
-              <div class="flex items-center gap-2">
-                <div class="flex items-center gap-1">
+              <Item
+                title="Organization"
+                prefix={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
@@ -201,8 +203,8 @@ const App: Component = () => {
                       <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01" />
                     </g>
                   </svg>
-                  <h3>Organization:</h3>
-                </div>
+                }
+              >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show
                     when={[
@@ -225,10 +227,11 @@ const App: Component = () => {
                     )}
                   </Show>
                 </Suspense>
-              </div>
+              </Item>
 
-              <div class="flex gap-2">
-                <div class="flex items-center gap-1">
+              <Item
+                title="Country"
+                prefix={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
@@ -247,8 +250,8 @@ const App: Component = () => {
                       <circle cx="12" cy="10" r="3" />
                     </g>
                   </svg>
-                  <h3>Country:</h3>
-                </div>
+                }
+              >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show
                     when={[
@@ -277,10 +280,11 @@ const App: Component = () => {
                     )}
                   </Show>
                 </Suspense>
-              </div>
+              </Item>
 
-              <div class="flex gap-2">
-                <div class="flex items-center gap-1">
+              <Item
+                title="Business category"
+                prefix={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
@@ -299,8 +303,8 @@ const App: Component = () => {
                       <rect width="20" height="14" x="2" y="6" rx="2" />
                     </g>
                   </svg>
-                  <h3>Business category:</h3>
-                </div>
+                }
+              >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show when={certificateData()?.businessCategories}>
                     {(businessCategories) => (
@@ -318,12 +322,13 @@ const App: Component = () => {
                     )}
                   </Show>
                 </Suspense>
-              </div>
-            </Container>
+              </Item>
+            </Section>
 
-            <Container title={<h2>Domain</h2>}>
-              <div class="flex gap-2">
-                <div class="flex items-center gap-1">
+            <Section title="Domain">
+              <Item
+                title="Registration"
+                prefix={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
@@ -343,8 +348,8 @@ const App: Component = () => {
                       <path d="M3 10h18m-11 6h4m-2-2v4" />
                     </g>
                   </svg>
-                  <h3>Registration:</h3>
-                </div>
+                }
+              >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show when={whoisData()?.registrations}>
                     {(registrations) => (
@@ -358,19 +363,23 @@ const App: Component = () => {
                         )}
                       >
                         {(registration) => (
-                          <DateDifference
-                            date={registration.value}
-                            locale={navigator.language}
-                          />
+                          <>
+                            Registered{" "}
+                            <DateDifference
+                              date={registration.value}
+                              locale={navigator.language}
+                            />
+                          </>
                         )}
                       </List>
                     )}
                   </Show>
                 </Suspense>
-              </div>
+              </Item>
 
-              <div class="flex gap-2">
-                <div class="flex items-center gap-1">
+              <Item
+                title="Expiration"
+                prefix={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
@@ -390,8 +399,8 @@ const App: Component = () => {
                       <path d="M3 10h18m-7 4l-4 4m0-4l4 4" />
                     </g>
                   </svg>
-                  <h3>Expiration:</h3>
-                </div>
+                }
+              >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Show when={whoisData()?.expirations}>
                     {(expirations) => (
@@ -405,19 +414,23 @@ const App: Component = () => {
                         )}
                       >
                         {(expiration) => (
-                          <DateDifference
-                            date={expiration.value}
-                            locale={navigator.language}
-                          />
+                          <>
+                            Expire{" "}
+                            <DateDifference
+                              date={expiration.value}
+                              locale={navigator.language}
+                            />
+                          </>
                         )}
                       </List>
                     )}
                   </Show>
                 </Suspense>
-              </div>
+              </Item>
 
-              <div class="flex gap-2">
-                <div class="flex items-center gap-1">
+              <Item
+                title="DNSSEC"
+                prefix={
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="1em"
@@ -437,18 +450,18 @@ const App: Component = () => {
                       <rect width="8" height="5" x="14" y="6" rx="1" />
                     </g>
                   </svg>
-                  <h3>DNSSEC:</h3>
-                </div>
+                }
+              >
                 <Suspense fallback={<span>Loading...</span>}>
                   <Switch>
                     <Match when={dnssecValid() === true}>valid</Match>
                     <Match when={dnssecValid() === false}>no</Match>
                   </Switch>
                 </Suspense>
-              </div>
-            </Container>
+              </Item>
+            </Section>
 
-            <Container title={<h2>Debug</h2>}>
+            <Section title="Debug">
               <details>
                 <summary>WHOIS raw data</summary>
                 <Show when={whoisData()}>
@@ -470,7 +483,7 @@ const App: Component = () => {
                   )}
                 </Show>
               </details>
-            </Container>
+            </Section>
           </div>
         </div>
       </ErrorBoundary>
