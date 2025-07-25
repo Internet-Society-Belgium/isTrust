@@ -203,7 +203,7 @@ export const Popover: Component<Props> = (props) => {
               </Switch>
 
               <div
-                class="absolute flex"
+                class="pointer-events-none absolute flex"
                 style={{
                   left: `${rect().content.x}px`,
                   top: `${rect().content.y + (rect().align === "top" ? 0 : +8 + 1)}px`,
@@ -221,7 +221,7 @@ export const Popover: Component<Props> = (props) => {
               >
                 <div
                   ref={content}
-                  class="bg-background ring-border rounded-md p-2 shadow-lg ring"
+                  class="bg-background ring-border pointer-events-auto rounded-lg p-2 shadow-lg ring"
                   tabIndex={0}
                   onBlur={blurEvent}
                 >
