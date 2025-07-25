@@ -3,7 +3,7 @@ import { Flag } from "./flag";
 import "../styles.css";
 
 interface Props {
-  type: "full" | "icon";
+  type: "text" | "icon";
   value: string;
   locale: Intl.LocalesArgument;
 }
@@ -23,18 +23,15 @@ export const Country: Component<Props> = (props) => {
   };
 
   return (
-    <div class="flex items-center gap-1">
-      <Switch>
-        <Match when={props.type === "full"}>
-          <span>{getRegionName(props.value, props.locale)}</span>
+    <Switch>
+      <Match when={props.type === "text"}>
+        <span>{getRegionName(props.value, props.locale)}</span>
+      </Match>
+      <Match when={props.type === "icon"}>
+        <div title={getRegionName(props.value, props.locale)}>
           <Flag code={props.value} />
-        </Match>
-        <Match when={props.type === "icon"}>
-          <div title={getRegionName(props.value, props.locale)}>
-            <Flag code={props.value} />
-          </div>
-        </Match>
-      </Switch>
-    </div>
+        </div>
+      </Match>
+    </Switch>
   );
 };

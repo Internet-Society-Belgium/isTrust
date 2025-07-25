@@ -273,7 +273,7 @@ const App: Component = () => {
                           <Country
                             value={country.value}
                             locale={navigator.language}
-                            type="full"
+                            type="text"
                           />
                         )}
                       </List>
