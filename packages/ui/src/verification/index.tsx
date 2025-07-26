@@ -96,6 +96,7 @@ export const Verification: Component<Props> = (props) => {
                             href={link}
                             target="_blank"
                             rel="noopener noreferrer"
+                            class="m-1"
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"

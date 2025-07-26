@@ -1,19 +1,37 @@
-import { JSX, type Component } from "solid-js";
+import { JSX, Suspense, type Component } from "solid-js";
 import "../styles.css";
 
-interface Props {
+interface SectionProps {
   title: string;
   children: JSX.Element;
 }
 
-export const Section: Component<Props> = (props) => {
+export const Section: Component<SectionProps> = (props) => {
   return (
-    <div class="bg-container ring-border divide-border divide-y rounded-lg ring-1">
-      <div class="flex w-full items-center justify-between px-4 py-2">
-        <h2>{props.title}</h2>
+    <>
+      <div class="align-center flex w-full items-center text-center">
+        <div class="border-border w-full border-t border-solid" />
+        <div class="text-default mx-3 flex font-medium whitespace-nowrap">
+          <span class="text-sm">{props.title}</span>
+        </div>
+        <div class="border-border w-full border-t border-solid" />
       </div>
+      {props.children}
+    </>
+  );
+};
 
-      <div class="flex flex-col gap-1 p-4">{props.children}</div>
+interface SectionItemProps {
+  title: string;
+  prefix: JSX.Element;
+  children: JSX.Element;
+}
+
+export const SectionItem: Component<SectionItemProps> = (props) => {
+  return (
+    <div class="flex items-center gap-2">
+      <div title={props.title}>{props.prefix}</div>
+      <Suspense fallback={<span>Loading...</span>}>{props.children}</Suspense>
     </div>
   );
 };

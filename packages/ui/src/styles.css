@@ -2,12 +2,20 @@
 
 /* https://tailwindcss.com/docs/colors  */
 @theme {
-  --color-muted: oklch(55.6% 0 0); /* neutral 500 */
-  --color-container: oklch(96.8% 0.007 247.896); /* slate 100 */
-  --color-border: oklch(92.9% 0.013 255.508); /* slate 200 */
+  --color-primary: #07f;
+
   --color-background: oklch(98.4% 0.003 247.858); /* slate 50 */
+
+  --color-container: oklch(96.8% 0.007 247.896); /* slate 100 */
+  --color-container-darker: oklch(92.9% 0.013 255.508); /* slate 200 */
+  --color-border: oklch(92.9% 0.013 255.508); /* slate 200 */
+
+  --color-elevated: oklch(96.8% 0.007 247.896); /* slate 100 */
+  --color-accented: oklch(86.9% 0.022 252.894); /* slate 300 */
+  --color-dimmed: oklch(70.4% 0.04 256.788); /* slate 400 */
+  --color-muted: oklch(55.4% 0.046 257.417); /* slate 500 */
 }
 
 html {
-  color: oklch(20.5% 0 0); /* neutral 900 */
+  color: oklch(20.8% 0.042 265.755); /* slate 900 */
 }
