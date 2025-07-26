@@ -13,7 +13,7 @@
     "./*": "./dist/*.js"
   },
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "vite build --watch --mode development",
     "build": "vite build",
     "check-types": "tsc --noEmit",
     "format": "prettier ./src --write",

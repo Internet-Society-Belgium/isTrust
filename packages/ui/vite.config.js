@@ -10,7 +10,7 @@ const files = glob.sync("src/*/index.tsx").map((f) => {
 });
 const entries = Object.fromEntries(files);
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   build: {
     lib: {
       entry: entries,
@@ -21,5 +21,9 @@ export default defineConfig({
       external: ["solid-js", "solid-js/web"],
     },
   },
-  plugins: [solid(), tailwindcss(), dts({ rollupTypes: true })],
-});
+  plugins: [
+    solid(),
+    tailwindcss(),
+    dts({ rollupTypes: mode === "development" ? false : true }),
+  ],
+}));
