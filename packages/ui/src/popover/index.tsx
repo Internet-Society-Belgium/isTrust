@@ -32,19 +32,31 @@ export const Popover: Component<Props> = (props) => {
   let content!: HTMLDivElement;
 
   onMount(() => {
-    document.addEventListener("resize", computeRect);
-    document.addEventListener("scroll", computeRect);
+    document.addEventListener("resize", computeRect, { passive: true });
+    document.addEventListener("scroll", computeRect, { passive: true });
 
-    document.addEventListener("keydown", keyDownEvent);
-    document.addEventListener("pointerdown", pointerDownEvent);
+    document.addEventListener("keydown", closeOnEscape, { passive: true });
+    document.addEventListener("pointerdown", closeOnEvent, {
+      passive: true,
+    });
+    document.addEventListener("focus", closeOnEvent, {
+      capture: true,
+      passive: true,
+    });
+    document.addEventListener("blur", closeOnEvent, {
+      capture: true,
+      passive: true,
+    });
   });
 
   onCleanup(() => {
     document.removeEventListener("resize", computeRect);
     document.removeEventListener("scroll", computeRect);
 
-    document.removeEventListener("keydown", keyDownEvent);
-    document.removeEventListener("pointerdown", pointerDownEvent);
+    document.removeEventListener("keydown", closeOnEscape);
+    document.removeEventListener("pointerdown", closeOnEvent);
+    document.removeEventListener("focus", closeOnEvent, { capture: true });
+    document.removeEventListener("blur", closeOnEvent, { capture: true });
   });
 
   const computeRect = () => {
@@ -110,7 +122,7 @@ export const Popover: Component<Props> = (props) => {
     });
   };
 
-  const keyDownEvent = (event: KeyboardEvent) => {
+  const closeOnEscape = (event: KeyboardEvent) => {
     if (open() !== true) return;
 
     if (event.key === "Escape") {
@@ -118,20 +130,9 @@ export const Popover: Component<Props> = (props) => {
     }
   };
 
-  const pointerDownEvent = (event: PointerEvent) => {
+  const closeOnEvent = (event: Event) => {
     if (open() !== true) return;
 
-    const target = event.target as Node;
-
-    if (
-      target === null ||
-      (!trigger.contains(target) && !content.contains(target))
-    ) {
-      setOpen(false);
-    }
-  };
-
-  const blurEvent = (event: FocusEvent) => {
     const target = event.target as Node;
 
     if (
@@ -223,7 +224,6 @@ export const Popover: Component<Props> = (props) => {
                   ref={content}
                   class="bg-background ring-border pointer-events-auto rounded-lg p-2 shadow-lg ring"
                   tabIndex={0}
-                  onBlur={blurEvent}
                 >
                   {props.children}
                 </div>
