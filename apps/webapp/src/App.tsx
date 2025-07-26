@@ -52,40 +52,66 @@ const cache: common.DataCache = {
 };
 
 const App: Component = () => {
-  const [query, setQuery] = createSignal<string>();
+  const [query, setQuery] = createSignal<{
+    text: string;
+    forceUpdateCache: boolean;
+  }>();
 
-  const [domain] = createResource(query, async (query) => {
-    return await common.get_effective_domain(query, cache);
-  });
+  const [domain, { mutate: mutateDomain }] = createResource(
+    query,
+    async (query) => {
+      if (query.forceUpdateCache === true) {
+        await common.force_update_cache(cache);
+      }
 
-  const [whoisData] = createResource(
+      return await common.get_effective_domain(query.text, cache);
+    },
+  );
+
+  const [whoisData, { mutate: mutateWhoisData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await common.get_whois_data(domain, cache);
     },
   );
 
-  const [dnssecData] = createResource(
+  const [dnssecData, { mutate: mutateDnssecData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await common.get_dnssec_data(domain);
     },
   );
 
-  const [certificateData] = createResource(
+  const [certificateData, { mutate: mutateCertificateData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await common.get_certificate_data(domain);
     },
   );
 
-  const [persisted, sepPersisted] = createSignal<boolean>(false);
+  const [persisted, setPersisted] = createSignal<boolean>();
   onMount(async () => {
-    sepPersisted(await navigator.storage.persisted());
+    setPersisted(await navigator.storage.persisted());
   });
 
-  const force_update_cache = async () => {
-    await common.force_update_cache(cache);
+  const search = async (text: string) => {
+    if (!persisted()) {
+      await navigator.storage.persist();
+      setPersisted(await navigator.storage.persisted());
+    }
+    setQuery({ text, forceUpdateCache: false });
+  };
+
+  const reload = async () => {
+    const oldQuery = query();
+    if (oldQuery === undefined) return;
+
+    mutateDomain();
+    mutateWhoisData();
+    mutateDnssecData();
+    mutateCertificateData();
+
+    setQuery({ text: oldQuery.text, forceUpdateCache: true });
   };
 
   return (

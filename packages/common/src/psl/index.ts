@@ -4,7 +4,7 @@ import { parse_tld } from "../utils/domain";
 // https://publicsuffix.org/list/
 const CACHING_DAYS = 7;
 
-export async function update(cache: DataCache) {
+async function update(cache: DataCache) {
   const lastUpdate = await cache.psl.get("_lastUpdate");
 
   const cachingOutdated = new Date().setDate(

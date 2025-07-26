@@ -1,7 +1,7 @@
 import * as certificate from "./certificate";
 import * as dnssec from "./dnssec";
 import * as psl from "./psl";
-import { type Data, type DataCache, get_best_data_array } from "./type";
+import { get_best_data_array, type Data, type DataCache } from "./type";
 import { parse_domain } from "./utils/domain";
 import * as whois from "./whois";
 
@@ -28,10 +28,6 @@ export async function get_dnssec_data(
   customResolver?: string,
 ) {
   return await dnssec.get_data(eDomain, customResolver);
-}
-
-export async function update_cache(cache: DataCache) {
-  await Promise.allSettled([psl.update(cache), whois.update(cache)]);
 }
 
 export async function force_update_cache(cache: DataCache) {
