@@ -67,7 +67,13 @@ export async function get_data(domain: string, cache: DataCache) {
   const bootstrap = await cache.rdap.get(tld);
   if (bootstrap === null) throw new Error(`No RDAP available for .${tld}`);
 
-  const data: WHOISData = {};
+  const data: WHOISData = {
+    registrations: null,
+    expirations: null,
+    individuals: null,
+    organizations: null,
+    countries: null,
+  };
 
   const apis = bootstrap.split(",");
 
@@ -117,13 +123,15 @@ export async function get_data(domain: string, cache: DataCache) {
     }
   }
 
-  if (Object.keys(data).length === 0) return;
-
   return data;
 }
 
 function improve_data(data: WHOISData, result: RdapResult) {
-  const registrar: VerificationAuthority = {};
+  const registrar: VerificationAuthority = {
+    organization: null,
+    country: null,
+    links: null,
+  };
 
   const registrarEntity = result.entities.find((e) => {
     return e.roles.findIndex((r) => r === "registrar") !== -1;
@@ -135,19 +143,19 @@ function improve_data(data: WHOISData, result: RdapResult) {
   ) {
     const organization = get_organization(registrarEntity.vcardArray);
 
-    if (organization !== undefined) {
+    if (organization !== null) {
       registrar.organization = organization;
     } else {
       const name = get_name(registrarEntity.vcardArray);
 
-      if (name !== undefined) {
+      if (name !== null) {
         registrar.organization = name;
       }
     }
 
     const country = get_country(registrarEntity.vcardArray);
 
-    if (country !== undefined) {
+    if (country !== null) {
       registrar.country = country;
     }
 
@@ -218,7 +226,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
       // https://www.rfc-editor.org/rfc/rfc6350#section-6.2.1
       const fn = get_name(registrantEntity.vcardArray);
 
-      if (fn !== undefined) {
+      if (fn !== null) {
         const improvedIndividuals = improve_data_array(data.individuals, {
           value: fn,
           verification: {
@@ -234,7 +242,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
 
     const organization = get_organization(registrantEntity.vcardArray);
 
-    if (organization !== undefined) {
+    if (organization !== null) {
       const improvedOrganizations = improve_data_array(data.organizations, {
         value: organization,
         verification: {
@@ -249,7 +257,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
 
     const country = get_country(registrantEntity.vcardArray);
 
-    if (country !== undefined) {
+    if (country !== null) {
       const improvedCountries = improve_data_array(data.countries, {
         value: country,
         verification: {
@@ -269,7 +277,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
 function get_name(jCard: JCard) {
   const fnProperty = jCard[1].find((p) => p[0] === "fn");
 
-  if (fnProperty === undefined) return;
+  if (fnProperty === undefined) return null;
 
   const fnValue = fnProperty[3];
 
@@ -279,7 +287,7 @@ function get_name(jCard: JCard) {
 function get_organization(jCard: JCard) {
   const orgProperty = jCard[1].find((p) => p[0] === "org");
 
-  if (orgProperty === undefined) return;
+  if (orgProperty === undefined) return null;
 
   const orgValue = orgProperty[3];
 
@@ -289,7 +297,7 @@ function get_organization(jCard: JCard) {
 function get_country(vcardArray: JCard) {
   const adrProperty = vcardArray[1].find((p) => p[0] === "adr");
 
-  if (adrProperty === undefined) return;
+  if (adrProperty === undefined) return null;
 
   const adrParameter = adrProperty[1];
 
@@ -310,5 +318,5 @@ function get_country(vcardArray: JCard) {
     return countryName;
   }
 
-  return;
+  return null;
 }

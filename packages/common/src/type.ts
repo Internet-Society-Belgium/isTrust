@@ -1,13 +1,13 @@
 export interface VerificationAuthority {
-  organization?: string;
-  country?: string;
-  links?: string[];
+  organization: string | null;
+  country: string | null;
+  links: string[] | null;
 }
 
 export type Verification =
   | {
       status: "unverified";
-      authorities?: VerificationAuthority[];
+      authorities: VerificationAuthority[] | null;
     }
   | {
       status: "verified";
@@ -19,7 +19,16 @@ export interface Data<T> {
   verification: Verification;
 }
 
-export function get_best_data_array<T>(array: Data<T>[]) {
+export function merge_data_array<T>(
+  array1: Data<T>[] | undefined | null,
+  array2: Data<T>[] | undefined | null,
+) {
+  if (array1 === undefined || array2 === undefined) return undefined;
+  if (array1 === null && array2 === null) return null;
+
+  let array = [...(array1 || []), ...(array2 || [])];
+  if (array.length === 0) return null;
+
   const verified = array.filter(
     (data) => data.verification.status === "verified",
   );
@@ -34,14 +43,13 @@ export function get_best_data_array<T>(array: Data<T>[]) {
     }
   }
 
+  if (unique.length === 0) return null;
+
   return unique;
 }
 
-export function improve_data_array<T>(
-  array: Data<T>[] | undefined,
-  data: Data<T>,
-) {
-  if (array === undefined) return [data];
+export function improve_data_array<T>(array: Data<T>[] | null, data: Data<T>) {
+  if (array === null) return [data];
 
   let match: Data<T> | undefined;
   for (const a of array) {
@@ -72,8 +80,8 @@ export function improve_data_array<T>(
   }
 
   if (
-    match.verification.authorities !== undefined &&
-    data.verification.authorities !== undefined
+    match.verification.authorities !== null &&
+    data.verification.authorities !== null
   ) {
     for (const authority of data.verification.authorities) {
       const improvedAuthority = improve_authority_array(
@@ -99,8 +107,7 @@ function improve_authority_array(
   for (const a of array) {
     if (
       normalize(a.organization) === normalize(data.organization) &&
-      (a.country === undefined ||
-        normalize(a.country) === normalize(data.country))
+      (a.country === null || normalize(a.country) === normalize(data.country))
     ) {
       match = a;
       break;
@@ -108,16 +115,14 @@ function improve_authority_array(
   }
 
   if (match) {
-    if (match.country === undefined && data.country !== undefined) {
+    if (match.country === null && data.country !== null) {
       match.country = data.country;
     }
 
-    if (match.links !== undefined) {
-      if (data.links !== undefined) {
-        for (const link of data.links) {
-          if (!match.links.includes(link)) {
-            match.links.push(link);
-          }
+    if (match.links !== null && data.links !== null) {
+      for (const link of data.links) {
+        if (!match.links.includes(link)) {
+          match.links.push(link);
         }
       }
     }

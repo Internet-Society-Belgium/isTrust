@@ -36,9 +36,8 @@ test("wikipedia.org", async () => {
         verification: {
           authorities: [
             {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/292",
-              ],
+              country: null,
+              links: [],
               organization: "MarkMonitor Inc.",
             },
           ],
@@ -52,9 +51,8 @@ test("wikipedia.org", async () => {
         verification: {
           authorities: [
             {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/292",
-              ],
+              country: null,
+              links: [],
               organization: "MarkMonitor Inc.",
             },
           ],
@@ -62,15 +60,15 @@ test("wikipedia.org", async () => {
         },
       },
     ],
+    individuals: null,
     organizations: [
       {
         value: "Wikimedia Foundation, Inc.",
         verification: {
           authorities: [
             {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/292",
-              ],
+              country: null,
+              links: [],
               organization: "MarkMonitor Inc.",
             },
           ],
@@ -84,9 +82,8 @@ test("wikipedia.org", async () => {
         verification: {
           authorities: [
             {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/292",
-              ],
+              country: null,
+              links: [],
               organization: "MarkMonitor Inc.",
             },
           ],
@@ -112,6 +109,7 @@ test("istrust.org", async () => {
                 "https://www.gandi.net/",
               ],
               organization: "Gandi SAS",
+              country: null,
             },
           ],
           status: "unverified",
@@ -129,6 +127,7 @@ test("istrust.org", async () => {
                 "https://www.gandi.net/",
               ],
               organization: "Gandi SAS",
+              country: null,
             },
           ],
           status: "verified",
@@ -143,6 +142,7 @@ test("istrust.org", async () => {
             {
               links: ["https://www.gandi.net/"],
               organization: "Gandi SAS",
+              country: null,
             },
           ],
           status: "unverified",
@@ -160,6 +160,7 @@ test("istrust.org", async () => {
                 "https://www.gandi.net/",
               ],
               organization: "Gandi SAS",
+              country: null,
             },
           ],
           status: "unverified",
@@ -177,6 +178,7 @@ test("istrust.org", async () => {
                 "https://www.gandi.net/",
               ],
               organization: "Gandi SAS",
+              country: null,
             },
           ],
           status: "verified",
@@ -198,6 +200,8 @@ test("newtab.com", async () => {
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+              country: null,
+              links: null,
             },
           ],
           status: "unverified",
@@ -213,6 +217,7 @@ test("newtab.com", async () => {
               links: ["http://wanwang.aliyun.com"],
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+              country: null,
             },
           ],
           status: "verified",
@@ -227,6 +232,8 @@ test("newtab.com", async () => {
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+              country: null,
+              links: null,
             },
           ],
           status: "unverified",
@@ -241,6 +248,8 @@ test("newtab.com", async () => {
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+              country: null,
+              links: null,
             },
           ],
           status: "unverified",
@@ -256,6 +265,7 @@ test("newtab.com", async () => {
               links: ["http://wanwang.aliyun.com"],
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+              country: null,
             },
           ],
           status: "verified",
@@ -277,6 +287,7 @@ test("phishurl.com", async () => {
             {
               links: ["https://rdap.ovh.com/"],
               organization: "OVH, SAS",
+              country: null,
             },
           ],
           status: "unverified",
@@ -291,12 +302,15 @@ test("phishurl.com", async () => {
             {
               links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
               organization: "OVH sas",
+              country: null,
             },
           ],
           status: "verified",
         },
       },
     ],
+    individuals: null,
+    organizations: null,
     registrations: [
       {
         value: "2024-05-26T22:00:00.000Z",
@@ -305,6 +319,7 @@ test("phishurl.com", async () => {
             {
               links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
               organization: "OVH sas",
+              country: null,
             },
           ],
           status: "verified",

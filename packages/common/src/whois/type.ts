@@ -20,7 +20,7 @@ const rdapValueSchema = z.union([
 
 type RdapValue = z.infer<typeof rdapValueSchema>;
 
-export function stringify_rdap_value(value: RdapValue): string | undefined {
+export function stringify_rdap_value(value: RdapValue) {
   let rdapValueString = "";
 
   if (Array.isArray(value)) {
@@ -30,7 +30,7 @@ export function stringify_rdap_value(value: RdapValue): string | undefined {
   }
 
   rdapValueString = rdapValueString.trim();
-  if (rdapValueString === "") return;
+  if (rdapValueString === "") return null;
 
   return rdapValueString;
 }
@@ -99,9 +99,9 @@ export function validateRdapResult(json: unknown) {
 }
 
 export interface WHOISData {
-  registrations?: Data<string>[];
-  expirations?: Data<string>[];
-  organizations?: Data<string>[];
-  individuals?: Data<string>[];
-  countries?: Data<string>[];
+  registrations: Data<string>[] | null;
+  expirations: Data<string>[] | null;
+  organizations: Data<string>[] | null;
+  individuals: Data<string>[] | null;
+  countries: Data<string>[] | null;
 }

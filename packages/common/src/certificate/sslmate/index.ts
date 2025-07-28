@@ -3,6 +3,8 @@ import { X509Data } from "../x509/type";
 import { validateSSLMateSearch } from "./type";
 
 export async function get_data(domain: string) {
+  const data: X509Data[] = [];
+
   try {
     // https://sslmate.com/help/reference/ct_search_api_v1#api_list
     const resSearch = await fetch(
@@ -10,9 +12,7 @@ export async function get_data(domain: string) {
     );
     const jsonSearch: unknown = await resSearch.json();
     const resultsSearch = validateSSLMateSearch(jsonSearch);
-    if (resultsSearch.length === 0) return;
 
-    const data: X509Data[] = [];
     for (const resultSearch of resultsSearch) {
       if (resultSearch.revoked) continue;
 
@@ -22,11 +22,9 @@ export async function get_data(domain: string) {
 
       data.push(x509.get_data(cert));
     }
-
-    return data;
   } catch (e) {
     console.error(e);
-
-    return;
   }
+
+  return data;
 }

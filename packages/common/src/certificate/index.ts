@@ -5,9 +5,15 @@ import { CertificateData, CertificateType } from "./type";
 export async function get_data(domain: string) {
   const x509sData = await sslmate.get_data(domain);
 
-  if (x509sData === undefined || x509sData.length === 0) return;
+  const certificateData: CertificateData = {
+    types: null,
+    individuals: null,
+    organizations: null,
+    countries: null,
+    businessCategories: null,
+  };
 
-  const certificateData: CertificateData = {};
+  if (x509sData.length === 0) return certificateData;
 
   x509sData.sort(
     (a, b) => certificate_type_score(b.type) - certificate_type_score(a.type),

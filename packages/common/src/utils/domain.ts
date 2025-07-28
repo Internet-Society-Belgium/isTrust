@@ -41,7 +41,7 @@ export function parse_domain(text: string) {
 
   domain = domain.trim();
 
-  if (domain === "") return;
+  if (domain === "") return null;
 
   return domain;
 }

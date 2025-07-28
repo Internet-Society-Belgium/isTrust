@@ -6,14 +6,16 @@ import { DNSSECData } from "./type";
 globalThis.Buffer = BufferPolyfill;
 
 interface Resolver {
-  name: string;
   url: string;
+  name: string;
+  country: string | null;
   links: string[];
 }
 
-const DEFAULT_RESOLVER = {
-  name: "Cloudflare",
+const DEFAULT_RESOLVER: Resolver = {
   url: "https://cloudflare-dns.com/dns-query",
+  name: "Cloudflare",
+  country: "US",
   links: ["https://one.one.one.one/dns/"],
 };
 
@@ -25,11 +27,16 @@ export async function get_data(domain: string, customResolver?: string) {
     resolver = {
       name: hostname,
       url: customResolver,
+      country: null,
       links: [customResolver.replace(/dns-query$/, "")],
     };
   } else {
     resolver = DEFAULT_RESOLVER;
   }
+
+  const data: DNSSECData = {
+    valid: null,
+  };
 
   try {
     // https://www.rfc-editor.org/rfc/rfc1035.html
@@ -60,25 +67,22 @@ export async function get_data(domain: string, customResolver?: string) {
     // https://datatracker.ietf.org/doc/rfc3655/
     const validity = decoded.flag_ad;
 
-    const data: DNSSECData = {
-      valid: {
-        value: validity,
-        verification: {
-          status: "verified",
-          authorities: [
-            {
-              organization: resolver.name,
-              links: resolver.links,
-            },
-          ],
-        },
+    data.valid = {
+      value: validity,
+      verification: {
+        status: "verified",
+        authorities: [
+          {
+            organization: resolver.name,
+            links: resolver.links,
+            country: resolver.country,
+          },
+        ],
       },
     };
-
-    return data;
   } catch (error) {
     console.error(error);
-
-    return;
   }
+
+  return data;
 }

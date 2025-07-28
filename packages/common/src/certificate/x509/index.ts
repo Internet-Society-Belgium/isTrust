@@ -31,19 +31,31 @@ export function get_data(cert: X509Certificate) {
     type = "DV";
   }
 
-  const issuer: X509Issuer = {};
+  const issuer: X509Issuer = {
+    organization: null,
+    country: null,
+    links: null,
+  };
 
   const issuerOrganization = atos(cert.issuerName.getField(oid.Organization));
-  if (issuerOrganization !== undefined) {
+  if (issuerOrganization !== null) {
     issuer.organization = issuerOrganization;
   }
 
   const issuerCountry = atos(cert.issuerName.getField(oid.Country));
-  if (issuerCountry !== undefined) {
+  if (issuerCountry !== null) {
     issuer.country = issuerCountry;
   }
 
-  const data: X509Data = { type, issuer };
+  const data: X509Data = {
+    type,
+    issuer,
+    individual: null,
+    organization: null,
+    country: null,
+    incCountry: null,
+    businessCategory: null,
+  };
 
   const subjectOrganization = atos(cert.subjectName.getField(oid.Organization));
   if (subjectOrganization) {
@@ -91,7 +103,7 @@ export function get_data(cert: X509Certificate) {
 
 function atos(array: string[]) {
   const text = array.join(" ").trim();
-  if (text === "") return;
+  if (text === "") return null;
   return text;
 }
 
@@ -132,7 +144,7 @@ function is_same_domain(cert: X509Certificate, domain: string) {
   const dnsNames = [];
 
   const commonName = atos(cert.subjectName.getField(oid.CommonName));
-  if (commonName !== undefined) {
+  if (commonName !== null) {
     dnsNames.push(commonName);
   }
 

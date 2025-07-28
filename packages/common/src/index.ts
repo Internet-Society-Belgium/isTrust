@@ -1,17 +1,17 @@
 import * as certificate from "./certificate";
 import * as dnssec from "./dnssec";
 import * as psl from "./psl";
-import { get_best_data_array, type Data, type DataCache } from "./type";
+import { merge_data_array, type Data, type DataCache } from "./type";
 import { parse_domain } from "./utils/domain";
 import * as whois from "./whois";
 
 export { Data, DataCache };
 
-export { get_best_data_array };
+export { merge_data_array };
 
 export async function get_effective_domain(query: string, cache: DataCache) {
   const domain = parse_domain(query);
-  if (domain === undefined) return;
+  if (domain === null) return null;
   return await psl.get_effective_domain(domain, cache);
 }
 
