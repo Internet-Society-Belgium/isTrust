@@ -1,6 +1,5 @@
 import { DateDifference } from "@istrust/ui/date";
 import { Country } from "@istrust/ui/country";
-import { List } from "@istrust/ui/list";
 import { SectionItem, Section } from "@istrust/ui/section";
 import { Header } from "@istrust/ui/header";
 import * as common from "@istrust/common";
@@ -164,6 +163,7 @@ const App: Component = () => {
                 <Section title="Owner">
                   <SectionItem
                     title="Individual"
+                    description="Individual name"
                     prefix={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -184,31 +184,23 @@ const App: Component = () => {
                         </g>
                       </svg>
                     }
+                    data={common.merge_data_array(
+                      certificateData()?.individuals,
+                      whoisData()?.individuals,
+                    )}
+                    suffix={(individual) => (
+                      <Verification
+                        verification={individual.verification}
+                        locale={navigator.language}
+                      />
+                    )}
                   >
-                    <Show
-                      when={common.get_best_data_array([
-                        ...(certificateData()?.individuals || []),
-                        ...(whoisData()?.individuals || []),
-                      ])}
-                    >
-                      {(individuals) => (
-                        <List
-                          each={individuals()}
-                          suffix={(individual) => (
-                            <Verification
-                              verification={individual.verification}
-                              locale={navigator.language}
-                            />
-                          )}
-                        >
-                          {(individual) => <>{individual.value}</>}
-                        </List>
-                      )}
-                    </Show>
+                    {(individual) => <>{individual.value}</>}
                   </SectionItem>
 
                   <SectionItem
                     title="Organization"
+                    description="Organization name"
                     prefix={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -236,31 +228,23 @@ const App: Component = () => {
                         </g>
                       </svg>
                     }
+                    data={common.merge_data_array(
+                      certificateData()?.organizations,
+                      whoisData()?.organizations,
+                    )}
+                    suffix={(organization) => (
+                      <Verification
+                        verification={organization.verification}
+                        locale={navigator.language}
+                      />
+                    )}
                   >
-                    <Show
-                      when={common.get_best_data_array([
-                        ...(certificateData()?.organizations || []),
-                        ...(whoisData()?.organizations || []),
-                      ])}
-                    >
-                      {(organizations) => (
-                        <List
-                          each={organizations()}
-                          suffix={(organization) => (
-                            <Verification
-                              verification={organization.verification}
-                              locale={navigator.language}
-                            />
-                          )}
-                        >
-                          {(organization) => <>{organization.value}</>}
-                        </List>
-                      )}
-                    </Show>
+                    {(organization) => <>{organization.value}</>}
                   </SectionItem>
 
                   <SectionItem
                     title="Country"
+                    description="Country of residence"
                     prefix={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -281,37 +265,29 @@ const App: Component = () => {
                         </g>
                       </svg>
                     }
+                    data={common.merge_data_array(
+                      certificateData()?.countries,
+                      whoisData()?.countries,
+                    )}
+                    suffix={(country) => (
+                      <Verification
+                        verification={country.verification}
+                        locale={navigator.language}
+                      />
+                    )}
                   >
-                    <Show
-                      when={common.get_best_data_array([
-                        ...(certificateData()?.countries || []),
-                        ...(whoisData()?.countries || []),
-                      ])}
-                    >
-                      {(countries) => (
-                        <List
-                          each={countries()}
-                          suffix={(country) => (
-                            <Verification
-                              verification={country.verification}
-                              locale={navigator.language}
-                            />
-                          )}
-                        >
-                          {(country) => (
-                            <Country
-                              value={country.value}
-                              locale={navigator.language}
-                              type="text"
-                            />
-                          )}
-                        </List>
-                      )}
-                    </Show>
+                    {(country) => (
+                      <Country
+                        value={country.value}
+                        locale={navigator.language}
+                        type="text"
+                      />
+                    )}
                   </SectionItem>
 
                   <SectionItem
                     title="Business category"
+                    description="Business category"
                     prefix={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -332,28 +308,22 @@ const App: Component = () => {
                         </g>
                       </svg>
                     }
+                    data={certificateData()?.businessCategories}
+                    suffix={(businessCategory) => (
+                      <Verification
+                        verification={businessCategory.verification}
+                        locale={navigator.language}
+                      />
+                    )}
                   >
-                    <Show when={certificateData()?.businessCategories}>
-                      {(businessCategories) => (
-                        <List
-                          each={businessCategories()}
-                          suffix={(businessCategory) => (
-                            <Verification
-                              verification={businessCategory.verification}
-                              locale={navigator.language}
-                            />
-                          )}
-                        >
-                          {(businessCategory) => <>{businessCategory.value}</>}
-                        </List>
-                      )}
-                    </Show>
+                    {(businessCategory) => <>{businessCategory.value}</>}
                   </SectionItem>
                 </Section>
 
                 <Section title="Domain">
                   <SectionItem
                     title="Registration"
+                    description="Period since registration"
                     prefix={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -374,34 +344,28 @@ const App: Component = () => {
                         </g>
                       </svg>
                     }
+                    data={whoisData()?.registrations}
+                    suffix={(registration) => (
+                      <Verification
+                        verification={registration.verification}
+                        locale={navigator.language}
+                      />
+                    )}
                   >
-                    <Show when={whoisData()?.registrations}>
-                      {(registrations) => (
-                        <List
-                          each={registrations()}
-                          suffix={(registration) => (
-                            <Verification
-                              verification={registration.verification}
-                              locale={navigator.language}
-                            />
-                          )}
-                        >
-                          {(registration) => (
-                            <>
-                              Registered{" "}
-                              <DateDifference
-                                date={registration.value}
-                                locale={navigator.language}
-                              />
-                            </>
-                          )}
-                        </List>
-                      )}
-                    </Show>
+                    {(registration) => (
+                      <>
+                        Registered{" "}
+                        <DateDifference
+                          date={registration.value}
+                          locale={navigator.language}
+                        />
+                      </>
+                    )}
                   </SectionItem>
 
                   <SectionItem
                     title="Expiration"
+                    description="Period until expiration"
                     prefix={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -423,34 +387,28 @@ const App: Component = () => {
                         </g>
                       </svg>
                     }
+                    data={whoisData()?.expirations}
+                    suffix={(expiration) => (
+                      <Verification
+                        verification={expiration.verification}
+                        locale={navigator.language}
+                      />
+                    )}
                   >
-                    <Show when={whoisData()?.expirations}>
-                      {(expirations) => (
-                        <List
-                          each={expirations()}
-                          suffix={(expiration) => (
-                            <Verification
-                              verification={expiration.verification}
-                              locale={navigator.language}
-                            />
-                          )}
-                        >
-                          {(expiration) => (
-                            <>
-                              Expire{" "}
-                              <DateDifference
-                                date={expiration.value}
-                                locale={navigator.language}
-                              />
-                            </>
-                          )}
-                        </List>
-                      )}
-                    </Show>
+                    {(expiration) => (
+                      <>
+                        Expire{" "}
+                        <DateDifference
+                          date={expiration.value}
+                          locale={navigator.language}
+                        />
+                      </>
+                    )}
                   </SectionItem>
 
                   <SectionItem
                     title="DNSSEC"
+                    description="Protection against manipulation"
                     prefix={
                       <Switch>
                         <Match when={dnssecData()?.valid?.value === true}>
@@ -511,57 +469,59 @@ const App: Component = () => {
                         </Match>
                       </Switch>
                     }
+                    data={dnssecData()?.valid}
+                    suffix={(valid) => (
+                      <Verification
+                        verification={valid.verification}
+                        locale={navigator.language}
+                      />
+                    )}
                   >
-                    <Show when={dnssecData()?.valid}>
-                      {(valid) => (
-                        <List
-                          each={[valid()]}
-                          suffix={(valid) => (
-                            <Verification
-                              verification={valid.verification}
-                              locale={navigator.language}
-                            />
-                          )}
-                        >
-                          {(valid) => (
-                            <Switch>
-                              <Match when={valid.value === true}>
-                                Protected
-                              </Match>
-                              <Match when={valid.value === false}>
-                                Not protected
-                              </Match>
-                            </Switch>
-                          )}
-                        </List>
-                      )}
-                    </Show>
+                    {(valid) => (
+                      <Switch>
+                        <Match when={valid.value === true}>Protected</Match>
+                        <Match when={valid.value === false}>
+                          Not protected
+                        </Match>
+                      </Switch>
+                    )}
                   </SectionItem>
                 </Section>
 
-                {/* <Section title="Debug">
-              <details>
-                <summary>WHOIS raw data</summary>
-                <Show when={whoisData()}>
-                  {(data) => (
-                    <pre class="overflow-scroll">
-                      {JSON.stringify(data(), undefined, 2)}
-                    </pre>
-                  )}
-                </Show>
-              </details>
+                <Section title="Debug">
+                  <details>
+                    <summary>WHOIS raw data</summary>
+                    <Show when={whoisData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
 
-              <details>
-                <summary>certificate raw data</summary>
-                <Show when={certificateData()}>
-                  {(data) => (
-                    <pre class="overflow-scroll">
-                      {JSON.stringify(data(), undefined, 2)}
-                    </pre>
-                  )}
-                </Show>
-              </details>
-            </Section> */}
+                  <details>
+                    <summary>certificate raw data</summary>
+                    <Show when={certificateData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+
+                  <details>
+                    <summary>DNSSEC raw data</summary>
+                    <Show when={dnssecData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+                </Section>
               </div>
             </div>
           </ErrorBoundary>

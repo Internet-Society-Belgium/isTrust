@@ -1,12 +1,14 @@
-import { JSX, Suspense, type Component } from "solid-js";
+import { JSX, Show, Suspense, type Component } from "solid-js";
 import "../styles.css";
+import * as common from "@istrust/common";
+import { List } from "../list";
 
-interface SectionProps {
+interface Props {
   title: string;
   children: JSX.Element;
 }
 
-export const Section: Component<SectionProps> = (props) => {
+export const Section: Component<Props> = (props) => {
   return (
     <>
       <div class="align-center flex w-full items-center text-center">
@@ -21,17 +23,51 @@ export const Section: Component<SectionProps> = (props) => {
   );
 };
 
-interface SectionItemProps {
+export function SectionItem<T>(props: {
   title: string;
+  description: string;
+  data: common.Data<T> | common.Data<T>[] | null | undefined;
   prefix: JSX.Element;
-  children: JSX.Element;
-}
+  // eslint-disable-next-line no-unused-vars
+  children: (item: common.Data<T>) => JSX.Element;
+  // eslint-disable-next-line no-unused-vars
+  suffix?: (item: common.Data<T>) => JSX.Element;
+}) {
+  const toArray = (
+    data: common.Data<T> | common.Data<T>[] | null | undefined,
+  ) => {
+    if (data === null) return [];
+    if (data === undefined) return [];
 
-export const SectionItem: Component<SectionItemProps> = (props) => {
+    if (Array.isArray(data)) {
+      return data;
+    }
+
+    return [data];
+  };
+
   return (
     <div class="flex items-center gap-2">
       <div title={props.title}>{props.prefix}</div>
-      <Suspense fallback={<span>Loading...</span>}>{props.children}</Suspense>
+      <Suspense fallback={<span>Loading...</span>}>
+        <Show
+          when={props.data !== undefined}
+          fallback={<p class="text-muted">{props.description}</p>}
+        >
+          <Show
+            when={props.data !== null}
+            fallback={<p class="text-muted">No information available</p>}
+          >
+            <Show when={toArray(props.data)}>
+              {(items) => (
+                <List each={items()} suffix={props.suffix}>
+                  {(item) => <>{props.children(item)}</>}
+                </List>
+              )}
+            </Show>
+          </Show>
+        </Show>
+      </Suspense>
     </div>
   );
-};
+}
