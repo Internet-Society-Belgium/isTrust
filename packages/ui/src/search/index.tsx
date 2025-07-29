@@ -1,4 +1,4 @@
-import { createSignal, type Component } from "solid-js";
+import { createSignal, onMount, type Component } from "solid-js";
 import "../styles.css";
 
 interface Props {
@@ -12,6 +12,10 @@ export const SearchBar: Component<Props> = (props) => {
   const [history, setHistory] = createSignal<string[]>([]);
 
   let input!: HTMLInputElement;
+
+  onMount(() => {
+    input.focus();
+  });
 
   const searchFromHistoryIndex = (offset: number) => {
     const newHistoryIndex = historyIndex() + offset;
