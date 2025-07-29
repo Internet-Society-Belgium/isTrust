@@ -1,7 +1,7 @@
 import { DateDifference } from "@istrust/ui/date";
 import { Country } from "@istrust/ui/country";
 import { SectionItem, Section } from "@istrust/ui/section";
-import { Header } from "@istrust/ui/header";
+import { Domain } from "@istrust/ui/header";
 import * as common from "@istrust/common";
 import {
   createResource,
@@ -12,7 +12,6 @@ import {
   onMount,
   resetErrorBoundaries,
   Show,
-  Suspense,
   Switch,
   type Component,
 } from "solid-js";
@@ -127,15 +126,11 @@ const App: Component = () => {
           }}
         />
 
-        <div class="bg-container ring-border rounded-lg px-4 pb-4 ring-1">
-          <Header />
-
+        <div class="bg-container ring-border rounded-lg p-4 ring-1">
           <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
             <div class="flex flex-col">
-              <div class="flex items-center justify-center">
-                <Suspense fallback={<span>Analyzing...</span>}>
-                  <h1>{domain()}</h1>
-                </Suspense>
+              <div class="mb-2 flex items-center justify-center">
+                <Domain value={domain()} />
               </div>
 
               <div class="flex flex-col gap-2">
@@ -148,8 +143,7 @@ const App: Component = () => {
                     <For each={evCertificates()}>
                       {(evCertificate) => (
                         <div class="flex gap-2">
-                          Organization legitimacy has been verified using strict
-                          verification
+                          Legitimacy strictly verified
                           <Verification
                             verification={evCertificate.verification}
                             locale={navigator.language}
@@ -479,16 +473,18 @@ const App: Component = () => {
                   >
                     {(valid) => (
                       <Switch>
-                        <Match when={valid.value === true}>Protected</Match>
+                        <Match when={valid.value === true}>
+                          Protected with DNSSEC
+                        </Match>
                         <Match when={valid.value === false}>
-                          Not protected
+                          Not protected against manipulation
                         </Match>
                       </Switch>
                     )}
                   </SectionItem>
                 </Section>
 
-                <Section title="Debug">
+                {/* <Section title="Debug">
                   <details>
                     <summary>WHOIS raw data</summary>
                     <Show when={whoisData()}>
@@ -521,7 +517,7 @@ const App: Component = () => {
                       )}
                     </Show>
                   </details>
-                </Section>
+                </Section> */}
               </div>
             </div>
           </ErrorBoundary>

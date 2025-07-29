@@ -1,7 +1,8 @@
-import { type Component } from "solid-js";
+import { Show, Suspense, type Component } from "solid-js";
 import "../styles.css";
+import { Overflow } from "../overflow";
 
-export const Header: Component = () => {
+export const Logo: Component = () => {
   return (
     <div class="my-4 flex items-center justify-center">
       <div class="flex items-center gap-1">
@@ -21,5 +22,26 @@ export const Header: Component = () => {
         <h1>isTrust</h1>
       </div>
     </div>
+  );
+};
+
+interface Props {
+  value: string | null | undefined;
+}
+
+export const Domain: Component<Props> = (props) => {
+  return (
+    <Suspense fallback={<span>Analyzing...</span>}>
+      <Show
+        when={props.value}
+        fallback={<p class="text-muted">Effective domain</p>}
+      >
+        {(value) => (
+          <Overflow>
+            <h1 class="text-xl">{value()}</h1>
+          </Overflow>
+        )}
+      </Show>
+    </Suspense>
   );
 };

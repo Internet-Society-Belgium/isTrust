@@ -49,7 +49,7 @@ export function SectionItem<T>(props: {
   return (
     <div class="flex items-center gap-2">
       <div title={props.title}>{props.prefix}</div>
-      <Suspense fallback={<span>Loading...</span>}>
+      <Suspense fallback={<p class="text-muted">Loading...</p>}>
         <Show
           when={props.data !== undefined}
           fallback={<p class="text-muted">{props.description}</p>}

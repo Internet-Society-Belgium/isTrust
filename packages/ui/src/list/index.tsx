@@ -1,5 +1,6 @@
 import { For, JSX, Show } from "solid-js";
 import "../styles.css";
+import { Overflow } from "../overflow";
 
 export function List<T extends any[]>(props: {
   each: T;
@@ -14,17 +15,9 @@ export function List<T extends any[]>(props: {
         <For each={props.each}>
           {(item) => (
             <li class="flex items-center gap-1">
-              <div class="min-w-0">
-                <p
-                  style={{
-                    overflow: "scroll",
-                    "text-overflow": "ellipsis ellipsis",
-                    "white-space": "nowrap",
-                  }}
-                >
-                  {props.children(item)}
-                </p>
-              </div>
+              <Overflow>
+                <p>{props.children(item)}</p>
+              </Overflow>
               <Show when={props.suffix}>
                 {(suffix) => <>{suffix()(item)}</>}
               </Show>
