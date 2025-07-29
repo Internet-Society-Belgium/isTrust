@@ -5,7 +5,7 @@ import { merge_data_array, type Data, type DataCache } from "./type";
 import { parse_domain } from "./utils/domain";
 import * as whois from "./whois";
 
-export { Data, DataCache };
+export type { Data, DataCache };
 
 export { merge_data_array };
 

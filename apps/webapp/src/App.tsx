@@ -5,6 +5,7 @@ import { Domain } from "@istrust/ui/header";
 import { Issue } from "@istrust/ui/issue";
 import { SearchBar } from "@istrust/ui/search";
 import { Section, SectionItem } from "@istrust/ui/section";
+import { Verification } from "@istrust/ui/verification";
 import {
   createResource,
   createSignal,

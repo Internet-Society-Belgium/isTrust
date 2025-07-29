@@ -121,12 +121,12 @@ export const SearchBar: Component<Props> = (props) => {
           type="text"
           name="text"
           required
-          class="bg-container-darker placeholder:text-dimmed focus-visible:ring-primary w-full flex-1 rounded-md border-0 px-2.5 py-1 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset"
+          class="bg-container-darker placeholder:text-dimmed w-full flex-1 rounded-md border-0 px-2.5 py-1 text-sm"
           placeholder="https://istrust.org/"
         />
         <button
           type="submit"
-          class="hover:bg-container-darker flex-none rounded p-1.5"
+          class="hover:bg-container-darker flex-none rounded p-1.5 transition-colors"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

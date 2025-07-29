@@ -1,5 +1,6 @@
 import { DataCache, improve_data_array, VerificationAuthority } from "../type";
 import { parse_tld } from "../utils/domain";
+import { source_error, user_error } from "../utils/error";
 import {
   JCard,
   RdapResult,
@@ -62,10 +63,10 @@ export async function get_data(domain: string, cache: DataCache) {
   await update(cache);
 
   const tld = domain.split(".").at(-1);
-  if (tld === undefined) throw new Error("No TLD");
+  if (tld === undefined) throw user_error("No TLD");
 
   const bootstrap = await cache.rdap.get(tld);
-  if (bootstrap === null) throw new Error(`No RDAP available for .${tld}`);
+  if (bootstrap === null) throw source_error(`No RDAP available for .${tld}`);
 
   const data: WHOISData = {
     registrations: null,
@@ -103,7 +104,7 @@ export async function get_data(domain: string, cache: DataCache) {
       });
 
       if (!res.ok)
-        throw new Error(`No RDAP response from ${new URL(api).hostname}`);
+        throw source_error(`No RDAP response from ${new URL(api).hostname}`);
 
       const json: unknown = await res.json();
 

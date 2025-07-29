@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { z } from "zod/mini";
 import { Data } from "../type";
+import { source_error } from "../utils/error";
 
 // https://datatracker.ietf.org/doc/rfc9224/
 const BootstrapSchema = z.object({
@@ -9,7 +10,8 @@ const BootstrapSchema = z.object({
 
 export function validate_bootstrap(json: unknown) {
   const bootstrap = BootstrapSchema.safeParse(json);
-  if (!bootstrap.success) throw new Error("Invalid RDAP bootstrap file format");
+  if (!bootstrap.success)
+    throw source_error("Invalid RDAP bootstrap file format");
   return bootstrap.data;
 }
 
@@ -94,7 +96,7 @@ export type RdapResult = z.infer<typeof RdapResultSchema>;
 
 export function validateRdapResult(json: unknown) {
   const rdapResult = RdapResultSchema.safeParse(json);
-  if (!rdapResult.success) throw new Error("Invalid RDAP results format");
+  if (!rdapResult.success) throw source_error("Invalid RDAP results format");
   return rdapResult.data;
 }
 

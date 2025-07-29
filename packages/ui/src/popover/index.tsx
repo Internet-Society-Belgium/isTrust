@@ -143,7 +143,7 @@ export const Popover: Component<Props> = (props) => {
     <>
       <button
         ref={trigger}
-        class="hover:bg-container-darker rounded-full p-1"
+        class="hover:bg-container-darker rounded-full p-1 transition-colors"
         onClick={() => {
           if (open() === true) return;
 
