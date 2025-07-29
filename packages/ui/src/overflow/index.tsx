@@ -42,7 +42,7 @@ export const Overflow: Component<Props> = (props) => {
       </Show>
       <div
         ref={element}
-        class="overflow-scroll text-nowrap"
+        class="overflow-x-auto overflow-y-hidden text-nowrap"
         onScroll={() => computeOverflow()}
       >
         {props.children}

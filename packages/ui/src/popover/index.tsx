@@ -9,6 +9,7 @@ import {
   type Component,
 } from "solid-js";
 import "../styles.css";
+import { Portal } from "solid-js/web";
 
 interface Props {
   trigger: JSX.Element;
@@ -43,10 +44,6 @@ export const Popover: Component<Props> = (props) => {
       capture: true,
       passive: true,
     });
-    document.addEventListener("blur", closeOnEvent, {
-      capture: true,
-      passive: true,
-    });
   });
 
   onCleanup(() => {
@@ -56,7 +53,6 @@ export const Popover: Component<Props> = (props) => {
     document.removeEventListener("keydown", closeOnEscape);
     document.removeEventListener("pointerdown", closeOnEvent);
     document.removeEventListener("focus", closeOnEvent, { capture: true });
-    document.removeEventListener("blur", closeOnEvent, { capture: true });
   });
 
   const computeRect = () => {
@@ -147,14 +143,13 @@ export const Popover: Component<Props> = (props) => {
     <>
       <button
         ref={trigger}
+        class="hover:bg-container-darker rounded-full p-1"
         onClick={() => {
           if (open() === true) return;
 
           computeRect();
 
           setOpen(true);
-
-          content.focus();
         }}
       >
         {props.trigger}
@@ -163,7 +158,7 @@ export const Popover: Component<Props> = (props) => {
       <Show when={open() === true}>
         <Show when={rect()}>
           {(rect) => (
-            <>
+            <Portal>
               <Switch>
                 <Match when={rect().align === "top"}>
                   <div
@@ -223,12 +218,12 @@ export const Popover: Component<Props> = (props) => {
                 <div
                   ref={content}
                   class="bg-background ring-border pointer-events-auto rounded-lg p-2 shadow-lg ring"
-                  tabIndex={0}
+                  tabIndex={-1}
                 >
                   {props.children}
                 </div>
               </div>
-            </>
+            </Portal>
           )}
         </Show>
       </Show>

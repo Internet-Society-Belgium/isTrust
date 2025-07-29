@@ -76,7 +76,8 @@ export const SearchBar: Component<Props> = (props) => {
         </svg>
       </button>
       <button
-        class="hover:bg-container-darker flex-none rounded p-1.5"
+        class="enabled:hover:bg-container-darker disabled:text-muted flex-none rounded p-1.5 transition-colors disabled:pointer-events-none"
+        disabled={history().length <= 0}
         onClick={() => props.reload()}
       >
         <svg
