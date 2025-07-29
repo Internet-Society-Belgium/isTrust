@@ -4,7 +4,7 @@ export function parse_tld(text: string) {
     const url = new URL(`https://${text}`);
     tld = url.hostname;
   } catch {
-    throw new Error(`Invalid TLD (${text})`);
+    throw new Error("Invalid TLD (${text})");
   }
 
   return tld;
@@ -14,14 +14,14 @@ export function parse_domain(text: string) {
   const domainWithoutProtocol = text.match(/^(\w+:\/\/)?(.*)/)?.at(2);
 
   if (domainWithoutProtocol === undefined)
-    throw new Error(`Invalid URL or domain name (${text})`);
+    throw new Error("Invalid URL or domain name");
 
   let domain;
   try {
     const url = new URL(`https://${domainWithoutProtocol}`);
     domain = url.hostname;
   } catch {
-    throw new Error(`Invalid URL or domain name (${text})`);
+    throw new Error("Invalid URL or domain name");
   }
 
   // remove the optional trailing dot
@@ -30,18 +30,18 @@ export function parse_domain(text: string) {
   }
 
   if (domain.split(".").length < 2) {
-    throw new Error(`Invalid domain name (${domain})`);
+    throw new Error("Invalid domain name");
   }
 
   // https://developer.mozilla.org/en-US/docs/Web/API/URL/hostname
   // exclude IP addresses
   if (/^[0-9\\.]+$/.test(domain)) {
-    throw new Error(`IP addresses are not supported (${domain})`);
+    throw new Error("IP addresses are not supported");
   }
 
   domain = domain.trim();
 
-  if (domain === "") return null;
+  if (domain === "") throw new Error("Empty URL or domain name");
 
   return domain;
 }

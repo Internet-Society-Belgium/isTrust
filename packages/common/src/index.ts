@@ -11,7 +11,6 @@ export { merge_data_array };
 
 export async function get_effective_domain(query: string, cache: DataCache) {
   const domain = parse_domain(query);
-  if (domain === null) return null;
   return await psl.get_effective_domain(domain, cache);
 }
 

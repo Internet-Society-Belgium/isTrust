@@ -127,7 +127,7 @@ const App: Component = () => {
         />
 
         <div class="bg-container ring-border rounded-lg p-4 ring-1">
-          <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
+          <ErrorBoundary fallback={(error) => <Issue error={error} />}>
             <div class="flex flex-col">
               <div class="mb-2 flex items-center justify-center">
                 <Domain value={domain()} />
