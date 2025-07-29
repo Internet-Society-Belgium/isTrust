@@ -36,7 +36,7 @@ export const Overflow: Component<Props> = (props) => {
   };
 
   return (
-    <div class="relative flex w-full min-w-0 items-center justify-center">
+    <div class="relative min-w-0">
       <Show when={overflowBegin()}>
         <div class="from-container absolute inset-y-0 left-0 h-full w-4 bg-gradient-to-r to-transparent" />
       </Show>

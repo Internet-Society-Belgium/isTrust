@@ -7,13 +7,16 @@ import { Popover } from "../popover";
 
 interface Props extends Pick<Data<any>, "verification"> {
   locale: Intl.LocalesArgument;
+  type?: "good" | "bad";
 }
 
 export const Verification: Component<Props> = (props) => {
   return (
     <Popover
       trigger={
-        <div class="h-4 w-4">
+        <div
+          class={`${props.type === "good" ? "hover:bg-good/10" : props.type === "bad" ? "hover:bg-bad/10" : "hover:bg-container-darker"} rounded-full p-1 transition-colors`}
+        >
           <Switch>
             <Match when={props.verification.status === "verified"}>
               <svg

@@ -1,4 +1,5 @@
 import * as common from "@istrust/common";
+import { Alert } from "@istrust/ui/alert";
 import { Country } from "@istrust/ui/country";
 import { DateDifference } from "@istrust/ui/date";
 import { Domain } from "@istrust/ui/header";
@@ -142,30 +143,32 @@ const App: Component = () => {
                 <Domain value={domain()} />
               </div>
 
-              <div class="flex flex-col gap-2">
-                <Show
-                  when={certificateData()?.types?.filter(
-                    (type) => type.value === "EV",
-                  )}
-                >
-                  {(evCertificates) => (
+              <Show
+                when={certificateData()?.types?.filter(
+                  (type) => type.value === "EV",
+                )}
+              >
+                {(evCertificates) => (
+                  <div class="mb-2 flex items-center justify-center">
                     <For each={evCertificates()}>
                       {(evCertificate) => (
-                        <div class="flex gap-2">
+                        <Alert type="good">
                           Legitimacy strictly verified
                           <Verification
                             verification={evCertificate.verification}
                             locale={navigator.language}
+                            type="good"
                           />
-                        </div>
+                        </Alert>
                       )}
                     </For>
-                  )}
-                </Show>
+                  </div>
+                )}
+              </Show>
 
+              <div class="flex flex-col gap-2">
                 <Section title="Owner">
                   <SectionItem
-                    title="Individual"
                     description="Individual name"
                     prefix={
                       <svg
@@ -202,7 +205,6 @@ const App: Component = () => {
                   </SectionItem>
 
                   <SectionItem
-                    title="Organization"
                     description="Organization name"
                     prefix={
                       <svg
@@ -246,7 +248,6 @@ const App: Component = () => {
                   </SectionItem>
 
                   <SectionItem
-                    title="Country"
                     description="Country of residence"
                     prefix={
                       <svg
@@ -289,7 +290,6 @@ const App: Component = () => {
                   </SectionItem>
 
                   <SectionItem
-                    title="Business category"
                     description="Business category"
                     prefix={
                       <svg
@@ -325,7 +325,6 @@ const App: Component = () => {
 
                 <Section title="Domain">
                   <SectionItem
-                    title="Registration"
                     description="Period since registration"
                     prefix={
                       <svg
@@ -367,7 +366,6 @@ const App: Component = () => {
                   </SectionItem>
 
                   <SectionItem
-                    title="Expiration"
                     description="Period until expiration"
                     prefix={
                       <svg
@@ -410,7 +408,6 @@ const App: Component = () => {
                   </SectionItem>
 
                   <SectionItem
-                    title="DNSSEC"
                     description="Protection against manipulation"
                     prefix={
                       <Switch>

@@ -12,6 +12,9 @@
   --color-accented: oklch(86.9% 0.022 252.894); /* slate 300 */
   --color-dimmed: oklch(70.4% 0.04 256.788); /* slate 400 */
   --color-muted: oklch(55.4% 0.046 257.417); /* slate 500 */
+
+  --color-good: oklch(62.7% 0.194 149.214); /* green 600 */
+  --color-bad: oklch(57.7% 0.245 27.325); /* red 600 */
 }
 
 html {

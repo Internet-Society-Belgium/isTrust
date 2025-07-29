@@ -24,7 +24,6 @@ export const Section: Component<Props> = (props) => {
 };
 
 export function SectionItem<T>(props: {
-  title: string;
   description: string;
   data: common.Data<T> | common.Data<T>[] | null | undefined;
   prefix: JSX.Element;
@@ -48,7 +47,7 @@ export function SectionItem<T>(props: {
 
   return (
     <div class="flex items-center gap-2">
-      <div title={props.title}>{props.prefix}</div>
+      <div title={props.description}>{props.prefix}</div>
       <Suspense fallback={<p class="text-muted">Loading...</p>}>
         <Show
           when={props.data !== undefined}
