@@ -5,7 +5,6 @@ test("istrust.org", async () => {
   const data = await get_data("istrust.org");
 
   expect(data).toStrictEqual({
-    businessCategories: null,
     countries: null,
     individuals: null,
     organizations: null,
@@ -31,7 +30,6 @@ test("icann.org", async () => {
   const data = await get_data("icann.org");
 
   expect(data).toStrictEqual({
-    businessCategories: null,
     countries: [
       {
         value: "US",
@@ -103,21 +101,6 @@ test("worldbank.org", async () => {
   const data = await get_data("worldbank.org");
 
   expect(data).toStrictEqual({
-    businessCategories: [
-      {
-        value: "Non-Commercial Entity",
-        verification: {
-          authorities: [
-            {
-              country: "GB",
-              links: null,
-              organization: "COMODO CA Limited",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
     countries: [
       {
         value: "US",
@@ -189,7 +172,6 @@ test("example.com", async () => {
   const data = await get_data("example.com");
 
   expect(data).toStrictEqual({
-    businessCategories: null,
     countries: [
       {
         value: "US",
@@ -243,21 +225,6 @@ test("digicert.com", async () => {
   const data = await get_data("digicert.com");
 
   expect(data).toStrictEqual({
-    businessCategories: [
-      {
-        value: "Private Organization",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: null,
-              organization: "DigiCert Inc",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
     countries: [
       {
         value: "US",
@@ -324,21 +291,6 @@ test("google.com", async () => {
   const data = await get_data("google.com");
 
   expect(data).toStrictEqual({
-    businessCategories: [
-      {
-        value: "Private Organization",
-        verification: {
-          authorities: [
-            {
-              country: "BR",
-              links: null,
-              organization: "ICP-Brasil",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
     countries: [
       {
         value: "BR",

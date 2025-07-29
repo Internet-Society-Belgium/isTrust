@@ -6,7 +6,6 @@ export const CommonName = "2.5.4.3";
 export const Country = "2.5.4.6";
 export const Organization = "2.5.4.10";
 export const OrganizationalUnit = "2.5.4.11";
-export const BusinessCategory = "2.5.4.15";
 export const GivenName = "2.5.4.42";
 
 // https://cabforum.org/working-groups/server/extended-validation/documents/

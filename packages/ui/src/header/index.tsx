@@ -32,10 +32,7 @@ interface Props {
 export const Domain: Component<Props> = (props) => {
   return (
     <Suspense fallback={<span>Analyzing...</span>}>
-      <Show
-        when={props.value}
-        fallback={<p class="text-muted">Effective domain</p>}
-      >
+      <Show when={props.value} fallback={<p class="text-muted">Domain name</p>}>
         {(value) => (
           <Overflow>
             <h1 class="text-xl">{value()}</h1>

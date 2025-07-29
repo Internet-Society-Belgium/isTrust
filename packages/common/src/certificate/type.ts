@@ -13,5 +13,4 @@ export interface CertificateData {
   individuals: Data<string>[] | null;
   organizations: Data<string>[] | null;
   countries: Data<string>[] | null;
-  businessCategories: Data<BusinessCategory>[] | null;
 }

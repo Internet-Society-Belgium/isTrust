@@ -10,7 +10,6 @@ export async function get_data(domain: string) {
     individuals: null,
     organizations: null,
     countries: null,
-    businessCategories: null,
   };
 
   if (x509sData.length === 0) return certificateData;
@@ -86,22 +85,6 @@ export async function get_data(domain: string) {
       });
       if (improvedCountries.length > 0) {
         certificateData.countries = improvedCountries;
-      }
-    }
-
-    if (x509Data.businessCategory) {
-      const improvedBusinessCategories = improve_data_array(
-        certificateData.businessCategories,
-        {
-          value: x509Data.businessCategory,
-          verification: {
-            status: "verified",
-            authorities: [x509Data.issuer],
-          },
-        },
-      );
-      if (improvedBusinessCategories.length > 0) {
-        certificateData.businessCategories = improvedBusinessCategories;
       }
     }
   }

@@ -54,7 +54,6 @@ export function get_data(cert: X509Certificate) {
     organization: null,
     country: null,
     incCountry: null,
-    businessCategory: null,
   };
 
   const subjectOrganization = atos(cert.subjectName.getField(oid.Organization));
@@ -77,20 +76,6 @@ export function get_data(cert: X509Certificate) {
   const subjectIncCountry = atos(cert.subjectName.getField(oid.IncCountry));
   if (subjectIncCountry) {
     data.incCountry = subjectIncCountry;
-  }
-
-  const subjectBusinessCategory = atos(
-    cert.subjectName.getField(oid.BusinessCategory),
-  );
-
-  if (subjectBusinessCategory === "Private Organization") {
-    data.businessCategory = "Private Organization";
-  } else if (subjectBusinessCategory === "Government Entity") {
-    data.businessCategory = "Government Entity";
-  } else if (subjectBusinessCategory === "Business Entity") {
-    data.businessCategory = "Business Entity";
-  } else if (subjectBusinessCategory === "Non-Commercial Entity") {
-    data.businessCategory = "Non-Commercial Entity";
   }
 
   const subjectGivenName = atos(cert.subjectName.getField(oid.GivenName));

@@ -1,4 +1,4 @@
-import { BusinessCategory, CertificateType } from "../type";
+import { CertificateType } from "../type";
 
 export interface X509Issuer {
   organization: string | null;
@@ -13,5 +13,4 @@ export interface X509Data {
   organization: string | null;
   country: string | null;
   incCountry: string | null;
-  businessCategory: BusinessCategory | null;
 }
