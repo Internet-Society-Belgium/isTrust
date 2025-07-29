@@ -2,11 +2,41 @@ import { expect, test } from "vitest";
 import { get_data } from ".";
 
 test("wikipedia.org", async () => {
-  const valid = await get_data("wikipedia.org");
-  expect(valid).toStrictEqual(false);
+  const dnssec = await get_data("wikipedia.org");
+
+  expect(dnssec).toStrictEqual({
+    valid: {
+      value: false,
+      verification: {
+        authorities: [
+          {
+            country: "US",
+            links: ["https://one.one.one.one/dns/"],
+            organization: "Cloudflare",
+          },
+        ],
+        status: "verified",
+      },
+    },
+  } satisfies typeof dnssec);
 });
 
 test("internetsociety.org", async () => {
-  const valid = await get_data("internetsociety.org");
-  expect(valid).toStrictEqual(true);
+  const dnssec = await get_data("internetsociety.org");
+
+  expect(dnssec).toStrictEqual({
+    valid: {
+      value: true,
+      verification: {
+        authorities: [
+          {
+            country: "US",
+            links: ["https://one.one.one.one/dns/"],
+            organization: "Cloudflare",
+          },
+        ],
+        status: "verified",
+      },
+    },
+  } satisfies typeof dnssec);
 });

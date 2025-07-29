@@ -42,7 +42,6 @@ export async function get_data(domain: string, customResolver?: string) {
     // https://www.rfc-editor.org/rfc/rfc1035.html
     const queryBuffer = dnsPacket.encode({
       type: "query",
-      id: Math.floor(Math.random() * 65534),
       flags: dnsPacket.RECURSION_DESIRED | dnsPacket.AUTHENTIC_DATA,
       questions: [
         {

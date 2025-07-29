@@ -11,7 +11,9 @@ const BootstrapSchema = z.object({
 export function validate_bootstrap(json: unknown) {
   const bootstrap = BootstrapSchema.safeParse(json);
   if (!bootstrap.success)
-    throw source_error("Invalid RDAP bootstrap file format");
+    throw source_error(
+      `Invalid RDAP bootstrap:\n${z.prettifyError(bootstrap.error)}`,
+    );
   return bootstrap.data;
 }
 
@@ -96,7 +98,10 @@ export type RdapResult = z.infer<typeof RdapResultSchema>;
 
 export function validateRdapResult(json: unknown) {
   const rdapResult = RdapResultSchema.safeParse(json);
-  if (!rdapResult.success) throw source_error("Invalid RDAP results format");
+  if (!rdapResult.success)
+    throw source_error(
+      `Invalid RDAP results:\n${z.prettifyError(rdapResult.error)}`,
+    );
   return rdapResult.data;
 }
 
