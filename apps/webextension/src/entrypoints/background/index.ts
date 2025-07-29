@@ -1,7 +1,7 @@
 import { onMessage } from "@/utils/messaging";
+import * as common from "@istrust/common";
 import { browser, defineBackground } from "#imports";
 import { cache } from "./cache";
-import * as common from "@istrust/common";
 import * as history from "./history";
 
 export default defineBackground(() => {

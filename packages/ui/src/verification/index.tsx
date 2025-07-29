@@ -1,9 +1,9 @@
 import { For, Match, Show, Switch, type Component } from "solid-js";
 import "../styles.css";
 import { Data } from "@istrust/common";
-import { Popover } from "../popover";
 import { Country } from "../country";
 import { List } from "../list";
+import { Popover } from "../popover";
 
 interface Props extends Pick<Data<any>, "verification"> {
   locale: Intl.LocalesArgument;

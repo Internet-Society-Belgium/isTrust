@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { Data, merge_data_array, improve_data_array } from "./type";
+import { Data, improve_data_array, merge_data_array } from "./type";
 
 test("get_best_data_array", () => {
   const array1: Data<string>[] = [

@@ -1,5 +1,4 @@
 import { type Component } from "solid-js";
-import Other from "./other";
 import AD from "./AD";
 import AE from "./AE";
 import AF from "./AF";
@@ -172,6 +171,7 @@ import NR from "./NR";
 import NU from "./NU";
 import NZ from "./NZ";
 import OM from "./OM";
+import Other from "./other";
 import PA from "./PA";
 import PE from "./PE";
 import PF from "./PF";
@@ -249,6 +249,7 @@ import YT from "./YT";
 import ZA from "./ZA";
 import ZM from "./ZM";
 import ZW from "./ZW";
+
 interface Props {
   code: string;
 }

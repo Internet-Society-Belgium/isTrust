@@ -1,8 +1,9 @@
-import { DateDifference } from "@istrust/ui/date";
-import { Country } from "@istrust/ui/country";
-import { SectionItem, Section } from "@istrust/ui/section";
-import { Domain } from "@istrust/ui/header";
 import * as common from "@istrust/common";
+import { Country } from "@istrust/ui/country";
+import { DateDifference } from "@istrust/ui/date";
+import { Domain } from "@istrust/ui/header";
+import { Issue } from "@istrust/ui/issue";
+import { Section, SectionItem } from "@istrust/ui/section";
 import {
   createResource,
   createSignal,
@@ -15,8 +16,6 @@ import {
   Switch,
   type Component,
 } from "solid-js";
-import { Verification } from "@istrust/ui/verification";
-import { SearchBar } from "@istrust/ui/search";
 
 const cache: common.DataCache = {
   psl: {
