@@ -14,7 +14,7 @@ export function List<T extends any[]>(props: {
       <ol class="min-w-0">
         <For each={props.each}>
           {(item) => (
-            <li class="flex items-center gap-1">
+            <li class="flex items-center gap-0.5">
               <Overflow>
                 <p>{props.children(item)}</p>
               </Overflow>

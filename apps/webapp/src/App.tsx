@@ -1,5 +1,5 @@
 import * as common from "@istrust/common";
-import { Alert } from "@istrust/ui/alert";
+import { CertificateAlert } from "@istrust/ui/alert";
 import { Country } from "@istrust/ui/country";
 import { DateDifference } from "@istrust/ui/date";
 import { Domain } from "@istrust/ui/header";
@@ -11,11 +11,9 @@ import {
   createResource,
   createSignal,
   ErrorBoundary,
-  For,
   Match,
   onMount,
   resetErrorBoundaries,
-  Show,
   Switch,
   type Component,
 } from "solid-js";
@@ -143,28 +141,7 @@ const App: Component = () => {
                 <Domain value={domain()} />
               </div>
 
-              <Show
-                when={certificateData()?.types?.filter(
-                  (type) => type.value === "EV",
-                )}
-              >
-                {(evCertificates) => (
-                  <div class="mb-2 flex items-center justify-center">
-                    <For each={evCertificates()}>
-                      {(evCertificate) => (
-                        <Alert type="good">
-                          Legitimacy strictly verified
-                          <Verification
-                            verification={evCertificate.verification}
-                            locale={navigator.language}
-                            type="good"
-                          />
-                        </Alert>
-                      )}
-                    </For>
-                  </div>
-                )}
-              </Show>
+              <CertificateAlert types={certificateData()?.types} />
 
               <div class="flex flex-col gap-2">
                 <Section title="Owner">
