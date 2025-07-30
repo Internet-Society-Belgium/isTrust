@@ -40,13 +40,13 @@ export const Overflow: Component<Props> = (props) => {
       <Show when={overflowBegin()}>
         <div class="from-container absolute inset-y-0 left-0 h-full w-4 bg-gradient-to-r to-transparent" />
       </Show>
-      <div
+      <p
         ref={element}
         class="overflow-x-auto overflow-y-hidden text-nowrap"
         onScroll={() => computeOverflow()}
       >
         {props.children}
-      </div>
+      </p>
       <Show when={overflowEnd()}>
         <div class="from-container absolute inset-y-0 right-0 h-full w-4 bg-gradient-to-l to-transparent" />
       </Show>

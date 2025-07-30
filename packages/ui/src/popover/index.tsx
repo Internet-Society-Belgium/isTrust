@@ -13,6 +13,7 @@ import { Portal } from "solid-js/web";
 
 interface Props {
   trigger: JSX.Element;
+  triggerClass?: string;
   children: JSX.Element;
 }
 
@@ -150,6 +151,7 @@ export const Popover: Component<Props> = (props) => {
 
           setOpen(true);
         }}
+        class={`${props.triggerClass || ""} rounded-full p-1 transition-colors`}
       >
         {props.trigger}
       </button>

@@ -13,7 +13,7 @@ export const Section: Component<Props> = (props) => {
     <>
       <div class="align-center flex w-full items-center text-center">
         <div class="border-border w-full border-t border-solid" />
-        <div class="text-default mx-3 flex font-medium whitespace-nowrap">
+        <div class="mx-3 flex font-medium whitespace-nowrap">
           <span class="text-sm">{props.title}</span>
         </div>
         <div class="border-border w-full border-t border-solid" />
