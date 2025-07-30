@@ -61,7 +61,7 @@ export async function get_data(domain: string, customResolver?: string) {
       },
     });
 
-    if (!res.ok) throw source_error("DNS over HTTPS not available");
+    if (!res.ok) throw source_error("No DNS response");
 
     const resBuffer = await res.arrayBuffer();
     const decoded = dnsPacket.decode(Buffer.from(resBuffer));
@@ -82,8 +82,9 @@ export async function get_data(domain: string, customResolver?: string) {
         ],
       },
     };
-  } catch (error) {
-    console.error(error);
+  } catch (e) {
+    const error = e as Error;
+    console.error(`${error.message} from ${resolver.name}`);
   }
 
   return data;

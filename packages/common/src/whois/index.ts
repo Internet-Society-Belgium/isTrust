@@ -105,8 +105,7 @@ export async function get_data(domain: string, cache: DataCache) {
         },
       });
 
-      if (!res.ok)
-        throw source_error(`No RDAP response from ${new URL(api).hostname}`);
+      if (!res.ok) throw source_error("No RDAP response");
 
       const json: unknown = await res.json();
 
@@ -114,13 +113,16 @@ export async function get_data(domain: string, cache: DataCache) {
 
       improve_data(data, rdapResult);
 
-      for (const link of rdapResult.links) {
-        if (link.rel === "related" && link.type === "application/rdap+json") {
-          apiQueue.push(link.href);
+      if (rdapResult.links !== undefined) {
+        for (const link of rdapResult.links) {
+          if (link.rel === "related" && link.type === "application/rdap+json") {
+            apiQueue.push(link.href);
+          }
         }
       }
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      const error = e as Error;
+      console.error(`${error.message} from ${new URL(api).hostname}`);
 
       continue;
     }

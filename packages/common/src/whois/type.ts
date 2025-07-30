@@ -91,7 +91,7 @@ const RdapResultSchema = z.object({
       delegationSigned: z.boolean(),
     }),
   ),
-  links: z.array(LinkSchema),
+  links: z.optional(z.array(LinkSchema)),
 });
 
 export type RdapResult = z.infer<typeof RdapResultSchema>;

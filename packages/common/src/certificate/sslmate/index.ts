@@ -12,7 +12,7 @@ export async function get_data(domain: string) {
       `https://api.certspotter.com/v1/issuances?domain=${domain}&match_wildcards=true&expand=dns_names&expand=cert_der`,
     );
 
-    if (!res.ok) throw source_error("Certspotter not available");
+    if (!res.ok) throw source_error("No certificate response");
 
     const jsonSearch: unknown = await res.json();
     const resultsSearch = validateSSLMateSearch(jsonSearch);
@@ -27,7 +27,8 @@ export async function get_data(domain: string) {
       data.push(x509.get_data(cert));
     }
   } catch (e) {
-    console.error(e);
+    const error = e as Error;
+    console.error(`${error.message} from Certspotter`);
   }
 
   return data;
