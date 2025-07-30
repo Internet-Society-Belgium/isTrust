@@ -1,6 +1,6 @@
 import { DataCache, improve_data_array, VerificationAuthority } from "../type";
 import { parse_tld } from "../utils/domain";
-import { source_error, user_error } from "../utils/error";
+import { feature_error, source_error, user_error } from "../utils/error";
 import {
   JCard,
   RdapResult,
@@ -29,6 +29,8 @@ export async function load(cache: DataCache) {
 
   // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
   const res = await fetch("https://data.iana.org/rdap/dns.json");
+
+  if (!res.ok) throw source_error("RDAP bootstrap not available");
 
   const json: unknown = await res.json();
 
@@ -66,7 +68,7 @@ export async function get_data(domain: string, cache: DataCache) {
   if (tld === undefined) throw user_error("No TLD");
 
   const bootstrap = await cache.rdap.get(tld);
-  if (bootstrap === null) throw source_error(`No RDAP available for .${tld}`);
+  if (bootstrap === null) throw feature_error(`No RDAP available for .${tld}`);
 
   const data: WHOISData = {
     registrations: null,

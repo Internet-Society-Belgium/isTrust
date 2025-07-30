@@ -1,5 +1,6 @@
 import { Buffer as BufferPolyfill } from "buffer";
 import dnsPacket from "dns-packet";
+import { source_error } from "../utils/error";
 import { DNSSECData } from "./type";
 
 // declare var Buffer: typeof BufferPolyfill;
@@ -59,6 +60,8 @@ export async function get_data(domain: string, customResolver?: string) {
         Accept: "application/dns-message",
       },
     });
+
+    if (!res.ok) throw source_error("DNS over HTTPS not available");
 
     const resBuffer = await res.arrayBuffer();
     const decoded = dnsPacket.decode(Buffer.from(resBuffer));

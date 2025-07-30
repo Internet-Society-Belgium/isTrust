@@ -1,5 +1,6 @@
 import { DataCache } from "../type";
 import { parse_tld } from "../utils/domain";
+import { source_error } from "../utils/error";
 
 // https://publicsuffix.org/list/
 const CACHING_DAYS = 7;
@@ -23,6 +24,8 @@ export async function load(cache: DataCache) {
   const res = await fetch(
     "https://publicsuffix.org/list/public_suffix_list.dat",
   );
+
+  if (!res.ok) throw source_error("Public Suffix List not available");
 
   const text = await res.text();
   const lines = text.split("\n");

@@ -1,3 +1,4 @@
+import { source_error } from "../../utils/error";
 import * as x509 from "../x509";
 import { X509Data } from "../x509/type";
 import { validateSSLMateSearch } from "./type";
@@ -7,10 +8,13 @@ export async function get_data(domain: string) {
 
   try {
     // https://sslmate.com/help/reference/ct_search_api_v1#api_list
-    const resSearch = await fetch(
+    const res = await fetch(
       `https://api.certspotter.com/v1/issuances?domain=${domain}&match_wildcards=true&expand=dns_names&expand=cert_der`,
     );
-    const jsonSearch: unknown = await resSearch.json();
+
+    if (!res.ok) throw source_error("Certspotter not available");
+
+    const jsonSearch: unknown = await res.json();
     const resultsSearch = validateSSLMateSearch(jsonSearch);
 
     for (const resultSearch of resultsSearch) {
