@@ -25,16 +25,23 @@ export default defineBackground(() => {
     return await common.update_cache(cache);
   });
 
-  onMessage("get_effective_domain", async ({ data: { query } }) => {
-    return await common.get_effective_domain(query, cache);
-  });
+  onMessage(
+    "get_effective_domain",
+    async ({ data: { query: text, forceUpdateCache } }) => {
+      if (forceUpdateCache === true) {
+        await common.force_update_cache(cache);
+      }
+
+      return await common.get_effective_domain(text, cache);
+    },
+  );
 
   onMessage("get_whois_data", async ({ data: { domain } }) => {
     return await common.get_whois_data(domain, cache);
   });
 
-  onMessage("is_dnssec_valid", async ({ data: { domain, resolver } }) => {
-    return await common.is_dnssec_valid(domain, resolver);
+  onMessage("get_dnssec_data", async ({ data: { domain, resolver } }) => {
+    return await common.get_dnssec_data(domain, resolver);
   });
 
   onMessage("get_history_data", async ({ data: { domain } }) => {
@@ -43,9 +50,5 @@ export default defineBackground(() => {
 
   onMessage("get_certificate_data", async ({ data: { domain } }) => {
     return await common.get_certificate_data(domain);
-  });
-
-  onMessage("force_update_cache", async () => {
-    return await common.force_update_cache(cache);
   });
 });

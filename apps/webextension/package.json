@@ -10,7 +10,7 @@
     "bundle:chrome": "wxt zip -b chrome",
     "bundle:firefox": "wxt zip -b firefox",
     "check-types": "tsc --noEmit",
-    "dev": "sleep 5 && npm run dev:chrome",
+    "dev": "npm run dev:chrome",
     "dev:chrome": "wxt -b chrome",
     "dev:firefox": "wxt -b firefox",
     "format": "prettier ./src --write",
@@ -18,10 +18,10 @@
     "lint": "eslint src --max-warnings 0"
   },
   "dependencies": {
-    "@istrust/ui": "*",
     "@istrust/common": "*",
-    "solid-js": "^1.9.3",
-    "@webext-core/messaging": "^2.2.0"
+    "@istrust/ui": "*",
+    "@webext-core/messaging": "^2.2.0",
+    "solid-js": "^1.9.3"
   },
   "devDependencies": {
     "@istrust/eslint-config": "*",

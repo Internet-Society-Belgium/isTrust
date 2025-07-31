@@ -29,6 +29,10 @@ export async function get_dnssec_data(
   return await dnssec.get_data(eDomain, customResolver);
 }
 
+export async function update_cache(cache: DataCache) {
+  await Promise.allSettled([psl.update(cache), whois.update(cache)]);
+}
+
 export async function force_update_cache(cache: DataCache) {
   await Promise.allSettled([psl.load(cache), whois.load(cache)]);
 }

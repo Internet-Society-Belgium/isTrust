@@ -212,7 +212,7 @@ const App: Component = () => {
 
                 <Section title="Domain">
                   <SectionItem
-                    description="Period since registration"
+                    description="Registration age"
                     prefix={<IconCalendar1 />}
                     data={whoisData()?.registrations}
                     suffix={(registration) => (
@@ -262,7 +262,7 @@ const App: Component = () => {
                           Protected with DNSSEC
                         </Match>
                         <Match when={valid.value === false}>
-                          Not protected against manipulation
+                          Not protected with DNSSEC
                         </Match>
                       </Switch>
                     )}

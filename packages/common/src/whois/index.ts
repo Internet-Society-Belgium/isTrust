@@ -12,7 +12,7 @@ import {
 
 const CACHING_DAYS = 7;
 
-async function update(cache: DataCache) {
+export async function update(cache: DataCache) {
   const lastUpdate = await cache.rdap.get("_lastUpdate");
 
   const cachingOutdated = new Date().setDate(

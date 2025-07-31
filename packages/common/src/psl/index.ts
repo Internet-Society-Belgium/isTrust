@@ -5,7 +5,7 @@ import { source_error } from "../utils/error";
 // https://publicsuffix.org/list/
 const CACHING_DAYS = 7;
 
-async function update(cache: DataCache) {
+export async function update(cache: DataCache) {
   const lastUpdate = await cache.psl.get("_lastUpdate");
 
   const cachingOutdated = new Date().setDate(

@@ -1,8 +1,9 @@
+import * as common from "@istrust/common";
 import { browser } from "#imports";
 
 export interface HistoryData {
-  daysWithVisit: number;
-  firstVisit?: string;
+  daysWithVisit: common.Data<number>;
+  firstVisit: common.Data<string> | null;
 }
 
 export async function get_history_data(domain: string) {
@@ -44,12 +45,70 @@ export async function get_history_data(domain: string) {
     }
   }
 
+  let verification: common.Data<unknown>["verification"] = {
+    status: "unverified",
+    authorities: null,
+  };
+
+  if (import.meta.env.CHROME) {
+    verification = {
+      status: "verified",
+      authorities: [
+        {
+          organization: "Google Chrome",
+          country: null,
+          links: null,
+        },
+      ],
+    };
+  } else if (import.meta.env.FIREFOX) {
+    verification = {
+      status: "verified",
+      authorities: [
+        {
+          organization: "Firefox",
+          country: null,
+          links: null,
+        },
+      ],
+    };
+  } else if (import.meta.env.EDGE) {
+    verification = {
+      status: "verified",
+      authorities: [
+        {
+          organization: "Microsoft Edge",
+          country: null,
+          links: null,
+        },
+      ],
+    };
+  } else if (import.meta.env.SAFARI) {
+    verification = {
+      status: "verified",
+      authorities: [
+        {
+          organization: "Safari",
+          country: null,
+          links: null,
+        },
+      ],
+    };
+  }
+
   const data: HistoryData = {
-    daysWithVisit: daysWithVisit.size,
+    daysWithVisit: {
+      value: daysWithVisit.size,
+      verification,
+    },
+    firstVisit: null,
   };
 
   if (firstVisit !== undefined) {
-    data.firstVisit = new Date(firstVisit).toISOString();
+    data.firstVisit = {
+      value: new Date(firstVisit).toISOString(),
+      verification,
+    };
   }
 
   return data;
