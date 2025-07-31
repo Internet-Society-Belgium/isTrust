@@ -72,7 +72,6 @@ export async function get_data(domain: string, cache: DataCache) {
 
   const data: WHOISData = {
     registrations: null,
-    expirations: null,
     individuals: null,
     organizations: null,
     countries: null,
@@ -196,17 +195,6 @@ function improve_data(data: WHOISData, result: RdapResult) {
       });
       if (improvedRegistrations.length > 0) {
         data.registrations = improvedRegistrations;
-      }
-    } else if (event.eventAction === "expiration") {
-      const improvedExpirations = improve_data_array(data.expirations, {
-        value: new Date(dateString).toISOString(),
-        verification: {
-          status: "verified",
-          authorities: registrar !== null ? [registrar] : null,
-        },
-      });
-      if (improvedExpirations.length > 0) {
-        data.expirations = improvedExpirations;
       }
     }
   }

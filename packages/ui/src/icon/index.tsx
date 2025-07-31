@@ -112,30 +112,6 @@ export const IconCalendar1: Component = () => {
   );
 };
 
-export const IconCalendarX: Component = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      data-copyright="Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE"
-    >
-      <g
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-      >
-        <path d="M8 2v4m8-4v4" />
-        <rect width="18" height="18" x="3" y="4" rx="2" />
-        <path d="M3 10h18m-7 4l-4 4m0-4l4 4" />
-      </g>
-    </svg>
-  );
-};
-
 export const IconShieldCheck: Component = () => {
   return (
     <svg

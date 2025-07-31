@@ -45,21 +45,6 @@ test("wikipedia.org", async () => {
         },
       },
     ],
-    expirations: [
-      {
-        value: "2026-01-12T23:00:00.000Z",
-        verification: {
-          authorities: [
-            {
-              country: null,
-              links: [],
-              organization: "MarkMonitor Inc.",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
     individuals: null,
     organizations: [
       {
@@ -104,33 +89,12 @@ test("istrust.org", async () => {
         verification: {
           authorities: [
             {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/81",
-                "https://www.gandi.net/",
-              ],
-              organization: "Gandi SAS",
               country: null,
+              links: ["https://www.gandi.net/"],
+              organization: "Gandi SAS",
             },
           ],
           status: "unverified",
-        },
-      },
-    ],
-    expirations: [
-      {
-        value: "2025-09-06T22:00:00.000Z",
-        verification: {
-          authorities: [
-            {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/81",
-                "https://www.gandi.net/",
-              ],
-              organization: "Gandi SAS",
-              country: null,
-            },
-          ],
-          status: "verified",
         },
       },
     ],
@@ -140,9 +104,9 @@ test("istrust.org", async () => {
         verification: {
           authorities: [
             {
+              country: null,
               links: ["https://www.gandi.net/"],
               organization: "Gandi SAS",
-              country: null,
             },
           ],
           status: "unverified",
@@ -155,12 +119,9 @@ test("istrust.org", async () => {
         verification: {
           authorities: [
             {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/81",
-                "https://www.gandi.net/",
-              ],
-              organization: "Gandi SAS",
               country: null,
+              links: ["https://www.gandi.net/"],
+              organization: "Gandi SAS",
             },
           ],
           status: "unverified",
@@ -173,12 +134,9 @@ test("istrust.org", async () => {
         verification: {
           authorities: [
             {
-              links: [
-                "https://rdap.publicinterestregistry.org/rdap/entity/81",
-                "https://www.gandi.net/",
-              ],
-              organization: "Gandi SAS",
               country: null,
+              links: ["https://www.gandi.net/"],
+              organization: "Gandi SAS",
             },
           ],
           status: "verified",
@@ -205,22 +163,6 @@ test("newtab.com", async () => {
             },
           ],
           status: "unverified",
-        },
-      },
-    ],
-    expirations: [
-      {
-        value: "2029-04-23T22:00:00.000Z",
-        verification: {
-          authorities: [
-            {
-              links: ["http://wanwang.aliyun.com"],
-              organization:
-                "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-              country: null,
-            },
-          ],
-          status: "verified",
         },
       },
     ],
@@ -291,21 +233,6 @@ test("phishurl.com", async () => {
             },
           ],
           status: "unverified",
-        },
-      },
-    ],
-    expirations: [
-      {
-        value: "2025-05-26T22:00:00.000Z",
-        verification: {
-          authorities: [
-            {
-              links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
-              organization: "OVH sas",
-              country: null,
-            },
-          ],
-          status: "verified",
         },
       },
     ],

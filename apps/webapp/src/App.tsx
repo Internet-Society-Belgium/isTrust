@@ -6,7 +6,6 @@ import { HeaderDomain } from "@istrust/ui/header";
 import {
   IconBuilding,
   IconCalendar1,
-  IconCalendarX,
   IconMapPin,
   IconShield,
   IconShieldCheck,
@@ -235,29 +234,7 @@ const App: Component = () => {
                   </SectionItem>
 
                   <SectionItem
-                    description="Period until expiration"
-                    prefix={<IconCalendarX />}
-                    data={whoisData()?.expirations}
-                    suffix={(expiration) => (
-                      <Verification
-                        verification={expiration.verification}
-                        locale={navigator.language}
-                      />
-                    )}
-                  >
-                    {(expiration) => (
-                      <>
-                        Expire{" "}
-                        <DateDifference
-                          date={expiration.value}
-                          locale={navigator.language}
-                        />
-                      </>
-                    )}
-                  </SectionItem>
-
-                  <SectionItem
-                    description="Protection against manipulation"
+                    description="Protection (DNSSEC)"
                     prefix={
                       <Switch>
                         <Match when={dnssecData()?.valid?.value === true}>

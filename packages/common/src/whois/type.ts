@@ -107,7 +107,6 @@ export function validateRdapResult(json: unknown) {
 
 export interface WHOISData {
   registrations: Data<string>[] | null;
-  expirations: Data<string>[] | null;
   organizations: Data<string>[] | null;
   individuals: Data<string>[] | null;
   countries: Data<string>[] | null;
