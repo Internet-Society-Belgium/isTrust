@@ -1,16 +1,12 @@
 import { Component } from "solid-js";
 import "../styles.css";
 
-interface IconIsTrustProps {
-  size?: "large";
-}
-
-export const IconIsTrust: Component<IconIsTrustProps> = (props) => {
+export const IconIsTrust: Component = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={props.size === "large" ? "1.5em" : "1em"}
-      height={props.size === "large" ? "1.5em" : "1em"}
+      width="1em"
+      height="1em"
       viewBox="0 0 135.467 135.467"
       data-copyright="Icon from isTrust - https://github.com/Internet-Society-Belgium/isTrust/blob/v2/LICENSE.md"
     >
@@ -276,7 +272,7 @@ export const IconBadgeCheck: Component = () => {
   );
 };
 
-export const IconBadgeAlert: Component = () => {
+export const IconBadgeQuestion: Component = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -285,7 +281,7 @@ export const IconBadgeAlert: Component = () => {
       viewBox="0 0 24 24"
       data-copyright="Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE"
     >
-      {/* <g
+      <g
         fill="none"
         stroke="currentColor"
         stroke-linecap="round"
@@ -294,15 +290,7 @@ export const IconBadgeAlert: Component = () => {
       >
         <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77a4 4 0 0 1 6.74 0a4 4 0 0 1 4.78 4.78a4 4 0 0 1 0 6.74a4 4 0 0 1-4.77 4.78a4 4 0 0 1-6.75 0a4 4 0 0 1-4.78-4.77a4 4 0 0 1 0-6.76" />
         <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01" />
-      </g> */}
-      <path
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M3.85 8.62a4 4 0 0 1 4.78-4.77a4 4 0 0 1 6.74 0a4 4 0 0 1 4.78 4.78a4 4 0 0 1 0 6.74a4 4 0 0 1-4.77 4.78a4 4 0 0 1-6.75 0a4 4 0 0 1-4.78-4.77a4 4 0 0 1 0-6.76M12 8v4m0 4h.01"
-      />
+      </g>
     </svg>
   );
 };

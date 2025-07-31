@@ -24,11 +24,17 @@ export const DateDifference: Component<Props> = (props) => {
           if (day > 0) {
             return `${day} ${day === 1 ? "day" : "days"} ago`;
           } else {
-            const timeString = then.toLocaleTimeString(locale, {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-            return `today at ${timeString}`;
+            const hour = now.getHours() - then.getHours();
+            if (hour > 0) {
+              return `${hour} ${hour === 1 ? "hour" : "hours"} ago`;
+            } else {
+              const minute = now.getMinutes() - then.getMinutes();
+              if (minute > 0) {
+                return `${minute} ${minute === 1 ? "minute" : "minutes"} ago`;
+              } else {
+                return "now";
+              }
+            }
           }
         }
       }
@@ -45,11 +51,17 @@ export const DateDifference: Component<Props> = (props) => {
           if (day > 0) {
             return `in ${day} ${day === 1 ? "day" : "days"}`;
           } else {
-            const timeString = then.toLocaleTimeString(locale, {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-            return `today at ${timeString}`;
+            const hour = then.getHours() - now.getHours();
+            if (hour > 0) {
+              return `in ${hour} ${hour === 1 ? "hour" : "hours"}`;
+            } else {
+              const minute = then.getMinutes() - now.getMinutes();
+              if (minute > 0) {
+                return `in ${minute} ${minute === 1 ? "minute" : "minutes"}`;
+              } else {
+                return "now";
+              }
+            }
           }
         }
       }

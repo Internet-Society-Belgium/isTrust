@@ -69,7 +69,7 @@ export const Popover: Component<Props> = (props) => {
       height: triggerDomRect.height,
     };
 
-    const marginProportion = 25 / 100;
+    const marginProportion = 10 / 100;
     const windowWidthMargin = windowWidth * marginProportion;
     const windowHeightMargin = windowHeight * marginProportion;
 

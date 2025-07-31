@@ -284,7 +284,7 @@ for country_code in country_codes:
         index += f'else if (code === "{country_code}") return <{country_code} />;\n'
 
 index += f'else return <Other />;\n'
-index += '};\nreturn <>{getFlag(props.code)}</>;\n};\n'
+index += '};\nreturn <div class="flex h-4 w-4 items-center justify-center">{getFlag(props.code)}</div>;\n};\n'
 
 with open(f'index.tsx', "w") as f:
     f.write(index)

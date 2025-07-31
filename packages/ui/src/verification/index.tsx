@@ -1,12 +1,13 @@
 import { For, Match, Show, Switch, type Component } from "solid-js";
 import "../styles.css";
-import { Data } from "@istrust/common";
+import * as common from "@istrust/common";
 import { Country } from "../country";
-import { IconBadgeAlert, IconBadgeCheck, IconExternalLink } from "../icon";
+import { IconBadgeCheck, IconBadgeQuestion, IconExternalLink } from "../icon";
 import { List } from "../list";
 import { Popover } from "../popover";
 
-interface Props extends Pick<Data<unknown>, "verification"> {
+interface Props {
+  verification: common.Data<unknown>["verification"];
   locale: Intl.LocalesArgument;
   type?: "good" | "bad";
 }
@@ -20,7 +21,7 @@ export const Verification: Component<Props> = (props) => {
             <IconBadgeCheck />
           </Match>
           <Match when={props.verification.status === "unverified"}>
-            <IconBadgeAlert />
+            <IconBadgeQuestion />
           </Match>
         </Switch>
       }
@@ -69,7 +70,6 @@ export const Verification: Component<Props> = (props) => {
                             href={link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="m-1"
                           >
                             <IconExternalLink />
                           </a>

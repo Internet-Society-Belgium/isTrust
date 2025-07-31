@@ -27,7 +27,7 @@ export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
                 <Show when={evCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
                     <Alert type="good">
-                      Legitimacy formally verified
+                      <p>Legitimacy formally verified</p>
                       <For each={evCertificates()}>
                         {(evCertificate) => (
                           <Verification
@@ -48,7 +48,7 @@ export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
                 <Show when={ovCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
                     <Alert type="good">
-                      Organization legitimacy verified
+                      <p>Organization legitimacy verified</p>
                       <For each={ovCertificates()}>
                         {(ovCertificate) => (
                           <Verification
@@ -69,7 +69,7 @@ export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
                 <Show when={ivCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
                     <Alert type="good">
-                      Individual legitimacy verified
+                      <p>Individual legitimacy verified</p>
                       <For each={ivCertificates()}>
                         {(ivCertificate) => (
                           <Verification
