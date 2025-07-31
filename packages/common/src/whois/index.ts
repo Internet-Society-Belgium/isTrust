@@ -132,11 +132,9 @@ export async function get_data(domain: string, cache: DataCache) {
 }
 
 function improve_data(data: WHOISData, result: RdapResult) {
-  const registrar: VerificationAuthority = {
-    organization: null,
-    country: null,
-    links: null,
-  };
+  let registrar: VerificationAuthority | null = null;
+
+  let organization: string | null = null;
 
   const registrarEntity = result.entities.find((e) => {
     return e.roles.findIndex((r) => r === "registrar") !== -1;
@@ -146,31 +144,42 @@ function improve_data(data: WHOISData, result: RdapResult) {
     registrarEntity !== undefined &&
     registrarEntity.vcardArray !== undefined
   ) {
-    const organization = get_organization(registrarEntity.vcardArray);
+    organization = get_organization(registrarEntity.vcardArray);
 
-    if (organization !== null) {
-      registrar.organization = organization;
-    } else {
+    if (organization === null) {
       const name = get_name(registrarEntity.vcardArray);
 
       if (name !== null) {
-        registrar.organization = name;
+        organization = name;
       }
     }
+  }
 
-    const country = get_country(registrarEntity.vcardArray);
+  if (organization !== null) {
+    registrar = {
+      organization,
+      country: null,
+      links: null,
+    };
 
-    if (country !== null) {
-      registrar.country = country;
-    }
+    if (
+      registrarEntity !== undefined &&
+      registrarEntity.vcardArray !== undefined
+    ) {
+      const country = get_country(registrarEntity.vcardArray);
 
-    let links = registrarEntity.links?.map((link) => link.href);
+      if (country !== null) {
+        registrar.country = country;
+      }
 
-    // https://www.rfc-editor.org/rfc/rfc9082.html#name-entity-path-segment-specifi
-    links = links?.filter((link) => !/\/entity\/.*$/i.test(link));
+      let links = registrarEntity.links?.map((link) => link.href);
 
-    if (links !== undefined) {
-      registrar.links = links;
+      // https://www.rfc-editor.org/rfc/rfc9082.html#name-lookup-path-segment-specifi
+      links = links?.filter((link) => !/\/(domain|entity)\/.*$/i.test(link));
+
+      if (links !== undefined) {
+        registrar.links = links;
+      }
     }
   }
 
@@ -182,7 +191,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: new Date(dateString).toISOString(),
         verification: {
           status: "verified",
-          authorities: [registrar],
+          authorities: registrar !== null ? [registrar] : null,
         },
       });
       if (improvedRegistrations.length > 0) {
@@ -193,7 +202,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: new Date(dateString).toISOString(),
         verification: {
           status: "verified",
-          authorities: [registrar],
+          authorities: registrar !== null ? [registrar] : null,
         },
       });
       if (improvedExpirations.length > 0) {
@@ -236,7 +245,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
           value: fn,
           verification: {
             status: "unverified",
-            authorities: [registrar],
+            authorities: registrar !== null ? [registrar] : null,
           },
         });
         if (improvedIndividuals.length > 0) {
@@ -252,7 +261,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: organization,
         verification: {
           status: "unverified",
-          authorities: [registrar],
+          authorities: registrar !== null ? [registrar] : null,
         },
       });
       if (improvedOrganizations.length > 0) {
@@ -267,7 +276,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         value: country,
         verification: {
           status: "unverified",
-          authorities: [registrar],
+          authorities: registrar !== null ? [registrar] : null,
         },
       });
       if (improvedCountries.length > 0) {

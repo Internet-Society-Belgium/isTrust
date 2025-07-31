@@ -31,22 +31,27 @@ export function get_data(cert: X509Certificate) {
     type = "DV";
   }
 
-  const issuer: X509Issuer = {
-    organization: null,
-    country: null,
-    links: null,
-  };
+  let issuer: X509Issuer | null = null;
+
+  let organization: string | null = null;
 
   const issuerOrganization = atos(cert.issuerName.getField(oid.Organization));
   if (issuerOrganization !== null) {
-    issuer.organization = issuerOrganization;
+    organization = issuerOrganization;
   }
 
-  const issuerCountry = atos(cert.issuerName.getField(oid.Country));
-  if (issuerCountry !== null) {
-    issuer.country = issuerCountry;
-  }
+  if (organization !== null) {
+    issuer = {
+      organization,
+      country: null,
+      links: null,
+    };
 
+    const issuerCountry = atos(cert.issuerName.getField(oid.Country));
+    if (issuerCountry !== null) {
+      issuer.country = issuerCountry;
+    }
+  }
   const data: X509Data = {
     type,
     issuer,

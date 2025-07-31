@@ -1,18 +1,13 @@
 export interface VerificationAuthority {
-  organization: string | null;
+  organization: string;
   country: string | null;
   links: string[] | null;
 }
 
-export type Verification =
-  | {
-      status: "unverified";
-      authorities: VerificationAuthority[] | null;
-    }
-  | {
-      status: "verified";
-      authorities: VerificationAuthority[];
-    };
+interface Verification {
+  status: "unverified" | "verified";
+  authorities: VerificationAuthority[] | null;
+}
 
 export interface Data<T> {
   value: T;

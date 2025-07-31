@@ -23,7 +23,7 @@ export async function get_data(domain: string) {
       value: x509Data.type,
       verification: {
         status: "verified",
-        authorities: [x509Data.issuer],
+        authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
       },
     });
     if (improvedTypes.length > 0) {
@@ -37,7 +37,7 @@ export async function get_data(domain: string) {
           value: x509Data.individual,
           verification: {
             status: "verified",
-            authorities: [x509Data.issuer],
+            authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
           },
         },
       );
@@ -51,7 +51,7 @@ export async function get_data(domain: string) {
         value: x509Data.country,
         verification: {
           status: "verified",
-          authorities: [x509Data.issuer],
+          authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
         },
       });
       if (improvedCountries.length > 0) {
@@ -66,7 +66,7 @@ export async function get_data(domain: string) {
           value: x509Data.organization,
           verification: {
             status: "verified",
-            authorities: [x509Data.issuer],
+            authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
           },
         },
       );
@@ -80,7 +80,7 @@ export async function get_data(domain: string) {
         value: x509Data.incCountry,
         verification: {
           status: "verified",
-          authorities: [x509Data.issuer],
+          authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
         },
       });
       if (improvedCountries.length > 0) {
