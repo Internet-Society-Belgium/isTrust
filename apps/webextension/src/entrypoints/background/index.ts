@@ -8,14 +8,15 @@ export default defineBackground(() => {
   browser.contextMenus.create({
     id: "istrust",
     title: "isTrust",
-    contexts: ["link"],
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/menus/ContextType
+    contexts: ["link", "selection", "frame"],
   });
   browser.contextMenus.onClicked.addListener(async (info) => {
-    const text = info?.linkUrl;
-    if (!text) return;
+    let query = info.linkUrl || info.selectionText || info.frameUrl;
+    if (query === undefined) return;
 
     await browser.windows.create({
-      url: `${browser.runtime.getURL("/popup.html")}?q=${text}`,
+      url: `${browser.runtime.getURL("/popup.html")}?q=${query}`,
       type: "popup",
       focused: true,
     });
