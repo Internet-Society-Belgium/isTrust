@@ -19,6 +19,7 @@ export default [
     plugins: ["@typescript-eslint"],
     rules: {
       eqeqeq: ["error", "always"],
+      "@typescript-eslint/strict-boolean-expressions": "error",
       "@typescript-eslint/naming-convention": [
         "warn",
         {
