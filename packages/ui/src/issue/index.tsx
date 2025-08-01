@@ -6,12 +6,16 @@ type Scope = "istrust.org" | "chrome" | "firefox" | "edge" | "safari";
 
 interface Props {
   query: string;
-  scope: Scope;
+  scope: Scope | null;
   error: Error;
 }
 
 export const Issue: Component<Props> = (props) => {
-  const issueBug = (scope: Scope, query: string, errorMessage: string) => {
+  const issueBug = (
+    scope: Scope | null,
+    query: string,
+    errorMessage: string,
+  ) => {
     return `# Scope
 Where did the error happened
 
@@ -61,8 +65,10 @@ Add any other context or screenshots about the feature request here.
       <Switch>
         <Match when={props.error.name === "FeatureError"}>
           <a
-            class="ring-border bg-container hover:bg-container-darker flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
+            class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
             href={issueURL("enhancement", issueFeature(props.error.message))}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Request feature
             <IconGithub />
@@ -70,11 +76,13 @@ Add any other context or screenshots about the feature request here.
         </Match>
         <Match when={props.error.name !== "UserError"}>
           <a
-            class="ring-border bg-container hover:bg-container-darker flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
+            class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
             href={issueURL(
               "bug",
               issueBug(props.scope, props.query, props.error.message),
             )}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Report bug
             <IconGithub />

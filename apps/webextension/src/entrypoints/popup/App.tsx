@@ -110,7 +110,17 @@ const App: Component = () => {
         <ErrorBoundary
           fallback={(error) => (
             <Issue
-              scope="istrust.org"
+              scope={
+                import.meta.env.CHROME
+                  ? "chrome"
+                  : import.meta.env.FIREFOX
+                    ? "firefox"
+                    : import.meta.env.EDGE
+                      ? "edge"
+                      : import.meta.env.SAFARI
+                        ? "safari"
+                        : null
+              }
               query={searchQuery()?.text || ""}
               error={error}
             />
