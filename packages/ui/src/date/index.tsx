@@ -1,72 +1,83 @@
 import { type Component } from "solid-js";
 import "../styles.css";
 
-interface Props {
-  date: string;
-  locale: Intl.LocalesArgument;
+interface DateDifferenceProps {
+  date: string | undefined;
 }
 
-export const DateDifference: Component<Props> = (props) => {
-  const getText = (date: string, locale: Intl.LocalesArgument) => {
+export const DateDifference: Component<DateDifferenceProps> = (props) => {
+  const getText = (date: string | undefined) => {
     const now = new Date();
-    const then = new Date(date);
+    const then = new Date(date || now);
 
-    if (now >= then) {
-      const year = now.getFullYear() - then.getFullYear();
-      if (year > 0) {
-        return `${year} ${year === 1 ? "year" : "years"} ago`;
-      } else {
-        const month = now.getMonth() - then.getMonth();
-        if (month > 0) {
-          return `${month} ${month === 1 ? "month" : "months"} ago`;
-        } else {
-          const day = now.getDay() - then.getDay();
-          if (day > 0) {
-            return `${day} ${day === 1 ? "day" : "days"} ago`;
-          } else {
-            const hour = now.getHours() - then.getHours();
-            if (hour > 0) {
-              return `${hour} ${hour === 1 ? "hour" : "hours"} ago`;
-            } else {
-              const minute = now.getMinutes() - then.getMinutes();
-              if (minute > 0) {
-                return `${minute} ${minute === 1 ? "minute" : "minutes"} ago`;
-              } else {
-                return "now";
-              }
-            }
-          }
-        }
-      }
+    const direction = now >= then ? "past" : "future";
+
+    let millisecond;
+    if (direction === "past") {
+      millisecond = now.getTime() - then.getTime();
     } else {
-      const year = then.getFullYear() - now.getFullYear();
-      if (year > 0) {
-        return `in ${year} ${year === 1 ? "year" : "years"}`;
+      millisecond = then.getTime() - now.getTime();
+    }
+
+    const minute = millisecond / 1000 / 60;
+
+    if (minute < 60) {
+      const m = Math.round(minute);
+
+      if (m === 0) return "now";
+
+      if (direction === "past") {
+        return `${m} ${m === 1 ? "minute" : "minutes"} ago`;
       } else {
-        const month = then.getMonth() - now.getMonth();
-        if (month > 0) {
-          return `in ${month} ${month === 1 ? "month" : "months"}`;
-        } else {
-          const day = then.getDay() - now.getDay();
-          if (day > 0) {
-            return `in ${day} ${day === 1 ? "day" : "days"}`;
-          } else {
-            const hour = then.getHours() - now.getHours();
-            if (hour > 0) {
-              return `in ${hour} ${hour === 1 ? "hour" : "hours"}`;
-            } else {
-              const minute = then.getMinutes() - now.getMinutes();
-              if (minute > 0) {
-                return `in ${minute} ${minute === 1 ? "minute" : "minutes"}`;
-              } else {
-                return "now";
-              }
-            }
-          }
-        }
+        return `in ${m} ${m === 1 ? "minute" : "minutes"}`;
       }
+    }
+
+    const hour = minute / 60;
+    if (hour < 24) {
+      const h = Math.round(hour);
+
+      if (direction === "past") {
+        return `${h} ${h === 1 ? "hour" : "hours"} ago`;
+      } else {
+        return `in ${h} ${h === 1 ? "hour" : "hours"}`;
+      }
+    }
+
+    const day = hour / 24;
+    if (day < 30) {
+      const d = Math.round(day);
+
+      if (direction === "past") {
+        return `${d} ${d === 1 ? "day" : "days"} ago`;
+      } else {
+        return `in ${d} ${d === 1 ? "day" : "days"}`;
+      }
+    }
+
+    const month = day / 30;
+    if (month < 12) {
+      const m = Math.round(month);
+
+      if (direction === "past") {
+        return `${m} ${m === 1 ? "month" : "months"} ago`;
+      } else {
+        return `in ${m} ${m === 1 ? "month" : "months"}`;
+      }
+    }
+
+    const year = day / 365;
+
+    const y = Math.round(year);
+
+    if (direction === "past") {
+      return `${y} ${y === 1 ? "year" : "years"} ago`;
+    } else {
+      return `in ${y} ${y === 1 ? "year" : "years"}`;
     }
   };
 
-  return <span>{getText(props.date, props.locale)}</span>;
+  return <span>{getText(props.date)}</span>;
+};
+
 };
