@@ -1,7 +1,7 @@
 import * as common from "@istrust/common";
 import { CertificateAlert } from "@istrust/ui/alert";
 import { Country } from "@istrust/ui/country";
-import { DateDifference } from "@istrust/ui/date";
+import { DateDifference, DateFrequency } from "@istrust/ui/date";
 import { HeaderDomain } from "@istrust/ui/header";
 import {
   IconBuilding,
@@ -232,11 +232,7 @@ const App: Component = () => {
                   >
                     {(registration) => (
                       <>
-                        Registered{" "}
-                        <DateDifference
-                          date={registration.value}
-                          locale={navigator.language}
-                        />
+                        Registered <DateDifference date={registration.value} />
                       </>
                     )}
                   </SectionItem>

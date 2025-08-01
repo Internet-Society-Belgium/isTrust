@@ -2,15 +2,13 @@ import * as common from "@istrust/common";
 import { browser } from "#imports";
 
 export interface HistoryData {
-  daysWithVisit: common.Data<number>;
-  firstVisit: common.Data<string> | null;
+  visits: common.Data<string[]>;
 }
 
 export async function get_history_data(domain: string) {
   const historyItems = await browser.history.search({ text: `${domain}` });
 
-  const daysWithVisit = new Set<string>();
-  let firstVisit;
+  let visits = [];
 
   for (const historyItem of historyItems) {
     const pageUrl = historyItem.url;
@@ -30,24 +28,18 @@ export async function get_history_data(domain: string) {
         visitItem.transition === "keyword" ||
         visitItem.transition === "keyword_generated"
       ) {
-        if (visitItem.visitTime !== undefined) {
-          const visitDate = new Date(visitItem.visitTime);
+        if (visitItem.visitTime === undefined) continue;
 
-          const visitDay = visitDate.toDateString();
-          daysWithVisit.add(visitDay);
+        const visit = new Date(visitItem.visitTime);
 
-          const visitTime = visitDate.getTime();
-          if (firstVisit === undefined || visitTime < firstVisit) {
-            firstVisit = visitTime;
-          }
-        }
+        visits.push(visit.toISOString());
       }
     }
   }
 
   let verification: common.Data<unknown>["verification"] = {
     status: "unverified",
-    authorities: null,
+    authorities: [],
   };
 
   if (import.meta.env.CHROME) {
@@ -56,8 +48,7 @@ export async function get_history_data(domain: string) {
       authorities: [
         {
           organization: "Google Chrome",
-          country: null,
-          links: null,
+          links: [],
         },
       ],
     };
@@ -67,8 +58,7 @@ export async function get_history_data(domain: string) {
       authorities: [
         {
           organization: "Firefox",
-          country: null,
-          links: null,
+          links: [],
         },
       ],
     };
@@ -78,8 +68,7 @@ export async function get_history_data(domain: string) {
       authorities: [
         {
           organization: "Microsoft Edge",
-          country: null,
-          links: null,
+          links: [],
         },
       ],
     };
@@ -89,27 +78,20 @@ export async function get_history_data(domain: string) {
       authorities: [
         {
           organization: "Safari",
-          country: null,
-          links: null,
+          links: [],
         },
       ],
     };
   }
 
+  visits = visits.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
   const data: HistoryData = {
-    daysWithVisit: {
-      value: daysWithVisit.size,
+    visits: {
+      value: visits,
       verification,
     },
-    firstVisit: null,
   };
-
-  if (firstVisit !== undefined) {
-    data.firstVisit = {
-      value: new Date(firstVisit).toISOString(),
-      verification,
-    };
-  }
 
   return data;
 }

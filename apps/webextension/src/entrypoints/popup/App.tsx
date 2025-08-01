@@ -3,7 +3,7 @@ import { get_active_tab } from "@/utils/tab";
 import * as common from "@istrust/common";
 import { CertificateAlert } from "@istrust/ui/alert";
 import { Country } from "@istrust/ui/country";
-import { DateDifference } from "@istrust/ui/date";
+import { DateDifference, DateFrequency } from "@istrust/ui/date";
 import { HeaderDomain } from "@istrust/ui/header";
 import {
   IconBuilding,
@@ -24,6 +24,7 @@ import {
   ErrorBoundary,
   Match,
   onMount,
+  Show,
   Switch,
   type Component,
 } from "solid-js";
@@ -60,16 +61,6 @@ const App: Component = () => {
     });
   });
 
-  const [historyData] = createResource(
-    () => (domain.state === "ready" ? domain() : undefined),
-    async (domain) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      return await sendMessage("get_history_data", {
-        domain,
-      });
-    },
-  );
-
   const [whoisData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
@@ -95,6 +86,16 @@ const App: Component = () => {
     async (domain) => {
       await new Promise((resolve) => setTimeout(resolve, 4000));
       return await sendMessage("get_certificate_data", {
+        domain,
+      });
+    },
+  );
+
+  const [historyData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return await sendMessage("get_history_data", {
         domain,
       });
     },
@@ -205,11 +206,7 @@ const App: Component = () => {
                 >
                   {(registration) => (
                     <>
-                      Registered{" "}
-                      <DateDifference
-                        date={registration.value}
-                        locale={navigator.language}
-                      />
+                      Registered <DateDifference date={registration.value} />
                     </>
                   )}
                 </SectionItem>
@@ -252,78 +249,96 @@ const App: Component = () => {
 
               <Section title="Visit">
                 <SectionItem
-                  description="Duration since first visit"
+                  description="Duration since the first visit"
                   prefix={<IconCalendar1 />}
-                  data={historyData()?.firstVisit}
-                  suffix={(firstVisit) => (
+                  data={historyData()?.visits}
+                  suffix={(visits) => (
                     <Verification
-                      verification={firstVisit.verification}
+                      verification={visits.verification}
                       locale={navigator.language}
                     />
                   )}
                 >
-                  {(firstVisit) => (
+                  {(visits) => (
                     <>
-                      First visited{" "}
-                      <DateDifference
-                        date={firstVisit.value}
-                        locale={navigator.language}
-                      />
+                      First visited <DateDifference date={visits.value.at(0)} />
                     </>
                   )}
                 </SectionItem>
 
                 <SectionItem
-                  description="Frequency since first visit"
+                  description="Frequency of previous visits"
                   prefix={<IconCalendarCheck />}
-                  data={historyData()?.daysWithVisit}
-                  suffix={(daysWithVisit) => (
+                  data={historyData()?.visits}
+                  suffix={(visits) => (
                     <Verification
-                      verification={daysWithVisit.verification}
+                      verification={visits.verification}
                       locale={navigator.language}
                     />
                   )}
                 >
-                  {(daysWithVisit) => (
-                    <>{`${daysWithVisit.value} day${daysWithVisit.value > 1 ? "s" : ""} with visit(s)`}</>
+                  {(visits) => (
+                    <Show
+                      when={
+                        visits.filter(
+                          (visit) =>
+                            new Date(visit).toDateString() !==
+                            new Date().toDateString(),
+                        ).length > 0
+                      }
+                      fallback={<p>No previous history</p>}
+                    >
+                      Previously visited <DateFrequency dates={visits.value} />
+                    </Show>
                   )}
                 </SectionItem>
               </Section>
 
-              {/* <Section title="Debug">
-                  <details>
-                    <summary>WHOIS raw data</summary>
-                    <Show when={whoisData()}>
-                      {(data) => (
-                        <pre class="overflow-scroll">
-                          {JSON.stringify(data(), undefined, 2)}
-                        </pre>
-                      )}
-                    </Show>
-                  </details>
+              <Section title="Debug">
+                <details>
+                  <summary>WHOIS raw data</summary>
+                  <Show when={whoisData()}>
+                    {(data) => (
+                      <pre class="overflow-scroll">
+                        {JSON.stringify(data(), undefined, 2)}
+                      </pre>
+                    )}
+                  </Show>
+                </details>
 
-                  <details>
-                    <summary>certificate raw data</summary>
-                    <Show when={certificateData()}>
-                      {(data) => (
-                        <pre class="overflow-scroll">
-                          {JSON.stringify(data(), undefined, 2)}
-                        </pre>
-                      )}
-                    </Show>
-                  </details>
+                <details>
+                  <summary>certificate raw data</summary>
+                  <Show when={certificateData()}>
+                    {(data) => (
+                      <pre class="overflow-scroll">
+                        {JSON.stringify(data(), undefined, 2)}
+                      </pre>
+                    )}
+                  </Show>
+                </details>
 
-                  <details>
-                    <summary>DNSSEC raw data</summary>
-                    <Show when={dnssecData()}>
-                      {(data) => (
-                        <pre class="overflow-scroll">
-                          {JSON.stringify(data(), undefined, 2)}
-                        </pre>
-                      )}
-                    </Show>
-                  </details>
-                </Section> */}
+                <details>
+                  <summary>DNSSEC raw data</summary>
+                  <Show when={dnssecData()}>
+                    {(data) => (
+                      <pre class="overflow-scroll">
+                        {JSON.stringify(data(), undefined, 2)}
+                      </pre>
+                    )}
+                  </Show>
+                </details>
+
+                <details>
+                  <summary>history raw data</summary>
+                  <Show when={historyData()}>
+                    {(data) => (
+                      <pre class="overflow-scroll">
+                        {JSON.stringify(data(), undefined, 2)}
+                      </pre>
+                    )}
+                  </Show>
+                </details>
+              </Section>
             </div>
           </div>
         </ErrorBoundary>
