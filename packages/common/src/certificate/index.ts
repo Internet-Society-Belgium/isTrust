@@ -6,10 +6,10 @@ export async function get_data(domain: string) {
   const x509sData = await sslmate.get_data(domain);
 
   const certificateData: CertificateData = {
-    types: null,
-    individuals: null,
-    organizations: null,
-    countries: null,
+    types: [],
+    individuals: [],
+    organizations: [],
+    countries: [],
   };
 
   if (x509sData.length === 0) return certificateData;
@@ -23,21 +23,21 @@ export async function get_data(domain: string) {
       value: x509Data.type,
       verification: {
         status: "verified",
-        authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
+        authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
       },
     });
     if (improvedTypes.length > 0) {
       certificateData.types = improvedTypes;
     }
 
-    if (x509Data.individual) {
+    if (x509Data.individual !== undefined) {
       const improvedIndividuals = improve_data_array(
         certificateData.individuals,
         {
           value: x509Data.individual,
           verification: {
             status: "verified",
-            authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
+            authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
           },
         },
       );
@@ -46,12 +46,12 @@ export async function get_data(domain: string) {
       }
     }
 
-    if (x509Data.country) {
+    if (x509Data.country !== undefined) {
       const improvedCountries = improve_data_array(certificateData.countries, {
         value: x509Data.country,
         verification: {
           status: "verified",
-          authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
+          authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
       });
       if (improvedCountries.length > 0) {
@@ -59,14 +59,14 @@ export async function get_data(domain: string) {
       }
     }
 
-    if (x509Data.organization) {
+    if (x509Data.organization !== undefined) {
       const improvedOrganizations = improve_data_array(
         certificateData.organizations,
         {
           value: x509Data.organization,
           verification: {
             status: "verified",
-            authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
+            authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
           },
         },
       );
@@ -75,12 +75,12 @@ export async function get_data(domain: string) {
       }
     }
 
-    if (x509Data.incCountry) {
+    if (x509Data.incCountry !== undefined) {
       const improvedCountries = improve_data_array(certificateData.countries, {
         value: x509Data.incCountry,
         verification: {
           status: "verified",
-          authorities: x509Data.issuer !== null ? [x509Data.issuer] : null,
+          authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
       });
       if (improvedCountries.length > 0) {

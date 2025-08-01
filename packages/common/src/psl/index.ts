@@ -12,7 +12,10 @@ export async function update(cache: DataCache) {
     new Date().getDate() - CACHING_DAYS,
   );
 
-  if (lastUpdate === null || new Date(lastUpdate).getTime() < cachingOutdated) {
+  if (
+    lastUpdate === undefined ||
+    new Date(lastUpdate).getTime() < cachingOutdated
+  ) {
     await load(cache);
   }
 }
@@ -73,21 +76,21 @@ export async function get_effective_domain(domain: string, cache: DataCache) {
 
     const exceptionRule = `!${labels.slice(l).join(".")}`;
     const exceptionRuleMatch = await cache.psl.get(exceptionRule);
-    if (exceptionRuleMatch !== null) {
+    if (exceptionRuleMatch !== undefined) {
       return eDomain;
     }
 
     if (l < labels.length - 1) {
       const wildcardRule = `*.${labels.slice(l + 1).join(".")}`;
       const wildcardRuleMatch = await cache.psl.get(wildcardRule);
-      if (wildcardRuleMatch !== null) {
+      if (wildcardRuleMatch !== undefined) {
         return eDomain;
       }
     }
 
     const rule = labels.slice(l).join(".");
     const ruleMatch = await cache.psl.get(rule);
-    if (ruleMatch !== null) {
+    if (ruleMatch !== undefined) {
       return eDomain;
     }
   }

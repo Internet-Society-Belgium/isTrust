@@ -34,7 +34,7 @@ export function stringify_rdap_value(value: RdapValue) {
   }
 
   rdapValueString = rdapValueString.trim();
-  if (rdapValueString === "") return null;
+  if (rdapValueString === "") return;
 
   return rdapValueString;
 }
@@ -106,8 +106,8 @@ export function validateRdapResult(json: unknown) {
 }
 
 export interface WHOISData {
-  registrations: Data<string>[] | null;
-  organizations: Data<string>[] | null;
-  individuals: Data<string>[] | null;
-  countries: Data<string>[] | null;
+  registrations: Data<string>[];
+  organizations: Data<string>[];
+  individuals: Data<string>[];
+  countries: Data<string>[];
 }

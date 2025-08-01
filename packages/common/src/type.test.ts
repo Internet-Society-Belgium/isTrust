@@ -31,7 +31,7 @@ test("get_best_data_array", () => {
       value: "value3",
       verification: {
         status: "unverified",
-        authorities: null,
+        authorities: [],
       },
     },
   ];
@@ -60,7 +60,7 @@ test("improve_data_array same", () => {
       value: "value",
       verification: {
         status: "unverified",
-        authorities: null,
+        authorities: [],
       },
     },
   ];
@@ -68,7 +68,7 @@ test("improve_data_array same", () => {
     value: "value",
     verification: {
       status: "unverified",
-      authorities: null,
+      authorities: [],
     },
   };
 
@@ -77,7 +77,7 @@ test("improve_data_array same", () => {
       value: "value",
       verification: {
         status: "unverified",
-        authorities: null,
+        authorities: [],
       },
     },
   ] satisfies typeof array);
@@ -89,7 +89,7 @@ test("improve_data_array better status", () => {
       value: "value",
       verification: {
         status: "unverified",
-        authorities: null,
+        authorities: [],
       },
     },
   ];
@@ -126,7 +126,7 @@ test("improve_data_array worst status", () => {
     value: "value",
     verification: {
       status: "unverified",
-      authorities: null,
+      authorities: [],
     },
   };
 
@@ -150,7 +150,6 @@ test("improve_data_array add link", () => {
         authorities: [
           {
             organization: "organization",
-            country: null,
             links: ["link1"],
           },
         ],
@@ -164,7 +163,6 @@ test("improve_data_array add link", () => {
       authorities: [
         {
           organization: "organization",
-          country: null,
           links: ["link2"],
         },
       ],
@@ -179,7 +177,6 @@ test("improve_data_array add link", () => {
         authorities: [
           {
             organization: "organization",
-            country: null,
             links: ["link1", "link2"],
           },
         ],
@@ -197,7 +194,6 @@ test("improve_data_array same link", () => {
         authorities: [
           {
             organization: "organization",
-            country: null,
             links: ["link"],
           },
         ],
@@ -211,7 +207,6 @@ test("improve_data_array same link", () => {
       authorities: [
         {
           organization: "organization",
-          country: null,
           links: ["link"],
         },
       ],
@@ -226,7 +221,6 @@ test("improve_data_array same link", () => {
         authorities: [
           {
             organization: "organization",
-            country: null,
             links: ["link"],
           },
         ],
@@ -244,7 +238,6 @@ test("improve_data_array different organisation", () => {
         authorities: [
           {
             organization: "organization1",
-            country: null,
             links: ["link"],
           },
         ],
@@ -257,7 +250,6 @@ test("improve_data_array different organisation", () => {
         authorities: [
           {
             organization: "organization2",
-            country: null,
             links: ["link"],
           },
         ],
@@ -271,7 +263,6 @@ test("improve_data_array different organisation", () => {
       authorities: [
         {
           organization: "organization1",
-          country: null,
           links: ["link"],
         },
       ],
@@ -286,7 +277,6 @@ test("improve_data_array different organisation", () => {
         authorities: [
           {
             organization: "organization1",
-            country: null,
             links: ["link"],
           },
         ],
@@ -299,7 +289,6 @@ test("improve_data_array different organisation", () => {
         authorities: [
           {
             organization: "organization2",
-            country: null,
             links: ["link"],
           },
         ],
@@ -317,8 +306,7 @@ test("improve_data_array add country", () => {
         authorities: [
           {
             organization: "org",
-            country: null,
-            links: null,
+            links: [],
           },
         ],
       },
@@ -332,7 +320,7 @@ test("improve_data_array add country", () => {
         {
           organization: "org",
           country: "country",
-          links: null,
+          links: [],
         },
       ],
     },
@@ -347,7 +335,7 @@ test("improve_data_array add country", () => {
           {
             organization: "org",
             country: "country",
-            links: null,
+            links: [],
           },
         ],
       },

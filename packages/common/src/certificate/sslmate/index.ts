@@ -18,7 +18,7 @@ export async function get_data(domain: string) {
     const resultsSearch = validateSSLMateSearch(jsonSearch);
 
     for (const resultSearch of resultsSearch) {
-      if (resultSearch.revoked) continue;
+      if (resultSearch.revoked === true) continue;
 
       const cert = x509.parse_cert(resultSearch.cert_der);
 

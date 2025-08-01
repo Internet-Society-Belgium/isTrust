@@ -6,13 +6,13 @@ type Scope = "istrust.org" | "chrome" | "firefox" | "edge" | "safari";
 
 interface Props {
   query: string;
-  scope: Scope | null;
+  scope?: Scope;
   error: Error;
 }
 
 export const Issue: Component<Props> = (props) => {
   const issueBug = (
-    scope: Scope | null,
+    scope: Scope | undefined,
     query: string,
     errorMessage: string,
   ) => {

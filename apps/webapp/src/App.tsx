@@ -31,7 +31,11 @@ const cache: common.DataCache = {
   psl: {
     set: async (key: string, value: string) =>
       localStorage.setItem(`psl:${key}`, value),
-    get: async (key: string) => localStorage.getItem(`psl:${key}`),
+    get: async (key: string) => {
+      const item = localStorage.getItem(`psl:${key}`);
+      if (item === null) return;
+      return item;
+    },
     clear: async () => {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
@@ -46,7 +50,11 @@ const cache: common.DataCache = {
   rdap: {
     set: async (key: string, value: string) =>
       localStorage.setItem(`rdap:${key}`, value),
-    get: async (key: string) => localStorage.getItem(`rdap:${key}`),
+    get: async (key: string) => {
+      const item = localStorage.getItem(`rdap:${key}`);
+      if (item === null) return;
+      return item;
+    },
     clear: async () => {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);

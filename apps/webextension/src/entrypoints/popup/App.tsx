@@ -119,7 +119,7 @@ const App: Component = () => {
                       ? "edge"
                       : import.meta.env.SAFARI
                         ? "safari"
-                        : null
+                        : undefined
               }
               query={searchQuery()?.text || ""}
               error={error}

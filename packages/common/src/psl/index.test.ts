@@ -10,7 +10,7 @@ const cache: DataCache = {
     set: async (key: string, value: string) => {
       storePsl[key] = value;
     },
-    get: async (key: string) => storePsl[key] ?? null,
+    get: async (key: string) => storePsl[key],
     clear: async () => {
       storePsl = {};
     },
@@ -19,7 +19,7 @@ const cache: DataCache = {
     set: async (key: string, value: string) => {
       storeRdap[key] = value;
     },
-    get: async (key: string) => storeRdap[key] ?? null,
+    get: async (key: string) => storeRdap[key],
     clear: async () => {
       storeRdap = {};
     },

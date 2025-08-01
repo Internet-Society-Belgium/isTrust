@@ -5,9 +5,9 @@ test("istrust.org", async () => {
   const data = await get_data("istrust.org");
 
   expect(data).toStrictEqual({
-    countries: null,
-    individuals: null,
-    organizations: null,
+    countries: [],
+    individuals: [],
+    organizations: [],
     types: [
       {
         value: "DV",
@@ -16,7 +16,7 @@ test("istrust.org", async () => {
             {
               country: "FR",
               organization: "Gandi",
-              links: null,
+              links: [],
             },
           ],
           status: "verified",
@@ -37,7 +37,7 @@ test("icann.org", async () => {
           authorities: [
             {
               country: "GB",
-              links: null,
+              links: [],
               organization: "Sectigo Limited",
             },
           ],
@@ -45,7 +45,7 @@ test("icann.org", async () => {
         },
       },
     ],
-    individuals: null,
+    individuals: [],
     organizations: [
       {
         value: "Internet Corporation For Assigned Names and Numbers",
@@ -53,7 +53,7 @@ test("icann.org", async () => {
           authorities: [
             {
               country: "GB",
-              links: null,
+              links: [],
               organization: "Sectigo Limited",
             },
           ],
@@ -68,7 +68,7 @@ test("icann.org", async () => {
           authorities: [
             {
               country: "GB",
-              links: null,
+              links: [],
               organization: "Sectigo Limited",
             },
           ],
@@ -81,12 +81,12 @@ test("icann.org", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "Amazon",
             },
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "Let's Encrypt",
             },
           ],
@@ -108,7 +108,7 @@ test("worldbank.org", async () => {
           authorities: [
             {
               country: "GB",
-              links: null,
+              links: [],
               organization: "COMODO CA Limited",
             },
           ],
@@ -116,7 +116,7 @@ test("worldbank.org", async () => {
         },
       },
     ],
-    individuals: null,
+    individuals: [],
     organizations: [
       {
         value: "World Bank Group",
@@ -124,7 +124,7 @@ test("worldbank.org", async () => {
           authorities: [
             {
               country: "GB",
-              links: null,
+              links: [],
               organization: "COMODO CA Limited",
             },
           ],
@@ -139,7 +139,7 @@ test("worldbank.org", async () => {
           authorities: [
             {
               country: "GB",
-              links: null,
+              links: [],
               organization: "COMODO CA Limited",
             },
           ],
@@ -152,12 +152,12 @@ test("worldbank.org", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "Amazon",
             },
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "Google Trust Services",
             },
           ],
@@ -179,7 +179,7 @@ test("example.com", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "DigiCert Inc",
             },
           ],
@@ -187,7 +187,7 @@ test("example.com", async () => {
         },
       },
     ],
-    individuals: null,
+    individuals: [],
     organizations: [
       {
         value: "Internet Corporation for Assigned Names and Numbers",
@@ -195,7 +195,7 @@ test("example.com", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "DigiCert Inc",
             },
           ],
@@ -210,7 +210,7 @@ test("example.com", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "DigiCert Inc",
             },
           ],
@@ -232,7 +232,7 @@ test("digicert.com", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "DigiCert Inc",
             },
           ],
@@ -240,7 +240,7 @@ test("digicert.com", async () => {
         },
       },
     ],
-    individuals: null,
+    individuals: [],
     organizations: [
       {
         value: "DigiCert, Inc.",
@@ -248,7 +248,7 @@ test("digicert.com", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "DigiCert Inc",
             },
           ],
@@ -263,7 +263,7 @@ test("digicert.com", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "DigiCert Inc",
             },
           ],
@@ -276,7 +276,7 @@ test("digicert.com", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "DigiCert Inc",
             },
           ],
@@ -298,7 +298,7 @@ test("google.com", async () => {
           authorities: [
             {
               country: "BR",
-              links: null,
+              links: [],
               organization: "ICP-Brasil",
             },
           ],
@@ -306,7 +306,7 @@ test("google.com", async () => {
         },
       },
     ],
-    individuals: null,
+    individuals: [],
     organizations: [
       {
         value: "GOOGLE PAY BRASIL INSTITUICAO DE PAGAMENTO LTDA",
@@ -314,7 +314,7 @@ test("google.com", async () => {
           authorities: [
             {
               country: "BR",
-              links: null,
+              links: [],
               organization: "ICP-Brasil",
             },
           ],
@@ -329,7 +329,7 @@ test("google.com", async () => {
           authorities: [
             {
               country: "BR",
-              links: null,
+              links: [],
               organization: "ICP-Brasil",
             },
           ],
@@ -342,7 +342,7 @@ test("google.com", async () => {
           authorities: [
             {
               country: "US",
-              links: null,
+              links: [],
               organization: "Google Trust Services",
             },
           ],

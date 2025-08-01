@@ -3,7 +3,7 @@ import "../styles.css";
 import { Overflow } from "../overflow";
 
 interface Props {
-  value: string | null | undefined;
+  value?: string;
 }
 
 export const HeaderDomain: Component<Props> = (props) => {

@@ -9,7 +9,7 @@ globalThis.Buffer = BufferPolyfill;
 interface Resolver {
   url: string;
   name: string;
-  country: string | null;
+  country?: string;
   links: string[];
 }
 
@@ -28,16 +28,13 @@ export async function get_data(domain: string, customResolver?: string) {
     resolver = {
       name: hostname,
       url: customResolver,
-      country: null,
       links: [customResolver.replace(/dns-query$/, "")],
     };
   } else {
     resolver = DEFAULT_RESOLVER;
   }
 
-  const data: DNSSECData = {
-    valid: null,
-  };
+  const data: DNSSECData = {};
 
   try {
     // https://www.rfc-editor.org/rfc/rfc1035.html

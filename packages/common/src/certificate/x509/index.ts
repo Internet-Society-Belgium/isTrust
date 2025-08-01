@@ -17,56 +17,61 @@ export function get_data(cert: X509Certificate) {
   const certificatePolicyExtension = cert.getExtension(
     x509.CertificatePolicyExtension,
   );
-  if (certificatePolicyExtension?.policies.includes(oid.ExtendedValidation)) {
+  if (
+    certificatePolicyExtension?.policies.includes(oid.ExtendedValidation) ===
+    true
+  ) {
     type = "EV";
   } else if (
-    certificatePolicyExtension?.policies.includes(oid.OrganizationValidation)
+    certificatePolicyExtension?.policies.includes(
+      oid.OrganizationValidation,
+    ) === true
   ) {
     type = "OV";
   } else if (
-    certificatePolicyExtension?.policies.includes(oid.IndividualValidation)
+    certificatePolicyExtension?.policies.includes(oid.IndividualValidation) ===
+    true
   ) {
     type = "IV";
   } else {
     type = "DV";
   }
 
-  let issuer: X509Issuer | null = null;
+  const data: X509Data = {
+    type,
+  };
 
-  let organization: string | null = null;
+  let issuer: X509Issuer | undefined;
+
+  let organization: string | undefined;
 
   const issuerOrganization = atos(cert.issuerName.getField(oid.Organization));
-  if (issuerOrganization !== null) {
+  if (issuerOrganization !== undefined) {
     organization = issuerOrganization;
   }
 
-  if (organization !== null) {
+  if (organization !== undefined) {
     issuer = {
       organization,
-      country: null,
-      links: null,
+      links: [],
     };
 
     const issuerCountry = atos(cert.issuerName.getField(oid.Country));
-    if (issuerCountry !== null) {
+    if (issuerCountry !== undefined) {
       issuer.country = issuerCountry;
     }
   }
-  const data: X509Data = {
-    type,
-    issuer,
-    individual: null,
-    organization: null,
-    country: null,
-    incCountry: null,
-  };
+
+  if (issuer !== undefined) {
+    data.issuer = issuer;
+  }
 
   const subjectOrganization = atos(cert.subjectName.getField(oid.Organization));
-  if (subjectOrganization) {
+  if (subjectOrganization !== undefined) {
     const organizationUnit = atos(
       cert.subjectName.getField(oid.OrganizationalUnit),
     );
-    if (organizationUnit) {
+    if (organizationUnit !== undefined) {
       data.organization = `${subjectOrganization} (${organizationUnit})`;
     } else {
       data.organization = subjectOrganization;
@@ -74,17 +79,17 @@ export function get_data(cert: X509Certificate) {
   }
 
   const subjectCountry = atos(cert.subjectName.getField(oid.Country));
-  if (subjectCountry) {
+  if (subjectCountry !== undefined) {
     data.country = subjectCountry;
   }
 
   const subjectIncCountry = atos(cert.subjectName.getField(oid.IncCountry));
-  if (subjectIncCountry) {
+  if (subjectIncCountry !== undefined) {
     data.incCountry = subjectIncCountry;
   }
 
   const subjectGivenName = atos(cert.subjectName.getField(oid.GivenName));
-  if (subjectGivenName) {
+  if (subjectGivenName !== undefined) {
     data.individual = subjectGivenName;
   }
 
@@ -93,7 +98,7 @@ export function get_data(cert: X509Certificate) {
 
 function atos(array: string[]) {
   const text = array.join(" ").trim();
-  if (text === "") return null;
+  if (text === "") return;
   return text;
 }
 
@@ -134,7 +139,7 @@ function is_same_domain(cert: X509Certificate, domain: string) {
   const dnsNames = [];
 
   const commonName = atos(cert.subjectName.getField(oid.CommonName));
-  if (commonName !== null) {
+  if (commonName !== undefined) {
     dnsNames.push(commonName);
   }
 

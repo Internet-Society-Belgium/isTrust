@@ -1,12 +1,12 @@
 export interface VerificationAuthority {
   organization: string;
-  country: string | null;
-  links: string[] | null;
+  country?: string;
+  links: string[];
 }
 
 interface Verification {
   status: "unverified" | "verified";
-  authorities: VerificationAuthority[] | null;
+  authorities: VerificationAuthority[];
 }
 
 export interface Data<T> {
@@ -15,14 +15,11 @@ export interface Data<T> {
 }
 
 export function merge_data_array<T>(
-  array1: Data<T>[] | undefined | null,
-  array2: Data<T>[] | undefined | null,
+  array1: Data<T>[] | undefined,
+  array2: Data<T>[] | undefined,
 ) {
-  if (array1 === undefined || array2 === undefined) return undefined;
-  if (array1 === null && array2 === null) return null;
-
   let array = [...(array1 || []), ...(array2 || [])];
-  if (array.length === 0) return null;
+  if (array.length === 0) return;
 
   const verified = array.filter(
     (data) => data.verification.status === "verified",
@@ -38,14 +35,12 @@ export function merge_data_array<T>(
     }
   }
 
-  if (unique.length === 0) return null;
+  if (unique.length === 0) return;
 
   return unique;
 }
 
-export function improve_data_array<T>(array: Data<T>[] | null, data: Data<T>) {
-  if (array === null) return [data];
-
+export function improve_data_array<T>(array: Data<T>[], data: Data<T>) {
   let match: Data<T> | undefined;
   for (const a of array) {
     if (normalize(a.value) === normalize(data.value)) {
@@ -74,18 +69,13 @@ export function improve_data_array<T>(array: Data<T>[] | null, data: Data<T>) {
     return array;
   }
 
-  if (
-    match.verification.authorities !== null &&
-    data.verification.authorities !== null
-  ) {
-    for (const authority of data.verification.authorities) {
-      const improvedAuthority = improve_authority_array(
-        match.verification.authorities,
-        authority,
-      );
-      if (improvedAuthority.length > 0) {
-        match.verification.authorities = improvedAuthority;
-      }
+  for (const authority of data.verification.authorities) {
+    const improvedAuthority = improve_authority_array(
+      match.verification.authorities,
+      authority,
+    );
+    if (improvedAuthority.length > 0) {
+      match.verification.authorities = improvedAuthority;
     }
   }
 
@@ -93,16 +83,15 @@ export function improve_data_array<T>(array: Data<T>[] | null, data: Data<T>) {
 }
 
 function improve_authority_array(
-  array: VerificationAuthority[] | undefined,
+  array: VerificationAuthority[],
   data: VerificationAuthority,
 ) {
-  if (array === undefined) return [data];
-
   let match: VerificationAuthority | undefined;
   for (const a of array) {
     if (
       normalize(a.organization) === normalize(data.organization) &&
-      (a.country === null || normalize(a.country) === normalize(data.country))
+      (a.country === undefined ||
+        normalize(a.country) === normalize(data.country))
     ) {
       match = a;
       break;
@@ -110,15 +99,13 @@ function improve_authority_array(
   }
 
   if (match) {
-    if (match.country === null && data.country !== null) {
+    if (match.country === undefined && data.country !== undefined) {
       match.country = data.country;
     }
 
-    if (match.links !== null && data.links !== null) {
-      for (const link of data.links) {
-        if (!match.links.includes(link)) {
-          match.links.push(link);
-        }
+    for (const link of data.links) {
+      if (!match.links.includes(link)) {
+        match.links.push(link);
       }
     }
   } else {
@@ -143,12 +130,12 @@ function normalize(value: unknown) {
 export interface DataCache {
   psl: {
     set(key: string, value: string): Promise<void>;
-    get(key: string): Promise<string | null>;
+    get(key: string): Promise<string | undefined>;
     clear(): Promise<void>;
   };
   rdap: {
     set(key: string, value: string): Promise<void>;
-    get(key: string): Promise<string | null>;
+    get(key: string): Promise<string | undefined>;
     clear(): Promise<void>;
   };
 }

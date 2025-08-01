@@ -13,7 +13,7 @@ import { IconThumbsDown, IconThumbsUp } from "../icon";
 import { Verification } from "../verification";
 
 interface CertificateAlertProps {
-  types: common.Data<unknown>[] | null | undefined;
+  types?: common.Data<unknown>[];
 }
 
 export const CertificateAlert: Component<CertificateAlertProps> = (props) => {

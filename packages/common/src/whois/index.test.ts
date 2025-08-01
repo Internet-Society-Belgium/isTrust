@@ -10,7 +10,7 @@ const cache: DataCache = {
     set: async (key: string, value: string) => {
       storePsl[key] = value;
     },
-    get: async (key: string) => storePsl[key] ?? null,
+    get: async (key: string) => storePsl[key],
     clear: async () => {
       storePsl = {};
     },
@@ -19,7 +19,7 @@ const cache: DataCache = {
     set: async (key: string, value: string) => {
       storeRdap[key] = value;
     },
-    get: async (key: string) => storeRdap[key] ?? null,
+    get: async (key: string) => storeRdap[key],
     clear: async () => {
       storeRdap = {};
     },
@@ -36,7 +36,6 @@ test("wikipedia.org", async () => {
         verification: {
           authorities: [
             {
-              country: null,
               links: [],
               organization: "MarkMonitor Inc.",
             },
@@ -45,14 +44,13 @@ test("wikipedia.org", async () => {
         },
       },
     ],
-    individuals: null,
+    individuals: [],
     organizations: [
       {
         value: "Wikimedia Foundation, Inc.",
         verification: {
           authorities: [
             {
-              country: null,
               links: [],
               organization: "MarkMonitor Inc.",
             },
@@ -67,7 +65,6 @@ test("wikipedia.org", async () => {
         verification: {
           authorities: [
             {
-              country: null,
               links: [],
               organization: "MarkMonitor Inc.",
             },
@@ -89,7 +86,6 @@ test("istrust.org", async () => {
         verification: {
           authorities: [
             {
-              country: null,
               links: ["https://www.gandi.net/"],
               organization: "Gandi SAS",
             },
@@ -104,7 +100,6 @@ test("istrust.org", async () => {
         verification: {
           authorities: [
             {
-              country: null,
               links: ["https://www.gandi.net/"],
               organization: "Gandi SAS",
             },
@@ -119,7 +114,6 @@ test("istrust.org", async () => {
         verification: {
           authorities: [
             {
-              country: null,
               links: ["https://www.gandi.net/"],
               organization: "Gandi SAS",
             },
@@ -134,7 +128,6 @@ test("istrust.org", async () => {
         verification: {
           authorities: [
             {
-              country: null,
               links: ["https://www.gandi.net/"],
               organization: "Gandi SAS",
             },
@@ -158,8 +151,7 @@ test("newtab.com", async () => {
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-              country: null,
-              links: null,
+              links: [],
             },
           ],
           status: "unverified",
@@ -174,8 +166,7 @@ test("newtab.com", async () => {
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-              country: null,
-              links: null,
+              links: [],
             },
           ],
           status: "unverified",
@@ -190,8 +181,7 @@ test("newtab.com", async () => {
             {
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-              country: null,
-              links: null,
+              links: [],
             },
           ],
           status: "unverified",
@@ -207,7 +197,6 @@ test("newtab.com", async () => {
               links: ["http://wanwang.aliyun.com"],
               organization:
                 "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-              country: null,
             },
           ],
           status: "verified",
@@ -229,15 +218,14 @@ test("phishurl.com", async () => {
             {
               links: ["https://rdap.ovh.com/"],
               organization: "OVH, SAS",
-              country: null,
             },
           ],
           status: "unverified",
         },
       },
     ],
-    individuals: null,
-    organizations: null,
+    individuals: [],
+    organizations: [],
     registrations: [
       {
         value: "2024-05-26T22:00:00.000Z",
@@ -246,7 +234,6 @@ test("phishurl.com", async () => {
             {
               links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
               organization: "OVH sas",
-              country: null,
             },
           ],
           status: "verified",
