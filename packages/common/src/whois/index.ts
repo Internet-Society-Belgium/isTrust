@@ -176,8 +176,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
 
       let links = registrarEntity.links?.map((link) => link.href);
 
-      // https://www.rfc-editor.org/rfc/rfc9082.html#name-lookup-path-segment-specifi
-      links = links?.filter((link) => !/\/(domain|entity)\/.*$/i.test(link));
+      links = links?.filter((link) => !/rdap/i.test(link));
 
       if (links !== undefined) {
         registrar.links = links;
