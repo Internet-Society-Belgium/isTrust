@@ -68,7 +68,7 @@ test("istrust.org", async () => {
     ],
     registrations: [
       {
-        value: "2021-09-06T22:00:00.000Z",
+        value: "2021-09-07T00:00:00.000Z",
         sources: [
           {
             links: ["https://www.gandi.net/"],
@@ -132,7 +132,7 @@ test("github.com", async () => {
             organization: "MarkMonitor Inc.",
           },
         ],
-        value: "2007-10-08T22:00:00.000Z",
+        value: "2007-10-09T00:00:00.000Z",
       },
     ],
   } satisfies typeof whoisData);

@@ -185,11 +185,11 @@ function improve_data(data: WHOISData, result: RdapResult) {
   }
 
   for (const event of result.events) {
-    const dateString = new Date(event.eventDate).toDateString();
+    const date = new Date(event.eventDate).setUTCHours(0, 0, 0, 0);
 
     if (event.eventAction === "registration") {
       const improvedRegistrations = improve_informations(data.registrations, {
-        value: new Date(dateString).toISOString(),
+        value: new Date(date).toISOString(),
         sources: registrar !== undefined ? [registrar] : [],
       });
       if (improvedRegistrations.length > 0) {
