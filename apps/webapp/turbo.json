@@ -5,7 +5,7 @@
       "dependsOn": ["@istrust/common#build", "@istrust/ui#build"]
     },
     "check-types": {
-      "dependsOn": ["@istrust/common#build", "@istrust/ui#build"]
+      "dependsOn": ["@istrust/common#check-types", "@istrust/ui#check-types"]
     }
   }
 }
