@@ -73,7 +73,7 @@ jobs:
 
   check_types:
     name: Check types
-    timeout-minutes: 1
+    timeout-minutes: 3
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     env:
