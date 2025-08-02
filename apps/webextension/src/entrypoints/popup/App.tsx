@@ -17,14 +17,13 @@ import {
 } from "@istrust/ui/icon";
 import { Issue } from "@istrust/ui/issue";
 import { Section, SectionItem } from "@istrust/ui/section";
-import { Verification } from "@istrust/ui/verification";
+import { SourceInfo, SourceVerification } from "@istrust/ui/source";
 import {
   createResource,
   createSignal,
   ErrorBoundary,
   Match,
   onMount,
-  Show,
   Switch,
   type Component,
 } from "solid-js";
@@ -142,8 +141,8 @@ const App: Component = () => {
                     whoisData()?.individuals,
                   )}
                   suffix={(individual) => (
-                    <Verification
-                      verification={individual.verification}
+                    <SourceVerification
+                      information={individual}
                       locale={navigator.language}
                     />
                   )}
@@ -159,8 +158,8 @@ const App: Component = () => {
                     whoisData()?.organizations,
                   )}
                   suffix={(organization) => (
-                    <Verification
-                      verification={organization.verification}
+                    <SourceVerification
+                      information={organization}
                       locale={navigator.language}
                     />
                   )}
@@ -176,8 +175,8 @@ const App: Component = () => {
                     whoisData()?.countries,
                   )}
                   suffix={(country) => (
-                    <Verification
-                      verification={country.verification}
+                    <SourceVerification
+                      information={country}
                       locale={navigator.language}
                     />
                   )}
@@ -194,12 +193,12 @@ const App: Component = () => {
 
               <Section title="Domain">
                 <SectionItem
-                  description="Duration since registration"
+                  description="Registration"
                   prefix={<IconCalendar1 />}
                   data={whoisData()?.registrations}
                   suffix={(registration) => (
-                    <Verification
-                      verification={registration.verification}
+                    <SourceInfo
+                      information={registration}
                       locale={navigator.language}
                     />
                   )}
@@ -228,8 +227,8 @@ const App: Component = () => {
                   }
                   data={dnssecData()?.valid}
                   suffix={(valid) => (
-                    <Verification
-                      verification={valid.verification}
+                    <SourceInfo
+                      information={valid}
                       locale={navigator.language}
                     />
                   )}
@@ -249,12 +248,12 @@ const App: Component = () => {
 
               <Section title="Visit">
                 <SectionItem
-                  description="Duration since first visit"
+                  description="First visit"
                   prefix={<IconCalendar1 />}
                   data={historyData()?.visits}
                   suffix={(visits) => (
-                    <Verification
-                      verification={visits.verification}
+                    <SourceInfo
+                      information={visits}
                       locale={navigator.language}
                     />
                   )}
@@ -271,8 +270,8 @@ const App: Component = () => {
                   prefix={<IconCalendarCheck />}
                   data={historyData()?.visits}
                   suffix={(visits) => (
-                    <Verification
-                      verification={visits.verification}
+                    <SourceInfo
+                      information={visits}
                       locale={navigator.language}
                     />
                   )}
@@ -284,7 +283,7 @@ const App: Component = () => {
                   )}
                 </SectionItem>
               </Section>
-
+              {/* 
               <Section title="Debug">
                 <details>
                   <summary>WHOIS raw data</summary>
@@ -329,7 +328,7 @@ const App: Component = () => {
                     )}
                   </Show>
                 </details>
-              </Section>
+              </Section> */}
             </div>
           </div>
         </ErrorBoundary>

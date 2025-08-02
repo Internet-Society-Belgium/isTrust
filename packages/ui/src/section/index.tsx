@@ -25,14 +25,16 @@ export const Section: Component<Props> = (props) => {
 
 export function SectionItem<T>(props: {
   description: string;
-  data?: common.Data<T> | common.Data<T>[];
+  data?: common.Information<T> | common.Information<T>[];
   prefix: JSX.Element;
   // eslint-disable-next-line no-unused-vars
-  children: (item: common.Data<T>) => JSX.Element;
+  children: (item: common.Information<T>) => JSX.Element;
   // eslint-disable-next-line no-unused-vars
-  suffix?: (item: common.Data<T>) => JSX.Element;
+  suffix?: (item: common.Information<T>) => JSX.Element;
 }) {
-  const toArray = (data: common.Data<T> | common.Data<T>[] | undefined) => {
+  const toArray = (
+    data: common.Information<T> | common.Information<T>[] | undefined,
+  ) => {
     if (data === undefined) return [];
 
     if (Array.isArray(data)) {

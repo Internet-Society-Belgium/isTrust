@@ -1,4 +1,4 @@
-import { improve_data_array } from "../type";
+import { improve_informations } from "../type";
 import * as sslmate from "./sslmate";
 import { CertificateData, CertificateType } from "./type";
 
@@ -19,26 +19,22 @@ export async function get_data(domain: string) {
   );
 
   for (const x509Data of x509sData) {
-    const improvedTypes = improve_data_array(certificateData.types, {
+    const improvedTypes = improve_informations(certificateData.types, {
       value: x509Data.type,
-      verification: {
-        status: "verified",
-        authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
-      },
+      verified: true,
+      sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
     });
     if (improvedTypes.length > 0) {
       certificateData.types = improvedTypes;
     }
 
     if (x509Data.individual !== undefined) {
-      const improvedIndividuals = improve_data_array(
+      const improvedIndividuals = improve_informations(
         certificateData.individuals,
         {
           value: x509Data.individual,
-          verification: {
-            status: "verified",
-            authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
-          },
+          verified: true,
+          sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
       );
       if (improvedIndividuals.length > 0) {
@@ -47,27 +43,26 @@ export async function get_data(domain: string) {
     }
 
     if (x509Data.country !== undefined) {
-      const improvedCountries = improve_data_array(certificateData.countries, {
-        value: x509Data.country,
-        verification: {
-          status: "verified",
-          authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+      const improvedCountries = improve_informations(
+        certificateData.countries,
+        {
+          value: x509Data.country,
+          verified: true,
+          sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
-      });
+      );
       if (improvedCountries.length > 0) {
         certificateData.countries = improvedCountries;
       }
     }
 
     if (x509Data.organization !== undefined) {
-      const improvedOrganizations = improve_data_array(
+      const improvedOrganizations = improve_informations(
         certificateData.organizations,
         {
           value: x509Data.organization,
-          verification: {
-            status: "verified",
-            authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
-          },
+          verified: true,
+          sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
       );
       if (improvedOrganizations.length > 0) {
@@ -76,13 +71,14 @@ export async function get_data(domain: string) {
     }
 
     if (x509Data.incCountry !== undefined) {
-      const improvedCountries = improve_data_array(certificateData.countries, {
-        value: x509Data.incCountry,
-        verification: {
-          status: "verified",
-          authorities: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+      const improvedCountries = improve_informations(
+        certificateData.countries,
+        {
+          value: x509Data.incCountry,
+          verified: true,
+          sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
-      });
+      );
       if (improvedCountries.length > 0) {
         certificateData.countries = improvedCountries;
       }

@@ -11,16 +11,14 @@ test("istrust.org", async () => {
     types: [
       {
         value: "DV",
-        verification: {
-          authorities: [
-            {
-              country: "FR",
-              organization: "Gandi",
-              links: [],
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "FR",
+            organization: "Gandi",
+            links: [],
+          },
+        ],
       },
     ],
   } satisfies typeof data);
@@ -33,65 +31,57 @@ test("icann.org", async () => {
     countries: [
       {
         value: "US",
-        verification: {
-          authorities: [
-            {
-              country: "GB",
-              links: [],
-              organization: "Sectigo Limited",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "Sectigo Limited",
+          },
+        ],
       },
     ],
     individuals: [],
     organizations: [
       {
         value: "Internet Corporation For Assigned Names and Numbers",
-        verification: {
-          authorities: [
-            {
-              country: "GB",
-              links: [],
-              organization: "Sectigo Limited",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "Sectigo Limited",
+          },
+        ],
       },
     ],
     types: [
       {
         value: "OV",
-        verification: {
-          authorities: [
-            {
-              country: "GB",
-              links: [],
-              organization: "Sectigo Limited",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "Sectigo Limited",
+          },
+        ],
       },
       {
         value: "DV",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "Amazon",
-            },
-            {
-              country: "US",
-              links: [],
-              organization: "Let's Encrypt",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Amazon",
+          },
+          {
+            country: "US",
+            links: [],
+            organization: "Let's Encrypt",
+          },
+        ],
       },
     ],
   } satisfies typeof data);
@@ -104,65 +94,57 @@ test("worldbank.org", async () => {
     countries: [
       {
         value: "US",
-        verification: {
-          authorities: [
-            {
-              country: "GB",
-              links: [],
-              organization: "COMODO CA Limited",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "COMODO CA Limited",
+          },
+        ],
       },
     ],
     individuals: [],
     organizations: [
       {
         value: "World Bank Group",
-        verification: {
-          authorities: [
-            {
-              country: "GB",
-              links: [],
-              organization: "COMODO CA Limited",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "COMODO CA Limited",
+          },
+        ],
       },
     ],
     types: [
       {
         value: "EV",
-        verification: {
-          authorities: [
-            {
-              country: "GB",
-              links: [],
-              organization: "COMODO CA Limited",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "COMODO CA Limited",
+          },
+        ],
       },
       {
         value: "DV",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "Amazon",
-            },
-            {
-              country: "US",
-              links: [],
-              organization: "Google Trust Services",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Amazon",
+          },
+          {
+            country: "US",
+            links: [],
+            organization: "Google Trust Services",
+          },
+        ],
       },
     ],
   } satisfies typeof data);
@@ -175,47 +157,41 @@ test("example.com", async () => {
     countries: [
       {
         value: "US",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "DigiCert Inc",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
       },
     ],
     individuals: [],
     organizations: [
       {
         value: "Internet Corporation for Assigned Names and Numbers",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "DigiCert Inc",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
       },
     ],
     types: [
       {
         value: "OV",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "DigiCert Inc",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
       },
     ],
   } satisfies typeof data);
@@ -228,60 +204,52 @@ test("digicert.com", async () => {
     countries: [
       {
         value: "US",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "DigiCert Inc",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
       },
     ],
     individuals: [],
     organizations: [
       {
         value: "DigiCert, Inc.",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "DigiCert Inc",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
       },
     ],
     types: [
       {
         value: "EV",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "DigiCert Inc",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
       },
       {
         value: "OV",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "DigiCert Inc",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
       },
     ],
   } satisfies typeof data);
@@ -294,60 +262,52 @@ test("google.com", async () => {
     countries: [
       {
         value: "BR",
-        verification: {
-          authorities: [
-            {
-              country: "BR",
-              links: [],
-              organization: "ICP-Brasil",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "BR",
+            links: [],
+            organization: "ICP-Brasil",
+          },
+        ],
       },
     ],
     individuals: [],
     organizations: [
       {
         value: "GOOGLE PAY BRASIL INSTITUICAO DE PAGAMENTO LTDA",
-        verification: {
-          authorities: [
-            {
-              country: "BR",
-              links: [],
-              organization: "ICP-Brasil",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "BR",
+            links: [],
+            organization: "ICP-Brasil",
+          },
+        ],
       },
     ],
     types: [
       {
         value: "OV",
-        verification: {
-          authorities: [
-            {
-              country: "BR",
-              links: [],
-              organization: "ICP-Brasil",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "BR",
+            links: [],
+            organization: "ICP-Brasil",
+          },
+        ],
       },
       {
         value: "DV",
-        verification: {
-          authorities: [
-            {
-              country: "US",
-              links: [],
-              organization: "Google Trust Services",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Google Trust Services",
+          },
+        ],
       },
     ],
   } satisfies typeof data);

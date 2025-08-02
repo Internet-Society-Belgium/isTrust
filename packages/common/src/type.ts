@@ -1,34 +1,28 @@
-export interface VerificationAuthority {
+export interface Source {
   organization: string;
   country?: string;
   links: string[];
 }
 
-interface Verification {
-  status: "unverified" | "verified";
-  authorities: VerificationAuthority[];
-}
-
-export interface Data<T> {
+export interface Information<T> {
   value: T;
-  verification: Verification;
+  sources: Source[];
+  verified?: boolean;
 }
 
 export function merge_data_array<T>(
-  array1: Data<T>[] | undefined,
-  array2: Data<T>[] | undefined,
+  array1: Information<T>[] | undefined,
+  array2: Information<T>[] | undefined,
 ) {
   let array = [...(array1 || []), ...(array2 || [])];
   if (array.length === 0) return;
 
-  const verified = array.filter(
-    (data) => data.verification.status === "verified",
-  );
+  const verified = array.filter((data) => data.verified === true);
   if (verified.length > 0) {
     array = verified;
   }
 
-  const unique: Data<T>[] = [];
+  const unique: Information<T>[] = [];
   for (const item of array) {
     if (!unique.some((obj) => JSON.stringify(obj) === JSON.stringify(item))) {
       unique.push(item);
@@ -40,79 +34,71 @@ export function merge_data_array<T>(
   return unique;
 }
 
-export function improve_data_array<T>(array: Data<T>[], data: Data<T>) {
-  let match: Data<T> | undefined;
-  for (const a of array) {
-    if (normalize(a.value) === normalize(data.value)) {
-      match = a;
+export function improve_informations<T>(
+  informations: Information<T>[],
+  information: Information<T>,
+) {
+  let match: Information<T> | undefined;
+  for (const info of informations) {
+    if (normalize(info.value) === normalize(information.value)) {
+      match = info;
       break;
     }
   }
 
   if (match === undefined) {
-    array.push(data);
-    return array;
+    informations.push(information);
+    return informations;
   }
 
-  if (
-    match.verification.status === "verified" &&
-    data.verification.status === "unverified"
-  ) {
-    return array;
+  if (match.verified === true && information.verified === false) {
+    return informations;
   }
 
-  if (
-    match.verification.status === "unverified" &&
-    data.verification.status === "verified"
-  ) {
-    match.verification = { ...data.verification };
-    return array;
+  if (match.verified === false && information.verified === true) {
+    match.verified = true;
+    match.sources = information.sources;
+    return informations;
   }
 
-  for (const authority of data.verification.authorities) {
-    const improvedAuthority = improve_authority_array(
-      match.verification.authorities,
-      authority,
-    );
-    if (improvedAuthority.length > 0) {
-      match.verification.authorities = improvedAuthority;
+  for (const source of information.sources) {
+    const improvedSources = improve_sources(match.sources, source);
+    if (improvedSources.length > 0) {
+      match.sources = improvedSources;
     }
   }
 
-  return array;
+  return informations;
 }
 
-function improve_authority_array(
-  array: VerificationAuthority[],
-  data: VerificationAuthority,
-) {
-  let match: VerificationAuthority | undefined;
-  for (const a of array) {
+function improve_sources(sources: Source[], source: Source) {
+  let match: Source | undefined;
+  for (const source of sources) {
     if (
-      normalize(a.organization) === normalize(data.organization) &&
-      (a.country === undefined ||
-        normalize(a.country) === normalize(data.country))
+      normalize(source.organization) === normalize(source.organization) &&
+      (source.country === undefined ||
+        normalize(source.country) === normalize(source.country))
     ) {
-      match = a;
+      match = source;
       break;
     }
   }
 
   if (match) {
-    if (match.country === undefined && data.country !== undefined) {
-      match.country = data.country;
+    if (match.country === undefined && source.country !== undefined) {
+      match.country = source.country;
     }
 
-    for (const link of data.links) {
+    for (const link of source.links) {
       if (!match.links.includes(link)) {
         match.links.push(link);
       }
     }
   } else {
-    array.push(data);
+    sources.push(source);
   }
 
-  return array;
+  return sources;
 }
 
 function normalize(value: unknown) {
@@ -127,7 +113,7 @@ function normalize(value: unknown) {
   return value;
 }
 
-export interface DataCache {
+export interface InformationCache {
   psl: {
     set(key: string, value: string): Promise<void>;
     get(key: string): Promise<string | undefined>;

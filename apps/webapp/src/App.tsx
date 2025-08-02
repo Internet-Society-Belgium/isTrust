@@ -15,7 +15,7 @@ import {
 import { Issue } from "@istrust/ui/issue";
 import { SearchBar } from "@istrust/ui/search";
 import { Section, SectionItem } from "@istrust/ui/section";
-import { Verification } from "@istrust/ui/verification";
+import { SourceInfo, SourceVerification } from "@istrust/ui/source";
 import {
   createResource,
   createSignal,
@@ -27,7 +27,7 @@ import {
   type Component,
 } from "solid-js";
 
-const cache: common.DataCache = {
+const cache: common.InformationCache = {
   psl: {
     set: async (key: string, value: string) =>
       localStorage.setItem(`psl:${key}`, value),
@@ -168,8 +168,8 @@ const App: Component = () => {
                       whoisData()?.individuals,
                     )}
                     suffix={(individual) => (
-                      <Verification
-                        verification={individual.verification}
+                      <SourceVerification
+                        information={individual}
                         locale={navigator.language}
                       />
                     )}
@@ -185,8 +185,8 @@ const App: Component = () => {
                       whoisData()?.organizations,
                     )}
                     suffix={(organization) => (
-                      <Verification
-                        verification={organization.verification}
+                      <SourceVerification
+                        information={organization}
                         locale={navigator.language}
                       />
                     )}
@@ -202,8 +202,8 @@ const App: Component = () => {
                       whoisData()?.countries,
                     )}
                     suffix={(country) => (
-                      <Verification
-                        verification={country.verification}
+                      <SourceVerification
+                        information={country}
                         locale={navigator.language}
                       />
                     )}
@@ -224,8 +224,8 @@ const App: Component = () => {
                     prefix={<IconCalendar1 />}
                     data={whoisData()?.registrations}
                     suffix={(registration) => (
-                      <Verification
-                        verification={registration.verification}
+                      <SourceInfo
+                        information={registration}
                         locale={navigator.language}
                       />
                     )}
@@ -254,8 +254,8 @@ const App: Component = () => {
                     }
                     data={dnssecData()?.valid}
                     suffix={(valid) => (
-                      <Verification
-                        verification={valid.verification}
+                      <SourceInfo
+                        information={valid}
                         locale={navigator.language}
                       />
                     )}

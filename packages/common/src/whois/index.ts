@@ -1,4 +1,4 @@
-import { DataCache, improve_data_array, VerificationAuthority } from "../type";
+import { improve_informations, InformationCache, Source } from "../type";
 import { parse_tld } from "../utils/domain";
 import { feature_error, source_error, user_error } from "../utils/error";
 import {
@@ -12,7 +12,7 @@ import {
 
 const CACHING_DAYS = 7;
 
-export async function update(cache: DataCache) {
+export async function update(cache: InformationCache) {
   const lastUpdate = await cache.rdap.get("_lastUpdate");
 
   const cachingOutdated = new Date().setDate(
@@ -27,7 +27,7 @@ export async function update(cache: DataCache) {
   }
 }
 
-export async function load(cache: DataCache) {
+export async function load(cache: InformationCache) {
   await cache.rdap.clear();
 
   // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
@@ -64,7 +64,7 @@ export async function load(cache: DataCache) {
   await cache.rdap.set("_lastUpdate", new Date().toISOString());
 }
 
-export async function get_data(domain: string, cache: DataCache) {
+export async function get_data(domain: string, cache: InformationCache) {
   await update(cache);
 
   const tld = domain.split(".").at(-1);
@@ -135,7 +135,7 @@ export async function get_data(domain: string, cache: DataCache) {
 }
 
 function improve_data(data: WHOISData, result: RdapResult) {
-  let registrar: VerificationAuthority | undefined;
+  let registrar: Source | undefined;
 
   let organization: string | undefined;
 
@@ -189,12 +189,9 @@ function improve_data(data: WHOISData, result: RdapResult) {
     const dateString = new Date(event.eventDate).toDateString();
 
     if (event.eventAction === "registration") {
-      const improvedRegistrations = improve_data_array(data.registrations, {
+      const improvedRegistrations = improve_informations(data.registrations, {
         value: new Date(dateString).toISOString(),
-        verification: {
-          status: "verified",
-          authorities: registrar !== undefined ? [registrar] : [],
-        },
+        sources: registrar !== undefined ? [registrar] : [],
       });
       if (improvedRegistrations.length > 0) {
         data.registrations = improvedRegistrations;
@@ -232,12 +229,10 @@ function improve_data(data: WHOISData, result: RdapResult) {
       const fn = get_name(registrantEntity.vcardArray);
 
       if (fn !== undefined) {
-        const improvedIndividuals = improve_data_array(data.individuals, {
+        const improvedIndividuals = improve_informations(data.individuals, {
           value: fn,
-          verification: {
-            status: "unverified",
-            authorities: registrar !== undefined ? [registrar] : [],
-          },
+          verified: false,
+          sources: registrar !== undefined ? [registrar] : [],
         });
         if (improvedIndividuals.length > 0) {
           data.individuals = improvedIndividuals;
@@ -248,12 +243,10 @@ function improve_data(data: WHOISData, result: RdapResult) {
     const organization = get_organization(registrantEntity.vcardArray);
 
     if (organization !== undefined) {
-      const improvedOrganizations = improve_data_array(data.organizations, {
+      const improvedOrganizations = improve_informations(data.organizations, {
         value: organization,
-        verification: {
-          status: "unverified",
-          authorities: registrar !== undefined ? [registrar] : [],
-        },
+        verified: false,
+        sources: registrar !== undefined ? [registrar] : [],
       });
       if (improvedOrganizations.length > 0) {
         data.organizations = improvedOrganizations;
@@ -263,12 +256,10 @@ function improve_data(data: WHOISData, result: RdapResult) {
     const country = get_country(registrantEntity.vcardArray);
 
     if (country !== undefined) {
-      const improvedCountries = improve_data_array(data.countries, {
+      const improvedCountries = improve_informations(data.countries, {
         value: country,
-        verification: {
-          status: "unverified",
-          authorities: registrar !== undefined ? [registrar] : [],
-        },
+        verified: false,
+        sources: registrar !== undefined ? [registrar] : [],
       });
       if (improvedCountries.length > 0) {
         data.countries = improvedCountries;

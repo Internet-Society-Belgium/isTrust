@@ -1,344 +1,286 @@
 import { expect, test } from "vitest";
-import { Data, improve_data_array, merge_data_array } from "./type";
+import { improve_informations, Information, merge_data_array } from "./type";
 
 test("get_best_data_array", () => {
-  const array1: Data<string>[] = [
+  const array1: Information<string>[] = [
     {
       value: "value1",
-      verification: {
-        status: "verified",
-        authorities: [],
-      },
+      verified: true,
+      sources: [],
     },
     {
       value: "value1",
-      verification: {
-        status: "verified",
-        authorities: [],
-      },
+      verified: true,
+      sources: [],
     },
   ];
 
-  const array2: Data<string>[] = [
+  const array2: Information<string>[] = [
     {
       value: "value2",
-      verification: {
-        status: "verified",
-        authorities: [],
-      },
+      verified: true,
+      sources: [],
     },
     {
       value: "value3",
-      verification: {
-        status: "unverified",
-        authorities: [],
-      },
+      verified: false,
+      sources: [],
     },
   ];
 
   expect(merge_data_array(array1, array2)).toStrictEqual([
     {
       value: "value1",
-      verification: {
-        status: "verified",
-        authorities: [],
-      },
+      verified: true,
+      sources: [],
     },
     {
       value: "value2",
-      verification: {
-        status: "verified",
-        authorities: [],
-      },
+      verified: true,
+      sources: [],
     },
   ] satisfies typeof array1);
 });
 
 test("improve_data_array same", () => {
-  const array: Data<string>[] = [
+  const array: Information<string>[] = [
     {
       value: "value",
-      verification: {
-        status: "unverified",
-        authorities: [],
-      },
+      verified: false,
+      sources: [],
     },
   ];
-  const data: Data<string> = {
+  const data: Information<string> = {
     value: "value",
-    verification: {
-      status: "unverified",
-      authorities: [],
-    },
+    verified: false,
+    sources: [],
   };
 
-  expect(improve_data_array(array, data)).toStrictEqual([
+  expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verification: {
-        status: "unverified",
-        authorities: [],
-      },
+      verified: false,
+      sources: [],
     },
   ] satisfies typeof array);
 });
 
-test("improve_data_array better status", () => {
-  const array: Data<string>[] = [
+test("improve_data_array better verification", () => {
+  const array: Information<string>[] = [
     {
       value: "value",
-      verification: {
-        status: "unverified",
-        authorities: [],
-      },
+      verified: false,
+      sources: [],
     },
   ];
-  const data: Data<string> = {
+  const data: Information<string> = {
     value: "value",
-    verification: {
-      status: "verified",
-      authorities: [],
-    },
+    verified: true,
+    sources: [],
   };
 
-  expect(improve_data_array(array, data)).toStrictEqual([
+  expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verification: {
-        authorities: [],
-        status: "verified",
-      },
+      sources: [],
+      verified: true,
     },
   ] satisfies typeof array);
 });
 
-test("improve_data_array worst status", () => {
-  const array: Data<string>[] = [
+test("improve_data_array worst verification", () => {
+  const array: Information<string>[] = [
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [],
-      },
+      verified: true,
+      sources: [],
     },
   ];
-  const data: Data<string> = {
+  const data: Information<string> = {
     value: "value",
-    verification: {
-      status: "unverified",
-      authorities: [],
-    },
+    verified: false,
+    sources: [],
   };
 
-  expect(improve_data_array(array, data)).toStrictEqual([
+  expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verification: {
-        authorities: [],
-        status: "verified",
-      },
+      sources: [],
+      verified: true,
     },
   ] satisfies typeof array);
 });
 
 test("improve_data_array add link", () => {
-  const array: Data<string>[] = [
+  const array: Information<string>[] = [
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "organization",
-            links: ["link1"],
-          },
-        ],
-      },
-    },
-  ];
-  const data: Data<string> = {
-    value: "value",
-    verification: {
-      status: "verified",
-      authorities: [
+      verified: true,
+      sources: [
         {
           organization: "organization",
-          links: ["link2"],
+          links: ["link1"],
         },
       ],
     },
+  ];
+  const data: Information<string> = {
+    value: "value",
+    verified: true,
+    sources: [
+      {
+        organization: "organization",
+        links: ["link2"],
+      },
+    ],
   };
 
-  expect(improve_data_array(array, data)).toStrictEqual([
+  expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "organization",
-            links: ["link1", "link2"],
-          },
-        ],
-      },
+      verified: true,
+      sources: [
+        {
+          organization: "organization",
+          links: ["link1", "link2"],
+        },
+      ],
     },
   ] satisfies typeof array);
 });
 
 test("improve_data_array same link", () => {
-  const array: Data<string>[] = [
+  const array: Information<string>[] = [
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "organization",
-            links: ["link"],
-          },
-        ],
-      },
-    },
-  ];
-  const data: Data<string> = {
-    value: "value",
-    verification: {
-      status: "verified",
-      authorities: [
+      verified: true,
+      sources: [
         {
           organization: "organization",
           links: ["link"],
         },
       ],
     },
+  ];
+  const data: Information<string> = {
+    value: "value",
+    verified: true,
+    sources: [
+      {
+        organization: "organization",
+        links: ["link"],
+      },
+    ],
   };
 
-  expect(improve_data_array(array, data)).toStrictEqual([
+  expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "organization",
-            links: ["link"],
-          },
-        ],
-      },
+      verified: true,
+      sources: [
+        {
+          organization: "organization",
+          links: ["link"],
+        },
+      ],
     },
   ] satisfies typeof array);
 });
 
 test("improve_data_array different organisation", () => {
-  const array: Data<string>[] = [
+  const array: Information<string>[] = [
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "organization1",
-            links: ["link"],
-          },
-        ],
-      },
-    },
-    {
-      value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "organization2",
-            links: ["link"],
-          },
-        ],
-      },
-    },
-  ];
-  const data: Data<string> = {
-    value: "value",
-    verification: {
-      status: "verified",
-      authorities: [
+      verified: true,
+      sources: [
         {
           organization: "organization1",
           links: ["link"],
         },
       ],
     },
-  };
-
-  expect(improve_data_array(array, data)).toStrictEqual([
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "organization1",
-            links: ["link"],
-          },
-        ],
+      verified: true,
+      sources: [
+        {
+          organization: "organization2",
+          links: ["link"],
+        },
+      ],
+    },
+  ];
+  const data: Information<string> = {
+    value: "value",
+    verified: true,
+    sources: [
+      {
+        organization: "organization1",
+        links: ["link"],
       },
+    ],
+  };
+
+  expect(improve_informations(array, data)).toStrictEqual([
+    {
+      value: "value",
+      verified: true,
+      sources: [
+        {
+          organization: "organization1",
+          links: ["link"],
+        },
+      ],
     },
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "organization2",
-            links: ["link"],
-          },
-        ],
-      },
+      verified: true,
+      sources: [
+        {
+          organization: "organization2",
+          links: ["link"],
+        },
+      ],
     },
   ] satisfies typeof array);
 });
 
 test("improve_data_array add country", () => {
-  const array: Data<string>[] = [
+  const array: Information<string>[] = [
     {
       value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "org",
-            links: [],
-          },
-        ],
-      },
+      verified: true,
+      sources: [
+        {
+          organization: "org",
+          links: [],
+        },
+      ],
     },
   ];
-  const data: Data<string> = {
+  const data: Information<string> = {
     value: "value",
-    verification: {
-      status: "verified",
-      authorities: [
+    verified: true,
+    sources: [
+      {
+        organization: "org",
+        country: "country",
+        links: [],
+      },
+    ],
+  };
+
+  expect(improve_informations(array, data)).toStrictEqual([
+    {
+      value: "value",
+      verified: true,
+      sources: [
         {
           organization: "org",
           country: "country",
           links: [],
         },
       ],
-    },
-  };
-
-  expect(improve_data_array(array, data)).toStrictEqual([
-    {
-      value: "value",
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: "org",
-            country: "country",
-            links: [],
-          },
-        ],
-      },
     },
   ] satisfies typeof array);
 });

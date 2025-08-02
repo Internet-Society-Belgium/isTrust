@@ -7,16 +7,13 @@ test("wikipedia.org", async () => {
   expect(dnssec).toStrictEqual({
     valid: {
       value: false,
-      verification: {
-        authorities: [
-          {
-            country: "US",
-            links: ["https://one.one.one.one/dns/"],
-            organization: "Cloudflare",
-          },
-        ],
-        status: "verified",
-      },
+      sources: [
+        {
+          country: "US",
+          links: ["https://one.one.one.one/dns/"],
+          organization: "Cloudflare",
+        },
+      ],
     },
   } satisfies typeof dnssec);
 });
@@ -27,16 +24,13 @@ test("internetsociety.org", async () => {
   expect(dnssec).toStrictEqual({
     valid: {
       value: true,
-      verification: {
-        authorities: [
-          {
-            country: "US",
-            links: ["https://one.one.one.one/dns/"],
-            organization: "Cloudflare",
-          },
-        ],
-        status: "verified",
-      },
+      sources: [
+        {
+          country: "US",
+          links: ["https://one.one.one.one/dns/"],
+          organization: "Cloudflare",
+        },
+      ],
     },
   } satisfies typeof dnssec);
 });

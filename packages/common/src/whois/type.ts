@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { z } from "zod/mini";
-import { Data } from "../type";
+import { Information } from "../type";
 import { source_error } from "../utils/error";
 
 // https://datatracker.ietf.org/doc/rfc9224/
@@ -106,8 +106,8 @@ export function validateRdapResult(json: unknown) {
 }
 
 export interface WHOISData {
-  registrations: Data<string>[];
-  organizations: Data<string>[];
-  individuals: Data<string>[];
-  countries: Data<string>[];
+  registrations: Information<string>[];
+  organizations: Information<string>[];
+  individuals: Information<string>[];
+  countries: Information<string>[];
 }

@@ -2,7 +2,7 @@ import * as common from "@istrust/common";
 import { browser } from "#imports";
 
 export interface HistoryData {
-  visits: common.Data<string[]>;
+  visits: common.Information<string[]>;
 }
 
 export async function get_history_data(domain: string) {
@@ -37,59 +37,46 @@ export async function get_history_data(domain: string) {
     }
   }
 
-  let verification: common.Data<unknown>["verification"] = {
-    status: "unverified",
-    authorities: [],
-  };
+  let sources: common.Information<unknown>["sources"] = [];
 
   if (import.meta.env.CHROME) {
-    verification = {
-      status: "verified",
-      authorities: [
-        {
-          organization: "Google Chrome",
-          links: [],
-        },
-      ],
-    };
+    sources = [
+      {
+        organization: "Google Chrome",
+        links: [],
+      },
+    ];
   } else if (import.meta.env.FIREFOX) {
-    verification = {
-      status: "verified",
-      authorities: [
-        {
-          organization: "Firefox",
-          links: [],
-        },
-      ],
-    };
+    sources = [
+      {
+        organization: "Firefox",
+        links: [],
+      },
+    ];
   } else if (import.meta.env.EDGE) {
-    verification = {
-      status: "verified",
-      authorities: [
-        {
-          organization: "Microsoft Edge",
-          links: [],
-        },
-      ],
-    };
+    sources = [
+      {
+        organization: "Microsoft Edge",
+        links: [],
+      },
+    ];
   } else if (import.meta.env.SAFARI) {
-    verification = {
-      status: "verified",
-      authorities: [
-        {
-          organization: "Safari",
-          links: [],
-        },
-      ],
-    };
+    sources = [
+      {
+        organization: "Safari",
+        links: [],
+      },
+    ];
   }
 
-  visits = visits.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  const visitsSorted = visits.sort(
+    (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+  );
 
   const data: HistoryData = {
     visits: {
-      value: visits,
-      verification,
+      value: visitsSorted,
+      sources,
     },
   };
 

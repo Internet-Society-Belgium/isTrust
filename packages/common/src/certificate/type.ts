@@ -1,4 +1,4 @@
-import { Data } from "../type";
+import { Information } from "../type";
 
 export type CertificateType = "DV" | "IV" | "OV" | "EV";
 
@@ -9,8 +9,8 @@ export type BusinessCategory =
   | "Non-Commercial Entity";
 
 export interface CertificateData {
-  types: Data<CertificateType>[];
-  individuals: Data<string>[];
-  organizations: Data<string>[];
-  countries: Data<string>[];
+  types: Information<CertificateType>[];
+  individuals: Information<string>[];
+  organizations: Information<string>[];
+  countries: Information<string>[];
 }

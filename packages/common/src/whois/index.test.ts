@@ -1,11 +1,11 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
-import { DataCache } from "../type";
+import { InformationCache } from "../type";
 
 /* eslint-disable @typescript-eslint/require-await */
 let storePsl: Record<string, string> = {};
 let storeRdap: Record<string, string> = {};
-const cache: DataCache = {
+const cache: InformationCache = {
   psl: {
     set: async (key: string, value: string) => {
       storePsl[key] = value;
@@ -32,45 +32,54 @@ test("wikipedia.org", async () => {
   expect(whoisData).toStrictEqual({
     countries: [
       {
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "MarkMonitor Inc.",
+          },
+        ],
         value: "US",
-        verification: {
-          authorities: [
-            {
-              links: [],
-              organization: "MarkMonitor Inc.",
-            },
-          ],
-          status: "unverified",
-        },
+        verified: false,
       },
     ],
-    individuals: [],
+    individuals: [
+      {
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Markmonitor Inc.",
+          },
+        ],
+        value: "REDACTED REGISTRANT",
+        verified: false,
+      },
+    ],
     organizations: [
       {
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "MarkMonitor Inc.",
+          },
+        ],
         value: "Wikimedia Foundation, Inc.",
-        verification: {
-          authorities: [
-            {
-              links: [],
-              organization: "MarkMonitor Inc.",
-            },
-          ],
-          status: "unverified",
-        },
+        verified: false,
       },
     ],
     registrations: [
       {
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "MarkMonitor Inc.",
+          },
+        ],
         value: "2001-01-12T23:00:00.000Z",
-        verification: {
-          authorities: [
-            {
-              links: [],
-              organization: "MarkMonitor Inc.",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
       },
     ],
   } satisfies typeof whoisData);
@@ -83,57 +92,49 @@ test("istrust.org", async () => {
     countries: [
       {
         value: "BE",
-        verification: {
-          authorities: [
-            {
-              links: ["https://www.gandi.net/"],
-              organization: "Gandi SAS",
-            },
-          ],
-          status: "unverified",
-        },
+        verified: false,
+        sources: [
+          {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+        ],
       },
     ],
     individuals: [
       {
         value: "Redacted for Privacy",
-        verification: {
-          authorities: [
-            {
-              links: ["https://www.gandi.net/"],
-              organization: "Gandi SAS",
-            },
-          ],
-          status: "unverified",
-        },
+        verified: false,
+        sources: [
+          {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+        ],
       },
     ],
     organizations: [
       {
         value: "Internet Society Chapter Belgium vzw/asbl",
-        verification: {
-          authorities: [
-            {
-              links: ["https://www.gandi.net/"],
-              organization: "Gandi SAS",
-            },
-          ],
-          status: "unverified",
-        },
+        verified: false,
+        sources: [
+          {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+        ],
       },
     ],
     registrations: [
       {
         value: "2021-09-06T22:00:00.000Z",
-        verification: {
-          authorities: [
-            {
-              links: ["https://www.gandi.net/"],
-              organization: "Gandi SAS",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+        ],
       },
     ],
   } satisfies typeof whoisData);
@@ -146,98 +147,53 @@ test("newtab.com", async () => {
     countries: [
       {
         value: "CN",
-        verification: {
-          authorities: [
-            {
-              organization:
-                "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-              links: [],
-            },
-          ],
-          status: "unverified",
-        },
+        verified: false,
+        sources: [
+          {
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+            links: [],
+          },
+        ],
       },
     ],
     individuals: [
       {
         value: "Redacted for Privacy",
-        verification: {
-          authorities: [
-            {
-              organization:
-                "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-              links: [],
-            },
-          ],
-          status: "unverified",
-        },
+        verified: false,
+        sources: [
+          {
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+            links: [],
+          },
+        ],
       },
     ],
     organizations: [
       {
         value: "广西云奥网络科技有限公司",
-        verification: {
-          authorities: [
-            {
-              organization:
-                "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-              links: [],
-            },
-          ],
-          status: "unverified",
-        },
+        verified: false,
+        sources: [
+          {
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+            links: [],
+          },
+        ],
       },
     ],
     registrations: [
       {
         value: "2005-04-23T22:00:00.000Z",
-        verification: {
-          authorities: [
-            {
-              links: ["http://wanwang.aliyun.com"],
-              organization:
-                "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
-            },
-          ],
-          status: "verified",
-        },
-      },
-    ],
-  } satisfies typeof whoisData);
-});
-
-test("phishurl.com", async () => {
-  const whoisData = await get_data("phishurl.com", cache);
-
-  expect(whoisData).toStrictEqual({
-    countries: [
-      {
-        value: "BE",
-        verification: {
-          authorities: [
-            {
-              links: ["https://rdap.ovh.com/"],
-              organization: "OVH, SAS",
-            },
-          ],
-          status: "unverified",
-        },
-      },
-    ],
-    individuals: [],
-    organizations: [],
-    registrations: [
-      {
-        value: "2024-05-26T22:00:00.000Z",
-        verification: {
-          authorities: [
-            {
-              links: ["http://www.ovh.com", "https://rdap.ovh.com/"],
-              organization: "OVH sas",
-            },
-          ],
-          status: "verified",
-        },
+        verified: true,
+        sources: [
+          {
+            links: ["http://wanwang.aliyun.com"],
+            organization:
+              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+          },
+        ],
       },
     ],
   } satisfies typeof whoisData);

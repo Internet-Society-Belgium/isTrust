@@ -68,16 +68,13 @@ export async function get_data(domain: string, customResolver?: string) {
 
     data.valid = {
       value: validity,
-      verification: {
-        status: "verified",
-        authorities: [
-          {
-            organization: resolver.name,
-            links: resolver.links,
-            country: resolver.country,
-          },
-        ],
-      },
+      sources: [
+        {
+          organization: resolver.name,
+          links: resolver.links,
+          country: resolver.country,
+        },
+      ],
     };
   } catch (e) {
     const error = e as Error;

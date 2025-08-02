@@ -10,10 +10,10 @@ import {
 import "../styles.css";
 import * as common from "@istrust/common";
 import { IconThumbsDown, IconThumbsUp } from "../icon";
-import { Verification } from "../verification";
+import { SourceVerification } from "../source";
 
 interface CertificateAlertProps {
-  types?: common.Data<unknown>[];
+  types?: common.Information<unknown>[];
 }
 
 export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
@@ -30,8 +30,8 @@ export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
                       <p>Legitimacy formally verified</p>
                       <For each={evCertificates()}>
                         {(evCertificate) => (
-                          <Verification
-                            verification={evCertificate.verification}
+                          <SourceVerification
+                            information={evCertificate}
                             locale={navigator.language}
                             type="good"
                           />
@@ -51,8 +51,8 @@ export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
                       <p>Organization legitimacy verified</p>
                       <For each={ovCertificates()}>
                         {(ovCertificate) => (
-                          <Verification
-                            verification={ovCertificate.verification}
+                          <SourceVerification
+                            information={ovCertificate}
                             locale={navigator.language}
                             type="good"
                           />
@@ -72,8 +72,8 @@ export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
                       <p>Individual legitimacy verified</p>
                       <For each={ivCertificates()}>
                         {(ivCertificate) => (
-                          <Verification
-                            verification={ivCertificate.verification}
+                          <SourceVerification
+                            information={ivCertificate}
                             locale={navigator.language}
                             type="good"
                           />

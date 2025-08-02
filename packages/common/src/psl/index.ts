@@ -1,11 +1,11 @@
-import { DataCache } from "../type";
+import { InformationCache } from "../type";
 import { parse_tld } from "../utils/domain";
 import { source_error } from "../utils/error";
 
 // https://publicsuffix.org/list/
 const CACHING_DAYS = 7;
 
-export async function update(cache: DataCache) {
+export async function update(cache: InformationCache) {
   const lastUpdate = await cache.psl.get("_lastUpdate");
 
   const cachingOutdated = new Date().setDate(
@@ -20,7 +20,7 @@ export async function update(cache: DataCache) {
   }
 }
 
-export async function load(cache: DataCache) {
+export async function load(cache: InformationCache) {
   await cache.psl.clear();
 
   // https://publicsuffix.org/list/
@@ -66,7 +66,10 @@ export async function load(cache: DataCache) {
 }
 
 // https://github.com/publicsuffix/list/wiki/Format#algorithm
-export async function get_effective_domain(domain: string, cache: DataCache) {
+export async function get_effective_domain(
+  domain: string,
+  cache: InformationCache,
+) {
   await update(cache);
 
   const labels = domain.split(".");

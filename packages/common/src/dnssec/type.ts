@@ -1,5 +1,5 @@
-import { Data } from "../type";
+import { Information } from "../type";
 
 export interface DNSSECData {
-  valid?: Data<boolean>;
+  valid?: Information<boolean>;
 }
