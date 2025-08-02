@@ -3,7 +3,7 @@ import { get_active_tab } from "@/utils/tab";
 import * as common from "@istrust/common";
 import { CertificateAlert } from "@istrust/ui/alert";
 import { Country } from "@istrust/ui/country";
-import { DateDifference, DateFrequency } from "@istrust/ui/date";
+import { DateFrequency, DatePastPeriod } from "@istrust/ui/date";
 import { HeaderDomain } from "@istrust/ui/header";
 import {
   IconBuilding,
@@ -194,7 +194,7 @@ const App: Component = () => {
 
               <Section title="Domain">
                 <SectionItem
-                  description="Registration age"
+                  description="Duration since registration"
                   prefix={<IconCalendar1 />}
                   data={whoisData()?.registrations}
                   suffix={(registration) => (
@@ -206,7 +206,7 @@ const App: Component = () => {
                 >
                   {(registration) => (
                     <>
-                      Registered <DateDifference date={registration.value} />
+                      Registered <DatePastPeriod date={registration.value} />
                     </>
                   )}
                 </SectionItem>
@@ -249,7 +249,7 @@ const App: Component = () => {
 
               <Section title="Visit">
                 <SectionItem
-                  description="Duration since the first visit"
+                  description="Duration since first visit"
                   prefix={<IconCalendar1 />}
                   data={historyData()?.visits}
                   suffix={(visits) => (
@@ -261,13 +261,13 @@ const App: Component = () => {
                 >
                   {(visits) => (
                     <>
-                      First visited <DateDifference date={visits.value.at(0)} />
+                      First visited <DatePastPeriod date={visits.value.at(0)} />
                     </>
                   )}
                 </SectionItem>
 
                 <SectionItem
-                  description="Frequency of previous visits"
+                  description="Frequency of visits"
                   prefix={<IconCalendarCheck />}
                   data={historyData()?.visits}
                   suffix={(visits) => (
@@ -278,18 +278,9 @@ const App: Component = () => {
                   )}
                 >
                   {(visits) => (
-                    <Show
-                      when={
-                        visits.filter(
-                          (visit) =>
-                            new Date(visit).toDateString() !==
-                            new Date().toDateString(),
-                        ).length > 0
-                      }
-                      fallback={<p>No previous history</p>}
-                    >
-                      Previously visited <DateFrequency dates={visits.value} />
-                    </Show>
+                    <>
+                      Visited <DateFrequency dates={visits.value} />
+                    </>
                   )}
                 </SectionItem>
               </Section>

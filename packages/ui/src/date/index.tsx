@@ -1,23 +1,16 @@
 import { type Component } from "solid-js";
 import "../styles.css";
 
-interface DateDifferenceProps {
+interface DatePastPeriodProps {
   date: string | undefined;
 }
 
-export const DateDifference: Component<DateDifferenceProps> = (props) => {
+export const DatePastPeriod: Component<DatePastPeriodProps> = (props) => {
   const getText = (date: string | undefined) => {
     const now = new Date();
     const then = new Date(date || now);
 
-    const direction = now >= then ? "past" : "future";
-
-    let millisecond;
-    if (direction === "past") {
-      millisecond = now.getTime() - then.getTime();
-    } else {
-      millisecond = then.getTime() - now.getTime();
-    }
+    const millisecond = Math.abs(now.getTime() - then.getTime());
 
     const minute = millisecond / 1000 / 60;
 
@@ -26,66 +19,39 @@ export const DateDifference: Component<DateDifferenceProps> = (props) => {
 
       if (m === 0) return "now";
 
-      if (direction === "past") {
-        return `${m} ${m === 1 ? "minute" : "minutes"} ago`;
-      } else {
-        return `in ${m} ${m === 1 ? "minute" : "minutes"}`;
-      }
+      return `${m} ${m === 1 ? "minute" : "minutes"} ago`;
     }
 
     const hour = minute / 60;
     if (hour < 24) {
       const h = Math.round(hour);
 
-      if (direction === "past") {
-        return `${h} ${h === 1 ? "hour" : "hours"} ago`;
-      } else {
-        return `in ${h} ${h === 1 ? "hour" : "hours"}`;
-      }
+      return `${h} ${h === 1 ? "hour" : "hours"} ago`;
     }
 
     const day = hour / 24;
     if (day < 30) {
       const d = Math.round(day);
 
-      if (direction === "past") {
-        return `${d} ${d === 1 ? "day" : "days"} ago`;
-      } else {
-        return `in ${d} ${d === 1 ? "day" : "days"}`;
-      }
+      return `${d} ${d === 1 ? "day" : "days"} ago`;
     }
 
-    let month;
-    if (direction === "past") {
-      month =
-        now.getMonth() -
-        then.getMonth() +
-        12 * (now.getFullYear() - then.getFullYear());
-    } else {
-      month =
-        then.getMonth() -
-        now.getMonth() +
-        12 * (then.getFullYear() - now.getFullYear());
-    }
+    const month =
+      now.getMonth() -
+      then.getMonth() +
+      12 * (now.getFullYear() - then.getFullYear());
+
     if (month < 12) {
       const m = Math.round(month);
 
-      if (direction === "past") {
-        return `${m} ${m === 1 ? "month" : "months"} ago`;
-      } else {
-        return `in ${m} ${m === 1 ? "month" : "months"}`;
-      }
+      return `${m} ${m === 1 ? "month" : "months"} ago`;
     }
 
-    let year = month / 12;
+    const year = month / 12;
 
     const y = Math.round(year);
 
-    if (direction === "past") {
-      return `${y} ${y === 1 ? "year" : "years"} ago`;
-    } else {
-      return `in ${y} ${y === 1 ? "year" : "years"}`;
-    }
+    return `${y} ${y === 1 ? "year" : "years"} ago`;
   };
 
   return <span>{getText(props.date)}</span>;
@@ -116,20 +82,16 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
   };
 
   const getText = (dates: string[]) => {
-    const previousDates = dates.filter(
-      (date) => new Date(date).toDateString() !== new Date().toDateString(),
-    );
-
-    const now = new Date();
-    const first = new Date(previousDates[0]);
-
-    const uniqueDates = new Set<string>();
-    for (const previousDate of previousDates) {
+    const unique = new Set<string>();
+    for (const previousDate of dates) {
       const date = new Date(previousDate);
-      uniqueDates.add(date.toDateString());
+      unique.add(date.toDateString());
     }
 
-    const uniquePreviousDates = uniqueDates.values().toArray();
+    const uniqueDates = unique.values().toArray();
+
+    const now = new Date();
+    const first = new Date(uniqueDates.at(0) || now);
 
     const rangeWeek =
       1 +
@@ -138,7 +100,7 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
       52 * (now.getFullYear() - first.getFullYear());
 
     const countPerWeek = new Map<string, number>();
-    for (const previousDate of uniquePreviousDates) {
+    for (const previousDate of uniqueDates) {
       const date = new Date(previousDate);
 
       const week = weekNumber(date);
@@ -152,7 +114,8 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
     const averagePerWeek = average(countPerWeek.values().toArray(), rangeWeek);
 
     if (averagePerWeek >= 1) {
-      return `${Math.round(averagePerWeek)}x in the last ${rangeWeek} week`;
+      const days = Math.round(averagePerWeek);
+      return `${days} ${days <= 1 ? "day" : "days"} per week`;
     }
 
     const rangeMonth =
@@ -162,7 +125,7 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
       12 * (now.getFullYear() - first.getFullYear());
 
     const countPerMonth = new Map<string, number>();
-    for (const previousDate of uniquePreviousDates) {
+    for (const previousDate of uniqueDates) {
       const date = new Date(previousDate);
       const dateString = `${date.getFullYear()}-${date.getMonth()}`;
 
@@ -176,12 +139,14 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
     );
 
     if (averagePerMonth >= 1) {
-      return `${Math.round(averagePerMonth)}x in the last ${rangeMonth} month`;
+      const days = Math.round(averagePerMonth);
+      return `${days} ${days <= 1 ? "day" : "days"} per month`;
     }
 
     const rangeYear = 1 + now.getFullYear() - first.getFullYear();
+
     const countPerYear = new Map<string, number>();
-    for (const previousDate of uniquePreviousDates) {
+    for (const previousDate of uniqueDates) {
       const date = new Date(previousDate);
       const dateString = `${date.getFullYear()}`;
 
@@ -190,11 +155,14 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
     }
 
     const averagePerYear = average(countPerYear.values().toArray(), rangeYear);
-    if (averagePerYear >= 1) {
-      return `${Math.round(averagePerYear)}x in the last ${rangeYear} year`;
+
+    const days = Math.round(averagePerYear);
+
+    if (days < 1) {
+      return `less than 1 day a year`;
     }
 
-    return "now";
+    return `${days} ${days <= 1 ? "day" : "days"} per year`;
   };
 
   return <span>{getText(props.dates)}</span>;
