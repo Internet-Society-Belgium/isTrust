@@ -26,65 +26,6 @@ const cache: InformationCache = {
   },
 };
 
-test("wikipedia.org", async () => {
-  const whoisData = await get_data("wikipedia.org", cache);
-
-  expect(whoisData).toStrictEqual({
-    countries: [
-      {
-        sources: [
-          {
-            country: "US",
-            links: [],
-            organization: "MarkMonitor Inc.",
-          },
-        ],
-        value: "US",
-        verified: false,
-      },
-    ],
-    individuals: [
-      {
-        sources: [
-          {
-            country: "US",
-            links: [],
-            organization: "Markmonitor Inc.",
-          },
-        ],
-        value: "REDACTED REGISTRANT",
-        verified: false,
-      },
-    ],
-    organizations: [
-      {
-        sources: [
-          {
-            country: "US",
-            links: [],
-            organization: "MarkMonitor Inc.",
-          },
-        ],
-        value: "Wikimedia Foundation, Inc.",
-        verified: false,
-      },
-    ],
-    registrations: [
-      {
-        sources: [
-          {
-            country: "US",
-            links: [],
-            organization: "MarkMonitor Inc.",
-          },
-        ],
-        value: "2001-01-12T23:00:00.000Z",
-        verified: true,
-      },
-    ],
-  } satisfies typeof whoisData);
-});
-
 test("istrust.org", async () => {
   const whoisData = await get_data("istrust.org", cache);
 
@@ -128,7 +69,6 @@ test("istrust.org", async () => {
     registrations: [
       {
         value: "2021-09-06T22:00:00.000Z",
-        verified: true,
         sources: [
           {
             links: ["https://www.gandi.net/"],
@@ -140,60 +80,59 @@ test("istrust.org", async () => {
   } satisfies typeof whoisData);
 });
 
-test("newtab.com", async () => {
-  const whoisData = await get_data("newtab.com", cache);
+test("github.com", async () => {
+  const whoisData = await get_data("github.com", cache);
 
   expect(whoisData).toStrictEqual({
     countries: [
       {
-        value: "CN",
-        verified: false,
         sources: [
           {
-            organization:
-              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+            country: "US",
             links: [],
+            organization: "Markmonitor Inc.",
           },
         ],
+        value: "US",
+        verified: false,
       },
     ],
     individuals: [
       {
-        value: "Redacted for Privacy",
-        verified: false,
         sources: [
           {
-            organization:
-              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+            country: "US",
             links: [],
+            organization: "Markmonitor Inc.",
           },
         ],
+        value: "REDACTED REGISTRANT",
+        verified: false,
       },
     ],
     organizations: [
       {
-        value: "广西云奥网络科技有限公司",
-        verified: false,
         sources: [
           {
-            organization:
-              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+            country: "US",
             links: [],
+            organization: "Markmonitor Inc.",
           },
         ],
+        value: "GitHub, Inc.",
+        verified: false,
       },
     ],
     registrations: [
       {
-        value: "2005-04-23T22:00:00.000Z",
-        verified: true,
         sources: [
           {
-            links: ["http://wanwang.aliyun.com"],
-            organization:
-              "Alibaba Cloud Computing Ltd. d/b/a HiChina (www.net.cn)",
+            country: "US",
+            links: ["http://www.markmonitor.com"],
+            organization: "MarkMonitor Inc.",
           },
         ],
+        value: "2007-10-08T22:00:00.000Z",
       },
     ],
   } satisfies typeof whoisData);

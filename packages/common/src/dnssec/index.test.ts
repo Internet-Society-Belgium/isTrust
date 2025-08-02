@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
 
-test("wikipedia.org", async () => {
-  const dnssec = await get_data("wikipedia.org");
+test("istrust.org", async () => {
+  const dnssec = await get_data("istrust.org");
 
   expect(dnssec).toStrictEqual({
     valid: {
