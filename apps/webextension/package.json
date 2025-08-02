@@ -28,6 +28,7 @@
     "@istrust/prettier-config": "*",
     "@tailwindcss/vite": "^4.1.8",
     "@types/chrome": "^0.0.326",
+    "@wxt-dev/auto-icons": "^1.0.2",
     "@wxt-dev/module-solid": "^1.1.2",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.6.3",
