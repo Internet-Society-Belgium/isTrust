@@ -1,4 +1,9 @@
-import { improve_informations, InformationCache, Source } from "../type";
+import {
+  improve_informations,
+  improve_links,
+  InformationCache,
+  Source,
+} from "../type";
 import { parse_tld } from "../utils/domain";
 import { feature_error, source_error, user_error } from "../utils/error";
 import {
@@ -174,12 +179,19 @@ function improve_data(data: WHOISData, result: RdapResult) {
         registrar.country = country;
       }
 
-      let links = registrarEntity.links?.map((link) => link.href);
+      let hrefs = registrarEntity.links?.map((link) => link.href);
 
-      links = links?.filter((link) => !/rdap/i.test(link));
+      hrefs = hrefs?.filter((link) => !/(\/rdap)|(rdap\.)/i.test(link));
 
-      if (links !== undefined) {
-        registrar.links = links;
+      if (hrefs !== undefined) {
+        let links: string[] = [];
+        for (const href of hrefs) {
+          links = improve_links(links, href);
+        }
+
+        if (links.length > 0) {
+          registrar.links = links;
+        }
       }
     }
   }

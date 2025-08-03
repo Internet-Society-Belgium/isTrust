@@ -72,21 +72,52 @@ function improve_sources(sources: Source[], source: Source) {
     }
   }
 
-  if (match) {
-    if (match.country === undefined && source.country !== undefined) {
-      match.country = source.country;
-    }
-
-    for (const link of source.links) {
-      if (!match.links.includes(link)) {
-        match.links.push(link);
-      }
-    }
-  } else {
+  if (match === undefined) {
     sources.push(source);
+    return sources;
+  }
+
+  if (match.country === undefined && source.country !== undefined) {
+    match.country = source.country;
+  }
+
+  for (const link of source.links) {
+    const improvedLinks = improve_links(match.links, link);
+    if (improvedLinks.length > 0) {
+      match.links = improvedLinks;
+    }
   }
 
   return sources;
+}
+
+export function improve_links(links: string[], link: string) {
+  let match: string | undefined;
+  for (const l of links) {
+    try {
+      const lUrl = new URL(l);
+      const linkUrl = new URL(link);
+
+      if (
+        lUrl.hostname === linkUrl.hostname &&
+        lUrl.pathname === linkUrl.pathname
+      ) {
+        match = l;
+        break;
+      }
+    } catch {
+      if (l === link) {
+        match = l;
+        break;
+      }
+    }
+  }
+
+  if (match === undefined) {
+    links.push(link);
+  }
+
+  return links;
 }
 
 function normalize(value: unknown) {

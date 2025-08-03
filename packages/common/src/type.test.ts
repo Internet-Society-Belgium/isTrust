@@ -124,7 +124,7 @@ test("improve_data_array add link", () => {
       sources: [
         {
           organization: "organization",
-          links: ["link1"],
+          links: ["http://link1/path1"],
         },
       ],
     },
@@ -135,7 +135,7 @@ test("improve_data_array add link", () => {
     sources: [
       {
         organization: "organization",
-        links: ["link2"],
+        links: ["http://link1/path2"],
       },
     ],
   };
@@ -147,7 +147,7 @@ test("improve_data_array add link", () => {
       sources: [
         {
           organization: "organization",
-          links: ["link1", "link2"],
+          links: ["http://link1/path1", "http://link1/path2"],
         },
       ],
     },
