@@ -25,18 +25,14 @@ export const Section: Component<Props> = (props) => {
 
 export function SectionItem<T>(props: {
   description: string;
-  data?: common.Information<T> | common.Information<T>[];
+  informations?: common.Information<T> | common.Information<T>[];
   prefix: JSX.Element;
   // eslint-disable-next-line no-unused-vars
-  children: (item: common.Information<T>) => JSX.Element;
+  children: (item: common.Information<T>, index: number) => JSX.Element;
   // eslint-disable-next-line no-unused-vars
   suffix?: (item: common.Information<T>) => JSX.Element;
 }) {
-  const toArray = (
-    data: common.Information<T> | common.Information<T>[] | undefined,
-  ) => {
-    if (data === undefined) return [];
-
+  const toArray = (data: common.Information<T> | common.Information<T>[]) => {
     if (Array.isArray(data)) {
       return data;
     }
@@ -49,21 +45,23 @@ export function SectionItem<T>(props: {
       <div title={props.description}>{props.prefix}</div>
       <Suspense fallback={<p class="text-muted">Loading...</p>}>
         <Show
-          when={props.data !== undefined}
+          when={props.informations}
           fallback={<p class="text-muted">{props.description}</p>}
         >
-          <Show
-            when={props.data}
-            fallback={<p class="text-muted">No information available</p>}
-          >
-            <Show when={toArray(props.data)}>
-              {(items) => (
-                <List each={items()} suffix={props.suffix}>
-                  {(item) => <>{props.children(item)}</>}
-                </List>
+          {(informations) => (
+            <Show when={toArray(informations())}>
+              {(information) => (
+                <Show
+                  when={information().length > 0}
+                  fallback={<p class="text-muted">No information available</p>}
+                >
+                  <List each={information()} suffix={props.suffix}>
+                    {(item, index) => <>{props.children(item, index)}</>}
+                  </List>
+                </Show>
               )}
             </Show>
-          </Show>
+          )}
         </Show>
       </Suspense>
     </div>

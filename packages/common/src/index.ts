@@ -2,7 +2,7 @@ import * as certificate from "./certificate";
 import * as dnssec from "./dnssec";
 import * as psl from "./psl";
 import {
-  merge_data_array,
+  merge_informations,
   type Information,
   type InformationCache,
 } from "./type";
@@ -11,7 +11,7 @@ import * as whois from "./whois";
 
 export type { Information, InformationCache };
 
-export { merge_data_array };
+export { merge_informations };
 
 export async function get_effective_domain(
   query: string,

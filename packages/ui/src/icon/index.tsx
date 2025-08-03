@@ -270,6 +270,29 @@ export const IconInfo: Component = () => {
   );
 };
 
+export const IconCornerDownRight: Component = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      data-copyright="Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE"
+    >
+      <g
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+      >
+        <path d="m15 10l5 5l-5 5" />
+        <path d="M4 4v7a4 4 0 0 0 4 4h12" />
+      </g>
+    </svg>
+  );
+};
+
 export const IconExternalLink: Component = () => {
   return (
     <svg

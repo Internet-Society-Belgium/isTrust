@@ -10,28 +10,16 @@ export interface Information<T> {
   verified?: boolean;
 }
 
-export function merge_data_array<T>(
+export function merge_informations<T>(
   array1: Information<T>[] | undefined,
   array2: Information<T>[] | undefined,
 ) {
-  let array = [...(array1 || []), ...(array2 || [])];
-  if (array.length === 0) return;
-
-  const verified = array.filter((data) => data.verified === true);
-  if (verified.length > 0) {
-    array = verified;
+  let informations = [...(array1 || [])];
+  for (const a2 of array2 || []) {
+    informations = improve_informations(informations, a2);
   }
 
-  const unique: Information<T>[] = [];
-  for (const item of array) {
-    if (!unique.some((obj) => JSON.stringify(obj) === JSON.stringify(item))) {
-      unique.push(item);
-    }
-  }
-
-  if (unique.length === 0) return;
-
-  return unique;
+  return informations;
 }
 
 export function improve_informations<T>(

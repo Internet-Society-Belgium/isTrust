@@ -16,6 +16,7 @@ import {
   IconUser,
 } from "@istrust/ui/icon";
 import { Issue } from "@istrust/ui/issue";
+import { ListAdditionalItem } from "@istrust/ui/list";
 import { Section, SectionItem } from "@istrust/ui/section";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source";
 import {
@@ -24,6 +25,7 @@ import {
   ErrorBoundary,
   Match,
   onMount,
+  Show,
   Switch,
   type Component,
 } from "solid-js";
@@ -63,7 +65,6 @@ const App: Component = () => {
   const [whoisData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
       return await sendMessage("get_whois_data", {
         domain,
       });
@@ -73,7 +74,6 @@ const App: Component = () => {
   const [dnssecData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       return await sendMessage("get_dnssec_data", {
         domain,
       });
@@ -83,7 +83,6 @@ const App: Component = () => {
   const [certificateData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      await new Promise((resolve) => setTimeout(resolve, 4000));
       return await sendMessage("get_certificate_data", {
         domain,
       });
@@ -93,7 +92,6 @@ const App: Component = () => {
   const [historyData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       return await sendMessage("get_history_data", {
         domain,
       });
@@ -136,7 +134,7 @@ const App: Component = () => {
                 <SectionItem
                   description="Individual name"
                   prefix={<IconUser />}
-                  data={common.merge_data_array(
+                  informations={common.merge_informations(
                     certificateData()?.individuals,
                     whoisData()?.individuals,
                   )}
@@ -147,13 +145,17 @@ const App: Component = () => {
                     />
                   )}
                 >
-                  {(individual) => <>{individual.value}</>}
+                  {(individual, index) => (
+                    <ListAdditionalItem index={index}>
+                      {individual.value}
+                    </ListAdditionalItem>
+                  )}
                 </SectionItem>
 
                 <SectionItem
                   description="Organization name"
                   prefix={<IconBuilding />}
-                  data={common.merge_data_array(
+                  informations={common.merge_informations(
                     certificateData()?.organizations,
                     whoisData()?.organizations,
                   )}
@@ -164,13 +166,17 @@ const App: Component = () => {
                     />
                   )}
                 >
-                  {(organization) => <>{organization.value}</>}
+                  {(organization, index) => (
+                    <ListAdditionalItem index={index}>
+                      {organization.value}
+                    </ListAdditionalItem>
+                  )}
                 </SectionItem>
 
                 <SectionItem
                   description="Country of residence"
                   prefix={<IconMapPin />}
-                  data={common.merge_data_array(
+                  informations={common.merge_informations(
                     certificateData()?.countries,
                     whoisData()?.countries,
                   )}
@@ -181,12 +187,14 @@ const App: Component = () => {
                     />
                   )}
                 >
-                  {(country) => (
-                    <Country
-                      value={country.value}
-                      locale={navigator.language}
-                      type="text"
-                    />
+                  {(country, index) => (
+                    <ListAdditionalItem index={index}>
+                      <Country
+                        value={country.value}
+                        locale={navigator.language}
+                        type="text"
+                      />
+                    </ListAdditionalItem>
                   )}
                 </SectionItem>
               </Section>
@@ -195,7 +203,7 @@ const App: Component = () => {
                 <SectionItem
                   description="Registration"
                   prefix={<IconCalendar1 />}
-                  data={whoisData()?.registrations}
+                  informations={whoisData()?.registrations}
                   suffix={(registration) => (
                     <SourceInfo
                       information={registration}
@@ -203,10 +211,15 @@ const App: Component = () => {
                     />
                   )}
                 >
-                  {(registration) => (
-                    <>
-                      Registered <DatePastPeriod date={registration.value} />
-                    </>
+                  {(registration, index) => (
+                    <Switch>
+                      <Match when={index === 0}>
+                        Registered <DatePastPeriod date={registration.value} />
+                      </Match>
+                      <Match when={true}>
+                        and <DatePastPeriod date={registration.value} />
+                      </Match>
+                    </Switch>
                   )}
                 </SectionItem>
 
@@ -225,7 +238,7 @@ const App: Component = () => {
                       </Match>
                     </Switch>
                   }
-                  data={dnssecData()?.valid}
+                  informations={dnssecData()?.valid}
                   suffix={(valid) => (
                     <SourceInfo
                       information={valid}
@@ -250,7 +263,7 @@ const App: Component = () => {
                 <SectionItem
                   description="First visit"
                   prefix={<IconCalendar1 />}
-                  data={historyData()?.visits}
+                  informations={historyData()?.visits}
                   suffix={(visits) => (
                     <SourceInfo
                       information={visits}
@@ -258,17 +271,17 @@ const App: Component = () => {
                     />
                   )}
                 >
-                  {(visits) => (
-                    <>
+                  {(visits, index) => (
+                    <ListAdditionalItem index={index}>
                       First visited <DatePastPeriod date={visits.value.at(0)} />
-                    </>
+                    </ListAdditionalItem>
                   )}
                 </SectionItem>
 
                 <SectionItem
                   description="Frequency of visits"
                   prefix={<IconCalendarCheck />}
-                  data={historyData()?.visits}
+                  informations={historyData()?.visits}
                   suffix={(visits) => (
                     <SourceInfo
                       information={visits}
@@ -276,15 +289,15 @@ const App: Component = () => {
                     />
                   )}
                 >
-                  {(visits) => (
-                    <>
+                  {(visits, index) => (
+                    <ListAdditionalItem index={index}>
                       Visited <DateFrequency dates={visits.value} />
-                    </>
+                    </ListAdditionalItem>
                   )}
                 </SectionItem>
               </Section>
-              {/* 
-              <Section title="Debug">
+
+              {/* <Section title="Debug">
                 <details>
                   <summary>WHOIS raw data</summary>
                   <Show when={whoisData()}>

@@ -72,7 +72,7 @@ export const SourceVerification: Component<SourceVerificationProps> = (
     >
       <Switch>
         <Match when={props.information.verified === false}>
-          Information could not be verified
+          Information without verification
         </Match>
         <Match when={props.information.verified === true}>
           Information have been verified

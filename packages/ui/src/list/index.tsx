@@ -1,11 +1,12 @@
-import { For, JSX, Show } from "solid-js";
+import { Component, For, JSX, Show } from "solid-js";
 import "../styles.css";
+import { IconCornerDownRight } from "../icon";
 import { Overflow } from "../overflow";
 
 export function List<T extends any[]>(props: {
   each: T;
   // eslint-disable-next-line no-unused-vars
-  children: (item: T[number]) => JSX.Element;
+  children: (item: T[number], index: number) => JSX.Element;
   // eslint-disable-next-line no-unused-vars
   suffix?: (item: T[number]) => JSX.Element;
 }) {
@@ -13,9 +14,9 @@ export function List<T extends any[]>(props: {
     <Show when={props.each.length > 0}>
       <ol class="min-w-0">
         <For each={props.each}>
-          {(item) => (
+          {(item, index) => (
             <li class="flex items-center gap-0.5">
-              <Overflow>{props.children(item)}</Overflow>
+              {props.children(item, index())}
               <Show when={props.suffix}>
                 {(suffix) => <>{suffix()(item)}</>}
               </Show>
@@ -26,3 +27,24 @@ export function List<T extends any[]>(props: {
     </Show>
   );
 }
+
+interface ListAdditionalItemProps {
+  index: number;
+  children: JSX.Element;
+}
+
+export const ListAdditionalItem: Component<ListAdditionalItemProps> = (
+  props,
+) => {
+  return (
+    <div class="flex min-w-0 items-center justify-center gap-1">
+      <Show when={props.index > 0}>
+        <div class="flex-none">
+          <IconCornerDownRight />
+        </div>
+      </Show>
+
+      <Overflow>{props.children}</Overflow>
+    </div>
+  );
+};

@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
-import { improve_informations, Information, merge_data_array } from "./type";
+import { improve_informations, Information, merge_informations } from "./type";
 
-test("get_best_data_array", () => {
+test("merge_data_array", () => {
   const array1: Information<string>[] = [
     {
       value: "value1",
@@ -9,7 +9,7 @@ test("get_best_data_array", () => {
       sources: [],
     },
     {
-      value: "value1",
+      value: "value2",
       verified: true,
       sources: [],
     },
@@ -18,7 +18,7 @@ test("get_best_data_array", () => {
   const array2: Information<string>[] = [
     {
       value: "value2",
-      verified: true,
+      verified: false,
       sources: [],
     },
     {
@@ -28,7 +28,7 @@ test("get_best_data_array", () => {
     },
   ];
 
-  expect(merge_data_array(array1, array2)).toStrictEqual([
+  expect(merge_informations(array1, array2)).toStrictEqual([
     {
       value: "value1",
       verified: true,
@@ -37,6 +37,11 @@ test("get_best_data_array", () => {
     {
       value: "value2",
       verified: true,
+      sources: [],
+    },
+    {
+      value: "value3",
+      verified: false,
       sources: [],
     },
   ] satisfies typeof array1);

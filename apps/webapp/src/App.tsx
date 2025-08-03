@@ -13,6 +13,7 @@ import {
   IconUser,
 } from "@istrust/ui/icon";
 import { Issue } from "@istrust/ui/issue";
+import { ListAdditionalItem } from "@istrust/ui/list";
 import { SearchBar } from "@istrust/ui/search";
 import { Section, SectionItem } from "@istrust/ui/section";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source";
@@ -23,6 +24,7 @@ import {
   Match,
   onMount,
   resetErrorBoundaries,
+  Show,
   Switch,
   type Component,
 } from "solid-js";
@@ -158,12 +160,12 @@ const App: Component = () => {
 
               <CertificateAlert types={certificateData()?.types} />
 
-              <div class="flex flex-col gap-2">
+              <div class="flex flex-col gap-1">
                 <Section title="Owner">
                   <SectionItem
                     description="Individual name"
                     prefix={<IconUser />}
-                    data={common.merge_data_array(
+                    informations={common.merge_informations(
                       certificateData()?.individuals,
                       whoisData()?.individuals,
                     )}
@@ -174,13 +176,17 @@ const App: Component = () => {
                       />
                     )}
                   >
-                    {(individual) => <>{individual.value}</>}
+                    {(individual, index) => (
+                      <ListAdditionalItem index={index}>
+                        {individual.value}
+                      </ListAdditionalItem>
+                    )}
                   </SectionItem>
 
                   <SectionItem
                     description="Organization name"
                     prefix={<IconBuilding />}
-                    data={common.merge_data_array(
+                    informations={common.merge_informations(
                       certificateData()?.organizations,
                       whoisData()?.organizations,
                     )}
@@ -191,13 +197,17 @@ const App: Component = () => {
                       />
                     )}
                   >
-                    {(organization) => <>{organization.value}</>}
+                    {(organization, index) => (
+                      <ListAdditionalItem index={index}>
+                        {organization.value}
+                      </ListAdditionalItem>
+                    )}
                   </SectionItem>
 
                   <SectionItem
                     description="Country of residence"
                     prefix={<IconMapPin />}
-                    data={common.merge_data_array(
+                    informations={common.merge_informations(
                       certificateData()?.countries,
                       whoisData()?.countries,
                     )}
@@ -208,21 +218,23 @@ const App: Component = () => {
                       />
                     )}
                   >
-                    {(country) => (
-                      <Country
-                        value={country.value}
-                        locale={navigator.language}
-                        type="text"
-                      />
+                    {(country, index) => (
+                      <ListAdditionalItem index={index}>
+                        <Country
+                          value={country.value}
+                          locale={navigator.language}
+                          type="text"
+                        />
+                      </ListAdditionalItem>
                     )}
                   </SectionItem>
                 </Section>
 
                 <Section title="Domain">
                   <SectionItem
-                    description="Registration age"
+                    description="Registration"
                     prefix={<IconCalendar1 />}
-                    data={whoisData()?.registrations}
+                    informations={whoisData()?.registrations}
                     suffix={(registration) => (
                       <SourceInfo
                         information={registration}
@@ -230,10 +242,16 @@ const App: Component = () => {
                       />
                     )}
                   >
-                    {(registration) => (
-                      <>
-                        Registered <DatePastPeriod date={registration.value} />
-                      </>
+                    {(registration, index) => (
+                      <Switch>
+                        <Match when={index === 0}>
+                          Registered{" "}
+                          <DatePastPeriod date={registration.value} />
+                        </Match>
+                        <Match when={true}>
+                          and <DatePastPeriod date={registration.value} />
+                        </Match>
+                      </Switch>
                     )}
                   </SectionItem>
 
@@ -252,7 +270,7 @@ const App: Component = () => {
                         </Match>
                       </Switch>
                     }
-                    data={dnssecData()?.valid}
+                    informations={dnssecData()?.valid}
                     suffix={(valid) => (
                       <SourceInfo
                         information={valid}
