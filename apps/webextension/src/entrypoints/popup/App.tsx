@@ -25,7 +25,6 @@ import {
   ErrorBoundary,
   Match,
   onMount,
-  Show,
   Switch,
   type Component,
 } from "solid-js";
@@ -272,9 +271,15 @@ const App: Component = () => {
                   )}
                 >
                   {(visits, index) => (
-                    <ListAdditionalItem index={index}>
-                      First visited <DatePastPeriod date={visits.value.at(0)} />
-                    </ListAdditionalItem>
+                    <Switch>
+                      <Match when={index === 0}>
+                        First visited{" "}
+                        <DatePastPeriod date={visits.value.at(0)} />
+                      </Match>
+                      <Match when={true}>
+                        and <DatePastPeriod date={visits.value.at(0)} />
+                      </Match>
+                    </Switch>
                   )}
                 </SectionItem>
 
@@ -290,9 +295,14 @@ const App: Component = () => {
                   )}
                 >
                   {(visits, index) => (
-                    <ListAdditionalItem index={index}>
-                      Visited <DateFrequency dates={visits.value} />
-                    </ListAdditionalItem>
+                    <Switch>
+                      <Match when={index === 0}>
+                        Visited <DatePastPeriod date={visits.value.at(0)} />
+                      </Match>
+                      <Match when={true}>
+                        and <DatePastPeriod date={visits.value.at(0)} />
+                      </Match>
+                    </Switch>
                   )}
                 </SectionItem>
               </Section>

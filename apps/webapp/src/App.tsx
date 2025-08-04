@@ -24,7 +24,6 @@ import {
   Match,
   onMount,
   resetErrorBoundaries,
-  Show,
   Switch,
   type Component,
 } from "solid-js";
