@@ -30,7 +30,12 @@ export async function get_data(domain: string) {
 
     const registration = validate_registration(jsonRegistration);
 
-    data.registrations = [{ value: registration.domainInfo.created, sources }];
+    data.registrations = [
+      {
+        value: new Date(registration.domainInfo.created).toISOString(),
+        sources,
+      },
+    ];
 
     const resContact = await fetch(
       `https://api.dnsbelgium.be/whois/contact/${registration.registrant}`,

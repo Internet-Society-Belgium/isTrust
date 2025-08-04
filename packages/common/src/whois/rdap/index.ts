@@ -139,8 +139,6 @@ export async function get_data(domain: string, cache: InformationCache) {
 }
 
 function improve_data(data: WHOISData, result: RdapResult) {
-  let registrar: Source | undefined;
-
   let organization: string | undefined;
 
   const registrarEntity = result.entities.find((e) => {
@@ -162,8 +160,10 @@ function improve_data(data: WHOISData, result: RdapResult) {
     }
   }
 
+  const sources: Source[] = [];
+
   if (organization !== undefined) {
-    registrar = {
+    const source: Source = {
       organization,
       links: [],
     };
@@ -175,7 +175,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
       const country = get_country(registrarEntity.vcardArray);
 
       if (country !== undefined) {
-        registrar.country = country;
+        source.country = country;
       }
 
       let hrefs = registrarEntity.links?.map((link) => link.href);
@@ -189,19 +189,19 @@ function improve_data(data: WHOISData, result: RdapResult) {
         }
 
         if (links.length > 0) {
-          registrar.links = links;
+          source.links = links;
         }
       }
     }
+
+    sources.push(source);
   }
 
   for (const event of result.events) {
-    const date = new Date(event.eventDate).setUTCHours(0, 0, 0, 0);
-
     if (event.eventAction === "registration") {
       const improvedRegistrations = improve_informations(data.registrations, {
-        value: new Date(date).toISOString(),
-        sources: registrar !== undefined ? [registrar] : [],
+        value: new Date(event.eventDate).toISOString(),
+        sources,
       });
       if (improvedRegistrations.length > 0) {
         data.registrations = improvedRegistrations;
@@ -242,7 +242,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
         const improvedIndividuals = improve_informations(data.individuals, {
           value: fn,
           verified: false,
-          sources: registrar !== undefined ? [registrar] : [],
+          sources,
         });
         if (improvedIndividuals.length > 0) {
           data.individuals = improvedIndividuals;
@@ -256,7 +256,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
       const improvedOrganizations = improve_informations(data.organizations, {
         value: organization,
         verified: false,
-        sources: registrar !== undefined ? [registrar] : [],
+        sources,
       });
       if (improvedOrganizations.length > 0) {
         data.organizations = improvedOrganizations;
@@ -269,7 +269,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
       const improvedCountries = improve_informations(data.countries, {
         value: country,
         verified: false,
-        sources: registrar !== undefined ? [registrar] : [],
+        sources,
       });
       if (improvedCountries.length > 0) {
         data.countries = improvedCountries;
