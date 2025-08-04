@@ -297,10 +297,10 @@ const App: Component = () => {
                   {(visits, index) => (
                     <Switch>
                       <Match when={index === 0}>
-                        Visited <DatePastPeriod date={visits.value.at(0)} />
+                        Visited <DateFrequency dates={visits.value} />
                       </Match>
                       <Match when={true}>
-                        and <DatePastPeriod date={visits.value.at(0)} />
+                        and <DateFrequency dates={visits.value} />
                       </Match>
                     </Switch>
                   )}
