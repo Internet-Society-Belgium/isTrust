@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
-import { InformationCache } from "../type";
+import { InformationCache } from "../../type";
 
 /* eslint-disable @typescript-eslint/require-await */
 let storePsl: Record<string, string> = {};
@@ -33,7 +33,9 @@ test("istrust.org", async () => {
     countries: [
       {
         value: "BE",
-        verified: false,
+        verification: {
+          verified: false,
+        },
         sources: [
           {
             links: ["https://www.gandi.net/"],
@@ -45,7 +47,9 @@ test("istrust.org", async () => {
     individuals: [
       {
         value: "Redacted for Privacy",
-        verified: false,
+        verification: {
+          verified: false,
+        },
         sources: [
           {
             links: ["https://www.gandi.net/"],
@@ -57,7 +61,9 @@ test("istrust.org", async () => {
     organizations: [
       {
         value: "Internet Society Chapter Belgium vzw/asbl",
-        verified: false,
+        verification: {
+          verified: false,
+        },
         sources: [
           {
             links: ["https://www.gandi.net/"],
@@ -94,7 +100,9 @@ test("github.com", async () => {
           },
         ],
         value: "US",
-        verified: false,
+        verification: {
+          verified: false,
+        },
       },
     ],
     individuals: [
@@ -107,7 +115,9 @@ test("github.com", async () => {
           },
         ],
         value: "REDACTED REGISTRANT",
-        verified: false,
+        verification: {
+          verified: false,
+        },
       },
     ],
     organizations: [
@@ -120,7 +130,9 @@ test("github.com", async () => {
           },
         ],
         value: "GitHub, Inc.",
-        verified: false,
+        verification: {
+          verified: false,
+        },
       },
     ],
     registrations: [

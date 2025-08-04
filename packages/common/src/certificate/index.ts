@@ -21,7 +21,9 @@ export async function get_data(domain: string) {
   for (const x509Data of x509sData) {
     const improvedTypes = improve_informations(certificateData.types, {
       value: x509Data.type,
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
     });
     if (improvedTypes.length > 0) {
@@ -33,7 +35,9 @@ export async function get_data(domain: string) {
         certificateData.individuals,
         {
           value: x509Data.individual,
-          verified: true,
+          verification: {
+            verified: true,
+          },
           sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
       );
@@ -47,7 +51,9 @@ export async function get_data(domain: string) {
         certificateData.countries,
         {
           value: x509Data.country,
-          verified: true,
+          verification: {
+            verified: true,
+          },
           sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
       );
@@ -61,7 +67,9 @@ export async function get_data(domain: string) {
         certificateData.organizations,
         {
           value: x509Data.organization,
-          verified: true,
+          verification: {
+            verified: true,
+          },
           sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
       );
@@ -75,7 +83,9 @@ export async function get_data(domain: string) {
         certificateData.countries,
         {
           value: x509Data.incCountry,
-          verified: true,
+          verification: {
+            verified: true,
+          },
           sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
         },
       );

@@ -5,12 +5,16 @@ test("merge_data_array", () => {
   const array1: Information<string>[] = [
     {
       value: "value1",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [],
     },
     {
       value: "value2",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [],
     },
   ];
@@ -18,12 +22,16 @@ test("merge_data_array", () => {
   const array2: Information<string>[] = [
     {
       value: "value2",
-      verified: false,
+      verification: {
+        verified: false,
+      },
       sources: [],
     },
     {
       value: "value3",
-      verified: false,
+      verification: {
+        verified: false,
+      },
       sources: [],
     },
   ];
@@ -31,17 +39,23 @@ test("merge_data_array", () => {
   expect(merge_informations(array1, array2)).toStrictEqual([
     {
       value: "value1",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [],
     },
     {
       value: "value2",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [],
     },
     {
       value: "value3",
-      verified: false,
+      verification: {
+        verified: false,
+      },
       sources: [],
     },
   ] satisfies typeof array1);
@@ -51,20 +65,26 @@ test("improve_data_array same", () => {
   const array: Information<string>[] = [
     {
       value: "value",
-      verified: false,
+      verification: {
+        verified: false,
+      },
       sources: [],
     },
   ];
   const data: Information<string> = {
     value: "value",
-    verified: false,
+    verification: {
+      verified: false,
+    },
     sources: [],
   };
 
   expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verified: false,
+      verification: {
+        verified: false,
+      },
       sources: [],
     },
   ] satisfies typeof array);
@@ -74,13 +94,17 @@ test("improve_data_array better verification", () => {
   const array: Information<string>[] = [
     {
       value: "value",
-      verified: false,
+      verification: {
+        verified: false,
+      },
       sources: [],
     },
   ];
   const data: Information<string> = {
     value: "value",
-    verified: true,
+    verification: {
+      verified: true,
+    },
     sources: [],
   };
 
@@ -88,7 +112,9 @@ test("improve_data_array better verification", () => {
     {
       value: "value",
       sources: [],
-      verified: true,
+      verification: {
+        verified: true,
+      },
     },
   ] satisfies typeof array);
 });
@@ -97,13 +123,17 @@ test("improve_data_array worst verification", () => {
   const array: Information<string>[] = [
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [],
     },
   ];
   const data: Information<string> = {
     value: "value",
-    verified: false,
+    verification: {
+      verified: false,
+    },
     sources: [],
   };
 
@@ -111,7 +141,9 @@ test("improve_data_array worst verification", () => {
     {
       value: "value",
       sources: [],
-      verified: true,
+      verification: {
+        verified: true,
+      },
     },
   ] satisfies typeof array);
 });
@@ -120,7 +152,9 @@ test("improve_data_array add link", () => {
   const array: Information<string>[] = [
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "organization",
@@ -131,7 +165,9 @@ test("improve_data_array add link", () => {
   ];
   const data: Information<string> = {
     value: "value",
-    verified: true,
+    verification: {
+      verified: true,
+    },
     sources: [
       {
         organization: "organization",
@@ -143,7 +179,9 @@ test("improve_data_array add link", () => {
   expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "organization",
@@ -158,7 +196,9 @@ test("improve_data_array same link", () => {
   const array: Information<string>[] = [
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "organization",
@@ -169,7 +209,9 @@ test("improve_data_array same link", () => {
   ];
   const data: Information<string> = {
     value: "value",
-    verified: true,
+    verification: {
+      verified: true,
+    },
     sources: [
       {
         organization: "organization",
@@ -181,7 +223,9 @@ test("improve_data_array same link", () => {
   expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "organization",
@@ -196,7 +240,9 @@ test("improve_data_array different organisation", () => {
   const array: Information<string>[] = [
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "organization1",
@@ -206,7 +252,9 @@ test("improve_data_array different organisation", () => {
     },
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "organization2",
@@ -217,7 +265,9 @@ test("improve_data_array different organisation", () => {
   ];
   const data: Information<string> = {
     value: "value",
-    verified: true,
+    verification: {
+      verified: true,
+    },
     sources: [
       {
         organization: "organization1",
@@ -229,7 +279,9 @@ test("improve_data_array different organisation", () => {
   expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "organization1",
@@ -239,7 +291,9 @@ test("improve_data_array different organisation", () => {
     },
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "organization2",
@@ -254,7 +308,9 @@ test("improve_data_array add country", () => {
   const array: Information<string>[] = [
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "org",
@@ -265,7 +321,9 @@ test("improve_data_array add country", () => {
   ];
   const data: Information<string> = {
     value: "value",
-    verified: true,
+    verification: {
+      verified: true,
+    },
     sources: [
       {
         organization: "org",
@@ -278,7 +336,9 @@ test("improve_data_array add country", () => {
   expect(improve_informations(array, data)).toStrictEqual([
     {
       value: "value",
-      verified: true,
+      verification: {
+        verified: true,
+      },
       sources: [
         {
           organization: "org",

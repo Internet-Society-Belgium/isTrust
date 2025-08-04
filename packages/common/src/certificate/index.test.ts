@@ -11,7 +11,9 @@ test("istrust.org", async () => {
     types: [
       {
         value: "DV",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "FR",
@@ -31,7 +33,9 @@ test("digicert.com", async () => {
     countries: [
       {
         value: "US",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "US",
@@ -45,7 +49,9 @@ test("digicert.com", async () => {
     organizations: [
       {
         value: "DigiCert, Inc.",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "US",
@@ -58,7 +64,9 @@ test("digicert.com", async () => {
     types: [
       {
         value: "EV",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "US",
@@ -69,7 +77,9 @@ test("digicert.com", async () => {
       },
       {
         value: "OV",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "US",
@@ -89,7 +99,9 @@ test("google.com", async () => {
     countries: [
       {
         value: "BR",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "BR",
@@ -103,7 +115,9 @@ test("google.com", async () => {
     organizations: [
       {
         value: "GOOGLE PAY BRASIL INSTITUICAO DE PAGAMENTO LTDA",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "BR",
@@ -116,7 +130,9 @@ test("google.com", async () => {
     types: [
       {
         value: "OV",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "BR",
@@ -127,7 +143,9 @@ test("google.com", async () => {
       },
       {
         value: "DV",
-        verified: true,
+        verification: {
+          verified: true,
+        },
         sources: [
           {
             country: "US",

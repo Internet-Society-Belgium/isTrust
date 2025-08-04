@@ -7,9 +7,11 @@ import {
   type InformationCache,
 } from "./type";
 import { parse_domain } from "./utils/domain";
+import { ErrorType } from "./utils/error";
 import * as whois from "./whois";
+import * as rdap from "./whois/rdap";
 
-export type { Information, InformationCache };
+export type { Information, InformationCache, ErrorType };
 
 export { merge_informations };
 
@@ -37,9 +39,9 @@ export async function get_dnssec_data(
 }
 
 export async function update_cache(cache: InformationCache) {
-  await Promise.allSettled([psl.update(cache), whois.update(cache)]);
+  await Promise.allSettled([psl.update(cache), rdap.update(cache)]);
 }
 
 export async function force_update_cache(cache: InformationCache) {
-  await Promise.allSettled([psl.load(cache), whois.load(cache)]);
+  await Promise.allSettled([psl.load(cache), rdap.load(cache)]);
 }

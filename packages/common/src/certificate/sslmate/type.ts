@@ -6,9 +6,9 @@ const sslMateSearchSchema = z.object({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   dns_names: z.array(z.string()),
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  not_before: z.string(),
+  not_before: z.iso.datetime(),
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  not_after: z.string(),
+  not_after: z.iso.datetime(),
   revoked: z.nullable(z.boolean()),
   // eslint-disable-next-line @typescript-eslint/naming-convention
   cert_der: z.string(),
