@@ -1,7 +1,7 @@
 import { source_error } from "../../utils/error";
 import * as x509 from "../x509";
 import { X509Data } from "../x509/type";
-import { validateSSLMateSearch } from "./type";
+import { validate_sslmate_search } from "./type";
 
 export async function get_data(domain: string) {
   const data: X509Data[] = [];
@@ -15,7 +15,7 @@ export async function get_data(domain: string) {
     if (!res.ok) throw source_error("No certificate response");
 
     const jsonSearch: unknown = await res.json();
-    const resultsSearch = validateSSLMateSearch(jsonSearch);
+    const resultsSearch = validate_sslmate_search(jsonSearch);
 
     for (const resultSearch of resultsSearch) {
       if (resultSearch.revoked === true) continue;
