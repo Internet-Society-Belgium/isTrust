@@ -241,9 +241,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
       if (fn !== undefined) {
         const improvedIndividuals = improve_informations(data.individuals, {
           value: fn,
-          verification: {
-            verified: false,
-          },
+          verified: false,
           sources: registrar !== undefined ? [registrar] : [],
         });
         if (improvedIndividuals.length > 0) {
@@ -257,9 +255,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
     if (organization !== undefined) {
       const improvedOrganizations = improve_informations(data.organizations, {
         value: organization,
-        verification: {
-          verified: false,
-        },
+        verified: false,
         sources: registrar !== undefined ? [registrar] : [],
       });
       if (improvedOrganizations.length > 0) {
@@ -272,9 +268,7 @@ function improve_data(data: WHOISData, result: RdapResult) {
     if (country !== undefined) {
       const improvedCountries = improve_informations(data.countries, {
         value: country,
-        verification: {
-          verified: false,
-        },
+        verified: false,
         sources: registrar !== undefined ? [registrar] : [],
       });
       if (improvedCountries.length > 0) {

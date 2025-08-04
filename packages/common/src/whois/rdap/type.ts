@@ -73,7 +73,7 @@ const rdapResultSchema = z.object({
   events: z.array(
     z.object({
       eventAction: z.string(),
-      eventDate: z.iso.datetime(),
+      eventDate: z.iso.datetime({ offset: true }),
     }),
   ),
   entities: z.array(

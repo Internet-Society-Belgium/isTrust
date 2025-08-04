@@ -4,15 +4,10 @@ export interface Source {
   links: string[];
 }
 
-export interface Verification {
-  verified: boolean;
-  since?: string;
-}
-
 export interface Information<T> {
   value: T;
   sources: Source[];
-  verification?: Verification;
+  verified?: boolean;
 }
 
 export function merge_informations<T>(
@@ -44,18 +39,12 @@ export function improve_informations<T>(
     return informations;
   }
 
-  if (
-    match.verification?.verified === true &&
-    information.verification?.verified === false
-  ) {
+  if (match.verified === true && information.verified === false) {
     return informations;
   }
 
-  if (
-    match.verification?.verified === false &&
-    information.verification?.verified === true
-  ) {
-    match.verification.verified = true;
+  if (match.verified === false && information.verified === true) {
+    match.verified = true;
     match.sources = information.sources;
     return informations;
   }

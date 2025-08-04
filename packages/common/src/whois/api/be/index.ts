@@ -1,4 +1,4 @@
-import { Source, Verification } from "../../../type";
+import { Source } from "../../../type";
 import { source_error } from "../../../utils/error";
 import { WHOISData } from "../../type";
 import { validate_contact, validate_registration } from "./type";
@@ -42,24 +42,17 @@ export async function get_data(domain: string) {
 
     const contact = validate_contact(jsonContact);
 
-    let verification: Verification | undefined;
+    let verified: boolean | undefined;
     if (contact.verificationStatus === "APPROVED") {
-      verification = {
-        verified: true,
-      };
-      if (contact.verifiedSince !== null) {
-        verification.since = contact.verifiedSince;
-      }
+      verified = true;
     }
 
     if (contact.companyName !== null) {
-      data.organizations = [
-        { value: contact.companyName, sources, verification },
-      ];
+      data.organizations = [{ value: contact.companyName, sources, verified }];
     }
 
     if (contact.country !== null) {
-      data.countries = [{ value: contact.country, sources, verification }];
+      data.countries = [{ value: contact.country, sources, verified }];
     }
   } catch (e) {
     const error = e as Error;

@@ -21,7 +21,6 @@ const contactSchema = z.object({
   companyName: z.nullable(z.string()),
   country: z.nullable(z.string()),
   verificationStatus: z.nullable(z.string()),
-  verifiedSince: z.nullable(z.iso.datetime()),
 });
 
 export function validate_contact(json: unknown) {

@@ -15,10 +15,7 @@ test("dnsbelgium.be", async () => {
           },
         ],
         value: "BE",
-        verification: {
-          since: "2025-06-12T09:34:43.446Z",
-          verified: true,
-        },
+        verified: true,
       },
     ],
     individuals: [],
@@ -32,10 +29,7 @@ test("dnsbelgium.be", async () => {
           },
         ],
         value: "DNS Belgium vzw",
-        verification: {
-          since: "2025-06-12T09:34:43.446Z",
-          verified: true,
-        },
+        verified: true,
       },
     ],
     registrations: [

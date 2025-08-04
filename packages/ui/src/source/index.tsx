@@ -54,10 +54,10 @@ export const SourceVerification: Component<SourceVerificationProps> = (
     <Popover
       trigger={
         <Switch>
-          <Match when={props.information.verification?.verified === true}>
+          <Match when={props.information.verified === true}>
             <IconBadgeCheck />
           </Match>
-          <Match when={props.information.verification?.verified === false}>
+          <Match when={props.information.verified === false}>
             <IconBadgeQuestion />
           </Match>
         </Switch>
@@ -71,10 +71,10 @@ export const SourceVerification: Component<SourceVerificationProps> = (
       }
     >
       <Switch>
-        <Match when={props.information.verification?.verified === false}>
+        <Match when={props.information.verified === false}>
           Information without verification
         </Match>
-        <Match when={props.information.verification?.verified === true}>
+        <Match when={props.information.verified === true}>
           Information have been verified
           <Show when={props.information.sources}>
             {(sources) => (

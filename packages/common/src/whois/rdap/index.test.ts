@@ -33,9 +33,7 @@ test("istrust.org", async () => {
     countries: [
       {
         value: "BE",
-        verification: {
-          verified: false,
-        },
+        verified: false,
         sources: [
           {
             links: ["https://www.gandi.net/"],
@@ -47,9 +45,7 @@ test("istrust.org", async () => {
     individuals: [
       {
         value: "Redacted for Privacy",
-        verification: {
-          verified: false,
-        },
+        verified: false,
         sources: [
           {
             links: ["https://www.gandi.net/"],
@@ -61,9 +57,7 @@ test("istrust.org", async () => {
     organizations: [
       {
         value: "Internet Society Chapter Belgium vzw/asbl",
-        verification: {
-          verified: false,
-        },
+        verified: false,
         sources: [
           {
             links: ["https://www.gandi.net/"],
@@ -100,9 +94,7 @@ test("github.com", async () => {
           },
         ],
         value: "US",
-        verification: {
-          verified: false,
-        },
+        verified: false,
       },
     ],
     individuals: [
@@ -115,9 +107,7 @@ test("github.com", async () => {
           },
         ],
         value: "REDACTED REGISTRANT",
-        verification: {
-          verified: false,
-        },
+        verified: false,
       },
     ],
     organizations: [
@@ -130,9 +120,7 @@ test("github.com", async () => {
           },
         ],
         value: "GitHub, Inc.",
-        verification: {
-          verified: false,
-        },
+        verified: false,
       },
     ],
     registrations: [
