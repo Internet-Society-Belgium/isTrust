@@ -5,49 +5,22 @@ test("istrust.org", async () => {
   const data = await get_data("istrust.org");
 
   expect(data).toStrictEqual({
-    type: "DV",
-  } satisfies typeof data);
-});
-
-test("icann.org", async () => {
-  const data = await get_data("icann.org");
-
-  expect(data).toStrictEqual({
-    countryCode: "US",
-    organisation: "Internet Corporation For Assigned Names and Numbers",
-    type: "OV",
-  } satisfies typeof data);
-});
-
-test("worldbank.org", async () => {
-  const data = await get_data("worldbank.org");
-
-  expect(data).toStrictEqual({
-    businessCategory: "Non-Commercial Entity",
-    countryCode: "US",
-    incCountryCode: "US",
-    organisation: "World Bank Group",
-    type: "EV",
-  } satisfies typeof data);
-});
-
-test("iana.org", async () => {
-  const data = await get_data("iana.org");
-
-  expect(data).toStrictEqual({
-    countryCode: "US",
-    organisation: "Internet Corporation For Assigned Names and Numbers",
-    type: "OV",
-  } satisfies typeof data);
-});
-
-test("example.com", async () => {
-  const data = await get_data("example.com");
-
-  expect(data).toStrictEqual({
-    countryCode: "US",
-    organisation: "Internet Corporation for Assigned Names and Numbers",
-    type: "OV",
+    countries: [],
+    individuals: [],
+    organizations: [],
+    types: [
+      {
+        value: "DV",
+        verified: true,
+        sources: [
+          {
+            country: "FR",
+            organization: "Gandi",
+            links: [],
+          },
+        ],
+      },
+    ],
   } satisfies typeof data);
 });
 
@@ -55,10 +28,114 @@ test("digicert.com", async () => {
   const data = await get_data("digicert.com");
 
   expect(data).toStrictEqual({
-    businessCategory: "Private Organization",
-    countryCode: "US",
-    incCountryCode: "US",
-    organisation: "DigiCert, Inc.",
-    type: "EV",
+    countries: [
+      {
+        value: "US",
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
+      },
+    ],
+    individuals: [],
+    organizations: [
+      {
+        value: "DigiCert, Inc.",
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
+      },
+    ],
+    types: [
+      {
+        value: "EV",
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
+      },
+      {
+        value: "OV",
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "DigiCert Inc",
+          },
+        ],
+      },
+    ],
+  } satisfies typeof data);
+});
+
+test("google.com", async () => {
+  const data = await get_data("google.com");
+
+  expect(data).toStrictEqual({
+    countries: [
+      {
+        value: "BR",
+        verified: true,
+        sources: [
+          {
+            country: "BR",
+            links: [],
+            organization: "ICP-Brasil",
+          },
+        ],
+      },
+    ],
+    individuals: [],
+    organizations: [
+      {
+        value: "GOOGLE PAY BRASIL INSTITUICAO DE PAGAMENTO LTDA",
+        verified: true,
+        sources: [
+          {
+            country: "BR",
+            links: [],
+            organization: "ICP-Brasil",
+          },
+        ],
+      },
+    ],
+    types: [
+      {
+        value: "OV",
+        verified: true,
+        sources: [
+          {
+            country: "BR",
+            links: [],
+            organization: "ICP-Brasil",
+          },
+        ],
+      },
+      {
+        value: "DV",
+        verified: true,
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Google Trust Services",
+          },
+        ],
+      },
+    ],
   } satisfies typeof data);
 });

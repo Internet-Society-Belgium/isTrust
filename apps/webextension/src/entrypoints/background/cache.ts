@@ -1,11 +1,15 @@
 import * as common from "@istrust/common";
 import { storage } from "#imports";
 
-export const cache: common.InternalCache = {
+export const cache: common.InformationCache = {
   psl: {
     set: async (key: string, value: string) =>
       storage.setItem(`local:psl:${key}`, value),
-    get: async (key: string) => storage.getItem(`local:psl:${key}`),
+    get: async (key: string) => {
+      const item = await storage.getItem<string>(`local:psl:${key}`);
+      if (item === null) return;
+      return item;
+    },
     clear: async () => {
       const snapshot = await storage.snapshot("local");
       for (const item in snapshot) {
@@ -18,7 +22,11 @@ export const cache: common.InternalCache = {
   rdap: {
     set: async (key: string, value: string) =>
       storage.setItem(`local:rdap:${key}`, value),
-    get: async (key: string) => storage.getItem(`local:rdap:${key}`),
+    get: async (key: string) => {
+      const item = await storage.getItem<string>(`local:rdap:${key}`);
+      if (item === null) return;
+      return item;
+    },
     clear: async () => {
       const snapshot = await storage.snapshot("local");
       for (const item in snapshot) {

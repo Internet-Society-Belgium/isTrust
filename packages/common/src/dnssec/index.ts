@@ -1,21 +1,45 @@
 import { Buffer as BufferPolyfill } from "buffer";
 import dnsPacket from "dns-packet";
+import { source_error } from "../utils/error";
+import { DNSSECData } from "./type";
 
 // declare var Buffer: typeof BufferPolyfill;
 globalThis.Buffer = BufferPolyfill;
 
-const DEFAULT_RESOLVER = "https://cloudflare-dns.com/dns-query";
+interface Resolver {
+  url: string;
+  name: string;
+  country?: string;
+  links: string[];
+}
 
-export async function isValid(domain: string, resolver?: string) {
-  if (resolver === undefined) {
+const DEFAULT_RESOLVER: Resolver = {
+  url: "https://cloudflare-dns.com/dns-query",
+  name: "Cloudflare",
+  country: "US",
+  links: ["https://one.one.one.one/dns/"],
+};
+
+export async function get_data(domain: string, customResolver?: string) {
+  let resolver: Resolver | undefined;
+
+  if (customResolver !== undefined) {
+    const hostname = new URL(customResolver).hostname;
+    resolver = {
+      name: hostname,
+      url: customResolver,
+      links: [customResolver.replace(/dns-query$/, "")],
+    };
+  } else {
     resolver = DEFAULT_RESOLVER;
   }
 
+  const data: DNSSECData = {};
+
   try {
     // https://www.rfc-editor.org/rfc/rfc1035.html
-    const buf = dnsPacket.encode({
+    const queryBuffer = dnsPacket.encode({
       type: "query",
-      id: Math.floor(Math.random() * 65534),
       flags: dnsPacket.RECURSION_DESIRED | dnsPacket.AUTHENTIC_DATA,
       questions: [
         {
@@ -25,22 +49,37 @@ export async function isValid(domain: string, resolver?: string) {
       ],
     });
 
-    const dnsQueryParam = buf.toString("base64").replace(/=/g, "");
+    const dnsQueryParam = queryBuffer.toString("base64").replace(/=/g, "");
 
-    const res = await fetch(`${resolver}?dns=${dnsQueryParam}`, {
+    const res = await fetch(`${resolver.url}?dns=${dnsQueryParam}`, {
       headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         Accept: "application/dns-message",
       },
     });
 
-    const data = await res.arrayBuffer();
-    const decoded = dnsPacket.decode(Buffer.from(data));
+    if (!res.ok) throw source_error("No DNS response");
+
+    const resBuffer = await res.arrayBuffer();
+    const decoded = dnsPacket.decode(Buffer.from(resBuffer));
 
     // https://datatracker.ietf.org/doc/rfc3655/
-    return decoded.flag_ad;
-  } catch (error) {
-    console.error(error);
+    const validity = decoded.flag_ad;
 
-    return;
+    data.valid = {
+      value: validity,
+      sources: [
+        {
+          organization: resolver.name,
+          links: resolver.links,
+          country: resolver.country,
+        },
+      ],
+    };
+  } catch (e) {
+    const error = e as Error;
+    console.error(`${error.message} from ${resolver.name}`);
   }
+
+  return data;
 }

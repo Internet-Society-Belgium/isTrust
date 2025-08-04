@@ -1,12 +1,36 @@
 import { expect, test } from "vitest";
-import { isValid } from ".";
+import { get_data } from ".";
 
-test("wikipedia.org", async () => {
-  const valid = await isValid("wikipedia.org");
-  expect(valid).toStrictEqual(false);
+test("istrust.org", async () => {
+  const dnssec = await get_data("istrust.org");
+
+  expect(dnssec).toStrictEqual({
+    valid: {
+      value: false,
+      sources: [
+        {
+          country: "US",
+          links: ["https://one.one.one.one/dns/"],
+          organization: "Cloudflare",
+        },
+      ],
+    },
+  } satisfies typeof dnssec);
 });
 
 test("internetsociety.org", async () => {
-  const valid = await isValid("internetsociety.org");
-  expect(valid).toStrictEqual(true);
+  const dnssec = await get_data("internetsociety.org");
+
+  expect(dnssec).toStrictEqual({
+    valid: {
+      value: true,
+      sources: [
+        {
+          country: "US",
+          links: ["https://one.one.one.one/dns/"],
+          organization: "Cloudflare",
+        },
+      ],
+    },
+  } satisfies typeof dnssec);
 });

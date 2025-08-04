@@ -1,15 +1,16 @@
 import { expect, test } from "vitest";
 import { get_effective_domain } from ".";
-import { DataCache } from "../type";
+import { InformationCache } from "../type";
 
+/* eslint-disable @typescript-eslint/require-await */
 let storePsl: Record<string, string> = {};
 let storeRdap: Record<string, string> = {};
-const cache: DataCache = {
+const cache: InformationCache = {
   psl: {
     set: async (key: string, value: string) => {
       storePsl[key] = value;
     },
-    get: async (key: string) => storePsl[key] ?? null,
+    get: async (key: string) => storePsl[key],
     clear: async () => {
       storePsl = {};
     },
@@ -18,7 +19,7 @@ const cache: DataCache = {
     set: async (key: string, value: string) => {
       storeRdap[key] = value;
     },
-    get: async (key: string) => storeRdap[key] ?? null,
+    get: async (key: string) => storeRdap[key],
     clear: async () => {
       storeRdap = {};
     },

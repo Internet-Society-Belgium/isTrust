@@ -1,15 +1,14 @@
+import * as common from "@istrust/common";
 import { browser } from "#imports";
 
 export interface HistoryData {
-  daysWithVisit: number;
-  firstVisit?: string;
+  visits: common.Information<string[]>;
 }
 
 export async function get_history_data(domain: string) {
   const historyItems = await browser.history.search({ text: `${domain}` });
 
-  const daysWithVisit = new Set<string>();
-  let firstVisit;
+  let visits = [];
 
   for (const historyItem of historyItems) {
     const pageUrl = historyItem.url;
@@ -29,28 +28,57 @@ export async function get_history_data(domain: string) {
         visitItem.transition === "keyword" ||
         visitItem.transition === "keyword_generated"
       ) {
-        if (visitItem.visitTime !== undefined) {
-          const visitDate = new Date(visitItem.visitTime);
+        if (visitItem.visitTime === undefined) continue;
 
-          const visitDay = visitDate.toDateString();
-          daysWithVisit.add(visitDay);
+        const visit = new Date(visitItem.visitTime);
 
-          const visitTime = visitDate.getTime();
-          if (firstVisit === undefined || visitTime < firstVisit) {
-            firstVisit = visitTime;
-          }
-        }
+        visits.push(visit.toISOString());
       }
     }
   }
 
-  const data: HistoryData = {
-    daysWithVisit: daysWithVisit.size,
-  };
+  let sources: common.Information<unknown>["sources"] = [];
 
-  if (firstVisit !== undefined) {
-    data.firstVisit = new Date(firstVisit).toISOString();
+  if (import.meta.env.CHROME) {
+    sources = [
+      {
+        organization: "Google Chrome",
+        links: [],
+      },
+    ];
+  } else if (import.meta.env.FIREFOX) {
+    sources = [
+      {
+        organization: "Firefox",
+        links: [],
+      },
+    ];
+  } else if (import.meta.env.EDGE) {
+    sources = [
+      {
+        organization: "Microsoft Edge",
+        links: [],
+      },
+    ];
+  } else if (import.meta.env.SAFARI) {
+    sources = [
+      {
+        organization: "Safari",
+        links: [],
+      },
+    ];
   }
+
+  const visitsSorted = visits.sort(
+    (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+  );
+
+  const data: HistoryData = {
+    visits: {
+      value: visitsSorted,
+      sources,
+    },
+  };
 
   return data;
 }

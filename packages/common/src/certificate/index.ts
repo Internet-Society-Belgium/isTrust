@@ -1,35 +1,95 @@
-import { deepMerge } from "../utils/object";
+import { improve_informations } from "../type";
 import * as sslmate from "./sslmate";
-import { CertificateType } from "./type";
+import { CertificateData, CertificateType } from "./type";
 
 export async function get_data(domain: string) {
-  let certificatesData = await sslmate.get_data(domain);
+  const x509sData = await sslmate.get_data(domain);
 
-  if (certificatesData === undefined || certificatesData.length === 0) return;
+  const certificateData: CertificateData = {
+    types: [],
+    individuals: [],
+    organizations: [],
+    countries: [],
+  };
 
-  let bestType: CertificateType | undefined;
-  for (const d of certificatesData) {
-    if (
-      bestType === undefined ||
-      certificateTypeScore(d.type) > certificateTypeScore(bestType)
-    ) {
-      bestType = d.type;
+  if (x509sData.length === 0) return certificateData;
+
+  x509sData.sort(
+    (a, b) => certificate_type_score(b.type) - certificate_type_score(a.type),
+  );
+
+  for (const x509Data of x509sData) {
+    const improvedTypes = improve_informations(certificateData.types, {
+      value: x509Data.type,
+      verified: true,
+      sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+    });
+    if (improvedTypes.length > 0) {
+      certificateData.types = improvedTypes;
     }
-  }
 
-  certificatesData = certificatesData.filter((d) => d.type === bestType);
+    if (x509Data.individual !== undefined) {
+      const improvedIndividuals = improve_informations(
+        certificateData.individuals,
+        {
+          value: x509Data.individual,
+          verified: true,
+          sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+        },
+      );
+      if (improvedIndividuals.length > 0) {
+        certificateData.individuals = improvedIndividuals;
+      }
+    }
 
-  const certificateData = certificatesData.shift();
-  for (const d of certificatesData) {
-    deepMerge(certificateData, d);
+    if (x509Data.country !== undefined) {
+      const improvedCountries = improve_informations(
+        certificateData.countries,
+        {
+          value: x509Data.country,
+          verified: true,
+          sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+        },
+      );
+      if (improvedCountries.length > 0) {
+        certificateData.countries = improvedCountries;
+      }
+    }
+
+    if (x509Data.organization !== undefined) {
+      const improvedOrganizations = improve_informations(
+        certificateData.organizations,
+        {
+          value: x509Data.organization,
+          verified: true,
+          sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+        },
+      );
+      if (improvedOrganizations.length > 0) {
+        certificateData.organizations = improvedOrganizations;
+      }
+    }
+
+    if (x509Data.incCountry !== undefined) {
+      const improvedCountries = improve_informations(
+        certificateData.countries,
+        {
+          value: x509Data.incCountry,
+          verified: true,
+          sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+        },
+      );
+      if (improvedCountries.length > 0) {
+        certificateData.countries = improvedCountries;
+      }
+    }
   }
 
   return certificateData;
 }
 
-function certificateTypeScore(type?: CertificateType) {
-  if (type === "EV (.onion)") return 5;
-  else if (type === "EV") return 4;
+function certificate_type_score(type?: CertificateType) {
+  if (type === "EV") return 4;
   else if (type === "IV") return 3;
   else if (type === "OV") return 2;
   else if (type === "DV") return 1;

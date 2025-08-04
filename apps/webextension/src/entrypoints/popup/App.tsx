@@ -1,48 +1,65 @@
 import { sendMessage } from "@/utils/messaging";
-import { DateDifference } from "@istrust/ui/date-difference";
 import { get_active_tab } from "@/utils/tab";
+import * as common from "@istrust/common";
+import { CertificateAlert } from "@istrust/ui/alert";
+import { Country } from "@istrust/ui/country";
+import { DateFrequency, DatePastPeriod } from "@istrust/ui/date";
+import { HeaderDomain } from "@istrust/ui/header";
 import {
-  Show,
+  IconBuilding,
+  IconCalendar1,
+  IconCalendarCheck,
+  IconMapPin,
+  IconShield,
+  IconShieldCheck,
+  IconShieldX,
+  IconUser,
+} from "@istrust/ui/icon";
+import { Issue } from "@istrust/ui/issue";
+import { ListAdditionalItem } from "@istrust/ui/list";
+import { Section, SectionItem } from "@istrust/ui/section";
+import { SourceInfo, SourceVerification } from "@istrust/ui/source";
+import {
   createResource,
   createSignal,
+  ErrorBoundary,
+  Match,
   onMount,
   Switch,
-  Match,
-  ErrorBoundary,
-  Suspense,
+  type Component,
 } from "solid-js";
 
-function App() {
-  const [query, setQuery] = createSignal<string>();
+const App: Component = () => {
+  const [mode, setMode] = createSignal<"attached" | "detached">();
+
+  const [searchQuery, setSearchQuery] = createSignal<{
+    text: string;
+    forceUpdateCache: boolean;
+  }>();
 
   onMount(async () => {
     const params = new URLSearchParams(document.location.search);
 
     const paramUrl = params.get("q");
     if (paramUrl !== null) {
-      setQuery(paramUrl);
-    } else {
-      const tab = await get_active_tab();
-      if (tab.url) {
-        setQuery(tab.url);
-      }
+      setMode("detached");
+      setSearchQuery({ text: paramUrl, forceUpdateCache: false });
+      return;
+    }
+
+    const tab = await get_active_tab();
+    if (tab.url) {
+      setMode("attached");
+      setSearchQuery({ text: tab.url, forceUpdateCache: false });
     }
   });
 
-  const [domain] = createResource(query, async (query) => {
+  const [domain] = createResource(searchQuery, async (query) => {
     return await sendMessage("get_effective_domain", {
-      query,
+      query: query.text,
+      forceUpdateCache: query.forceUpdateCache,
     });
   });
-
-  const [historyData] = createResource(
-    () => (domain.state === "ready" ? domain() : undefined),
-    async (domain) => {
-      return await sendMessage("get_history_data", {
-        domain,
-      });
-    },
-  );
 
   const [whoisData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
@@ -53,10 +70,10 @@ function App() {
     },
   );
 
-  const [dnssecValid] = createResource(
+  const [dnssecData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await sendMessage("is_dnssec_valid", {
+      return await sendMessage("get_dnssec_data", {
         domain,
       });
     },
@@ -71,212 +88,276 @@ function App() {
     },
   );
 
-  const force_update_cache = async () => {
-    return await sendMessage("force_update_cache");
-  };
+  const [historyData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await sendMessage("get_history_data", {
+        domain,
+      });
+    },
+  );
 
   return (
-    <div class="flex w-100 flex-col">
-      <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
-        <div class="flex w-100 flex-col">
-          <div class="flex gap-2">
-            <h2>Domain:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={domain()}>{(domain) => <p>{domain()}</p>}</Show>
-            </Suspense>
-          </div>
+    <div
+      class={`${mode() === "detached" ? "bg-background min-h-screen" + " " : ""}flex items-center justify-center`}
+    >
+      <div
+        class={`${mode() === "detached" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container flex w-sm flex-col p-4`}
+      >
+        <ErrorBoundary
+          fallback={(error) => (
+            <Issue
+              scope={
+                import.meta.env.CHROME
+                  ? "chrome"
+                  : import.meta.env.FIREFOX
+                    ? "firefox"
+                    : import.meta.env.EDGE
+                      ? "edge"
+                      : import.meta.env.SAFARI
+                        ? "safari"
+                        : undefined
+              }
+              query={searchQuery()?.text || ""}
+              error={error}
+            />
+          )}
+        >
+          <div class="flex flex-col">
+            <HeaderDomain value={domain()} />
 
-          <div class="flex gap-2">
-            <h2>Number of days with known visits:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={historyData()?.daysWithVisit}>
-                {(daysWithVisit) => <p>{daysWithVisit()}</p>}
-              </Show>
-            </Suspense>
-          </div>
+            <CertificateAlert types={certificateData()?.types} />
 
-          <div class="flex gap-2">
-            <h2>First known visit:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={historyData()?.firstVisit}>
-                {(firstVisit) => (
-                  <p>
-                    <DateDifference
-                      date={firstVisit()}
+            <div class="flex flex-col gap-1">
+              <Section title="Owner">
+                <SectionItem
+                  description="Individual name"
+                  prefix={<IconUser />}
+                  informations={common.merge_informations(
+                    certificateData()?.individuals,
+                    whoisData()?.individuals,
+                  )}
+                  suffix={(individual) => (
+                    <SourceVerification
+                      information={individual}
                       locale={navigator.language}
                     />
-                  </p>
-                )}
-              </Show>
-            </Suspense>
-          </div>
+                  )}
+                >
+                  {(individual, index) => (
+                    <ListAdditionalItem index={index}>
+                      {individual.value}
+                    </ListAdditionalItem>
+                  )}
+                </SectionItem>
 
-          <div class="flex gap-2">
-            <h2>Registration:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.registration}>
-                {(registration) => (
-                  <p>
-                    <DateDifference
-                      date={registration()}
+                <SectionItem
+                  description="Organization name"
+                  prefix={<IconBuilding />}
+                  informations={common.merge_informations(
+                    certificateData()?.organizations,
+                    whoisData()?.organizations,
+                  )}
+                  suffix={(organization) => (
+                    <SourceVerification
+                      information={organization}
                       locale={navigator.language}
                     />
-                  </p>
-                )}
-              </Show>
-            </Suspense>
-          </div>
+                  )}
+                >
+                  {(organization, index) => (
+                    <ListAdditionalItem index={index}>
+                      {organization.value}
+                    </ListAdditionalItem>
+                  )}
+                </SectionItem>
 
-          <div class="flex gap-2">
-            <h2>Expiration:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.expiration}>
-                {(expiration) => (
-                  <p>
-                    <DateDifference
-                      date={expiration()}
+                <SectionItem
+                  description="Country of residence"
+                  prefix={<IconMapPin />}
+                  informations={common.merge_informations(
+                    certificateData()?.countries,
+                    whoisData()?.countries,
+                  )}
+                  suffix={(country) => (
+                    <SourceVerification
+                      information={country}
                       locale={navigator.language}
                     />
-                  </p>
-                )}
-              </Show>
-            </Suspense>
+                  )}
+                >
+                  {(country, index) => (
+                    <ListAdditionalItem index={index}>
+                      <Country
+                        value={country.value}
+                        locale={navigator.language}
+                        type="text"
+                      />
+                    </ListAdditionalItem>
+                  )}
+                </SectionItem>
+              </Section>
+
+              <Section title="Domain">
+                <SectionItem
+                  description="Registration"
+                  prefix={<IconCalendar1 />}
+                  informations={whoisData()?.registrations}
+                  suffix={(registration) => (
+                    <SourceInfo
+                      information={registration}
+                      locale={navigator.language}
+                    />
+                  )}
+                >
+                  {(registration, index) => (
+                    <Switch>
+                      <Match when={index === 0}>
+                        Registered <DatePastPeriod date={registration.value} />
+                      </Match>
+                      <Match when={true}>
+                        and <DatePastPeriod date={registration.value} />
+                      </Match>
+                    </Switch>
+                  )}
+                </SectionItem>
+
+                <SectionItem
+                  description="Protection (DNSSEC)"
+                  prefix={
+                    <Switch>
+                      <Match when={dnssecData()?.valid?.value === true}>
+                        <IconShieldCheck />
+                      </Match>
+                      <Match when={dnssecData()?.valid?.value === false}>
+                        <IconShieldX />
+                      </Match>
+                      <Match when={true}>
+                        <IconShield />
+                      </Match>
+                    </Switch>
+                  }
+                  informations={dnssecData()?.valid}
+                  suffix={(valid) => (
+                    <SourceInfo
+                      information={valid}
+                      locale={navigator.language}
+                    />
+                  )}
+                >
+                  {(valid) => (
+                    <Switch>
+                      <Match when={valid.value === true}>
+                        Protected with DNSSEC
+                      </Match>
+                      <Match when={valid.value === false}>
+                        Not protected with DNSSEC
+                      </Match>
+                    </Switch>
+                  )}
+                </SectionItem>
+              </Section>
+
+              <Section title="Visit">
+                <SectionItem
+                  description="First visit"
+                  prefix={<IconCalendar1 />}
+                  informations={historyData()?.visits}
+                  suffix={(visits) => (
+                    <SourceInfo
+                      information={visits}
+                      locale={navigator.language}
+                    />
+                  )}
+                >
+                  {(visits, index) => (
+                    <Switch>
+                      <Match when={index === 0}>
+                        First visited{" "}
+                        <DatePastPeriod date={visits.value.at(0)} />
+                      </Match>
+                      <Match when={true}>
+                        and <DatePastPeriod date={visits.value.at(0)} />
+                      </Match>
+                    </Switch>
+                  )}
+                </SectionItem>
+
+                <SectionItem
+                  description="Frequency of visits"
+                  prefix={<IconCalendarCheck />}
+                  informations={historyData()?.visits}
+                  suffix={(visits) => (
+                    <SourceInfo
+                      information={visits}
+                      locale={navigator.language}
+                    />
+                  )}
+                >
+                  {(visits, index) => (
+                    <Switch>
+                      <Match when={index === 0}>
+                        Visited <DateFrequency dates={visits.value} />
+                      </Match>
+                      <Match when={true}>
+                        and <DateFrequency dates={visits.value} />
+                      </Match>
+                    </Switch>
+                  )}
+                </SectionItem>
+              </Section>
+
+              {/* <Section title="Debug">
+                <details>
+                  <summary>WHOIS raw data</summary>
+                  <Show when={whoisData()}>
+                    {(data) => (
+                      <pre class="overflow-scroll">
+                        {JSON.stringify(data(), undefined, 2)}
+                      </pre>
+                    )}
+                  </Show>
+                </details>
+
+                <details>
+                  <summary>certificate raw data</summary>
+                  <Show when={certificateData()}>
+                    {(data) => (
+                      <pre class="overflow-scroll">
+                        {JSON.stringify(data(), undefined, 2)}
+                      </pre>
+                    )}
+                  </Show>
+                </details>
+
+                <details>
+                  <summary>DNSSEC raw data</summary>
+                  <Show when={dnssecData()}>
+                    {(data) => (
+                      <pre class="overflow-scroll">
+                        {JSON.stringify(data(), undefined, 2)}
+                      </pre>
+                    )}
+                  </Show>
+                </details>
+
+                <details>
+                  <summary>history raw data</summary>
+                  <Show when={historyData()}>
+                    {(data) => (
+                      <pre class="overflow-scroll">
+                        {JSON.stringify(data(), undefined, 2)}
+                      </pre>
+                    )}
+                  </Show>
+                </details>
+              </Section> */}
+            </div>
           </div>
-
-          <div class="flex gap-2">
-            <h2>Registrant individual:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.registrant?.individual}>
-                {(individual) => <p>{individual()}</p>}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Registrant organization:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.registrant?.organization}>
-                {(organization) => <p>{organization()}</p>}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Certificate organization:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.organisation}>
-                {(organization) => <p>{organization()}</p>}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Registrant country:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.registrant?.country}>
-                {(country) => (
-                  <Switch>
-                    <Match when={country().code}>
-                      {(code) => <p>{code()}</p>}
-                    </Match>
-                    <Match when={country().name}>
-                      {(name) => <p>{name()}</p>}
-                    </Match>
-                  </Switch>
-                )}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Certificate country:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.countryCode}>
-                {(countryCode) => <p>{countryCode()}</p>}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>DNSSEC present:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={whoisData()?.dnssecPresent === true}>
-                <p>yes</p>
-              </Show>
-              <Show when={whoisData()?.dnssecPresent === false}>
-                <p>no</p>
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>DNSSEC valid:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={dnssecValid() === true}>
-                <p>yes</p>
-              </Show>
-              <Show when={dnssecValid() === false}>
-                <p>no</p>
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Certificate type:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.type}>
-                {(type) => <p>{type()}</p>}
-              </Show>
-            </Suspense>
-          </div>
-
-          <div class="flex gap-2">
-            <h2>Certificate business category:</h2>
-            <Suspense fallback={<span>Loading...</span>}>
-              <Show when={certificateData()?.businessCategory}>
-                {(businessCategory) => <p>{businessCategory()}</p>}
-              </Show>
-            </Suspense>
-          </div>
-
-          <details>
-            <summary>history raw data</summary>
-            <Show when={historyData()}>
-              {(data) => (
-                <pre class="overflow-scroll">
-                  {JSON.stringify(data(), undefined, 2)}
-                </pre>
-              )}
-            </Show>
-          </details>
-
-          <details>
-            <summary>WHOIS raw data</summary>
-            <Show when={whoisData()}>
-              {(data) => (
-                <pre class="overflow-scroll">
-                  {JSON.stringify(data(), undefined, 2)}
-                </pre>
-              )}
-            </Show>
-          </details>
-
-          <details>
-            <summary>certificate raw data</summary>
-            <Show when={certificateData()}>
-              {(data) => (
-                <pre class="overflow-scroll">
-                  {JSON.stringify(data(), undefined, 2)}
-                </pre>
-              )}
-            </Show>
-          </details>
-        </div>
-      </ErrorBoundary>
-
-      <button onClick={force_update_cache}>Force update cache</button>
+        </ErrorBoundary>
+      </div>
     </div>
   );
-}
+};
 
 export default App;

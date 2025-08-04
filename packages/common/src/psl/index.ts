@@ -1,32 +1,34 @@
-import { DataCache } from "../type";
+import { InformationCache } from "../type";
 import { parse_tld } from "../utils/domain";
+import { source_error } from "../utils/error";
 
 // https://publicsuffix.org/list/
 const CACHING_DAYS = 7;
 
-export async function update(cache: DataCache) {
+export async function update(cache: InformationCache) {
   const lastUpdate = await cache.psl.get("_lastUpdate");
 
-  const caching_outdated = new Date().setDate(
+  const cachingOutdated = new Date().setDate(
     new Date().getDate() - CACHING_DAYS,
   );
 
   if (
-    lastUpdate === null ||
-    new Date(lastUpdate).getTime() < caching_outdated
+    lastUpdate === undefined ||
+    new Date(lastUpdate).getTime() < cachingOutdated
   ) {
     await load(cache);
   }
 }
 
-export async function load(cache: DataCache) {
+export async function load(cache: InformationCache) {
   await cache.psl.clear();
 
   // https://publicsuffix.org/list/
   const res = await fetch(
     "https://publicsuffix.org/list/public_suffix_list.dat",
-    { cache: "no-cache" },
   );
+
+  if (!res.ok) throw source_error("Public Suffix List not available");
 
   const text = await res.text();
   const lines = text.split("\n");
@@ -48,11 +50,14 @@ export async function load(cache: DataCache) {
       tld = line.substring(2);
     }
 
-    tld = parse_tld(tld);
-    if (tld === undefined) continue;
+    try {
+      tld = parse_tld(tld);
 
-    const rule = `${prefix}${tld}`;
-    promises.push(cache.psl.set(rule, ""));
+      const rule = `${prefix}${tld}`;
+      promises.push(cache.psl.set(rule, ""));
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   await Promise.allSettled(promises);
@@ -61,7 +66,10 @@ export async function load(cache: DataCache) {
 }
 
 // https://github.com/publicsuffix/list/wiki/Format#algorithm
-export async function get_effective_domain(domain: string, cache: DataCache) {
+export async function get_effective_domain(
+  domain: string,
+  cache: InformationCache,
+) {
   await update(cache);
 
   const labels = domain.split(".");
@@ -71,21 +79,21 @@ export async function get_effective_domain(domain: string, cache: DataCache) {
 
     const exceptionRule = `!${labels.slice(l).join(".")}`;
     const exceptionRuleMatch = await cache.psl.get(exceptionRule);
-    if (exceptionRuleMatch !== null) {
+    if (exceptionRuleMatch !== undefined) {
       return eDomain;
     }
 
     if (l < labels.length - 1) {
       const wildcardRule = `*.${labels.slice(l + 1).join(".")}`;
       const wildcardRuleMatch = await cache.psl.get(wildcardRule);
-      if (wildcardRuleMatch !== null) {
+      if (wildcardRuleMatch !== undefined) {
         return eDomain;
       }
     }
 
-    const rule = `${labels.slice(l).join(".")}`;
+    const rule = labels.slice(l).join(".");
     const ruleMatch = await cache.psl.get(rule);
-    if (ruleMatch !== null) {
+    if (ruleMatch !== undefined) {
       return eDomain;
     }
   }

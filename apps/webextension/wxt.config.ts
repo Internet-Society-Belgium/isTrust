@@ -5,16 +5,11 @@ import { defineConfig } from "wxt";
 export default defineConfig({
   srcDir: "src",
   outDir: "dist",
-  // debug: true,
   imports: false,
-  modules: ["@wxt-dev/module-solid"],
+  modules: ["@wxt-dev/module-solid", "@wxt-dev/auto-icons"],
   vite: () => ({
     plugins: [tailwindcss()],
   }),
-  webExt: {
-    startUrls: ["wikipedia.org"],
-    openDevtools: true,
-  },
   manifest: {
     name: "isTrust",
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
@@ -25,5 +20,11 @@ export default defineConfig({
   zip: {
     artifactTemplate: "isTrust-{{name}}-{{browser}}-{{version}}.zip",
     zipSources: false,
+  },
+  // debug: true,
+  webExt: {
+    startUrls: ["wikipedia.org"],
+    openDevtools: true,
+    // chromiumArgs: ["--user-data-dir=./.wxt/chrome-data"],
   },
 });

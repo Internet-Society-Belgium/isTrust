@@ -1,15 +1,16 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
-import { DataCache } from "../type";
+import { InformationCache } from "../type";
 
+/* eslint-disable @typescript-eslint/require-await */
 let storePsl: Record<string, string> = {};
 let storeRdap: Record<string, string> = {};
-const cache: DataCache = {
+const cache: InformationCache = {
   psl: {
     set: async (key: string, value: string) => {
       storePsl[key] = value;
     },
-    get: async (key: string) => storePsl[key] ?? null,
+    get: async (key: string) => storePsl[key],
     clear: async () => {
       storePsl = {};
     },
@@ -18,73 +19,121 @@ const cache: DataCache = {
     set: async (key: string, value: string) => {
       storeRdap[key] = value;
     },
-    get: async (key: string) => storeRdap[key] ?? null,
+    get: async (key: string) => storeRdap[key],
     clear: async () => {
       storeRdap = {};
     },
   },
 };
 
-test("wikipedia.org", async () => {
-  const whoisData = await get_data("wikipedia.org", cache);
-
-  expect(whoisData).toStrictEqual({
-    registration: "2001-01-13T00:12:14.754Z",
-    expiration: "2026-01-13T00:12:14.000Z",
-    registrant: {
-      organization: "Wikimedia Foundation, Inc.",
-      country: {
-        code: "US",
-      },
-    },
-    dnssecPresent: false,
-  } satisfies typeof whoisData);
-});
-
 test("istrust.org", async () => {
   const whoisData = await get_data("istrust.org", cache);
 
   expect(whoisData).toStrictEqual({
-    registration: "2021-09-07T08:09:16.242Z",
-    expiration: "2025-09-07T08:09:16.242Z",
-    registrant: {
-      organization: "Internet Society Chapter Belgium vzw/asbl",
-      country: {
-        code: "BE",
+    countries: [
+      {
+        value: "BE",
+        verified: false,
+        sources: [
+          {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+        ],
       },
-    },
-    dnssecPresent: false,
+    ],
+    individuals: [
+      {
+        value: "Redacted for Privacy",
+        verified: false,
+        sources: [
+          {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+        ],
+      },
+    ],
+    organizations: [
+      {
+        value: "Internet Society Chapter Belgium vzw/asbl",
+        verified: false,
+        sources: [
+          {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+        ],
+      },
+    ],
+    registrations: [
+      {
+        value: "2021-09-07T00:00:00.000Z",
+        sources: [
+          {
+            links: ["https://www.gandi.net/"],
+            organization: "Gandi SAS",
+          },
+        ],
+      },
+    ],
   } satisfies typeof whoisData);
 });
 
-test("newtab.com", async () => {
-  const whoisData = await get_data("newtab.com", cache);
+test("github.com", async () => {
+  const whoisData = await get_data("github.com", cache);
 
   expect(whoisData).toStrictEqual({
-    dnssecPresent: false,
-    expiration: "2029-04-24T00:12:17.000Z",
-    registrant: {
-      country: {
-        name: "CN",
+    countries: [
+      {
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Markmonitor Inc.",
+          },
+        ],
+        value: "US",
+        verified: false,
       },
-      individual: "Redacted for Privacy",
-      organization: "广西云奥网络科技有限公司",
-    },
-    registration: "2005-04-24T00:12:17.000Z",
-  } satisfies typeof whoisData);
-});
-
-test("phishurl.com", async () => {
-  const whoisData = await get_data("phishurl.com", cache);
-
-  expect(whoisData).toStrictEqual({
-    dnssecPresent: false,
-    expiration: "2025-05-27T15:31:15.000Z",
-    registrant: {
-      country: {
-        code: "BE",
+    ],
+    individuals: [
+      {
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Markmonitor Inc.",
+          },
+        ],
+        value: "REDACTED REGISTRANT",
+        verified: false,
       },
-    },
-    registration: "2024-05-27T15:31:15.000Z",
+    ],
+    organizations: [
+      {
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Markmonitor Inc.",
+          },
+        ],
+        value: "GitHub, Inc.",
+        verified: false,
+      },
+    ],
+    registrations: [
+      {
+        sources: [
+          {
+            country: "US",
+            links: ["http://www.markmonitor.com"],
+            organization: "MarkMonitor Inc.",
+          },
+        ],
+        value: "2007-10-09T00:00:00.000Z",
+      },
+    ],
   } satisfies typeof whoisData);
 });

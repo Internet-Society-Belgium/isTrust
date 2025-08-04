@@ -1,0 +1,19 @@
+export function ID() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 512 512"
+    >
+      <mask id="circle">
+        <circle cx="256" cy="256" r="256" fill="#fff" />
+      </mask>
+      <g mask="url(#circle)">
+        <path fill="#eee" d="m0 256 249.6-41.3L512 256v256H0z" />
+        <path fill="#a2001d" d="M0 0h512v256H0z" />
+      </g>
+    </svg>
+  );
+}
+export default ID;

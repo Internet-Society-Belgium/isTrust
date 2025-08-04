@@ -1,36 +1,45 @@
-import * as _certificate from "./certificate";
-import * as _dnssec from "./dnssec";
-import * as _psl from "./psl";
-import type { DataCache } from "./type";
+import * as certificate from "./certificate";
+import * as dnssec from "./dnssec";
+import * as psl from "./psl";
+import {
+  merge_informations,
+  type Information,
+  type InformationCache,
+} from "./type";
 import { parse_domain } from "./utils/domain";
-import * as _whois from "./whois";
+import * as whois from "./whois";
 
-export { DataCache as InternalCache };
+export type { Information, InformationCache };
 
-export async function get_effective_domain(query: string, cache: DataCache) {
+export { merge_informations };
+
+export async function get_effective_domain(
+  query: string,
+  cache: InformationCache,
+) {
   const domain = parse_domain(query);
-  if (domain === undefined) return;
-  return await _psl.get_effective_domain(domain, cache);
+  return await psl.get_effective_domain(domain, cache);
 }
 
-export async function get_whois_data(eDomain: string, cache: DataCache) {
-  return await _whois.get_data(eDomain, cache);
+export async function get_whois_data(eDomain: string, cache: InformationCache) {
+  return await whois.get_data(eDomain, cache);
 }
 
 export async function get_certificate_data(eDomain: string) {
-  return await _certificate.get_data(eDomain);
+  return await certificate.get_data(eDomain);
 }
 
-export async function is_dnssec_valid(eDomain: string, resolver?: string) {
-  return await _dnssec.isValid(eDomain, resolver);
+export async function get_dnssec_data(
+  eDomain: string,
+  customResolver?: string,
+) {
+  return await dnssec.get_data(eDomain, customResolver);
 }
 
-export function update_cache(cache: DataCache) {
-  _psl.update(cache);
-  _whois.update(cache);
+export async function update_cache(cache: InformationCache) {
+  await Promise.allSettled([psl.update(cache), whois.update(cache)]);
 }
 
-export function force_update_cache(cache: DataCache) {
-  _psl.load(cache);
-  _whois.load(cache);
+export async function force_update_cache(cache: InformationCache) {
+  await Promise.allSettled([psl.load(cache), whois.load(cache)]);
 }
