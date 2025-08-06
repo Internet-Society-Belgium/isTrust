@@ -16,7 +16,7 @@ export function List<T extends any[]>(props: {
         <For each={props.each}>
           {(item, index) => (
             <li class="flex items-center gap-0.5">
-              {props.children(item, index())}
+              <div class="min-w-0">{props.children(item, index())}</div>
               <Show when={props.suffix}>
                 {(suffix) => <>{suffix()(item)}</>}
               </Show>

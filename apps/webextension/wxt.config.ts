@@ -17,6 +17,7 @@ export default defineConfig({
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions
     optional_permissions: [],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions#host_permissions
+    // prevent CORS errors
     host_permissions: ["https://api.dnsbelgium.be/*", "https://api.sidn.nl/*"],
   },
   zip: {
