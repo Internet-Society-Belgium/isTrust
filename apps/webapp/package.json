@@ -2,20 +2,17 @@
   "name": "webapp",
   "version": "0.0.0",
   "type": "module",
-  "sideEffects": [
-    "**/*.css"
-  ],
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "lint": "eslint src --max-warnings 0",
-    "format": "prettier ./src --write",
+    "bundle": "npm run build && node ./scripts/bundle.cjs",
     "check-types": "tsc --noEmit",
-    "bundle": "npm run build && node ./scripts/bundle.cjs"
+    "dev": "vite",
+    "format": "prettier ./src --write",
+    "lint": "eslint src --max-warnings 0"
   },
   "dependencies": {
-    "@istrust/ui": "*",
-    "@istrust/common": "*"
+    "@istrust/common": "*",
+    "@istrust/ui": "*"
   },
   "devDependencies": {
     "@istrust/eslint-config": "*",

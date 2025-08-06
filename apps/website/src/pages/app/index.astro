@@ -1,0 +1,14 @@
+---
+import { App } from "../../components/App";
+import "../../styles/ui.css";
+import BaseLayout from "../../layouts/base.astro";
+---
+
+<BaseLayout>
+  <noscript>
+    <div class="bg-background flex min-h-screen items-center justify-center">
+      You need to enable JavaScript to run this app
+    </div>
+  </noscript>
+  <App client:only="solid-js" />
+</BaseLayout>
