@@ -1,29 +1,29 @@
 {
   "name": "@istrust/ui",
-  "type": "module",
   "version": "0.0.0",
   "sideEffects": [
     "**/*.css"
   ],
-  "files": [
-    "dist"
-  ],
+  "type": "module",
   "exports": {
     ".": "./dist/styles.css",
     "./*": "./dist/*.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "vite build --watch --mode development",
     "build": "vite build",
     "check-types": "tsc --noEmit",
-    "format": "prettier ./src --write",
+    "dev": "vite build --watch --mode development",
+    "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "lint": "eslint src --max-warnings 0"
   },
   "devDependencies": {
+    "@istrust/common": "*",
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
     "@istrust/typescript-config": "*",
-    "@istrust/common": "*",
     "@tailwindcss/vite": "^4.1.11",
     "solid-js": "^1.8.17",
     "tailwindcss": "^4.1.11",

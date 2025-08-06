@@ -1,5 +1,5 @@
 {
+  "exclude": ["node_modules"],
   "extends": "@istrust/typescript-config/solid",
-  "include": ["."],
-  "exclude": ["node_modules"]
+  "include": ["."]
 }

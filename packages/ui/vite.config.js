@@ -1,8 +1,8 @@
+import tailwindcss from "@tailwindcss/vite";
+import glob from "glob";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import tailwindcss from "@tailwindcss/vite";
 import solid from "vite-plugin-solid";
-import glob from "glob";
 
 const files = glob.sync("src/*/index.tsx").map((f) => {
   const m = f.match(/src\/(.*)\/index.tsx/);

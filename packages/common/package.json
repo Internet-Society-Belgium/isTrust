@@ -11,7 +11,7 @@
     "build": "vite build",
     "check-types": "tsc --noEmit",
     "dev": "vite build --watch",
-    "format": "prettier ./src --write",
+    "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "lint": "eslint src --max-warnings 0",
     "test": "vitest run"
   },
