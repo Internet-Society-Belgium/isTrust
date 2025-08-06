@@ -75,6 +75,16 @@ export const App: Component = () => {
     forceUpdateCache: boolean;
   }>();
 
+  const [initValue, setInitValue] = createSignal<string>();
+
+  onMount(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const value = urlSearchParams.get("q");
+    if (value !== null) {
+      setInitValue(value);
+    }
+  });
+
   const [domain, { mutate: mutateDomain }] = createResource(
     searchQuery,
     async (query) => {
@@ -138,6 +148,8 @@ export const App: Component = () => {
     <div class="bg-background flex min-h-screen items-center justify-center">
       <div class="flex w-sm flex-col gap-2 p-4">
         <SearchBar
+          initValue={initValue()}
+          focusOnMount={initValue() === undefined}
           reload={() => reload()}
           search={(text) => {
             search(text);

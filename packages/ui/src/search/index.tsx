@@ -4,6 +4,8 @@ import { IconIsTrust, IconNext, IconPrevious, IconReload } from "../icon";
 
 interface Props {
   reload: () => void;
+  focusOnMount?: boolean;
+  initValue?: string;
   // eslint-disable-next-line no-unused-vars
   search: (text: string) => void;
 }
@@ -15,8 +17,23 @@ export const SearchBar: Component<Props> = (props) => {
   let input!: HTMLInputElement;
 
   onMount(() => {
-    input.focus();
+    if (props.initValue !== undefined) {
+      input.value = props.initValue;
+      search(props.initValue);
+    }
+
+    if (props.focusOnMount === true) {
+      input.focus();
+    }
   });
+
+  const search = (text: string) => {
+    const newHistory = [...history(), text];
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+
+    props.search(text);
+  };
 
   const searchFromHistoryIndex = (offset: number) => {
     const newHistoryIndex = historyIndex() + offset;
@@ -67,11 +84,7 @@ export const SearchBar: Component<Props> = (props) => {
           const text = formData.get("text")?.toString();
           if (text === undefined) return;
 
-          const newHistory = [...history(), text];
-          setHistory(newHistory);
-          setHistoryIndex(newHistory.length - 1);
-
-          props.search(text);
+          search(text);
         }}
       >
         <input
