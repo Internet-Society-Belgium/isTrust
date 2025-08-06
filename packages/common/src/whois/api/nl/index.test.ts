@@ -28,7 +28,7 @@ test("sidn.nl", async () => {
             organization: "SIDN BV",
           },
         ],
-        value: "1999-11-18",
+        value: "1999-11-18T00:00:00.000Z",
       },
     ],
   } satisfies typeof whoisData);

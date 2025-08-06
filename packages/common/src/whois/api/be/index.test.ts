@@ -41,7 +41,7 @@ test("dnsbelgium.be", async () => {
             organization: "DNS Belgium",
           },
         ],
-        value: "2012-06-13T14:23:47.000Z",
+        value: "2012-06-13T00:00:00.000Z",
       },
     ],
   } satisfies typeof whoisData);
