@@ -199,8 +199,15 @@ function improve_data(data: WHOISData, result: RdapResult) {
 
   for (const event of result.events) {
     if (event.eventAction === "registration") {
+      const registrationDate = new Date(event.eventDate).setUTCHours(
+        0,
+        0,
+        0,
+        0,
+      );
+
       const improvedRegistrations = improve_informations(data.registrations, {
-        value: new Date(event.eventDate).toISOString(),
+        value: new Date(registrationDate).toISOString(),
         sources,
       });
       if (improvedRegistrations.length > 0) {

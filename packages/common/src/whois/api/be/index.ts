@@ -30,9 +30,13 @@ export async function get_data(domain: string) {
 
     const registration = validate_registration(jsonRegistration);
 
+    const registrationDate = new Date(
+      registration.domainInfo.created,
+    ).setUTCHours(0, 0, 0, 0);
+
     data.registrations = [
       {
-        value: new Date(registration.domainInfo.created).toISOString(),
+        value: new Date(registrationDate).toISOString(),
         sources,
       },
     ];

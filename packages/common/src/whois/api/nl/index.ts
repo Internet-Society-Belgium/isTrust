@@ -28,8 +28,15 @@ export async function get_data(domain: string) {
 
     const whois = validate_whois(json);
 
+    const registrationDate = new Date(whois.details.creationDate).setUTCHours(
+      0,
+      0,
+      0,
+      0,
+    );
+
     data.registrations = [
-      { value: new Date(whois.details.creationDate).toISOString(), sources },
+      { value: new Date(registrationDate).toISOString(), sources },
     ];
 
     data.organizations = [{ value: whois.details.registrant, sources }];
