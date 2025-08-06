@@ -1,4 +1,4 @@
-type ErrorType = "UserError" | "SourceError" | "FeatureError";
+export type ErrorType = "UserError" | "SourceError" | "FeatureError";
 
 export function user_error(message: string) {
   return custom_error(message, "UserError");

@@ -1,5 +1,6 @@
 import { Match, Switch, type Component } from "solid-js";
 import "../styles.css";
+import * as common from "@istrust/common";
 import { IconGithub } from "../icon";
 
 type Scope = "istrust.org" | "chrome" | "firefox" | "edge" | "safari";
@@ -63,7 +64,7 @@ Add any other context or screenshots about the feature request here.
     <div class="flex flex-col items-center justify-center gap-2 py-4">
       <p>{props.error.message}</p>
       <Switch>
-        <Match when={props.error.name === "FeatureError"}>
+        <Match when={(props.error.name as common.ErrorType) === "FeatureError"}>
           <a
             class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
             href={issueURL("enhancement", issueFeature(props.error.message))}
@@ -74,7 +75,7 @@ Add any other context or screenshots about the feature request here.
             <IconGithub />
           </a>
         </Match>
-        <Match when={props.error.name !== "UserError"}>
+        <Match when={(props.error.name as common.ErrorType) !== "UserError"}>
           <a
             class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
             href={issueURL(

@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
-import { InformationCache } from "../type";
+import { InformationCache } from "../../type";
 
 /* eslint-disable @typescript-eslint/require-await */
 let storePsl: Record<string, string> = {};

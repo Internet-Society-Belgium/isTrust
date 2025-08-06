@@ -18,18 +18,18 @@ export function get_data(cert: X509Certificate) {
     x509.CertificatePolicyExtension,
   );
   if (
-    certificatePolicyExtension?.policies.includes(oid.ExtendedValidation) ===
+    certificatePolicyExtension?.policies.includes(oid.EXTENDED_VALIDATION) ===
     true
   ) {
     type = "EV";
   } else if (
     certificatePolicyExtension?.policies.includes(
-      oid.OrganizationValidation,
+      oid.ORGANIZATION_VALIDATION,
     ) === true
   ) {
     type = "OV";
   } else if (
-    certificatePolicyExtension?.policies.includes(oid.IndividualValidation) ===
+    certificatePolicyExtension?.policies.includes(oid.INDIVIDUAL_VALIDATION) ===
     true
   ) {
     type = "IV";
@@ -45,7 +45,7 @@ export function get_data(cert: X509Certificate) {
 
   let organization: string | undefined;
 
-  const issuerOrganization = atos(cert.issuerName.getField(oid.Organization));
+  const issuerOrganization = atos(cert.issuerName.getField(oid.ORGANIZATION));
   if (issuerOrganization !== undefined) {
     organization = issuerOrganization;
   }
@@ -56,7 +56,7 @@ export function get_data(cert: X509Certificate) {
       links: [],
     };
 
-    const issuerCountry = atos(cert.issuerName.getField(oid.Country));
+    const issuerCountry = atos(cert.issuerName.getField(oid.COUNTRY));
     if (issuerCountry !== undefined) {
       issuer.country = issuerCountry;
     }
@@ -66,10 +66,10 @@ export function get_data(cert: X509Certificate) {
     data.issuer = issuer;
   }
 
-  const subjectOrganization = atos(cert.subjectName.getField(oid.Organization));
+  const subjectOrganization = atos(cert.subjectName.getField(oid.ORGANIZATION));
   if (subjectOrganization !== undefined) {
     const organizationUnit = atos(
-      cert.subjectName.getField(oid.OrganizationalUnit),
+      cert.subjectName.getField(oid.ORGANIZATION_UNIT),
     );
     if (organizationUnit !== undefined) {
       data.organization = `${subjectOrganization} (${organizationUnit})`;
@@ -78,17 +78,17 @@ export function get_data(cert: X509Certificate) {
     }
   }
 
-  const subjectCountry = atos(cert.subjectName.getField(oid.Country));
+  const subjectCountry = atos(cert.subjectName.getField(oid.COUNTRY));
   if (subjectCountry !== undefined) {
     data.country = subjectCountry;
   }
 
-  const subjectIncCountry = atos(cert.subjectName.getField(oid.IncCountry));
+  const subjectIncCountry = atos(cert.subjectName.getField(oid.INC_COUNTRY));
   if (subjectIncCountry !== undefined) {
     data.incCountry = subjectIncCountry;
   }
 
-  const subjectGivenName = atos(cert.subjectName.getField(oid.GivenName));
+  const subjectGivenName = atos(cert.subjectName.getField(oid.GIVEN_NAME));
   if (subjectGivenName !== undefined) {
     data.individual = subjectGivenName;
   }
@@ -127,7 +127,7 @@ function is_tls_capable(cert: X509Certificate) {
   );
   if (
     extendedKeyUsageExtension !== null &&
-    extendedKeyUsageExtension.usages.includes(oid.ServerAuthentication)
+    extendedKeyUsageExtension.usages.includes(oid.SERVER_AUTHENTICATION)
   ) {
     return true;
   }
@@ -138,7 +138,7 @@ function is_tls_capable(cert: X509Certificate) {
 function is_same_domain(cert: X509Certificate, domain: string) {
   const dnsNames = [];
 
-  const commonName = atos(cert.subjectName.getField(oid.CommonName));
+  const commonName = atos(cert.subjectName.getField(oid.COMMON_NAME));
   if (commonName !== undefined) {
     dnsNames.push(commonName);
   }

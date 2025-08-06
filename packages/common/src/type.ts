@@ -14,6 +14,8 @@ export function merge_informations<T>(
   array1: Information<T>[] | undefined,
   array2: Information<T>[] | undefined,
 ) {
+  if (array1 === undefined && array2 === undefined) return;
+
   let informations = [...(array1 || [])];
   for (const a2 of array2 || []) {
     informations = improve_informations(informations, a2);

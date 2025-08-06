@@ -1,24 +1,28 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { z } from "zod/mini";
 import { source_error } from "../../utils/error";
 
 // https://sslmate.com/help/reference/ct_search_api_v1#api_issuance
-const SSLMateSearchSchema = z.object({
+const sslMateSearchSchema = z.object({
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   dns_names: z.array(z.string()),
-  not_before: z.string(),
-  not_after: z.string(),
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  not_before: z.iso.datetime(),
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  not_after: z.iso.datetime(),
   revoked: z.nullable(z.boolean()),
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   cert_der: z.string(),
 });
-const SSLMateSearchListSchema = z.array(SSLMateSearchSchema);
+const sslMateSearchListSchema = z.array(sslMateSearchSchema);
 
-export type SSLMateSearch = z.infer<typeof SSLMateSearchSchema>;
+export type SSLMateSearch = z.infer<typeof sslMateSearchSchema>;
 
-export function validateSSLMateSearch(json: unknown) {
-  const sslMateResults = SSLMateSearchListSchema.safeParse(json);
-  if (!sslMateResults.success)
+export function validate_sslmate_search(json: unknown) {
+  const sslMateResults = sslMateSearchListSchema.safeParse(json);
+  if (!sslMateResults.success) {
     throw source_error(
-      `Invalid SSLMate response (${sslMateResults.error.message})`,
+      `Invalid result format:\n${z.prettifyError(sslMateResults.error)}`,
     );
+  }
   return sslMateResults.data;
 }
