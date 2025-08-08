@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
+@import "@istrust/tailwind-config";
+
 @import "@istrust/ui";
 
-body {
-  @apply text-base;
+@layer base {
+  body {
+    @apply text-base;
+  }
 }

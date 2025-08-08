@@ -14,5 +14,10 @@
     "astro": "^5.12.8",
     "solid-js": "^1.9.7",
     "tailwindcss": "^4.1.11"
+  },
+  "devDependencies": {
+    "@istrust/eslint-config": "*",
+    "@istrust/prettier-config": "*",
+    "@istrust/tailwind-config": "*"
   }
 }

@@ -26,6 +26,7 @@
   "devDependencies": {
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
+    "@istrust/tailwind-config": "*",
     "@tailwindcss/vite": "^4.1.8",
     "@types/chrome": "^0.0.326",
     "@wxt-dev/auto-icons": "^1.0.2",
