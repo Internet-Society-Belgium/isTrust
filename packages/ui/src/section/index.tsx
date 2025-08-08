@@ -1,14 +1,16 @@
-import { JSX, Show, Suspense, type Component } from "solid-js";
+import { ErrorBoundary, JSX, Show, Suspense, type Component } from "solid-js";
 import "../styles.css";
 import * as common from "@istrust/common";
+import { Issue } from "../issue";
 import { List } from "../list";
 
-interface Props {
+interface SectionProps {
+  query: string;
   title: string;
   children: JSX.Element;
 }
 
-export const Section: Component<Props> = (props) => {
+export const Section: Component<SectionProps> = (props) => {
   return (
     <>
       <div class="align-center flex w-full items-center text-center">
@@ -18,7 +20,41 @@ export const Section: Component<Props> = (props) => {
         </div>
         <div class="border-border w-full border-t border-solid" />
       </div>
-      {props.children}
+      <ErrorBoundary
+        fallback={(error) => <Issue query={props.query} error={error} />}
+      >
+        {props.children}
+      </ErrorBoundary>
+    </>
+  );
+};
+
+interface SectionUnavailableProps {
+  title: string;
+  children: JSX.Element;
+  message: JSX.Element;
+}
+
+export const SectionUnavailable: Component<SectionUnavailableProps> = (
+  props,
+) => {
+  return (
+    <>
+      <div class="align-center flex w-full items-center text-center">
+        <div class="border-border w-full border-t border-solid" />
+        <div class="mx-3 flex font-medium whitespace-nowrap">
+          <span class="text-sm">{props.title}</span>
+        </div>
+        <div class="border-border w-full border-t border-solid" />
+      </div>
+
+      <div class="relative">
+        {props.children}
+
+        <div class="bg-container/75 absolute top-0 z-1 h-full w-full">
+          {props.message}
+        </div>
+      </div>
     </>
   );
 };
@@ -64,6 +100,19 @@ export function SectionItem<T>(props: {
           )}
         </Show>
       </Suspense>
+    </div>
+  );
+}
+
+export function SectionItemUnavailable(props: {
+  description: string;
+  prefix: JSX.Element;
+}) {
+  return (
+    <div class="flex items-center gap-2">
+      <div title={props.description}>{props.prefix}</div>
+
+      <p class="text-muted">{props.description}</p>
     </div>
   );
 }
