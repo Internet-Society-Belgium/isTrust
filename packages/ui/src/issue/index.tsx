@@ -3,29 +3,22 @@ import "../styles.css";
 import * as common from "@istrust/common";
 import { IconGithub } from "../icon";
 
-type Scope = "istrust.org" | "chrome" | "firefox" | "edge" | "safari";
-
 interface Props {
   query: string;
-  scope?: Scope;
   error: Error;
 }
 
 export const Issue: Component<Props> = (props) => {
-  const issueBug = (
-    scope: Scope | undefined,
-    query: string,
-    errorMessage: string,
-  ) => {
+  const issueBug = (query: string, errorMessage: string) => {
     return `# Scope
 Where did the error happened
 
-- [${scope === "istrust.org" ? "x" : " "}] istrust.org
+- [${window.location.hostname === "istrust.org" ? "x" : " "}] istrust.org
 - [ ] webextension
-    - [${scope === "chrome" ? "x" : " "}] chrome
-    - [${scope === "firefox" ? "x" : " "}] firefox
-    - [${scope === "safari" ? "x" : " "}] safari
-    - [${scope === "edge" ? "x" : " "}] edge
+    - [${window.location.protocol === "chrome-extension:" ? "x" : " "}] chrome
+    - [${window.location.hostname === "moz-extension:" ? "x" : " "}] firefox
+    - [ ] safari
+    - [${window.location.protocol === "edge-extension:" ? "x" : " "}] edge
 
 # Input URL or domain name
 ${query}
@@ -61,8 +54,7 @@ Add any other context or screenshots about the feature request here.
   };
 
   return (
-    <div class="flex flex-col items-center justify-center gap-2 py-4">
-      <p>{props.error.message}</p>
+    <>
       <Switch>
         <Match when={(props.error.name as common.ErrorType) === "FeatureError"}>
           <a
@@ -76,20 +68,20 @@ Add any other context or screenshots about the feature request here.
           </a>
         </Match>
         <Match when={(props.error.name as common.ErrorType) !== "UserError"}>
-          <a
-            class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
-            href={issueURL(
-              "bug",
-              issueBug(props.scope, props.query, props.error.message),
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Report bug
-            <IconGithub />
-          </a>
+          <div class="flex flex-col items-center justify-center gap-2 py-4">
+            <p>{props.error.message}</p>
+            <a
+              class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
+              href={issueURL("bug", issueBug(props.query, props.error.message))}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Report bug
+              <IconGithub />
+            </a>
+          </div>
         </Match>
       </Switch>
-    </div>
+    </>
   );
 };
