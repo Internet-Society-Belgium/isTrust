@@ -1,11 +1,116 @@
 ---
-import BaseLayout from "../layouts/base.astro";
+import { Image } from "astro:assets";
+import { App } from "../components/app";
+import { stores } from "../data/stores";
+import Layout from "../layouts/layout.astro";
 ---
 
-<BaseLayout>
-  Header
+<Layout>
+  <section
+    class="p-8 flex flex-wrap w-full min-h-[600px] justify-center items-center before:h-full before:absolute before:inset-0 before:[background-size:20px_20px] before:[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)] before:-z-1 before:[mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"
+  >
+    <div class="basis-1/2">
+      <div class="py-6">
+        <div>
+          <h2 class="text-5xl flex flex-col items-start">
+            <span> Verify the trustworthiness </span>
+            <span> of any website </span>
+          </h2>
+        </div>
 
-  <iframe src="/app" class="w-sm"></iframe>
+        <div class="mt-6 flex gap-2 items-center">
+          <a
+            id="get-default"
+            class="py-3 px-4 rounded-full bg-primary text-white shadow-2xs"
+            href="#get"
+          >
+            <span> Get webextension</span>
+          </a>
+          {
+            stores.entries().map((store) => (
+              <a
+                id={`get-${store[0]}`}
+                class="py-3 px-4 flex items-center gap-2 rounded-full bg-primary text-white shadow-2xs"
+                href={store[1].link}
+                style="display: none;"
+              >
+                <div class="h-6 w-6">
+                  <Image
+                    src={store[1].icon()}
+                    alt={store[1].name}
+                    loading="eager"
+                  />
+                </div>
+                <span>Get webextension</span>
+              </a>
+            ))
+          }
+          <script>
+            function browser() {
+              const ua = navigator.userAgent;
 
-  Footer
-</BaseLayout>
+              if (ua.includes("Chrome") || ua.includes("Chromium")) {
+                if (ua.includes("Edg")) return "edge";
+
+                return "chrome";
+              }
+              if (ua.includes("Safari")) return "safari";
+
+              if (ua.includes("Firefox")) return "firefox";
+            }
+
+            const getDefault =
+              document.querySelector<HTMLAnchorElement>(`#get-default`);
+            const getStore = document.querySelector<HTMLAnchorElement>(
+              `#get-${browser()}`
+            );
+
+            if (getDefault !== null && getStore !== null) {
+              getStore.style.display = "inherit";
+              getDefault.style.display = "none";
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <div class="basis-1/2">
+      <div class="py-6">
+        <noscript> You need to enable JavaScript to run this app </noscript>
+        <App client:only="solid-js" />
+      </div>
+    </div>
+  </section>
+
+  <section id="trailer" class="p-4">
+    <video controls class="h-full w-full rounded-lg shadow-lg aspect-video">
+      <source
+        src="https://istrust.org/teaser/teaser-v0.8.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support this video
+    </video>
+  </section>
+
+  <section id="get" class="mt-6 p-8 flex flex-col justify-center items-center">
+    <div class="text-center my-6">
+      <h3>Get webextension</h3>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-10">
+      {
+        stores.values().map((store) => (
+          <a
+            href={store.link}
+            class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center justify-center flex-col gap-1.5 rounded-md border-0 w-24 h-24 text-sm font-medium ring transition-colors ring-inset"
+          >
+            <div class="h-8 w-8">
+              <Image src={store.icon()} alt={store.name} loading="eager" />
+            </div>
+            <p class="text-center">{store.name}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
