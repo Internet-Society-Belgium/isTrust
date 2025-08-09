@@ -11,23 +11,23 @@ import "../styles/global.css";
     <title>isTrust</title>
   </head>
   <body class="bg-background">
-    <div class="min-h-screen flex flex-col justify-between">
+    <div class="flex min-h-screen flex-col justify-between">
       <header
-        class="sticky top-0 bg-background/75 backdrop-blur border-b border-border"
+        class="bg-background/75 border-border sticky top-0 z-100 border-b backdrop-blur"
       >
-        <div class="max-w-4xl mx-auto">
+        <div class="mx-auto max-w-4xl">
           <Header />
         </div>
       </header>
 
       <main>
-        <div class="max-w-4xl mx-auto">
+        <div class="mx-auto max-w-4xl">
           <slot />
         </div>
       </main>
 
-      <footer class="border-t border-border">
-        <div class="max-w-4xl mx-auto">
+      <footer class="border-border border-t">
+        <div class="mx-auto max-w-4xl">
           <Footer />
         </div>
       </footer>

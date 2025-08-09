@@ -6,22 +6,19 @@ import Layout from "../layouts/layout.astro";
 ---
 
 <Layout>
-  <section class="relative p-8">
-    <div
-      class="absolute w-full inset-0 [background-size:20px_20px] [background-image:radial-gradient(#d4d4d4_1px,transparent_1px)] -z-1 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"
-    >
-    </div>
-    <div class="py-6 flex items-center flex-col">
+  <section class="p-8">
+    <div class="flex flex-col items-center py-6">
       <div>
-        <h2 class="text-5xl text-center">
-          Verify the trustworthiness of any website
+        <h2 class="flex flex-col items-center text-center text-5xl">
+          <span> Verify the trustworthiness </span>
+          <span> of any website </span>
         </h2>
       </div>
 
-      <div class="mt-6 flex gap-2 items-center">
+      <div class="mt-6 flex items-center gap-2">
         <a
           id="get-default"
-          class="py-3 px-4 rounded-full bg-primary text-white shadow-2xs"
+          class="bg-primary rounded-full px-4 py-3 text-white shadow-2xs transition duration-200 hover:-translate-y-0.5"
           href="#get"
         >
           <span> Get webextension</span>
@@ -30,7 +27,7 @@ import Layout from "../layouts/layout.astro";
           stores.entries().map((store) => (
             <a
               id={`get-${store[0]}`}
-              class="py-3 px-4 flex items-center gap-2 rounded-full bg-primary text-white shadow-2xs"
+              class="bg-primary flex items-center gap-2 rounded-full px-4 py-3 text-white shadow-2xs transition duration-200 hover:-translate-y-0.5"
               href={store[1].link}
               style="display: none;"
             >
@@ -62,7 +59,7 @@ import Layout from "../layouts/layout.astro";
           const getDefault =
             document.querySelector<HTMLAnchorElement>(`#get-default`);
           const getStore = document.querySelector<HTMLAnchorElement>(
-            `#get-${browser()}`
+            `#get-${browser()}`,
           );
 
           if (getDefault !== null && getStore !== null) {
@@ -73,7 +70,7 @@ import Layout from "../layouts/layout.astro";
       </div>
     </div>
 
-    <div class="flex justify-center py-6 min-h-[500px]">
+    <div class="flex min-h-[500px] justify-center py-6">
       <App client:load />
     </div>
 
@@ -89,9 +86,9 @@ import Layout from "../layouts/layout.astro";
 
     <section
       id="get"
-      class="mt-6 p-8 flex flex-col justify-center items-center"
+      class="mt-6 flex flex-col items-center justify-center p-8"
     >
-      <div class="text-center my-6">
+      <div class="my-6 text-center">
         <h3>Get webextension</h3>
       </div>
 
@@ -100,7 +97,7 @@ import Layout from "../layouts/layout.astro";
           stores.values().map((store) => (
             <a
               href={store.link}
-              class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center justify-center flex-col gap-1.5 rounded-md border-0 w-24 h-24 text-sm font-medium ring transition-colors ring-inset"
+              class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex h-24 w-24 flex-col items-center justify-center gap-1.5 rounded-md border-0 text-sm font-medium ring transition-colors ring-inset"
             >
               <div class="h-8 w-8">
                 <Image src={store.icon()} alt={store.name} loading="eager" />
