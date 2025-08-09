@@ -1,6 +1,5 @@
-import { For, Match, Show, Switch, type Component } from "solid-js";
-import "../styles.css";
 import * as common from "@istrust/common";
+import { For, Match, Show, Switch, type Component } from "solid-js";
 import { Country } from "../country";
 import {
   IconBadgeCheck,

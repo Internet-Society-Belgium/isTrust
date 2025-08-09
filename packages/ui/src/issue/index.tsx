@@ -1,6 +1,5 @@
-import { Match, Switch, type Component } from "solid-js";
-import "../styles.css";
 import * as common from "@istrust/common";
+import { Match, Switch, type Component } from "solid-js";
 import { IconGithub } from "../icon";
 
 interface Props {

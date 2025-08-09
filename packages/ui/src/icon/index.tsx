@@ -1,5 +1,4 @@
 import { Component } from "solid-js";
-import "../styles.css";
 
 export const IconIsTrust: Component = () => {
   return (

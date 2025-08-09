@@ -1,5 +1,4 @@
 import { createSignal, JSX, onMount, Show, type Component } from "solid-js";
-import "../styles.css";
 
 interface Props {
   children: JSX.Element;

@@ -1,5 +1,4 @@
 import { type Component } from "solid-js";
-import "../styles.css";
 
 interface DatePastPeriodProps {
   date: string | undefined;

@@ -2,15 +2,16 @@
   "name": "@istrust/common",
   "version": "0.0.0",
   "type": "module",
-  "main": "./dist/common.js",
-  "types": "./dist/common.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "tsup",
     "check-types": "tsc --noEmit",
-    "dev": "vite build --watch",
+    "clean": "rm -rf .turbo dist node_modules",
+    "dev": "tsup --watch",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "lint": "eslint src --max-warnings 0",
     "test": "vitest run"
@@ -23,8 +24,6 @@
   "devDependencies": {
     "@types/dns-packet": "^5.6.5",
     "typescript": "^5.4.5",
-    "vite": "^6.0.3",
-    "vite-plugin-dts": "^4.3.0",
     "vitest": "^3.2.2"
   }
 }

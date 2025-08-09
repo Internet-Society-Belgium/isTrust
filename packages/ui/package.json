@@ -7,15 +7,24 @@
   "type": "module",
   "exports": {
     ".": "./dist/styles.css",
-    "./*": "./dist/*.js"
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "solid": "./dist/*.jsx",
+      "default": "./dist/*.js"
+    }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "npm run build:code && npm run build:styles",
+    "build:code": "tsup",
+    "build:styles": "npx @tailwindcss/cli -i ./src/styles.css -o ./dist/styles.css --minify",
     "check-types": "tsc --noEmit",
-    "dev": "vite build --watch --mode development",
+    "clean": "rm -rf .turbo dist node_modules",
+    "dev": "npm run dev:code & npm run dev:styles",
+    "dev:code": "tsup --watch",
+    "dev:styles": "npx @tailwindcss/cli -i ./src/styles.css -o ./dist/styles.css --minify --watch",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "lint": "eslint src --max-warnings 0"
   },
@@ -25,9 +34,13 @@
     "@istrust/prettier-config": "*",
     "@istrust/tailwind-config": "*",
     "@istrust/typescript-config": "*",
-    "@tailwindcss/vite": "^4.1.11",
-    "solid-js": "^1.8.17",
+    "@tailwindcss/cli": "^4.1.11",
+    "esbuild-plugin-solid": "^0.6.0",
     "tailwindcss": "^4.1.11",
-    "vite-plugin-solid": "^2.11.7"
+    "tsup": "^8.5.0",
+    "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.8.17"
   }
 }

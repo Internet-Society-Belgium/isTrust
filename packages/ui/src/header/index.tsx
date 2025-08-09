@@ -1,5 +1,4 @@
 import { Show, Suspense, type Component } from "solid-js";
-import "../styles.css";
 import { Overflow } from "../overflow";
 
 interface Props {

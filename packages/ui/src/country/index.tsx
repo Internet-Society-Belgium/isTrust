@@ -1,6 +1,5 @@
 import { Match, Switch, type Component } from "solid-js";
 import { Flag } from "./flag";
-import "../styles.css";
 
 interface Props {
   type: "text" | "icon";

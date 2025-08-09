@@ -1,5 +1,4 @@
 import { createSignal, onMount, type Component } from "solid-js";
-import "../styles.css";
 import { IconIsTrust, IconNext, IconPrevious, IconReload } from "../icon";
 
 interface Props {
@@ -81,16 +80,16 @@ export const SearchBar: Component<Props> = (props) => {
 
           const formData = new FormData(e.currentTarget);
 
-          const text = formData.get("text")?.toString();
-          if (text === undefined) return;
+          const q = formData.get("q")?.toString();
+          if (q === undefined) return;
 
-          search(text);
+          search(q);
         }}
       >
         <input
           ref={input}
-          type="text"
-          name="text"
+          type="q"
+          name="q"
           required
           class="bg-container-darker placeholder:text-dimmed w-full flex-1 rounded-md border-0 px-2.5 py-1 text-sm"
           placeholder="https://istrust.org/"

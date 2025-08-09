@@ -1,5 +1,4 @@
 import { Component, For, JSX, Show } from "solid-js";
-import "../styles.css";
 import { IconCornerDownRight } from "../icon";
 import { Overflow } from "../overflow";
 

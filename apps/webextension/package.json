@@ -10,6 +10,7 @@
     "bundle:chrome": "wxt zip -b chrome",
     "bundle:firefox": "wxt zip -b firefox",
     "check-types": "tsc --noEmit",
+    "clean": "rm -rf .turbo .wxt dist node_modules",
     "dev": "npm run dev:chrome",
     "dev:chrome": "wxt -b chrome",
     "dev:firefox": "wxt -b firefox",

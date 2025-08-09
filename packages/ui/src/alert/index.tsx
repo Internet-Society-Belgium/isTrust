@@ -1,3 +1,4 @@
+import * as common from "@istrust/common";
 import {
   For,
   JSX,
@@ -7,8 +8,6 @@ import {
   Switch,
   type Component,
 } from "solid-js";
-import "../styles.css";
-import * as common from "@istrust/common";
 import { IconThumbsDown, IconThumbsUp } from "../icon";
 import { SourceVerification } from "../source";
 

@@ -6,6 +6,7 @@
     },
     "bundle": {},
     "check-types": {},
+    "clean": {},
     "dev": {
       "cache": false,
       "persistent": true

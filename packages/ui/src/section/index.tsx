@@ -1,6 +1,5 @@
-import { ErrorBoundary, JSX, Show, Suspense, type Component } from "solid-js";
-import "../styles.css";
 import * as common from "@istrust/common";
+import { ErrorBoundary, JSX, Show, Suspense, type Component } from "solid-js";
 import { Issue } from "../issue";
 import { List } from "../list";
 

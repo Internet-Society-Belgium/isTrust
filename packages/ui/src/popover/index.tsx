@@ -8,7 +8,6 @@ import {
   Switch,
   type Component,
 } from "solid-js";
-import "../styles.css";
 import { Portal } from "solid-js/web";
 
 interface Props {
