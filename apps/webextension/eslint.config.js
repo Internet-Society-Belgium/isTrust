@@ -1,4 +1,5 @@
 import solidConfig from "@istrust/eslint-config/solid";
+import typescriptConfig from "@istrust/eslint-config/typescript";
 import { defineConfig } from "eslint/config";
 
-export default defineConfig(solidConfig);
+export default defineConfig([...typescriptConfig, ...solidConfig]);

@@ -35,8 +35,9 @@ import {
 
 const cache: common.InformationCache = {
   psl: {
-    set: async (key: string, value: string) =>
-      localStorage.setItem(`psl:${key}`, value),
+    set: async (key: string, value: string) => {
+      localStorage.setItem(`psl:${key}`, value);
+    },
     get: async (key: string) => {
       const item = localStorage.getItem(`psl:${key}`);
       if (item === null) return;
@@ -54,8 +55,9 @@ const cache: common.InformationCache = {
     },
   },
   rdap: {
-    set: async (key: string, value: string) =>
-      localStorage.setItem(`rdap:${key}`, value),
+    set: async (key: string, value: string) => {
+      localStorage.setItem(`rdap:${key}`, value);
+    },
     get: async (key: string) => {
       const item = localStorage.getItem(`rdap:${key}`);
       if (item === null) return;
@@ -98,7 +100,7 @@ export const App: Component = () => {
   const [domain, { mutate: mutateDomain }] = createResource(
     searchQuery,
     async (query) => {
-      if (query.forceUpdateCache === true) {
+      if (query.forceUpdateCache) {
         await common.force_update_cache(cache);
       }
 
@@ -127,22 +129,15 @@ export const App: Component = () => {
     },
   );
 
-  const [persisted, setPersisted] = createSignal<boolean>();
-  onMount(async () => {
-    setPersisted(await navigator.storage.persisted());
-  });
+  const search = (text: string) => {
+    void navigator.storage.persist();
 
-  const search = async (text: string) => {
-    if (!persisted()) {
-      await navigator.storage.persist();
-      setPersisted(await navigator.storage.persisted());
-    }
     setSearchQuery({ text, forceUpdateCache: false });
 
     resetErrorBoundaries();
   };
 
-  const reload = async () => {
+  const reload = () => {
     const oldQuery = searchQuery();
     if (oldQuery === undefined) return;
 
@@ -159,7 +154,9 @@ export const App: Component = () => {
       <SearchBar
         initValue={initValue()}
         focusOnMount={initValue() === undefined}
-        reload={() => reload()}
+        reload={() => {
+          reload();
+        }}
         search={(text) => {
           search(text);
         }}
@@ -172,7 +169,7 @@ export const App: Component = () => {
           <CertificateAlert types={certificateData()?.types} />
 
           <div class="flex flex-col gap-1">
-            <Section title="Owner" query={searchQuery()?.text || ""}>
+            <Section title="Owner">
               <SectionItem
                 description="Individual name"
                 prefix={<IconUser />}
@@ -241,7 +238,7 @@ export const App: Component = () => {
               </SectionItem>
             </Section>
 
-            <Section title="Domain" query={searchQuery()?.text || ""}>
+            <Section title="Domain">
               <SectionItem
                 description="Registration"
                 prefix={<IconCalendar1 />}
@@ -287,12 +284,8 @@ export const App: Component = () => {
               >
                 {(valid) => (
                   <Switch>
-                    <Match when={valid.value === true}>
-                      Protected with DNSSEC
-                    </Match>
-                    <Match when={valid.value === false}>
-                      Not protected with DNSSEC
-                    </Match>
+                    <Match when={valid.value}>Protected with DNSSEC</Match>
+                    <Match when={!valid.value}>Not protected with DNSSEC</Match>
                   </Switch>
                 )}
               </SectionItem>
@@ -323,7 +316,7 @@ export const App: Component = () => {
             </SectionUnavailable>
 
             <Show when={debug()}>
-              <Section title="Debug" query={searchQuery()?.text || ""}>
+              <Section title="Debug">
                 <details>
                   <summary>WHOIS raw data</summary>
                   <Show when={whoisData()}>

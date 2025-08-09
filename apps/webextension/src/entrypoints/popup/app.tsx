@@ -1,5 +1,4 @@
-import { sendMessage } from "@/utils/messaging";
-import { get_active_tab } from "@/utils/tab";
+import { messenger } from "@/utils/messaging";
 import * as common from "@istrust/common";
 import { CertificateAlert } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
@@ -18,6 +17,7 @@ import {
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import { Section, SectionItem } from "@istrust/ui/section/index";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
+import { browser } from "#imports";
 import {
   createResource,
   createSignal,
@@ -26,6 +26,26 @@ import {
   Switch,
   type Component,
 } from "solid-js";
+
+async function get_tab() {
+  const tabs = await browser.tabs.query({
+    active: true,
+    currentWindow: true,
+  });
+
+  return tabs.at(0);
+}
+
+export async function get_active_tab() {
+  let tab = await get_tab();
+
+  while (tab === undefined) {
+    tab = await get_tab();
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+
+  return tab;
+}
 
 export const App: Component = () => {
   const [mode, setMode] = createSignal<"attached" | "detached">();
@@ -53,7 +73,7 @@ export const App: Component = () => {
   });
 
   const [domain] = createResource(searchQuery, async (query) => {
-    return await sendMessage("get_effective_domain", {
+    return await messenger.sendMessage("get_effective_domain", {
       query: query.text,
       forceUpdateCache: query.forceUpdateCache,
     });
@@ -62,7 +82,7 @@ export const App: Component = () => {
   const [whoisData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await sendMessage("get_whois_data", {
+      return await messenger.sendMessage("get_whois_data", {
         domain,
       });
     },
@@ -71,7 +91,7 @@ export const App: Component = () => {
   const [dnssecData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await sendMessage("get_dnssec_data", {
+      return await messenger.sendMessage("get_dnssec_data", {
         domain,
       });
     },
@@ -80,7 +100,7 @@ export const App: Component = () => {
   const [certificateData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await sendMessage("get_certificate_data", {
+      return await messenger.sendMessage("get_certificate_data", {
         domain,
       });
     },
@@ -89,7 +109,7 @@ export const App: Component = () => {
   const [historyData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await sendMessage("get_history_data", {
+      return await messenger.sendMessage("get_history_data", {
         domain,
       });
     },
@@ -108,7 +128,7 @@ export const App: Component = () => {
           <CertificateAlert types={certificateData()?.types} />
 
           <div class="flex flex-col gap-1">
-            <Section title="Owner" query={searchQuery()?.text || ""}>
+            <Section title="Owner">
               <SectionItem
                 description="Individual name"
                 prefix={<IconUser />}
@@ -177,7 +197,7 @@ export const App: Component = () => {
               </SectionItem>
             </Section>
 
-            <Section title="Domain" query={searchQuery()?.text || ""}>
+            <Section title="Domain">
               <SectionItem
                 description="Registration"
                 prefix={<IconCalendar1 />}
@@ -223,18 +243,14 @@ export const App: Component = () => {
               >
                 {(valid) => (
                   <Switch>
-                    <Match when={valid.value === true}>
-                      Protected with DNSSEC
-                    </Match>
-                    <Match when={valid.value === false}>
-                      Not protected with DNSSEC
-                    </Match>
+                    <Match when={valid.value}>Protected with DNSSEC</Match>
+                    <Match when={!valid.value}>Not protected with DNSSEC</Match>
                   </Switch>
                 )}
               </SectionItem>
             </Section>
 
-            <Section title="Visit" query={searchQuery()?.text || ""}>
+            <Section title="Visit">
               <SectionItem
                 description="First visit"
                 prefix={<IconCalendar1 />}

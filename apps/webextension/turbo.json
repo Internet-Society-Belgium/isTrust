@@ -6,6 +6,9 @@
     },
     "check-types": {
       "dependsOn": ["@istrust/common#check-types", "@istrust/ui#check-types"]
+    },
+    "lint": {
+      "dependsOn": ["@istrust/common#lint", "@istrust/ui#lint"]
     }
   }
 }

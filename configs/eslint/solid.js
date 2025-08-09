@@ -1,25 +1,29 @@
 import eslint from "@eslint/js";
+import * as tsParser from "@typescript-eslint/parser";
 import prettierConfig from "eslint-config-prettier";
-import solidConfigTs from "eslint-plugin-solid/configs/typescript";
+import solidTsConfig from "eslint-plugin-solid/configs/typescript";
 import tsEslint from "typescript-eslint";
-import rules from "./rules.mjs";
+
+export const config = {
+  files: ["**/*.tsx"],
+  extends: [solidTsConfig],
+  languageOptions: {
+    parser: tsParser,
+    parserOptions: {
+      project: "tsconfig.json",
+    },
+    globals: {
+      document: false,
+      window: false,
+      navigator: false,
+      setTimeout: false,
+      localStorage: false,
+    },
+  },
+};
 
 export default tsEslint.config(
   eslint.configs.recommended,
-  tsEslint.configs.strictTypeChecked,
-  // tseslint.configs.stylisticTypeChecked,
-  {
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
   prettierConfig,
-  {
-    files: ["**/*.tsx"],
-    extends: [solidConfigTs],
-  },
-  rules,
+  config,
 );

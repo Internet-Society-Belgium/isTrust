@@ -1,30 +1,14 @@
 import eslint from "@eslint/js";
+import { config as solidTsConfig } from "@istrust/eslint-config/solid";
+import { config as tsConfig } from "@istrust/eslint-config/typescript";
 import prettierConfig from "eslint-config-prettier";
 import astroPlugin from "eslint-plugin-astro";
-import solidConfigTs from "eslint-plugin-solid/configs/typescript";
 import tsEslint from "typescript-eslint";
-import rules from "./rules.mjs";
 
 export default tsEslint.config(
   eslint.configs.recommended,
-  tsEslint.configs.strictTypeChecked,
-  // tseslint.configs.stylisticTypeChecked,
-  {
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
   prettierConfig,
-  {
-    files: ["**/*.tsx"],
-    extends: [solidConfigTs],
-  },
-  {
-    files: ["**/*.astro"],
-    extends: [astroPlugin.configs.recommended],
-  },
-  rules,
+  tsConfig,
+  solidTsConfig,
+  ...astroPlugin.configs.recommended,
 );

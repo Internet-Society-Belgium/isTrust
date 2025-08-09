@@ -1,14 +1,9 @@
 import * as common from "@istrust/common";
-import { Match, Switch, type Component } from "solid-js";
+import { Match, Switch } from "solid-js";
 import { IconGithub } from "../icon";
 
-interface Props {
-  query: string;
-  error: Error;
-}
-
-export const Issue: Component<Props> = (props) => {
-  const issueBug = (query: string, errorMessage: string) => {
+export function Issue(props: { error: Error }) {
+  const issueBug = (errorMessage: string) => {
     return `# Scope
 Where did the error happened
 
@@ -20,7 +15,7 @@ Where did the error happened
     - [${window.location.protocol === "edge-extension:" ? "x" : " "}] edge
 
 # Input URL or domain name
-${query}
+
 
 # Error message
 ${errorMessage}
@@ -71,7 +66,7 @@ Add any other context or screenshots about the feature request here.
             <p>{props.error.message}</p>
             <a
               class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1.5 rounded-md border-0 px-2.5 py-1.5 text-sm font-medium ring transition-colors ring-inset"
-              href={issueURL("bug", issueBug(props.query, props.error.message))}
+              href={issueURL("bug", issueBug(props.error.message))}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -83,4 +78,4 @@ Add any other context or screenshots about the feature request here.
       </Switch>
     </>
   );
-};
+}

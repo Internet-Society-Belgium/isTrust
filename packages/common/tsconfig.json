@@ -1,5 +1,5 @@
 {
   "exclude": ["node_modules"],
-  "extends": "@istrust/typescript-config/vite",
+  "extends": "@istrust/typescript-config",
   "include": ["."]
 }

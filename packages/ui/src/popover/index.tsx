@@ -6,20 +6,17 @@ import {
   onMount,
   Show,
   Switch,
-  type Component,
 } from "solid-js";
 import { Portal } from "solid-js/web";
-
-interface Props {
-  trigger: JSX.Element;
-  triggerClass?: string;
-  children: JSX.Element;
-}
 
 type RectAlign = "top" | "bottom";
 type RectJustify = "left" | "center" | "right";
 
-export const Popover: Component<Props> = (props) => {
+export function Popover(props: {
+  trigger: JSX.Element;
+  triggerClass?: string;
+  children: JSX.Element;
+}) {
   const [open, setOpen] = createSignal<boolean>(false);
 
   const [rect, setRect] = createSignal<{
@@ -119,7 +116,7 @@ export const Popover: Component<Props> = (props) => {
   };
 
   const closeOnEscape = (event: KeyboardEvent) => {
-    if (open() !== true) return;
+    if (!open()) return;
 
     if (event.key === "Escape") {
       setOpen(false);
@@ -127,9 +124,9 @@ export const Popover: Component<Props> = (props) => {
   };
 
   const closeOnEvent = (event: Event) => {
-    if (open() !== true) return;
+    if (!open()) return;
 
-    const target = event.target as Node;
+    const target = event.target as Node | null;
 
     if (
       target === null ||
@@ -144,18 +141,18 @@ export const Popover: Component<Props> = (props) => {
       <button
         ref={trigger}
         onClick={() => {
-          if (open() === true) return;
+          if (open()) return;
 
           computeRect();
 
           setOpen(true);
         }}
-        class={`${props.triggerClass || ""} rounded-full p-1 transition-colors`}
+        class={`${props.triggerClass !== undefined ? props.triggerClass : ""} rounded-full p-1 transition-colors`}
       >
         {props.trigger}
       </button>
 
-      <Show when={open() === true}>
+      <Show when={open()}>
         <Show when={rect()}>
           {(rect) => (
             <Portal>
@@ -164,8 +161,8 @@ export const Popover: Component<Props> = (props) => {
                   <div
                     class="text-border absolute"
                     style={{
-                      left: `${rect().anchor.x - 16 / 2}px`,
-                      top: `${rect().anchor.y - 8 - 1}px`,
+                      left: `${(rect().anchor.x - 16 / 2).toString()}px`,
+                      top: `${(rect().anchor.y - 8 - 1).toString()}px`,
                     }}
                   >
                     <svg
@@ -182,8 +179,8 @@ export const Popover: Component<Props> = (props) => {
                   <div
                     class="text-border absolute"
                     style={{
-                      left: `${rect().anchor.x - 16 / 2}px`,
-                      top: `${rect().anchor.y + 1}px`,
+                      left: `${(rect().anchor.x - 16 / 2).toString()}px`,
+                      top: `${(rect().anchor.y + 1).toString()}px`,
                     }}
                   >
                     <svg
@@ -201,10 +198,10 @@ export const Popover: Component<Props> = (props) => {
               <div
                 class="pointer-events-none absolute flex"
                 style={{
-                  left: `${rect().content.x}px`,
-                  top: `${rect().content.y + (rect().align === "top" ? 0 : +8 + 1)}px`,
-                  width: `${rect().content.width}px`,
-                  height: `${rect().content.height + (rect().align === "top" ? -8 - 1 : -8 - 1)}px`,
+                  left: `${rect().content.x.toString()}px`,
+                  top: `${(rect().content.y + (rect().align === "top" ? 0 : 8 + 1)).toString()}px`,
+                  width: `${rect().content.width.toString()}px`,
+                  height: `${(rect().content.height - (rect().align === "top" ? 8 + 1 : 8 + 1)).toString()}px`,
                   "align-items":
                     rect().align === "top" ? "flex-end" : "flex-start",
                   "justify-content":
@@ -229,4 +226,4 @@ export const Popover: Component<Props> = (props) => {
       </Show>
     </>
   );
-};
+}

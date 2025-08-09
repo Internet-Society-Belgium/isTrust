@@ -1,28 +1,26 @@
-import { createSignal, onMount, type Component } from "solid-js";
+import { createSignal, onMount } from "solid-js";
 import { IconIsTrust, IconNext, IconPrevious, IconReload } from "../icon";
 
-interface Props {
-  reload: () => void;
+export function SearchBar(props: {
   focusOnMount?: boolean;
   initValue?: string;
+  reload: () => void;
   // eslint-disable-next-line no-unused-vars
   search: (text: string) => void;
-}
-
-export const SearchBar: Component<Props> = (props) => {
+}) {
   const [historyIndex, setHistoryIndex] = createSignal<number>(0);
   const [history, setHistory] = createSignal<string[]>([]);
 
   let input!: HTMLInputElement;
 
   onMount(() => {
+    if (props.focusOnMount === true) {
+      input.focus();
+    }
+
     if (props.initValue !== undefined) {
       input.value = props.initValue;
       search(props.initValue);
-    }
-
-    if (props.focusOnMount === true) {
-      input.focus();
     }
   });
 
@@ -61,7 +59,7 @@ export const SearchBar: Component<Props> = (props) => {
         class="enabled:hover:bg-container-darker disabled:text-muted flex-none rounded p-1.5 transition-colors disabled:pointer-events-none"
         disabled={historyIndex() >= history().length - 1}
         onClick={() => {
-          searchFromHistoryIndex(+1);
+          searchFromHistoryIndex(1);
         }}
       >
         <IconNext />
@@ -69,21 +67,23 @@ export const SearchBar: Component<Props> = (props) => {
       <button
         class="enabled:hover:bg-container-darker disabled:text-muted flex-none rounded p-1.5 transition-colors disabled:pointer-events-none"
         disabled={history().length <= 0}
-        onClick={() => props.reload()}
+        onClick={() => {
+          props.reload();
+        }}
       >
         <IconReload />
       </button>
       <form
         class="flex flex-1 gap-1 pl-1.5"
-        onSubmit={async (e) => {
+        onSubmit={(e) => {
           e.preventDefault();
 
           const formData = new FormData(e.currentTarget);
 
-          const q = formData.get("q")?.toString();
-          if (q === undefined) return;
-
-          search(q);
+          const q = formData.get("q") as string | null;
+          if (q !== null) {
+            search(q);
+          }
         }}
       >
         <input
@@ -103,4 +103,4 @@ export const SearchBar: Component<Props> = (props) => {
       </form>
     </div>
   );
-};
+}

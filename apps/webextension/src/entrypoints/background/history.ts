@@ -6,13 +6,13 @@ export interface HistoryData {
 }
 
 export async function get_history_data(domain: string) {
-  const historyItems = await browser.history.search({ text: `${domain}` });
+  const historyItems = await browser.history.search({ text: domain });
 
-  let visits = [];
+  const visits = [];
 
   for (const historyItem of historyItems) {
     const pageUrl = historyItem.url;
-    if (!pageUrl) continue;
+    if (pageUrl === undefined) continue;
 
     const pageDomain = new URL(pageUrl).hostname;
     if (!(pageDomain === domain || pageDomain.endsWith(`.${domain}`))) continue;

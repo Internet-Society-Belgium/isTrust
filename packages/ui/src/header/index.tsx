@@ -1,11 +1,7 @@
-import { Show, Suspense, type Component } from "solid-js";
+import { Show, Suspense } from "solid-js";
 import { Overflow } from "../overflow";
 
-interface Props {
-  value?: string;
-}
-
-export const HeaderDomain: Component<Props> = (props) => {
+export function HeaderDomain(props: { value?: string }) {
   return (
     <div class="mb-2 flex items-center justify-center text-xl">
       <Suspense fallback={<p class="text-muted">Analyzing...</p>}>
@@ -22,4 +18,4 @@ export const HeaderDomain: Component<Props> = (props) => {
       </Suspense>
     </div>
   );
-};
+}

@@ -268,12 +268,12 @@ for country_code in country_codes:
     with open(f'{country_code}.tsx', "w") as f:
         f.write(component)
 
-index = 'import { type Component } from "solid-js";\nimport Other from "./other";\n'
+index = 'import Other from "./other";\n'
 
 for country_code in country_codes:
     index += f'import {country_code} from "./{country_code}";\n'
 
-index += 'interface Props {code: string;}\nexport const Flag: Component<Props> = (props) => {\nconst getFlag = (code: string) => {\ncode = code.toUpperCase();\n'
+index += 'export function Flag(props: { code: string }) {\nconst getFlag = (code: string) => {\ncode = code.toUpperCase();\n'
 
 first = True
 for country_code in country_codes:

@@ -1,5 +1,5 @@
 import * as common from "@istrust/common";
-import { For, Match, Show, Switch, type Component } from "solid-js";
+import { For, Match, Show, Switch } from "solid-js";
 import { Country } from "../country";
 import {
   IconBadgeCheck,
@@ -10,13 +10,11 @@ import {
 import { List } from "../list";
 import { Popover } from "../popover";
 
-interface SourceInfoProps {
+export function SourceInfo(props: {
   information: common.Information<unknown>;
   locale: Intl.LocalesArgument;
   type?: "good" | "bad";
-}
-
-export const SourceInfo: Component<SourceInfoProps> = (props) => {
+}) {
   return (
     <Popover
       trigger={<IconInfo />}
@@ -38,17 +36,13 @@ export const SourceInfo: Component<SourceInfoProps> = (props) => {
       </Show>
     </Popover>
   );
-};
+}
 
-interface SourceVerificationProps {
+export function SourceVerification(props: {
   information: common.Information<unknown>;
   locale: Intl.LocalesArgument;
   type?: "good" | "bad";
-}
-
-export const SourceVerification: Component<SourceVerificationProps> = (
-  props,
-) => {
+}) {
   return (
     <Popover
       trigger={
@@ -87,14 +81,12 @@ export const SourceVerification: Component<SourceVerificationProps> = (
       </Switch>
     </Popover>
   );
-};
-
-interface SourcesProps {
-  sources: common.Information<unknown>["sources"];
-  locale: Intl.LocalesArgument;
 }
 
-const Sources: Component<SourcesProps> = (props) => {
+function Sources(props: {
+  sources: common.Information<unknown>["sources"];
+  locale: Intl.LocalesArgument;
+}) {
   return (
     <List each={props.sources}>
       {(source) => (
@@ -122,4 +114,4 @@ const Sources: Component<SourcesProps> = (props) => {
       )}
     </List>
   );
-};
+}

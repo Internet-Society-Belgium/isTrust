@@ -1,15 +1,9 @@
 import * as common from "@istrust/common";
-import { ErrorBoundary, JSX, Show, Suspense, type Component } from "solid-js";
+import { ErrorBoundary, JSX, Show, Suspense } from "solid-js";
 import { Issue } from "../issue";
 import { List } from "../list";
 
-interface SectionProps {
-  query: string;
-  title: string;
-  children: JSX.Element;
-}
-
-export const Section: Component<SectionProps> = (props) => {
+export function Section(props: { title: string; children: JSX.Element }) {
   return (
     <>
       <div class="align-center flex w-full items-center text-center">
@@ -19,24 +13,18 @@ export const Section: Component<SectionProps> = (props) => {
         </div>
         <div class="border-border w-full border-t border-solid" />
       </div>
-      <ErrorBoundary
-        fallback={(error) => <Issue query={props.query} error={error} />}
-      >
+      <ErrorBoundary fallback={(error: Error) => <Issue error={error} />}>
         {props.children}
       </ErrorBoundary>
     </>
   );
-};
+}
 
-interface SectionUnavailableProps {
+export function SectionUnavailable(props: {
   title: string;
   children: JSX.Element;
   message: JSX.Element;
-}
-
-export const SectionUnavailable: Component<SectionUnavailableProps> = (
-  props,
-) => {
+}) {
   return (
     <>
       <div class="align-center flex w-full items-center text-center">
@@ -56,7 +44,7 @@ export const SectionUnavailable: Component<SectionUnavailableProps> = (
       </div>
     </>
   );
-};
+}
 
 export function SectionItem<T>(props: {
   description: string;

@@ -108,7 +108,6 @@ export async function get_data(domain: string, cache: InformationCache) {
 
       const res = await fetch(api, {
         headers: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
           Accept: "application/rdap+json",
         },
       });
