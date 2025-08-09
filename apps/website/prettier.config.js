@@ -1,6 +1,6 @@
-import prettierConfigTailwind from "@istrust/prettier-config/tailwind";
+import astroConfig from "@istrust/prettier-config/astro";
 
 /** @type {import("prettier").Config} */
 export default {
-  ...prettierConfigTailwind,
+  ...astroConfig,
 };

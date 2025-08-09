@@ -1,4 +1,4 @@
-import eslintConfigSolid from "@istrust/eslint-config/solid";
+import astroConfig from "@istrust/eslint-config/astro";
 import { defineConfig } from "eslint/config";
 
-export default defineConfig([...eslintConfigSolid]);
+export default defineConfig(astroConfig);

@@ -27,7 +27,7 @@
     "bundle:webextension": "turbo bundle --filter=webextension",
     "bundle:website": "turbo bundle --filter=website",
     "check-types": "turbo check-types",
-    "clean": "rm -rf .turbo node_modules && turbo clean",
+    "clean": "turbo clean && rm -rf .turbo node_modules",
     "commit": "cz",
     "dev:webextension": "turbo dev --filter=webextension --filter=./packages/*",
     "dev:website": "turbo dev --filter=website --filter=./packages/*",

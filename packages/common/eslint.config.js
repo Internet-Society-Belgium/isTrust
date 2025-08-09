@@ -1,4 +1,4 @@
-import eslintConfigBase from "@istrust/eslint-config/base";
+import typescriptConfig from "@istrust/eslint-config/typescript";
 import { defineConfig } from "eslint/config";
 
-export default defineConfig([...eslintConfigBase]);
+export default defineConfig(typescriptConfig);

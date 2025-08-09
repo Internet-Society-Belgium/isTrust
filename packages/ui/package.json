@@ -36,6 +36,8 @@
     "@istrust/typescript-config": "*",
     "@tailwindcss/cli": "^4.1.11",
     "esbuild-plugin-solid": "^0.6.0",
+    "eslint": "^9.33.0",
+    "prettier": "^3.2.5",
     "tailwindcss": "^4.1.11",
     "tsup": "^8.5.0",
     "typescript": "^5.4.5"

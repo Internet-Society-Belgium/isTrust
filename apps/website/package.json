@@ -20,6 +20,8 @@
     "@istrust/tailwind-config": "*",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.12.8",
+    "eslint": "^9.33.0",
+    "prettier": "3.6.2",
     "tailwindcss": "^4.1.11"
   }
 }

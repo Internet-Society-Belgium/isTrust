@@ -1,6 +1,6 @@
-import prettierConfigBase from "@istrust/prettier-config/base";
+import javascriptConfig from "@istrust/prettier-config/javascript";
 
 /** @type {import("prettier").Config} */
 export default {
-  ...prettierConfigBase,
+  ...javascriptConfig,
 };
