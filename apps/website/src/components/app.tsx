@@ -29,6 +29,7 @@ import {
   onMount,
   resetErrorBoundaries,
   Show,
+  Suspense,
   Switch,
   type Component,
 } from "solid-js";
@@ -265,17 +266,20 @@ export const App: Component = () => {
               <SectionItem
                 description="Protection (DNSSEC)"
                 prefix={
-                  <Switch>
-                    <Match when={dnssecData()?.valid?.value === true}>
-                      <IconShieldCheck />
-                    </Match>
-                    <Match when={dnssecData()?.valid?.value === false}>
-                      <IconShieldX />
-                    </Match>
-                    <Match when={true}>
-                      <IconShield />
-                    </Match>
-                  </Switch>
+                  <Suspense fallback={<IconShield />}>
+                    <Show when={dnssecData()?.valid} fallback={<IconShield />}>
+                      {(valid) => (
+                        <Switch>
+                          <Match when={valid().value === true}>
+                            <IconShieldCheck />
+                          </Match>
+                          <Match when={valid().value === false}>
+                            <IconShieldX />
+                          </Match>
+                        </Switch>
+                      )}
+                    </Show>
+                  </Suspense>
                 }
                 informations={dnssecData()?.valid}
                 suffix={(valid) => (
