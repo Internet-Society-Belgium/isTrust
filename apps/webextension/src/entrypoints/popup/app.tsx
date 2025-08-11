@@ -3,6 +3,7 @@ import * as common from "@istrust/common";
 import { CertificateAlert } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
+import { FooterAvailability } from "@istrust/ui/footer/index";
 import { HeaderDomain } from "@istrust/ui/header/index";
 import {
   IconBuilding,
@@ -297,6 +298,8 @@ export const App: Component = () => {
                 )}
               </SectionItem>
             </Section>
+
+            <FooterAvailability on="website" query={searchQuery()?.text} />
 
             {/* <Section title="Debug">
                 <details>
