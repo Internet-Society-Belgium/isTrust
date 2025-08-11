@@ -38,6 +38,7 @@ export async function get_data(domain: string) {
       {
         value: new Date(registrationDate).toISOString(),
         sources,
+        verified: true,
       },
     ];
 
@@ -51,7 +52,7 @@ export async function get_data(domain: string) {
 
     const contact = validate_contact(jsonContact);
 
-    let verified: boolean | undefined;
+    let verified: boolean = false;
     if (contact.verificationStatus === "APPROVED") {
       verified = true;
     }

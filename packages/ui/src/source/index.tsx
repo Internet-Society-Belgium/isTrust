@@ -2,6 +2,7 @@ import * as common from "@istrust/common";
 import { For, Match, Show, Switch } from "solid-js";
 import { Country } from "../country";
 import {
+  IconAlert,
   IconBadgeCheck,
   IconBadgeQuestion,
   IconExternalLink,
@@ -29,8 +30,11 @@ export function SourceInfo(props: {
       <Show when={props.information.sources}>
         {(sources) => (
           <>
-            Information provided by{" "}
-            <Sources sources={sources()} locale={props.locale} />
+            <span>Information provided</span>
+            <div class="flex items-center gap-1">
+              <span>by</span>
+              <Sources sources={sources()} locale={props.locale} />
+            </div>
           </>
         )}
       </Show>
@@ -65,16 +69,26 @@ export function SourceVerification(props: {
     >
       <Switch>
         <Match when={props.information.verified === false}>
-          Information without verification
+          <div class="flex items-center gap-1">
+            <IconAlert /> Information without verification
+          </div>
+          <Show when={props.information.sources}>
+            {(sources) => (
+              <div class="flex items-center gap-1">
+                <span>from</span>
+                <Sources sources={sources()} locale={props.locale} />
+              </div>
+            )}
+          </Show>
         </Match>
         <Match when={props.information.verified === true}>
           Information have been verified
           <Show when={props.information.sources}>
             {(sources) => (
-              <>
-                {" "}
-                by <Sources sources={sources()} locale={props.locale} />
-              </>
+              <div class="flex items-center gap-1">
+                <span>by</span>
+                <Sources sources={sources()} locale={props.locale} />
+              </div>
             )}
           </Show>
         </Match>

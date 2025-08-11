@@ -7,7 +7,7 @@ export interface Source {
 export interface Information<T> {
   value: T;
   sources: Source[];
-  verified?: boolean;
+  verified: boolean;
 }
 
 export function merge_informations<T>(
@@ -41,11 +41,11 @@ export function improve_informations<T>(
     return informations;
   }
 
-  if (match.verified === true && information.verified === false) {
+  if (match.verified && !information.verified) {
     return informations;
   }
 
-  if (match.verified === false && information.verified === true) {
+  if (!match.verified && information.verified) {
     match.verified = true;
     match.sources = information.sources;
     return informations;

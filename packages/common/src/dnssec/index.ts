@@ -74,6 +74,7 @@ export async function get_data(domain: string, customResolver?: string) {
           country: resolver.country,
         },
       ],
+      verified: true,
     };
   } catch (e) {
     const error = e as Error;
