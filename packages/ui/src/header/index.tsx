@@ -4,7 +4,7 @@ import { Overflow } from "../overflow";
 export function HeaderDomain(props: { value?: string }) {
   return (
     <div class="mb-2 flex items-center justify-center text-xl">
-      <Suspense fallback={<p class="text-muted">Analyzing...</p>}>
+      <Suspense fallback={<p class="text-muted">Configuring...</p>}>
         <Show
           when={props.value}
           fallback={<p class="text-muted">Domain name</p>}
