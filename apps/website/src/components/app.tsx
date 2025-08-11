@@ -31,7 +31,6 @@ import {
   Show,
   Suspense,
   Switch,
-  type Component,
 } from "solid-js";
 
 const cache: common.InformationCache = {
@@ -77,7 +76,7 @@ const cache: common.InformationCache = {
   },
 };
 
-export const App: Component = () => {
+export function App() {
   const [searchQuery, setSearchQuery] = createSignal<{
     text: string;
     forceUpdateCache: boolean;
@@ -151,7 +150,7 @@ export const App: Component = () => {
   };
 
   return (
-    <div class="flex w-sm flex-col gap-2 p-4">
+    <div class="flex w-sm flex-col gap-2">
       <SearchBar
         initValue={initValue()}
         focusOnMount={initValue() === undefined}
@@ -301,7 +300,7 @@ export const App: Component = () => {
                 <div class="flex h-full items-center justify-center">
                   <a
                     href="#get"
-                    class="ring-border bg-container hover:bg-container-darker pointer-events-auto rounded-md px-2 py-1 text-sm font-medium ring transition-colors ring-inset"
+                    class="ring-border bg-container hover:bg-container-darker pointer-events-auto rounded-md px-2 py-1 text-sm font-medium text-nowrap ring transition-colors ring-inset"
                   >
                     Only available in webextension
                   </a>
@@ -360,4 +359,4 @@ export const App: Component = () => {
       </div>
     </div>
   );
-};
+}

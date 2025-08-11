@@ -10,27 +10,25 @@ import "../styles/global.css";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>isTrust</title>
   </head>
-  <body class="bg-background">
-    <div class="flex min-h-screen flex-col justify-between">
-      <header
-        class="bg-background/75 border-border sticky top-0 z-100 border-b backdrop-blur"
-      >
-        <div class="mx-auto max-w-4xl">
-          <Header />
-        </div>
-      </header>
+  <body class="bg-background min-h-screen">
+    <header
+      class="bg-background/75 border-border sticky top-0 z-100 border-b backdrop-blur"
+    >
+      <div class="mx-auto max-w-4xl">
+        <Header />
+      </div>
+    </header>
 
-      <main>
-        <div class="mx-auto max-w-4xl">
-          <slot />
-        </div>
-      </main>
+    <main>
+      <div class="mx-auto max-w-4xl">
+        <slot />
+      </div>
+    </main>
 
-      <footer class="border-border border-t">
-        <div class="mx-auto max-w-4xl">
-          <Footer />
-        </div>
-      </footer>
-    </div>
+    <footer class="border-border border-t">
+      <div class="mx-auto max-w-4xl">
+        <Footer />
+      </div>
+    </footer>
   </body>
 </html>
