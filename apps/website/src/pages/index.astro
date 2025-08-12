@@ -1,244 +1,42 @@
 ---
-import { Image } from "astro:assets";
-import he2bImage from "../assets/academic/he2b.png";
-import helbImage from "../assets/academic/helb.png";
-import rmaImage from "../assets/academic/rma.png";
-import uclouvainImage from "../assets/academic/uclouvain.png";
-import ulbImage from "../assets/academic/ulb.png";
-import unamurImage from "../assets/academic/unamur.png";
-import centrImage from "../assets/logo/centr.png";
-import dnsBelgiumImage from "../assets/logo/dns_belgium.svg";
-import isocBeImage from "../assets/logo/isoc-be.svg";
-import isocFondationImage from "../assets/logo/isoc-foundation.svg";
-import { App } from "../components/app";
-import { stores } from "../data/stores";
 import Layout from "../layouts/layout.astro";
+import GetSection from "./_section/get.astro";
+import HeroSection from "./_section/hero.astro";
+import MissionSection from "./_section/mission.astro";
+import ScientificResearchSection from "./_section/scientific_research.astro";
+import TrailerSection from "./_section/trailer.astro";
 ---
 
 <Layout>
-  <section class="relative p-8">
-    <div
-      class="absolute inset-0 -z-2 [background-image:radial-gradient(#d4d4d4_1px,transparent_1px)] [background-size:1em_1em]"
-    >
-    </div>
-    <!-- <div
-      class="absolute inset-0 -z-2 [background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)] [background-size:2em_2em]"
-    >
-    </div> -->
-    <div
-      class="bg-background absolute inset-0 -z-1 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#000_80%)]"
-    >
-    </div>
-
-    <h1
-      class="flex flex-col items-center pt-24 text-center text-4xl font-bold sm:text-5xl"
-    >
-      <span> Verify the trustworthiness </span>
-      <span> of any domain </span>
-    </h1>
-
-    <div class="flex justify-center gap-2 pt-12">
-      <a
-        id="get-default"
-        class="bg-primary rounded-full px-4 py-3 text-white shadow-2xs transition duration-200 hover:-translate-y-0.5"
-        href="#get"
-      >
-        <span> Get webextension</span>
-      </a>
-      {
-        stores.entries().map((store) => (
-          <a
-            id={`get-${store[0]}`}
-            class="bg-primary flex items-center gap-2 rounded-full px-4 py-3 text-white shadow-2xs transition duration-200 hover:-translate-y-0.5"
-            href={store[1].link}
-            style="display: none;"
-          >
-            <Image
-              src={store[1].icon()}
-              alt={store[1].name}
-              class="h-6 w-6 object-contain"
-            />
-            <span>Get webextension</span>
-          </a>
-        ))
-      }
-      <script>
-        function browser() {
-          const ua = navigator.userAgent;
-
-          if (ua.includes("Chrome") || ua.includes("Chromium")) {
-            if (ua.includes("Edg")) return "edge";
-
-            return "chrome";
-          }
-          if (ua.includes("Safari")) return "safari";
-
-          if (ua.includes("Firefox")) return "firefox";
-        }
-
-        const getDefault =
-          document.querySelector<HTMLAnchorElement>(`#get-default`);
-        const getStore = document.querySelector<HTMLAnchorElement>(
-          `#get-${browser()}`,
-        );
-
-        if (getDefault !== null && getStore !== null) {
-          getStore.style.display = "inherit";
-          getDefault.style.display = "none";
-        }
-      </script>
-    </div>
-
-    <div class="flex justify-center pt-12">
-      <App client:load />
-    </div>
+  <section>
+    <HeroSection />
   </section>
 
-  <section id="trusted-by" class="p-12">
-    <div class="bg-elevated rounded-2xl p-6">
-      <h2 class="text-center text-lg font-semibold text-pretty">Trusted by</h2>
-
-      <div class="flex flex-wrap items-center justify-center gap-12 p-6">
-        <a href="https://internetsociety.be/">
-          <Image
-            src={isocBeImage}
-            alt="Internet Society Belgium Chapter"
-            class="h-10 w-fit object-contain"
-          />
-        </a>
-        <a href="https://www.isocfoundation.org/">
-          <Image
-            src={isocFondationImage}
-            alt="Internet Society Foundation"
-            class="h-10 w-fit object-contain"
-          />
-        </a>
-        <!-- <a href="https://www.dnsbelgium.be/">
-          <Image
-            src={dnsBelgiumImage}
-            alt="DNS Belgium"
-            class="h-10 w-fit object-contain"
-          />
-        </a> -->
-        <!-- <a href="https://www.centr.org/">
-          <Image
-            class="h-10 w-fit object-contain"
-            src={centrImage}
-            alt="Council of European National Top Level Domain Registries"
-            layout="constrained"
-          />
-        </a> -->
-      </div>
-    </div>
+  <section
+    id="trailer"
+    class="border-border from-background border-t bg-gradient-to-b to-white"
+  >
+    <TrailerSection />
   </section>
 
-  <section id="trailer" class="p-6">
-    <video
-      controls
-      class="aspect-video h-full w-full rounded-lg shadow-lg"
-      preload="none"
-      poster=""
-    >
-      <source
-        src="https://istrust.org/teaser/teaser-v0.8.mp4"
-        type="video/mp4"
-      />
-      Your browser does not support this video
-    </video>
+  <section
+    id="get"
+    class="border-border from-background border-t bg-gradient-to-b to-white"
+  >
+    <GetSection />
   </section>
 
-  <section id="get" class="flex flex-col items-center justify-center pt-6">
-    <h2 class="text-center text-3xl">Get webextension</h2>
-
-    <div class="flex flex-wrap justify-center gap-10">
-      {
-        stores.values().map((store) => (
-          <a
-            href={store.link}
-            class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex h-24 w-24 flex-col items-center justify-center gap-1.5 rounded-md border-0 text-sm font-medium ring transition-colors ring-inset"
-          >
-            <Image
-              src={store.icon()}
-              alt={store.name}
-              class="h-8 w-8 object-contain"
-            />
-
-            <p class="text-center">{store.name}</p>
-          </a>
-        ))
-      }
-    </div>
+  <section
+    id="mission"
+    class="border-border from-background border-t bg-gradient-to-b to-white"
+  >
+    <MissionSection />
   </section>
 
-  <section id="open-source" class="p-6">
-    <h2 class="text-center text-3xl">Open source</h2>
-    <p class="text-muted text-center">Github</p>
-    <a
-      href=""
-      class="ring-accented bg-elevated hover:bg-accented/75 rounded-md px-3 py-2 text-sm font-medium text-nowrap ring ring-inset"
-      >View code source</a
-    >
-  </section>
-
-  <section id="paper" class="p-6">
-    <div class="bg-elevated flex rounded-xl">
-      <div class="flex-1/2 p-12 text-center">
-        <span>NEW</span>
-        <h2 class="text-3xl">Scientific research</h2>
-        <p class="text-muted">
-          Master thesis around "Empower users to identify phishing websites"
-        </p>
-        <a
-          href=""
-          class="ring-accented bg-elevated hover:bg-accented/75 rounded-md px-3 py-2 text-sm font-medium text-nowrap ring ring-inset"
-          >View document</a
-        >
-      </div>
-
-      <div class="flex flex-1/2 flex-wrap items-center gap-4 p-6">
-        <a href="https://www.uclouvain.be/">
-          <Image
-            src={uclouvainImage}
-            alt="Université catholique de Louvain"
-            class="w-28 object-contain"
-          />
-        </a>
-        <a href="https://www.uclouvain.be/fr">
-          <Image
-            src={ulbImage}
-            alt="Université libre de Bruxelles"
-            class="w-28 object-contain"
-          />
-        </a>
-        <a href="http://www.unamur.be/">
-          <Image
-            src={unamurImage}
-            alt="Université de Namur"
-            class="w-28 object-contain"
-          />
-        </a>
-        <a href="https://he2b.be/">
-          <Image
-            src={he2bImage}
-            alt="Haute École Bruxelles-Brabant"
-            class="w-28 object-contain"
-          />
-        </a>
-        <a href="https://www.rma.ac.be/">
-          <Image
-            src={rmaImage}
-            alt="Royal Military Academy"
-            class="w-28 object-contain"
-          />
-        </a>
-        <a href="https://www.helb-prigogine.be/">
-          <Image
-            src={helbImage}
-            alt="HELB Ilya Prigogine"
-            class="w-28 object-contain"
-          />
-        </a>
-      </div>
-    </div>
+  <section
+    id="scientific-research"
+    class="border-border from-background border-t bg-gradient-to-b to-white"
+  >
+    <ScientificResearchSection />
   </section>
 </Layout>

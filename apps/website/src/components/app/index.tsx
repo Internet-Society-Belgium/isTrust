@@ -150,10 +150,9 @@ export function App() {
   };
 
   return (
-    <div class="flex w-sm flex-col gap-2">
+    <div class="flex w-xs flex-col gap-2 sm:w-sm">
       <SearchBar
         initValue={initValue()}
-        focusOnMount={initValue() === undefined}
         reload={() => {
           reload();
         }}
@@ -300,7 +299,7 @@ export function App() {
                 <div class="flex h-full items-center justify-center">
                   <a
                     href="#get"
-                    class="ring-border bg-container hover:bg-container-darker pointer-events-auto rounded-md px-2 py-1 text-sm font-medium text-nowrap ring transition-colors ring-inset"
+                    class="border-border bg-container hover:bg-container-darker pointer-events-auto rounded-md border px-2 py-1 text-sm font-medium text-nowrap shadow hover:transition-colors"
                   >
                     Only available in webextension
                   </a>

@@ -1,29 +1,34 @@
 ---
+import HeaderSection from "../../components/header/section.astro";
 import Layout from "../../layouts/layout.astro";
 ---
 
 <Layout>
-  <h1 class="text-center">Legal mention</h1>
-  <h2 class="text-center">Who are we ?</h2>
-  <p>
-    <a href="https://istrust.org">istrust.org</a>
-    is operated by Internet Society Chapter Belgium vzw/asbl, in short "ISOC.be"
-    vzw/asbl (non-profit organization).
-  </p>
+  <div class="mx-auto max-w-4xl p-12">
+    <HeaderSection header="Legal mention"> Who are we ? </HeaderSection>
 
-  <p>
-    <span>Our postal address is:</span>
-    <ol>
-      <li>Internet Society Belgium</li>
-      <li>Notelaarstraat 285 | Rue du Noyer 285</li>
-      <li>1000 Brussels, Belgium</li>
-    </ol>
-  </p>
+    <p class="m-6">
+      "istrust.org" is operated by Internet Society Chapter Belgium vzw/asbl
+      (non-profit organization).
+    </p>
 
-  <p>RPR/RPM Brussels: BE 0728.764.958</p>
+    <p class="m-6">
+      Our postal address is:
+      <br />
+      Internet Society Belgium
+      <br />
+      Notelaarstraat 285 | Rue du Noyer 285
+      <br />
+      1000 Brussels, Belgium
+    </p>
 
-  <p>
-    Our website address is:
-    <a href="https://internetsociety.be">internetsociety.be</a>
-  </p>
+    <p class="m-6">RPR/RPM Brussels: BE 0728.764.958</p>
+
+    <p class="m-6">
+      Our website address is:
+      <a href="https://internetsociety.be" target="_blank" class="underline"
+        >internetsociety.be</a
+      >
+    </p>
+  </div>
 </Layout>

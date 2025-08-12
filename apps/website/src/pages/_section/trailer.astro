@@ -1,0 +1,22 @@
+---
+import HeaderSection from "../../components/header/section.astro";
+---
+
+<div class="mx-auto max-w-4xl p-12">
+  <HeaderSection header="Trailer">Watch the video to learn more</HeaderSection>
+
+  <div class="mt-8">
+    <video
+      controls
+      class="aspect-video h-full w-full rounded-lg shadow-lg"
+      preload="none"
+      poster="/src/assets/trailer.png"
+    >
+      <source
+        src="https://istrust.org/teaser/teaser-v0.8.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support this video
+    </video>
+  </div>
+</div>

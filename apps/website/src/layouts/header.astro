@@ -1,21 +1,27 @@
+---
+import Button from "../components/button/index.astro";
+---
+
 <div class="flex items-center justify-between p-4">
-  <a href="/" class="flex items-center justify-start gap-2">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="2em"
-      height="2em"
-      viewBox="0 0 135.467 135.467"
-      data-copyright="Icon from isTrust - https://github.com/Internet-Society-Belgium/isTrust/blob/v2/LICENSE.md"
-    >
-      <path
-        fill="none"
-        stroke="#07f"
-        stroke-width="21.167"
-        d="M24.647 29.997c16.995-18.288 66.205-18.288 86.204 0 7.502 54.08-21.446 71.45-43.102 87.685-21.765-16.236-50.713-33.604-43.102-87.685Z"
-      ></path>
-    </svg>
-    <span class="text-xl">isTrust</span>
-  </a>
+  <Button href="/" redirect={true}>
+    <div class="flex items-center justify-start gap-1 px-2 py-1">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 135.467 135.467"
+        data-copyright="Icon from isTrust - https://github.com/Internet-Society-Belgium/isTrust/blob/v2/LICENSE.md"
+      >
+        <path
+          fill="none"
+          stroke="#07f"
+          stroke-width="21.167"
+          d="M24.647 29.997c16.995-18.288 66.205-18.288 86.204 0 7.502 54.08-21.446 71.45-43.102 87.685-21.765-16.236-50.713-33.604-43.102-87.685Z"
+        ></path>
+      </svg>
+      <span class="text-xl font-bold tracking-tight">isTrust</span>
+    </div>
+  </Button>
 
   <div class="flex items-center justify-end gap-2">
     <!-- <div>EN</div> -->

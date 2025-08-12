@@ -1,0 +1,195 @@
+---
+import { Image } from "astro:assets";
+import isocBeImage from "../../assets/logo/isoc-be.svg";
+import isocFondationImage from "../../assets/logo/isoc-foundation.svg";
+import { App } from "../../components/app";
+import ButtonGet from "../../components/button/get.astro";
+import Button from "../../components/button/index.astro";
+import HeaderMain from "../../components/header/main.astro";
+import { stores } from "../../data/stores";
+---
+
+<div class="relative">
+  <div
+    class="absolute inset-0 -z-2 [background-image:radial-gradient(#d4d4d4_1px,transparent_1px)] [background-size:20px_20px]"
+  >
+  </div>
+
+  <div
+    class="absolute inset-0 -z-1 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#000_80%)]"
+  >
+  </div>
+  <div class="mx-auto max-w-4xl p-12">
+    <div>
+      <div class="mx-auto mb-6 w-fit bg-white">
+        <a
+          href="#scientific-research"
+          class="bg-primary/10 text-primary border-primary/25 flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-semibold"
+        >
+          Now based on scientific research
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1.2em"
+            height="1.2em"
+            viewBox="0 0 24 24"
+            data-copyright="Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE"
+          >
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m9 18l6-6l-6-6"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="text-center sm:text-left">
+        <HeaderMain>
+          Verify the trustworthiness
+          <br />
+          of any domain
+        </HeaderMain>
+      </div>
+
+      <div class="mt-6 flex justify-center gap-2">
+        <ButtonGet id="get-default" href="#get"> Get webextension </ButtonGet>
+
+        {
+          Object.entries(stores).map(([key, value]) => (
+            <ButtonGet
+              id={`get-${key}`}
+              href={value.link}
+              style="display: none;"
+            >
+              <div class="flex items-center justify-center gap-2">
+                <Image
+                  src={value.icon()}
+                  alt={key}
+                  class="h-6 w-6 object-contain"
+                />
+                <span>Get webextension</span>
+              </div>
+            </ButtonGet>
+          ))
+        }
+        <script>
+          function browser() {
+            const ua = navigator.userAgent;
+
+            if (ua.includes("Chrome") || ua.includes("Chromium")) {
+              if (ua.includes("Edg")) return "edge";
+
+              return "chrome";
+            }
+            if (ua.includes("Safari")) return "safari";
+
+            if (ua.includes("Firefox")) return "firefox";
+          }
+
+          const getDefault =
+            document.querySelector<HTMLAnchorElement>(`#get-default`);
+          const getStore = document.querySelector<HTMLAnchorElement>(
+            `#get-${browser()}`,
+          );
+
+          if (getDefault !== null && getStore !== null) {
+            getStore.style.display = "inherit";
+            getDefault.style.display = "none";
+          }
+        </script>
+      </div>
+    </div>
+
+    <div class="mt-24 flex justify-center p-4">
+      <div class="relative">
+        <div
+          class="absolute -top-14 flex w-full items-start justify-center gap-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="3em"
+            height="3em"
+            viewBox="0 0 800 800"
+            class="text-muted mt-1"
+          >
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-dasharray="103 85"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="32"
+              marker-end="url(#a)"
+              d="M77 77q17 636 646 646"
+              transform="rotate(92 402.86 423.054)"></path>
+            <defs>
+              <marker
+                id="a"
+                markerHeight="7"
+                markerWidth="7"
+                orient="auto"
+                refX="3.5"
+                refY="3.5"
+                viewBox="0 0 7 7"
+              >
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.167"
+                  d="m1.167 5.25 3.5-1.75-3.5-1.75"></path>
+              </marker>
+            </defs>
+          </svg>
+
+          <div class="text-muted font-semibold text-nowrap italic select-none">
+            Try it
+          </div>
+        </div>
+
+        <App client:load />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white p-6">
+  <div class="mx-auto max-w-4xl">
+    <h2 class="text-center text-lg font-semibold text-pretty">Trusted by</h2>
+
+    <div class="flex flex-wrap items-center justify-center gap-12 p-6">
+      <Button href="https://internetsociety.be/">
+        <Image
+          src={isocBeImage}
+          alt="Internet Society Belgium Chapter"
+          class="h-12 w-fit object-contain px-2 py-1"
+        />
+      </Button>
+      <Button href="https://www.isocfoundation.org/">
+        <Image
+          src={isocFondationImage}
+          alt="Internet Society Foundation"
+          class="h-12 w-fit object-contain px-2 py-1"
+        />
+      </Button>
+      <!-- <Button href="https://www.dnsbelgium.be/" >
+          <Image
+            src={dnsBelgiumImage}
+            alt="DNS Belgium"
+            class="h-10 w-fit object-contain px-2 py-1"
+          />
+        </Button> -->
+      <!-- <Button href="https://www.centr.org/" >
+          <Image
+            class="h-10 w-fit object-contain px-2 py-1"
+            src={centrImage}
+            alt="Council of European National Top Level Domain Registries"
+          />
+        </Button> -->
+    </div>
+  </div>
+</div>

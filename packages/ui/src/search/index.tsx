@@ -2,7 +2,6 @@ import { createSignal, onMount } from "solid-js";
 import { IconIsTrust, IconNext, IconPrevious, IconReload } from "../icon";
 
 export function SearchBar(props: {
-  focusOnMount?: boolean;
   initValue?: string;
   reload: () => void;
   // eslint-disable-next-line no-unused-vars
@@ -14,10 +13,6 @@ export function SearchBar(props: {
   let input!: HTMLInputElement;
 
   onMount(() => {
-    if (props.focusOnMount === true) {
-      input.focus();
-    }
-
     if (props.initValue !== undefined) {
       input.value = props.initValue;
       search(props.initValue);
