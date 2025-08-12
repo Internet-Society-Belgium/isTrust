@@ -1,7 +1,4 @@
-import { Component } from "solid-js";
-import "../styles.css";
-
-export const IconIsTrust: Component = () => {
+export function IconIsTrust() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,9 +15,9 @@ export const IconIsTrust: Component = () => {
       />
     </svg>
   );
-};
+}
 
-export const IconUser: Component = () => {
+export function IconUser() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -41,9 +38,9 @@ export const IconUser: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconBuilding: Component = () => {
+export function IconBuilding() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -64,9 +61,9 @@ export const IconBuilding: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconMapPin: Component = () => {
+export function IconMapPin() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -87,9 +84,9 @@ export const IconMapPin: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconCalendar1: Component = () => {
+export function IconCalendar1() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -110,9 +107,9 @@ export const IconCalendar1: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconShieldCheck: Component = () => {
+export function IconShieldCheck() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -133,9 +130,9 @@ export const IconShieldCheck: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconShieldX: Component = () => {
+export function IconShieldX() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -154,9 +151,9 @@ export const IconShieldX: Component = () => {
       />
     </svg>
   );
-};
+}
 
-export const IconShield: Component = () => {
+export function IconShield() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -175,9 +172,9 @@ export const IconShield: Component = () => {
       />
     </svg>
   );
-};
+}
 
-export const IconCalendarCheck: Component = () => {
+export function IconCalendarCheck() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -199,9 +196,9 @@ export const IconCalendarCheck: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconBadgeCheck: Component = () => {
+export function IconBadgeCheck() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -222,9 +219,9 @@ export const IconBadgeCheck: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconBadgeQuestion: Component = () => {
+export function IconBadgeQuestion() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -245,9 +242,9 @@ export const IconBadgeQuestion: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconInfo: Component = () => {
+export function IconInfo() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -268,9 +265,9 @@ export const IconInfo: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconCornerDownRight: Component = () => {
+export function IconCornerDownRight() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -291,9 +288,9 @@ export const IconCornerDownRight: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconExternalLink: Component = () => {
+export function IconExternalLink() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -312,9 +309,9 @@ export const IconExternalLink: Component = () => {
       />
     </svg>
   );
-};
+}
 
-export const IconThumbsUp: Component = () => {
+export function IconThumbsUp() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -333,9 +330,9 @@ export const IconThumbsUp: Component = () => {
       />
     </svg>
   );
-};
+}
 
-export const IconThumbsDown: Component = () => {
+export function IconThumbsDown() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -354,9 +351,9 @@ export const IconThumbsDown: Component = () => {
       />
     </svg>
   );
-};
+}
 
-export const IconPrevious: Component = () => {
+export function IconPrevious() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -375,9 +372,9 @@ export const IconPrevious: Component = () => {
       />
     </svg>
   );
-};
+}
 
-export const IconNext: Component = () => {
+export function IconNext() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -396,9 +393,9 @@ export const IconNext: Component = () => {
       />
     </svg>
   );
-};
+}
 
-export const IconReload: Component = () => {
+export function IconReload() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -419,9 +416,30 @@ export const IconReload: Component = () => {
       </g>
     </svg>
   );
-};
+}
 
-export const IconGithub: Component = () => {
+export function IconAlert() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      data-copyright="Icon from Lucide by Lucide Contributors - https://github.com/lucide-icons/lucide/blob/main/LICENSE"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m21.73 18l-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3M12 9v4m0 4h.01"
+      />
+    </svg>
+  );
+}
+
+export function IconGithub() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -438,4 +456,4 @@ export const IconGithub: Component = () => {
       />
     </svg>
   );
-};
+}

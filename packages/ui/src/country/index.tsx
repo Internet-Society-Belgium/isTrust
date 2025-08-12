@@ -1,14 +1,11 @@
-import { Match, Switch, type Component } from "solid-js";
+import { Match, Switch } from "solid-js";
 import { Flag } from "./flag";
-import "../styles.css";
 
-interface Props {
+export function Country(props: {
   type: "text" | "icon";
   value: string;
   locale: Intl.LocalesArgument;
-}
-
-export const Country: Component<Props> = (props) => {
+}) {
   const getRegionName = (code: string, locale: Intl.LocalesArgument) => {
     try {
       const regionNames = new Intl.DisplayNames(locale, { type: "region" });
@@ -34,4 +31,4 @@ export const Country: Component<Props> = (props) => {
       </Match>
     </Switch>
   );
-};
+}

@@ -10,10 +10,11 @@
     "bundle:chrome": "wxt zip -b chrome",
     "bundle:firefox": "wxt zip -b firefox",
     "check-types": "tsc --noEmit",
+    "clean": "rm -rf .turbo .wxt dist node_modules",
     "dev": "npm run dev:chrome",
     "dev:chrome": "wxt -b chrome",
     "dev:firefox": "wxt -b firefox",
-    "format": "prettier ./src --write",
+    "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "postinstall": "wxt prepare",
     "lint": "eslint src --max-warnings 0"
   },
@@ -26,10 +27,13 @@
   "devDependencies": {
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
+    "@istrust/tailwind-config": "*",
     "@tailwindcss/vite": "^4.1.8",
-    "@types/chrome": "^0.0.326",
+    "@types/chrome": "^0.1.3",
     "@wxt-dev/auto-icons": "^1.0.2",
     "@wxt-dev/module-solid": "^1.1.2",
+    "eslint": "^9.33.0",
+    "prettier": "^3.2.5",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.6.3",
     "wxt": "^0.20.7"

@@ -36,10 +36,16 @@ export async function get_data(domain: string) {
     );
 
     data.registrations = [
-      { value: new Date(registrationDate).toISOString(), sources },
+      {
+        value: new Date(registrationDate).toISOString(),
+        sources,
+        verified: true,
+      },
     ];
 
-    data.organizations = [{ value: whois.details.registrant, sources }];
+    data.organizations = [
+      { value: whois.details.registrant, sources, verified: false },
+    ];
   } catch (e) {
     const error = e as Error;
     console.error(`${error.message} from SIDN`);

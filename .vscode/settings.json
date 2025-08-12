@@ -1,5 +1,10 @@
 {
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "prettier.documentSelectors": ["**/*.astro"],
+  "prettier.requireConfig": true
 }

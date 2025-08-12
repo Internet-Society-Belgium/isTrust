@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import ButtonStore from "../../components/button/store.astro";
+import HeaderSection from "../../components/header/section.astro";
+import { stores } from "../../data/stores";
+---
+
+<div class="mx-auto max-w-4xl p-6">
+  <HeaderSection header="Store"> Get the webextension</HeaderSection>
+
+  <div class="mt-6 flex flex-wrap justify-center gap-6 p-6">
+    {
+      Object.entries(stores).map(([key, value]) => (
+        <ButtonStore href={value.link}>
+          <div class="flex items-center justify-center gap-2 p-2">
+            <Image
+              src={value.icon()}
+              alt={key}
+              class="h-8 w-8 object-contain"
+            />
+            <p class="font-semibold">
+              {key === "chrome"
+                ? "Chrome"
+                : key === "safari"
+                  ? "Safari"
+                  : key === "edge"
+                    ? "Edge"
+                    : key === "firefox"
+                      ? "Firefox"
+                      : key === "thunderbird"
+                        ? "Thunderbird"
+                        : ""}
+            </p>
+          </div>
+        </ButtonStore>
+      ))
+    }
+  </div>
+</div>

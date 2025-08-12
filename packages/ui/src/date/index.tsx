@@ -1,14 +1,7 @@
-import { type Component } from "solid-js";
-import "../styles.css";
-
-interface DatePastPeriodProps {
-  date: string | undefined;
-}
-
-export const DatePastPeriod: Component<DatePastPeriodProps> = (props) => {
+export function DatePastPeriod(props: { date: string | undefined }) {
   const getText = (date: string | undefined) => {
     const now = new Date();
-    const then = new Date(date || now);
+    const then = new Date(date !== undefined ? date : now);
 
     const millisecond = Math.abs(now.getTime() - then.getTime());
 
@@ -19,21 +12,21 @@ export const DatePastPeriod: Component<DatePastPeriodProps> = (props) => {
 
       if (m === 0) return "now";
 
-      return `${m} ${m === 1 ? "minute" : "minutes"} ago`;
+      return `${m.toString()} ${m === 1 ? "minute" : "minutes"} ago`;
     }
 
     const hour = minute / 60;
     if (hour < 24) {
       const h = Math.round(hour);
 
-      return `${h} ${h === 1 ? "hour" : "hours"} ago`;
+      return `${h.toString()} ${h === 1 ? "hour" : "hours"} ago`;
     }
 
     const day = hour / 24;
     if (day < 30) {
       const d = Math.round(day);
 
-      return `${d} ${d === 1 ? "day" : "days"} ago`;
+      return `${d.toString()} ${d === 1 ? "day" : "days"} ago`;
     }
 
     const month =
@@ -44,24 +37,20 @@ export const DatePastPeriod: Component<DatePastPeriodProps> = (props) => {
     if (month < 12) {
       const m = Math.round(month);
 
-      return `${m} ${m === 1 ? "month" : "months"} ago`;
+      return `${m.toString()} ${m === 1 ? "month" : "months"} ago`;
     }
 
     const year = month / 12;
 
     const y = Math.round(year);
 
-    return `${y} ${y === 1 ? "year" : "years"} ago`;
+    return `${y.toString()} ${y === 1 ? "year" : "years"} ago`;
   };
 
   return <span>{getText(props.date)}</span>;
-};
-
-interface DateFrequencyProps {
-  dates: string[];
 }
 
-export const DateFrequency: Component<DateFrequencyProps> = (props) => {
+export function DateFrequency(props: { dates: string[] }) {
   const average = (values: number[], range: number) => {
     let sum = 0;
     for (const count of values) {
@@ -91,7 +80,10 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
     const uniqueDates = unique.values().toArray();
 
     const now = new Date();
-    const first = new Date(uniqueDates.at(0) || now);
+    const firstUniqueDate = uniqueDates.at(0);
+    const first = new Date(
+      firstUniqueDate !== undefined ? firstUniqueDate : now,
+    );
 
     const rangeWeek =
       1 +
@@ -105,17 +97,17 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
 
       const week = weekNumber(date);
 
-      const dateString = `${date.getFullYear()}-${week}`;
+      const dateString = `${date.getFullYear().toString()}-${week.toString()}`;
 
       const count = countPerWeek.get(dateString);
-      countPerWeek.set(dateString, (count || 0) + 1);
+      countPerWeek.set(dateString, (count !== undefined ? count : 0) + 1);
     }
 
     const averagePerWeek = average(countPerWeek.values().toArray(), rangeWeek);
 
     if (averagePerWeek >= 1) {
       const days = Math.round(averagePerWeek);
-      return `${days} ${days <= 1 ? "day" : "days"} per week`;
+      return `${days.toString()} ${days <= 1 ? "day" : "days"} per week`;
     }
 
     const rangeMonth =
@@ -127,10 +119,10 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
     const countPerMonth = new Map<string, number>();
     for (const previousDate of uniqueDates) {
       const date = new Date(previousDate);
-      const dateString = `${date.getFullYear()}-${date.getMonth()}`;
+      const dateString = `${date.getFullYear().toString()}-${date.getMonth().toString()}`;
 
       const count = countPerMonth.get(dateString);
-      countPerMonth.set(dateString, (count || 0) + 1);
+      countPerMonth.set(dateString, (count !== undefined ? count : 0) + 1);
     }
 
     const averagePerMonth = average(
@@ -140,7 +132,7 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
 
     if (averagePerMonth >= 1) {
       const days = Math.round(averagePerMonth);
-      return `${days} ${days <= 1 ? "day" : "days"} per month`;
+      return `${days.toString()} ${days <= 1 ? "day" : "days"} per month`;
     }
 
     const rangeYear = 1 + now.getFullYear() - first.getFullYear();
@@ -148,10 +140,10 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
     const countPerYear = new Map<string, number>();
     for (const previousDate of uniqueDates) {
       const date = new Date(previousDate);
-      const dateString = `${date.getFullYear()}`;
+      const dateString = date.getFullYear().toString();
 
       const count = countPerYear.get(dateString);
-      countPerYear.set(dateString, (count || 0) + 1);
+      countPerYear.set(dateString, (count !== undefined ? count : 0) + 1);
     }
 
     const averagePerYear = average(countPerYear.values().toArray(), rangeYear);
@@ -162,8 +154,8 @@ export const DateFrequency: Component<DateFrequencyProps> = (props) => {
       return `less than 1 day a year`;
     }
 
-    return `${days} ${days <= 1 ? "day" : "days"} per year`;
+    return `${days.toString()} ${days <= 1 ? "day" : "days"} per year`;
   };
 
   return <span>{getText(props.dates)}</span>;
-};
+}

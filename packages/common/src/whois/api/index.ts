@@ -1,4 +1,4 @@
-import { user_error } from "../../utils/error";
+import { feature_error, user_error } from "../../utils/error";
 import * as be from "./be";
 import * as nl from "./nl";
 
@@ -12,5 +12,5 @@ export async function get_data(domain: string) {
     return await nl.get_data(domain);
   }
 
-  return;
+  throw feature_error(`No API available for .${tld}`);
 }

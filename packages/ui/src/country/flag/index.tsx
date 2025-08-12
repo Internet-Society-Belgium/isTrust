@@ -1,4 +1,3 @@
-import { type Component } from "solid-js";
 import AD from "./AD";
 import AE from "./AE";
 import AF from "./AF";
@@ -250,10 +249,7 @@ import ZA from "./ZA";
 import ZM from "./ZM";
 import ZW from "./ZW";
 
-interface Props {
-  code: string;
-}
-export const Flag: Component<Props> = (props) => {
+export function Flag(props: { code: string }) {
   const getFlag = (code: string) => {
     code = code.toUpperCase();
     if (code === "AD") return <AD />;
@@ -512,4 +508,4 @@ export const Flag: Component<Props> = (props) => {
       {getFlag(props.code)}
     </div>
   );
-};
+}

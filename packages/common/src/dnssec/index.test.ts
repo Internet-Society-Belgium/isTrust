@@ -14,6 +14,7 @@ test("istrust.org", async () => {
           organization: "Cloudflare",
         },
       ],
+      verified: true,
     },
   } satisfies typeof dnssec);
 });
@@ -31,6 +32,7 @@ test("internetsociety.org", async () => {
           organization: "Cloudflare",
         },
       ],
+      verified: true,
     },
   } satisfies typeof dnssec);
 });

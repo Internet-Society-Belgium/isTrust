@@ -53,7 +53,6 @@ export async function get_data(domain: string, customResolver?: string) {
 
     const res = await fetch(`${resolver.url}?dns=${dnsQueryParam}`, {
       headers: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         Accept: "application/dns-message",
       },
     });
@@ -75,6 +74,7 @@ export async function get_data(domain: string, customResolver?: string) {
           country: resolver.country,
         },
       ],
+      verified: true,
     };
   } catch (e) {
     const error = e as Error;

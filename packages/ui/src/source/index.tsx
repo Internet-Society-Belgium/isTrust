@@ -1,8 +1,8 @@
-import { For, Match, Show, Switch, type Component } from "solid-js";
-import "../styles.css";
 import * as common from "@istrust/common";
+import { For, Match, Show, Switch } from "solid-js";
 import { Country } from "../country";
 import {
+  IconAlert,
   IconBadgeCheck,
   IconBadgeQuestion,
   IconExternalLink,
@@ -11,13 +11,11 @@ import {
 import { List } from "../list";
 import { Popover } from "../popover";
 
-interface SourceInfoProps {
+export function SourceInfo(props: {
   information: common.Information<unknown>;
   locale: Intl.LocalesArgument;
   type?: "good" | "bad";
-}
-
-export const SourceInfo: Component<SourceInfoProps> = (props) => {
+}) {
   return (
     <Popover
       trigger={<IconInfo />}
@@ -32,32 +30,31 @@ export const SourceInfo: Component<SourceInfoProps> = (props) => {
       <Show when={props.information.sources}>
         {(sources) => (
           <>
-            Information provided by{" "}
-            <Sources sources={sources()} locale={props.locale} />
+            <span>Information provided</span>
+            <div class="flex items-center gap-1">
+              <span>by</span>
+              <Sources sources={sources()} locale={props.locale} />
+            </div>
           </>
         )}
       </Show>
     </Popover>
   );
-};
+}
 
-interface SourceVerificationProps {
+export function SourceVerification(props: {
   information: common.Information<unknown>;
   locale: Intl.LocalesArgument;
   type?: "good" | "bad";
-}
-
-export const SourceVerification: Component<SourceVerificationProps> = (
-  props,
-) => {
+}) {
   return (
     <Popover
       trigger={
         <Switch>
-          <Match when={props.information.verified === true}>
+          <Match when={props.information.verified}>
             <IconBadgeCheck />
           </Match>
-          <Match when={props.information.verified === false}>
+          <Match when={!props.information.verified}>
             <IconBadgeQuestion />
           </Match>
         </Switch>
@@ -71,31 +68,39 @@ export const SourceVerification: Component<SourceVerificationProps> = (
       }
     >
       <Switch>
-        <Match when={props.information.verified === false}>
-          Information without verification
+        <Match when={!props.information.verified}>
+          <div class="flex items-center gap-1">
+            <IconAlert /> Information without verification
+          </div>
+          <Show when={props.information.sources}>
+            {(sources) => (
+              <div class="flex items-center gap-1">
+                <span>from</span>
+                <Sources sources={sources()} locale={props.locale} />
+              </div>
+            )}
+          </Show>
         </Match>
-        <Match when={props.information.verified === true}>
+        <Match when={props.information.verified}>
           Information have been verified
           <Show when={props.information.sources}>
             {(sources) => (
-              <>
-                {" "}
-                by <Sources sources={sources()} locale={props.locale} />
-              </>
+              <div class="flex items-center gap-1">
+                <span>by</span>
+                <Sources sources={sources()} locale={props.locale} />
+              </div>
             )}
           </Show>
         </Match>
       </Switch>
     </Popover>
   );
-};
-
-interface SourcesProps {
-  sources: common.Information<unknown>["sources"];
-  locale: Intl.LocalesArgument;
 }
 
-const Sources: Component<SourcesProps> = (props) => {
+function Sources(props: {
+  sources: common.Information<unknown>["sources"];
+  locale: Intl.LocalesArgument;
+}) {
   return (
     <List each={props.sources}>
       {(source) => (
@@ -123,4 +128,4 @@ const Sources: Component<SourcesProps> = (props) => {
       )}
     </List>
   );
-};
+}

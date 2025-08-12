@@ -1,0 +1,32 @@
+---
+import Footer from "./footer.astro";
+import Header from "./header.astro";
+import "../styles/global.css";
+---
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>isTrust</title>
+  </head>
+  <body class="bg-background flex min-h-screen flex-col justify-between">
+    <header
+      class="bg-background/75 border-border sticky top-0 z-100 border-b backdrop-blur"
+    >
+      <div class="mx-auto max-w-4xl">
+        <Header />
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="border-border border-t">
+      <div class="mx-auto max-w-4xl">
+        <Footer />
+      </div>
+    </footer>
+  </body>
+</html>

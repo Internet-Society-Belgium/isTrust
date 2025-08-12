@@ -1,11 +1,6 @@
-import { createSignal, JSX, onMount, Show, type Component } from "solid-js";
-import "../styles.css";
+import { createSignal, JSX, onMount, Show } from "solid-js";
 
-interface Props {
-  children: JSX.Element;
-}
-
-export const Overflow: Component<Props> = (props) => {
+export function Overflow(props: { children: JSX.Element }) {
   const [overflowBegin, setOverflowBegin] = createSignal<boolean>(false);
   const [overflowEnd, setOverflowEnd] = createSignal<boolean>(false);
 
@@ -43,7 +38,9 @@ export const Overflow: Component<Props> = (props) => {
       <p
         ref={element}
         class="overflow-x-auto overflow-y-hidden text-nowrap"
-        onScroll={() => computeOverflow()}
+        onScroll={() => {
+          computeOverflow();
+        }}
       >
         {props.children}
       </p>
@@ -52,4 +49,4 @@ export const Overflow: Component<Props> = (props) => {
       </Show>
     </div>
   );
-};
+}

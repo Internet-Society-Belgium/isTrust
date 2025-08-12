@@ -1,0 +1,27 @@
+{
+  "name": "website",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "astro build",
+    "clean": "rm -rf .turbo .astro dist node_modules",
+    "dev": "astro dev",
+    "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "dependencies": {
+    "@istrust/ui": "*",
+    "solid-js": "^1.9.7"
+  },
+  "devDependencies": {
+    "@astrojs/solid-js": "^5.1.0",
+    "@istrust/eslint-config": "*",
+    "@istrust/prettier-config": "*",
+    "@istrust/tailwind-config": "*",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "^5.12.8",
+    "eslint": "^9.33.0",
+    "prettier": "3.6.2",
+    "tailwindcss": "^4.1.11"
+  }
+}

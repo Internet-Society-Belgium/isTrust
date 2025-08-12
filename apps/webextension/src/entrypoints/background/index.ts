@@ -1,4 +1,4 @@
-import { onMessage } from "@/utils/messaging";
+import { messenger } from "@/utils/messaging";
 import * as common from "@istrust/common";
 import { browser, defineBackground } from "#imports";
 import { cache } from "./cache";
@@ -11,25 +11,30 @@ export default defineBackground(() => {
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/menus/ContextType
     contexts: ["link", "selection", "frame"],
   });
-  browser.contextMenus.onClicked.addListener(async (info) => {
-    let query = info.linkUrl || info.selectionText || info.frameUrl;
+  browser.contextMenus.onClicked.addListener((info) => {
+    const query =
+      info.linkUrl !== undefined
+        ? info.linkUrl
+        : info.selectionText !== undefined
+          ? info.selectionText
+          : info.frameUrl;
     if (query === undefined) return;
 
-    await browser.windows.create({
+    void browser.windows.create({
       url: `${browser.runtime.getURL("/popup.html")}?q=${query}`,
       type: "popup",
       focused: true,
     });
   });
 
-  browser.runtime.onInstalled.addListener(async () => {
-    return await common.update_cache(cache);
+  browser.runtime.onInstalled.addListener(() => {
+    void common.update_cache(cache);
   });
 
-  onMessage(
+  messenger.onMessage(
     "get_effective_domain",
     async ({ data: { query: text, forceUpdateCache } }) => {
-      if (forceUpdateCache === true) {
+      if (forceUpdateCache) {
         await common.force_update_cache(cache);
       }
 
@@ -37,19 +42,22 @@ export default defineBackground(() => {
     },
   );
 
-  onMessage("get_whois_data", async ({ data: { domain } }) => {
+  messenger.onMessage("get_whois_data", async ({ data: { domain } }) => {
     return await common.get_whois_data(domain, cache);
   });
 
-  onMessage("get_dnssec_data", async ({ data: { domain, resolver } }) => {
-    return await common.get_dnssec_data(domain, resolver);
-  });
+  messenger.onMessage(
+    "get_dnssec_data",
+    async ({ data: { domain, resolver } }) => {
+      return await common.get_dnssec_data(domain, resolver);
+    },
+  );
 
-  onMessage("get_history_data", async ({ data: { domain } }) => {
+  messenger.onMessage("get_history_data", async ({ data: { domain } }) => {
     return await history.get_history_data(domain);
   });
 
-  onMessage("get_certificate_data", async ({ data: { domain } }) => {
+  messenger.onMessage("get_certificate_data", async ({ data: { domain } }) => {
     return await common.get_certificate_data(domain);
   });
 });

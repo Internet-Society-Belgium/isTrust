@@ -1,7 +1,7 @@
 {
   "name": "istrust",
   "version": "4.0.0",
-  "description": "Verify the trustworthiness of any website",
+  "description": "Verify the trustworthiness of any domain",
   "homepage": "https://github.com/Internet-Society-Belgium/isTrust#readme",
   "bugs": {
     "url": "https://github.com/Internet-Society-Belgium/isTrust/issues"
@@ -21,15 +21,16 @@
     "apps/*"
   ],
   "scripts": {
-    "build:webapp": "turbo build --filter=webapp",
     "build:webextension": "turbo build --filter=webextension",
+    "build:website": "turbo build --filter=website",
     "bundle": "turbo bundle",
-    "bundle:webapp": "turbo bundle --filter=webapp",
     "bundle:webextension": "turbo bundle --filter=webextension",
+    "bundle:website": "turbo bundle --filter=website",
     "check-types": "turbo check-types",
+    "clean": "turbo clean && rm -rf .turbo node_modules",
     "commit": "cz",
-    "dev:webapp": "turbo dev --filter=webapp --filter=./packages/*",
     "dev:webextension": "turbo dev --filter=webextension --filter=./packages/*",
+    "dev:website": "turbo dev --filter=website --filter=./packages/*",
     "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
     "lint": "turbo lint",
     "release": "release-it",
@@ -50,7 +51,7 @@
     "release-it": "^19.0.3",
     "turbo": "^2.5.4"
   },
-  "packageManager": "npm@10.9.2",
+  "packageManager": "npm@11.4.2",
   "engines": {
     "node": ">=22.0.0"
   }

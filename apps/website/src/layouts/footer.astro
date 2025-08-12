@@ -1,0 +1,25 @@
+---
+import Button from "../components/button/index.astro";
+---
+
+<div class="flex flex-col items-center justify-center gap-4 p-4">
+  <nav class="flex flex-wrap justify-center gap-4">
+    <Button href="/legal" redirect={true}>
+      <span class="text-muted hover:underline">Legal</span></Button
+    >
+    <Button href="/privacy" redirect={true}
+      ><span class="text-muted hover:underline">Privacy</span></Button
+    >
+  </nav>
+
+  <div class="flex flex-col justify-center gap-2 text-center">
+    <p class="text-muted">
+      <span> 2021 © </span>
+      <Button href="https://internetsociety.be/"
+        ><span class="hover:underline"
+          >Internet Society Chapter Belgium vzw/asbl</span
+        >
+      </Button>
+    </p>
+  </div>
+</div>

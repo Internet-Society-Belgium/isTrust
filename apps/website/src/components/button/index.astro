@@ -1,0 +1,16 @@
+---
+interface Props {
+  href: string;
+  redirect?: boolean;
+}
+
+const { href, redirect } = Astro.props;
+---
+
+<a
+  class="focus-visible:rounded"
+  href={href}
+  target={redirect !== true ? "_blank" : ""}
+>
+  <slot />
+</a>

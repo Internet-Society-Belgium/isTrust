@@ -1,19 +1,15 @@
 {
   "name": "@istrust/eslint-config",
   "version": "0.0.0",
-  "license": "MIT",
   "type": "module",
   "exports": {
-    ".": "./base.js",
-    "./base": "./base.js",
-    "./solid": "./solid.js"
+    "./*": "./*.js"
   },
   "dependencies": {
-    "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.4.0",
-    "@typescript-eslint/eslint-plugin": "^8.18.0",
-    "@typescript-eslint/parser": "^8.18.0",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-solid": "^0.14.0"
+    "eslint-plugin-astro": "^1.3.1",
+    "eslint-plugin-solid": "^0.14.0",
+    "typescript-eslint": "^8.39.0"
   }
 }

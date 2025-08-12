@@ -6,6 +6,9 @@
     },
     "check-types": {
       "dependsOn": ["build"]
+    },
+    "lint": {
+      "dependsOn": ["build"]
     }
   }
 }

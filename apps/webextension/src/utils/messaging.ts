@@ -23,5 +23,4 @@ interface ProtocolMap {
   }): Awaited<ReturnType<typeof common.get_certificate_data>>;
 }
 
-export const { sendMessage, onMessage } =
-  defineExtensionMessaging<ProtocolMap>();
+export const messenger = defineExtensionMessaging<ProtocolMap>();

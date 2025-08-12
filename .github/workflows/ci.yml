@@ -50,7 +50,7 @@ jobs:
 
   lint:
     name: Lint
-    timeout-minutes: 1
+    timeout-minutes: 3
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     env:

@@ -1,22 +1,11 @@
-import {
-  For,
-  JSX,
-  Match,
-  Show,
-  Suspense,
-  Switch,
-  type Component,
-} from "solid-js";
-import "../styles.css";
 import * as common from "@istrust/common";
+import { For, JSX, Match, Show, Suspense, Switch } from "solid-js";
 import { IconThumbsDown, IconThumbsUp } from "../icon";
 import { SourceVerification } from "../source";
 
-interface CertificateAlertProps {
+export function CertificateAlert(props: {
   types?: common.Information<unknown>[];
-}
-
-export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
+}) {
   return (
     <Suspense>
       <Show when={props.types}>
@@ -89,14 +78,9 @@ export const CertificateAlert: Component<CertificateAlertProps> = (props) => {
       </Show>
     </Suspense>
   );
-};
-
-interface AlertProps {
-  type: "good" | "bad";
-  children: JSX.Element;
 }
 
-const Alert: Component<AlertProps> = (props) => {
+function Alert(props: { type: "good" | "bad"; children: JSX.Element }) {
   return (
     <Switch>
       <Match when={props.type === "good"}>
@@ -123,4 +107,4 @@ const Alert: Component<AlertProps> = (props) => {
       </Match>
     </Switch>
   );
-};
+}
