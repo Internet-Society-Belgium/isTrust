@@ -42,6 +42,7 @@ test("dnsbelgium.be", async () => {
           },
         ],
         value: "2012-06-13T00:00:00.000Z",
+        verified: true,
       },
     ],
   } satisfies typeof whoisData);

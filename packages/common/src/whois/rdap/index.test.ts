@@ -75,6 +75,7 @@ test("istrust.org", async () => {
             organization: "Gandi SAS",
           },
         ],
+        verified: true,
       },
     ],
   } satisfies typeof whoisData);
@@ -133,6 +134,7 @@ test("github.com", async () => {
           },
         ],
         value: "2007-10-09T00:00:00.000Z",
+        verified: true,
       },
     ],
   } satisfies typeof whoisData);

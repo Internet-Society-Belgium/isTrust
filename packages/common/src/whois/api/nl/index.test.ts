@@ -17,6 +17,7 @@ test("sidn.nl", async () => {
           },
         ],
         value: "Stichting Internet Domeinregistratie Nederland",
+        verified: false,
       },
     ],
     registrations: [
@@ -29,6 +30,7 @@ test("sidn.nl", async () => {
           },
         ],
         value: "1999-11-18T00:00:00.000Z",
+        verified: true,
       },
     ],
   } satisfies typeof whoisData);
