@@ -50,5 +50,9 @@
     "prettier": "^3.2.5",
     "release-it": "^19.0.3",
     "turbo": "^2.5.4"
+  },
+  "packageManager": "npm@11.4.2",
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
