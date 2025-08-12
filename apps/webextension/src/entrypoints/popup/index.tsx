@@ -4,4 +4,6 @@ import "./index.css";
 
 const root = document.querySelector("body");
 
-render(() => <App />, root!);
+if (root) {
+  render(() => <App />, root);
+}

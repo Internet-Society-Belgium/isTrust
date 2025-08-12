@@ -56,7 +56,7 @@ export const App: Component = () => {
     forceUpdateCache: boolean;
   }>();
 
-  onMount(async () => {
+  onMount(() => {
     const params = new URLSearchParams(document.location.search);
 
     const paramUrl = params.get("q");
@@ -66,11 +66,14 @@ export const App: Component = () => {
       return;
     }
 
-    const tab = await get_active_tab();
-    if (tab.url) {
-      setMode("attached");
-      setSearchQuery({ text: tab.url, forceUpdateCache: false });
-    }
+    get_active_tab()
+      .then((tab) => {
+        if (tab.url !== undefined) {
+          setMode("attached");
+          setSearchQuery({ text: tab.url, forceUpdateCache: false });
+        }
+      })
+      .catch(console.error);
   });
 
   const [domain] = createResource(searchQuery, async (query) => {

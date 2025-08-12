@@ -18,6 +18,7 @@ export const config = {
       navigator: false,
       setTimeout: false,
       localStorage: false,
+      console: false,
     },
   },
 };

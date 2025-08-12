@@ -36,42 +36,60 @@ import {
 const cache: common.InformationCache = {
   psl: {
     set: async (key: string, value: string) => {
-      localStorage.setItem(`psl:${key}`, value);
+      return new Promise(() => {
+        localStorage.setItem(`psl:${key}`, value);
+      });
     },
     get: async (key: string) => {
-      const item = localStorage.getItem(`psl:${key}`);
-      if (item === null) return;
-      return item;
+      return new Promise((resolve) => {
+        const item = localStorage.getItem(`psl:${key}`);
+        if (item === null) {
+          resolve(undefined);
+        } else {
+          resolve(item);
+        }
+      });
     },
     clear: async () => {
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key === null) continue;
+      return new Promise(() => {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key === null) continue;
 
-        if (key.startsWith("psl:")) {
-          localStorage.removeItem(key);
+          if (key.startsWith("psl:")) {
+            localStorage.removeItem(key);
+          }
         }
-      }
+      });
     },
   },
   rdap: {
     set: async (key: string, value: string) => {
-      localStorage.setItem(`rdap:${key}`, value);
+      return new Promise(() => {
+        localStorage.setItem(`rdap:${key}`, value);
+      });
     },
     get: async (key: string) => {
-      const item = localStorage.getItem(`rdap:${key}`);
-      if (item === null) return;
-      return item;
+      return new Promise((resolve) => {
+        const item = localStorage.getItem(`rdap:${key}`);
+        if (item === null) {
+          resolve(undefined);
+        } else {
+          resolve(item);
+        }
+      });
     },
     clear: async () => {
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key === null) continue;
+      return new Promise(() => {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key === null) continue;
 
-        if (key.startsWith("rdap:")) {
-          localStorage.removeItem(key);
+          if (key.startsWith("rdap:")) {
+            localStorage.removeItem(key);
+          }
         }
-      }
+      });
     },
   },
 };
@@ -268,10 +286,10 @@ export function App() {
                     <Show when={dnssecData()?.valid} fallback={<IconShield />}>
                       {(valid) => (
                         <Switch>
-                          <Match when={valid().value === true}>
+                          <Match when={valid().value}>
                             <IconShieldCheck />
                           </Match>
-                          <Match when={valid().value === false}>
+                          <Match when={!valid().value}>
                             <IconShieldX />
                           </Match>
                         </Switch>
