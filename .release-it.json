@@ -11,7 +11,7 @@
     "releaseName": "${version}"
   },
   "hooks": {
-    "after:bump": "npx auto-changelog --package --starting-version 4.0.0 --template changelog.hbs --output CHANGELOG.md && git add CHANGELOG.md",
+    "after:bump": "npm run bundle && npx auto-changelog --package --starting-version 4.0.0 --template changelog.hbs --output CHANGELOG.md && git add CHANGELOG.md",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "npm": {

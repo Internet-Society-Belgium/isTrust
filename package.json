@@ -33,7 +33,7 @@
     "dev:website": "turbo dev --filter=website --filter=./packages/*",
     "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
     "lint": "turbo lint",
-    "release": "npm run bundle && release-it",
+    "release": "release-it",
     "test": "turbo test"
   },
   "config": {
