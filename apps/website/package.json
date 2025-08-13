@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "astro build",
+    "bundle": "npm run build && node ./scripts/bundle.cjs",
     "clean": "rm -rf .turbo .astro dist node_modules",
     "dev": "astro dev",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
@@ -19,6 +20,7 @@
     "@istrust/prettier-config": "*",
     "@istrust/tailwind-config": "*",
     "@tailwindcss/vite": "^4.1.11",
+    "archiver": "^7.0.1",
     "astro": "^5.12.8",
     "eslint": "^9.33.0",
     "prettier": "3.6.2",

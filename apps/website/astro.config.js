@@ -6,6 +6,7 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   site: "https://istrust.org",
   output: "static",
+  outDir: "./dist/website",
   integrations: [solidJs()],
   vite: {
     plugins: [tailwindcss()],
