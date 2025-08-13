@@ -5,12 +5,12 @@
     "requireBranch": "v2"
   },
   "github": {
-    "assets": ["apps/webapp/out/*.zip", "apps/webextension/dist/*.zip"],
+    "assets": ["apps/website/dist/*.zip", "apps/webextension/dist/*.zip"],
     "release": true,
     "releaseName": "${version}"
   },
   "hooks": {
-    "after:bump": "npm i && npm run bundle",
+    "after:bump": "npm ci && npm run bundle",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "npm": {
