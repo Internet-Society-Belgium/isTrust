@@ -33,7 +33,7 @@
     "dev:website": "turbo dev --filter=website --filter=./packages/*",
     "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
     "lint": "turbo lint",
-    "release": "release-it",
+    "release": "npm run bundle && release-it",
     "test": "turbo test"
   },
   "config": {
@@ -44,6 +44,7 @@
   "devDependencies": {
     "@istrust/prettier-config": "*",
     "@release-it/bumper": "^7.0.5",
+    "auto-changelog": "^2.5.0",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "prettier": "^3.2.5",

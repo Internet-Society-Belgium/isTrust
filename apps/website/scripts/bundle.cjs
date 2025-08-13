@@ -14,7 +14,7 @@ const output = fs.createWriteStream(
 );
 const archive = archiver("zip");
 
-archive.directory(path.resolve(__dirname, "../dist/website"), "website");
+archive.directory(path.resolve(__dirname, "../dist/website"), ".");
 
 archive.pipe(output);
 archive.finalize();

@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/release-it/schema/release-it.json",
   "git": {
-    "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs",
+    "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs",
     "commitMessage": "chore: release v${version}",
     "requireBranch": "v2"
   },
@@ -11,7 +11,7 @@
     "releaseName": "${version}"
   },
   "hooks": {
-    "after:bump": "npm run bundle && npx auto-changelog -p --template changelog.hbs",
+    "after:bump": "npx auto-changelog --package --starting-version 4.0.0 --template changelog.hbs --output CHANGELOG.md && git add CHANGELOG.md",
     "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   },
   "npm": {
