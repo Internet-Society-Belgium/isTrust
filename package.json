@@ -44,7 +44,6 @@
   "devDependencies": {
     "@istrust/prettier-config": "*",
     "@release-it/bumper": "^7.0.5",
-    "@release-it/conventional-changelog": "^10.0.1",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "prettier": "^3.2.5",
