@@ -24,6 +24,7 @@ export function SectionUnavailable(props: {
   title: string;
   children: JSX.Element;
   message: JSX.Element;
+  link: string;
 }) {
   return (
     <>
@@ -39,7 +40,15 @@ export function SectionUnavailable(props: {
         {props.children}
 
         <div class="bg-container/75 absolute top-0 z-1 h-full w-full">
-          {props.message}
+          <div class="flex h-full items-center justify-center">
+            <a
+              href={props.link}
+              class="border-border bg-container hover:bg-container-darker pointer-events-auto rounded-md border px-2 py-1 text-sm font-medium text-nowrap shadow hover:transition-colors"
+              target={props.link.startsWith("#") ? undefined : "_blank"}
+            >
+              {props.message}
+            </a>
+          </div>
         </div>
       </div>
     </>

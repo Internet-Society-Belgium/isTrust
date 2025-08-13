@@ -313,16 +313,8 @@ export function App() {
 
             <SectionUnavailable
               title="Visit"
-              message={
-                <div class="flex h-full items-center justify-center">
-                  <a
-                    href="#get"
-                    class="border-border bg-container hover:bg-container-darker pointer-events-auto rounded-md border px-2 py-1 text-sm font-medium text-nowrap shadow hover:transition-colors"
-                  >
-                    Only available in webextension
-                  </a>
-                </div>
-              }
+              message="Only available in webextension"
+              link="#get"
             >
               <SectionItemUnavailable
                 description="First visit"
