@@ -4,6 +4,9 @@
     "build": {
       "dependsOn": ["@istrust/common#build", "@istrust/ui#build"]
     },
+    "bundle": {
+      "dependsOn": ["@istrust/common#build", "@istrust/ui#build"]
+    },
     "check-types": {
       "dependsOn": ["@istrust/common#check-types", "@istrust/ui#check-types"]
     },
