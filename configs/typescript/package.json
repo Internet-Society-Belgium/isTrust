@@ -1,6 +1,6 @@
 {
   "name": "@istrust/typescript-config",
-  "version": "0.0.0",
+  "version": "4.0.0",
   "exports": {
     ".": "./base.json",
     "./solid": "./solid.json"
