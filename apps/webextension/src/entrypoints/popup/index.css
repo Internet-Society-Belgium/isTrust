@@ -6,6 +6,6 @@
 
 @layer base {
   body {
-    @apply text-base;
+    font-size: 100% !important;
   }
 }
