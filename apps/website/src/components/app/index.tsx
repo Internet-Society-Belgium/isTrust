@@ -36,12 +36,13 @@ import {
 const cache: common.InformationCache = {
   psl: {
     set: async (key: string, value: string) => {
-      return new Promise(() => {
+      return new Promise<void>((resolve) => {
         localStorage.setItem(`psl:${key}`, value);
+        resolve();
       });
     },
     get: async (key: string) => {
-      return new Promise((resolve) => {
+      return new Promise<string | undefined>((resolve) => {
         const item = localStorage.getItem(`psl:${key}`);
         if (item === null) {
           resolve(undefined);
@@ -51,7 +52,7 @@ const cache: common.InformationCache = {
       });
     },
     clear: async () => {
-      return new Promise(() => {
+      return new Promise<void>((resolve) => {
         for (let i = 0; i < localStorage.length; i++) {
           const key = localStorage.key(i);
           if (key === null) continue;
@@ -60,17 +61,20 @@ const cache: common.InformationCache = {
             localStorage.removeItem(key);
           }
         }
+
+        resolve();
       });
     },
   },
   rdap: {
     set: async (key: string, value: string) => {
-      return new Promise(() => {
+      return new Promise<void>((resolve) => {
         localStorage.setItem(`rdap:${key}`, value);
+        resolve();
       });
     },
     get: async (key: string) => {
-      return new Promise((resolve) => {
+      return new Promise<string | undefined>((resolve) => {
         const item = localStorage.getItem(`rdap:${key}`);
         if (item === null) {
           resolve(undefined);
@@ -80,7 +84,7 @@ const cache: common.InformationCache = {
       });
     },
     clear: async () => {
-      return new Promise(() => {
+      return new Promise<void>((resolve) => {
         for (let i = 0; i < localStorage.length; i++) {
           const key = localStorage.key(i);
           if (key === null) continue;
@@ -89,6 +93,7 @@ const cache: common.InformationCache = {
             localStorage.removeItem(key);
           }
         }
+        resolve();
       });
     },
   },

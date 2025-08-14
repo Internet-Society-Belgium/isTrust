@@ -13,6 +13,8 @@ export function parse_tld(text: string) {
 }
 
 export function parse_domain(text: string) {
+  text = text.trim();
+
   const domainWithoutProtocol = text.match(/^(\w+:\/\/)?(.*)/)?.at(2);
 
   if (domainWithoutProtocol === undefined)

@@ -75,7 +75,17 @@ export const App: Component = () => {
       .then((tab) => {
         if (tab.url !== undefined) {
           setMode("attached");
-          setSearchQuery({ text: tab.url, forceUpdateCache: false });
+          try {
+            setSearchQuery({
+              text: new URL(tab.url).hostname,
+              forceUpdateCache: false,
+            });
+          } catch {
+            setSearchQuery({
+              text: tab.url,
+              forceUpdateCache: false,
+            });
+          }
         }
       })
       .catch(console.error);

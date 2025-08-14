@@ -1,5 +1,5 @@
 import { InformationCache } from "../type";
-import { user_error } from "../utils/error";
+import { ErrorType, user_error } from "../utils/error";
 import * as api from "./api";
 import * as rdap from "./rdap";
 import { WHOISData } from "./type";
@@ -19,7 +19,9 @@ export async function get_data(domain: string, cache: InformationCache) {
     data = await api.get_data(domain);
   } catch (e) {
     const error = e as Error;
-    console.error(`${error.message} from API`);
+    if ((error.name as ErrorType) !== "FeatureError") {
+      console.error(`${error.message} from API`);
+    }
   }
 
   try {
