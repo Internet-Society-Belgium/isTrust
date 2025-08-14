@@ -6,7 +6,7 @@ export function FooterAvailability(props: {
 }) {
   return (
     <div class="mt-2 flex items-center justify-center">
-      <p class="text-muted">
+      <p class="text-muted text-xs">
         <span>Also available on </span>
         <Switch>
           <Match when={props.on === "website"}>
