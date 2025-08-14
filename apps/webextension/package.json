@@ -9,7 +9,7 @@
     "bundle": "npm run bundle:chrome && npm run bundle:firefox && npm run bundle:safari",
     "bundle:chrome": "wxt zip -b chrome",
     "bundle:firefox": "wxt zip -b firefox",
-    "bundle:safari": "wxt zip -b safari",
+    "bundle:safari": "wxt zip -b safari && ./scripts/xcode.sh",
     "check-types": "tsc --noEmit",
     "clean": "rm -rf .turbo .wxt dist node_modules",
     "dev:chrome": "wxt -b chrome",
