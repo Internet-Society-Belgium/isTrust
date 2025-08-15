@@ -29,8 +29,9 @@ import {
   createSignal,
   Match,
   onMount,
+  Show,
+  Suspense,
   Switch,
-  type Component,
 } from "solid-js";
 
 async function get_tab() {
@@ -53,42 +54,46 @@ export async function get_active_tab() {
   return tab;
 }
 
-export const App: Component = () => {
-  const [mode, setMode] = createSignal<"attached" | "detached">();
-
+export function App() {
   const [searchQuery, setSearchQuery] = createSignal<{
     text: string;
     forceUpdateCache: boolean;
   }>();
 
+  const [mode, setMode] = createSignal<"attached" | "detached">();
+  const [debug, setDebug] = createSignal<boolean>(false);
+
   onMount(() => {
-    const params = new URLSearchParams(document.location.search);
+    const urlSearchParams = new URLSearchParams(document.location.search);
 
-    const paramUrl = params.get("q");
-    if (paramUrl !== null) {
+    const paramQuery = urlSearchParams.get("q");
+    if (paramQuery !== null) {
       setMode("detached");
-      setSearchQuery({ text: paramUrl, forceUpdateCache: false });
-      return;
-    }
+      setSearchQuery({ text: paramQuery, forceUpdateCache: false });
 
-    get_active_tab()
-      .then((tab) => {
-        if (tab.url !== undefined) {
-          setMode("attached");
-          try {
-            setSearchQuery({
-              text: new URL(tab.url).hostname,
-              forceUpdateCache: false,
-            });
-          } catch {
-            setSearchQuery({
-              text: tab.url,
-              forceUpdateCache: false,
-            });
+      if (urlSearchParams.get("debug") !== null) {
+        setDebug(true);
+      }
+    } else {
+      get_active_tab()
+        .then((tab) => {
+          if (tab.url !== undefined) {
+            setMode("attached");
+            try {
+              setSearchQuery({
+                text: new URL(tab.url).hostname,
+                forceUpdateCache: false,
+              });
+            } catch {
+              setSearchQuery({
+                text: tab.url,
+                forceUpdateCache: false,
+              });
+            }
           }
-        }
-      })
-      .catch(console.error);
+        })
+        .catch(console.error);
+    }
   });
 
   const [domain] = createResource(searchQuery, async (query) => {
@@ -243,17 +248,20 @@ export const App: Component = () => {
               <SectionItem
                 description="Protection (DNSSEC)"
                 prefix={
-                  <Switch>
-                    <Match when={dnssecData()?.valid?.value === true}>
-                      <IconShieldCheck />
-                    </Match>
-                    <Match when={dnssecData()?.valid?.value === false}>
-                      <IconShieldX />
-                    </Match>
-                    <Match when={true}>
-                      <IconShield />
-                    </Match>
-                  </Switch>
+                  <Suspense fallback={<IconShield />}>
+                    <Show when={dnssecData()?.valid} fallback={<IconShield />}>
+                      {(valid) => (
+                        <Switch>
+                          <Match when={valid().value}>
+                            <IconShieldCheck />
+                          </Match>
+                          <Match when={!valid().value}>
+                            <IconShieldX />
+                          </Match>
+                        </Switch>
+                      )}
+                    </Show>
+                  </Suspense>
                 }
                 informations={dnssecData()?.valid}
                 suffix={(valid) => (
@@ -341,7 +349,8 @@ export const App: Component = () => {
 
             <FooterAvailability on="website" query={searchQuery()?.text} />
 
-            {/* <Section title="Debug">
+            <Show when={debug()}>
+              <Section title="Debug">
                 <details>
                   <summary>WHOIS raw data</summary>
                   <Show when={whoisData()}>
@@ -385,10 +394,11 @@ export const App: Component = () => {
                     )}
                   </Show>
                 </details>
-              </Section> */}
+              </Section>
+            </Show>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}

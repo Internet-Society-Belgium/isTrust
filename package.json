@@ -21,8 +21,6 @@
     "apps/*"
   ],
   "scripts": {
-    "build:webextension": "turbo build --filter=webextension",
-    "build:website": "turbo build --filter=website",
     "bundle": "turbo bundle",
     "bundle:webextension": "turbo bundle --filter=webextension",
     "bundle:website": "turbo bundle --filter=website",
