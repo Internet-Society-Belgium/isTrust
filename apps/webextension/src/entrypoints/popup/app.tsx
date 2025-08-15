@@ -32,7 +32,6 @@ import {
   Show,
   Suspense,
   Switch,
-  type Component,
 } from "solid-js";
 
 async function get_tab() {
