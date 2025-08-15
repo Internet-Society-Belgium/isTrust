@@ -10,6 +10,7 @@
     "bundle:safari": "wxt zip -b safari && ./scripts/xcode.sh",
     "check-types": "wxt prepare && tsc --noEmit",
     "clean": "rm -rf .turbo .wxt dist node_modules",
+    "dev": "npm run dev:chrome",
     "dev:chrome": "wxt -b chrome",
     "dev:firefox": "wxt -b firefox",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
