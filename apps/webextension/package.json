@@ -7,13 +7,12 @@
     "bundle:chrome": "wxt zip -b chrome",
     "bundle:firefox": "wxt zip -b firefox",
     "bundle:safari": "wxt zip -b safari && ./scripts/xcode.sh",
-    "check-types": "tsc --noEmit",
+    "check-types": "wxt prepare && tsc --noEmit",
     "clean": "rm -rf .turbo .wxt dist node_modules",
     "dev:chrome": "wxt -b chrome",
     "dev:firefox": "wxt -b firefox",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
-    "postinstall": "wxt prepare",
-    "lint": "eslint src --max-warnings 0"
+    "lint": "wxt prepare && eslint src --max-warnings 0"
   },
   "dependencies": {
     "@istrust/common": "*",
