@@ -110,9 +110,10 @@ export function App() {
 
   onMount(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);
-    const value = urlSearchParams.get("q");
-    if (value !== null) {
-      setInitValue(value);
+
+    const paramQuery = urlSearchParams.get("q");
+    if (paramQuery !== null) {
+      setInitValue(paramQuery);
     }
 
     if (urlSearchParams.get("debug") !== null) {
