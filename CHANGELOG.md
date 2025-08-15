@@ -1,6 +1,18 @@
 # Changelog
 
-## [4.0.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.9.1...4.0.0)
+## [4.0.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.0.0...4.0.1)
+
+### Merged
+
+- 156 safari [`#159`](https://github.com/Internet-Society-Belgium/isTrust/pull/159)
+
+### Commits
+
+- ci: cd permission [`7e2e488`](https://github.com/Internet-Society-Belgium/isTrust/commit/7e2e48891029f20d3aef6d3ad6e4a539c78d95c8)
+- build: fix bundle version [`4cc3085`](https://github.com/Internet-Society-Belgium/isTrust/commit/4cc3085d539e28c7de893ddb08d3cd99aba8e910)
+- Update ci.yml [`5d6736c`](https://github.com/Internet-Society-Belgium/isTrust/commit/5d6736c9bedeebdc8c302f44a1d8785bf24daea3)
+
+## [4.0.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.9.1...4.0.0) - 2025-08-13
 
 ### Merged
 
