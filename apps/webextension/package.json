@@ -3,9 +3,6 @@
   "version": "4.0.1",
   "type": "module",
   "scripts": {
-    "build:chrome": "wxt build -b chrome",
-    "build:firefox": "wxt build -b firefox",
-    "build:safari": "wxt build -b safari",
     "bundle": "npm run bundle:chrome && npm run bundle:firefox && npm run bundle:safari",
     "bundle:chrome": "wxt zip -b chrome",
     "bundle:firefox": "wxt zip -b firefox",

@@ -10,16 +10,15 @@ export default defineConfig({
   vite: () => ({
     plugins: [tailwindcss()],
   }),
-  manifest: ({ browser }) => ({
+  targetBrowsers: ["chrome", "firefox", "firefox-android", "safari", "edge"],
+  manifest: () => ({
     name: "isTrust",
     description: "Verify the trustworthiness of any domain",
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
     permissions:
-      browser === "safari"
+      import.meta.env.BROWSER === "safari"
         ? ["activeTab", "contextMenus", "storage"]
         : ["activeTab", "contextMenus", "storage", "history"],
-    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions
-    optional_permissions: [],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions#host_permissions
     // prevent CORS errors
     host_permissions: ["https://api.dnsbelgium.be/*", "https://api.sidn.nl/*"],

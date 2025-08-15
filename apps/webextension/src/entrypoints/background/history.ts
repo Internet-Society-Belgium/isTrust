@@ -39,28 +39,31 @@ export async function get_history_data(domain: string) {
 
   let sources: common.Information<unknown>["sources"] = [];
 
-  if (import.meta.env.CHROME) {
+  if (import.meta.env.BROWSER === "chrome") {
     sources = [
       {
         organization: "Google Chrome",
         links: [],
       },
     ];
-  } else if (import.meta.env.FIREFOX) {
+  } else if (
+    import.meta.env.BROWSER === "firefox" ||
+    import.meta.env.BROWSER === "firefox-android"
+  ) {
     sources = [
       {
         organization: "Firefox",
         links: [],
       },
     ];
-  } else if (import.meta.env.EDGE) {
+  } else if (import.meta.env.BROWSER === "edge") {
     sources = [
       {
         organization: "Microsoft Edge",
         links: [],
       },
     ];
-  } else if (import.meta.env.SAFARI) {
+  } else if (import.meta.env.BROWSER === "safari") {
     sources = [
       {
         organization: "Safari",
