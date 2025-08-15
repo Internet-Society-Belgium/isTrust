@@ -77,7 +77,7 @@ export async function get_data(domain: string, cache: InformationCache) {
 
   const bootstrap = await cache.rdap.get(tld);
   if (bootstrap === undefined)
-    throw feature_error(`No RDAP available for .${tld}`);
+    throw feature_error(`No source available for .${tld}`);
 
   const data: WHOISData = {
     registrations: [],

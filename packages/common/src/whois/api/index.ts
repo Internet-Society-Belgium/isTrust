@@ -12,5 +12,5 @@ export async function get_data(domain: string) {
     return await nl.get_data(domain);
   }
 
-  throw feature_error(`No API available for .${tld}`);
+  throw feature_error(`No source available for .${tld}`);
 }

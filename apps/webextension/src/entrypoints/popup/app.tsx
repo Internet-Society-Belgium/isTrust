@@ -16,7 +16,12 @@ import {
   IconUser,
 } from "@istrust/ui/icon/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
-import { Section, SectionItem } from "@istrust/ui/section/index";
+import {
+  Section,
+  SectionItem,
+  SectionItemUnavailable,
+  SectionUnavailable,
+} from "@istrust/ui/section/index";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
 import { browser } from "#imports";
 import {
@@ -70,7 +75,17 @@ export const App: Component = () => {
       .then((tab) => {
         if (tab.url !== undefined) {
           setMode("attached");
-          setSearchQuery({ text: tab.url, forceUpdateCache: false });
+          try {
+            setSearchQuery({
+              text: new URL(tab.url).hostname,
+              forceUpdateCache: false,
+            });
+          } catch {
+            setSearchQuery({
+              text: tab.url,
+              forceUpdateCache: false,
+            });
+          }
         }
       })
       .catch(console.error);
@@ -254,53 +269,75 @@ export const App: Component = () => {
               </SectionItem>
             </Section>
 
-            <Section title="Visit">
-              <SectionItem
-                description="First visit"
-                prefix={<IconCalendar1 />}
-                informations={historyData()?.visits}
-                suffix={(visits) => (
-                  <SourceInfo
-                    information={visits}
-                    locale={navigator.language}
+            <Switch>
+              <Match when={import.meta.env.SAFARI}>
+                <SectionUnavailable
+                  title="Visit"
+                  message="Not available in Safari"
+                  link="https://istrust.org/#get"
+                >
+                  <SectionItemUnavailable
+                    description="First visit"
+                    prefix={<IconCalendar1 />}
                   />
-                )}
-              >
-                {(visits, index) => (
-                  <Switch>
-                    <Match when={index === 0}>
-                      First visited <DatePastPeriod date={visits.value.at(0)} />
-                    </Match>
-                    <Match when={true}>
-                      and <DatePastPeriod date={visits.value.at(0)} />
-                    </Match>
-                  </Switch>
-                )}
-              </SectionItem>
 
-              <SectionItem
-                description="Frequency of visits"
-                prefix={<IconCalendarCheck />}
-                informations={historyData()?.visits}
-                suffix={(visits) => (
-                  <SourceInfo
-                    information={visits}
-                    locale={navigator.language}
+                  <SectionItemUnavailable
+                    description="Frequency of visits"
+                    prefix={<IconCalendarCheck />}
                   />
-                )}
-              >
-                {(visits, index) => (
-                  <Switch>
-                    <Match when={index === 0}>
-                      Visited <DateFrequency dates={visits.value} />
-                    </Match>
-                    <Match when={true}>
-                      and <DateFrequency dates={visits.value} />
-                    </Match>
-                  </Switch>
-                )}
-              </SectionItem>
-            </Section>
+                </SectionUnavailable>
+              </Match>
+              <Match when={true}>
+                <Section title="Visit">
+                  <SectionItem
+                    description="First visit"
+                    prefix={<IconCalendar1 />}
+                    informations={historyData()?.visits}
+                    suffix={(visits) => (
+                      <SourceInfo
+                        information={visits}
+                        locale={navigator.language}
+                      />
+                    )}
+                  >
+                    {(visits, index) => (
+                      <Switch>
+                        <Match when={index === 0}>
+                          First visited{" "}
+                          <DatePastPeriod date={visits.value.at(0)} />
+                        </Match>
+                        <Match when={true}>
+                          and <DatePastPeriod date={visits.value.at(0)} />
+                        </Match>
+                      </Switch>
+                    )}
+                  </SectionItem>
+
+                  <SectionItem
+                    description="Frequency of visits"
+                    prefix={<IconCalendarCheck />}
+                    informations={historyData()?.visits}
+                    suffix={(visits) => (
+                      <SourceInfo
+                        information={visits}
+                        locale={navigator.language}
+                      />
+                    )}
+                  >
+                    {(visits, index) => (
+                      <Switch>
+                        <Match when={index === 0}>
+                          Visited <DateFrequency dates={visits.value} />
+                        </Match>
+                        <Match when={true}>
+                          and <DateFrequency dates={visits.value} />
+                        </Match>
+                      </Switch>
+                    )}
+                  </SectionItem>
+                </Section>
+              </Match>
+            </Switch>
 
             <FooterAvailability on="website" query={searchQuery()?.text} />
 
