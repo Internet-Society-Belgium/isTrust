@@ -17,28 +17,30 @@ export function SourceInfo(props: {
   type?: "good" | "bad";
 }) {
   return (
-    <Popover
-      trigger={<IconInfo />}
-      triggerClass={
-        props.type === "good"
-          ? "hover:bg-good/10"
-          : props.type === "bad"
-            ? "hover:bg-bad/10"
-            : "hover:bg-container-darker"
-      }
-    >
-      <Show when={props.information.sources}>
-        {(sources) => (
-          <>
-            <span>Information provided</span>
-            <div class="flex items-center gap-1">
-              <span>by</span>
-              <Sources sources={sources()} locale={props.locale} />
-            </div>
-          </>
-        )}
-      </Show>
-    </Popover>
+    <Show when={props.information.sources.length > 0}>
+      <Popover
+        trigger={<IconInfo />}
+        triggerClass={
+          props.type === "good"
+            ? "hover:bg-good/10"
+            : props.type === "bad"
+              ? "hover:bg-bad/10"
+              : "hover:bg-container-darker"
+        }
+      >
+        <Show when={props.information.sources}>
+          {(sources) => (
+            <>
+              <span>Information provided</span>
+              <div class="flex items-center gap-1">
+                <span>by</span>
+                <Sources sources={sources()} locale={props.locale} />
+              </div>
+            </>
+          )}
+        </Show>
+      </Popover>
+    </Show>
   );
 }
 
@@ -72,24 +74,28 @@ export function SourceVerification(props: {
           <div class="flex items-center gap-1">
             <IconAlert /> Information without verification
           </div>
-          <Show when={props.information.sources}>
-            {(sources) => (
-              <div class="flex items-center gap-1">
-                <span>from</span>
-                <Sources sources={sources()} locale={props.locale} />
-              </div>
-            )}
+          <Show when={props.information.sources.length > 0}>
+            <Show when={props.information.sources}>
+              {(sources) => (
+                <div class="flex items-center gap-1">
+                  <span>from</span>
+                  <Sources sources={sources()} locale={props.locale} />
+                </div>
+              )}
+            </Show>
           </Show>
         </Match>
         <Match when={props.information.verified}>
           Information have been verified
-          <Show when={props.information.sources}>
-            {(sources) => (
-              <div class="flex items-center gap-1">
-                <span>by</span>
-                <Sources sources={sources()} locale={props.locale} />
-              </div>
-            )}
+          <Show when={props.information.sources.length > 0}>
+            <Show when={props.information.sources}>
+              {(sources) => (
+                <div class="flex items-center gap-1">
+                  <span>by</span>
+                  <Sources sources={sources()} locale={props.locale} />
+                </div>
+              )}
+            </Show>
           </Show>
         </Match>
       </Switch>
