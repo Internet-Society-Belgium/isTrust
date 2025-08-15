@@ -1,9 +1,6 @@
 {
   "extends": ["//"],
   "tasks": {
-    "build": {
-      "dependsOn": ["@istrust/common#build", "@istrust/ui#build"]
-    },
     "bundle": {
       "dependsOn": ["@istrust/common#build", "@istrust/ui#build"]
     },
