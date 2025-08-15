@@ -1,6 +1,5 @@
 import * as common from "@istrust/common";
 import { Match, Switch } from "solid-js";
-import { Portal } from "solid-js/web";
 import { IconGithub } from "../icon";
 
 export function Issue(props: { error: Error }) {
