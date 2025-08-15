@@ -81,7 +81,7 @@ export function Issue(props: { error: Error }) {
           "FeatureRequireWebextensionError"
         }
       >
-        <IssueFeatureRequireWebextension />
+        <IssueFeatureOnlyAvailableIn platform="webextension" />
       </Match>
       <Match
         when={(props.error.name as common.ErrorType) === "FeatureMissingError"}
@@ -95,10 +95,18 @@ export function Issue(props: { error: Error }) {
   );
 }
 
-export function IssueFeatureRequireWebextension() {
+export function IssueFeatureOnlyAvailableIn(props: { platform: string }) {
   return (
     <IssueButton href="https://istrust.org/#get">
-      Only available in webextension
+      Only available in {props.platform}
+    </IssueButton>
+  );
+}
+
+export function IssueFeatureNotAvailableIn(props: { platform: string }) {
+  return (
+    <IssueButton href="https://istrust.org/#get">
+      Not available in {props.platform}
     </IssueButton>
   );
 }

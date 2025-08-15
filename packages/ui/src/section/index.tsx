@@ -1,6 +1,10 @@
 import * as common from "@istrust/common";
 import { ErrorBoundary, JSX, Show, Suspense } from "solid-js";
-import { Issue, IssueFeatureRequireWebextension } from "../issue";
+import {
+  Issue,
+  IssueFeatureNotAvailableIn,
+  IssueFeatureOnlyAvailableIn,
+} from "../issue";
 import { List } from "../list";
 
 export function Section(props: { title: string; children: JSX.Element }) {
@@ -75,9 +79,10 @@ export function SectionItem<T>(props: {
   );
 }
 
-export function SectionItemRequireWebextension(props: {
+export function SectionItemOnlyAvailableIn(props: {
   description: string;
   prefix: JSX.Element;
+  platform: string;
 }) {
   return (
     <div class="relative flex items-center gap-2">
@@ -85,7 +90,23 @@ export function SectionItemRequireWebextension(props: {
 
       <p class="text-muted">{props.description}</p>
 
-      <IssueFeatureRequireWebextension />
+      <IssueFeatureOnlyAvailableIn platform={props.platform} />
+    </div>
+  );
+}
+
+export function SectionItemNotAvailableIn(props: {
+  description: string;
+  prefix: JSX.Element;
+  platform: string;
+}) {
+  return (
+    <div class="relative flex items-center gap-2">
+      <div title={props.description}>{props.prefix}</div>
+
+      <p class="text-muted">{props.description}</p>
+
+      <IssueFeatureNotAvailableIn platform={props.platform} />
     </div>
   );
 }

@@ -19,7 +19,7 @@ import { SearchBar } from "@istrust/ui/search/index";
 import {
   Section,
   SectionItem,
-  SectionItemRequireWebextension,
+  SectionItemOnlyAvailableIn,
 } from "@istrust/ui/section/index";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
 import {
@@ -328,12 +328,14 @@ export function App() {
               </Section>
 
               <Section title="Visit">
-                <SectionItemRequireWebextension
+                <SectionItemOnlyAvailableIn
+                  platform="webextension"
                   description="First visit"
                   prefix={<IconCalendar1 />}
                 />
 
-                <SectionItemRequireWebextension
+                <SectionItemOnlyAvailableIn
+                  platform="webextension"
                   description="Frequency of visits"
                   prefix={<IconCalendarCheck />}
                 />
