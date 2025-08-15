@@ -1,5 +1,5 @@
 import { InformationCache } from "../type";
-import { ErrorType, user_error } from "../utils/error";
+import { user_error } from "../utils/error";
 import * as api from "./api";
 import * as rdap from "./rdap";
 import { WHOISData } from "./type";
@@ -15,11 +15,13 @@ export async function get_data(domain: string, cache: InformationCache) {
     countries: [],
   };
 
-  try {
-    data = await api.get_data(domain);
-  } catch (e) {
-    const error = e as Error;
-    if ((error.name as ErrorType) !== "FeatureError") {
+  const api_get_data = api.get_api(tld);
+
+  if (api_get_data !== undefined) {
+    try {
+      return await api_get_data(domain);
+    } catch (e) {
+      const error = e as Error;
       console.error(`${error.message} from API`);
     }
   }
