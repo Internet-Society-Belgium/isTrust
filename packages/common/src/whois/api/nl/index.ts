@@ -1,5 +1,8 @@
 import { Source } from "../../../type";
-import { source_error } from "../../../utils/error";
+import {
+  feature_require_webextension_error,
+  source_error,
+} from "../../../utils/error";
 import { WHOISData } from "../../type";
 import { validate_whois } from "./type";
 
@@ -48,7 +51,9 @@ export async function get_data(domain: string) {
     ];
   } catch (e) {
     const error = e as Error;
-    console.error(`${error.message} from SIDN`);
+    console.error(error);
+
+    throw feature_require_webextension_error("Source require webextension");
   }
 
   return data;

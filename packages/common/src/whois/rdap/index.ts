@@ -5,7 +5,11 @@ import {
   Source,
 } from "../../type";
 import { parse_tld } from "../../utils/domain";
-import { feature_error, source_error, user_error } from "../../utils/error";
+import {
+  feature_missing_error,
+  source_error,
+  user_error,
+} from "../../utils/error";
 import { WHOISData } from "../type";
 import {
   JCard,
@@ -77,7 +81,7 @@ export async function get_data(domain: string, cache: InformationCache) {
 
   const bootstrap = await cache.rdap.get(tld);
   if (bootstrap === undefined)
-    throw feature_error(`No source available for .${tld}`);
+    throw feature_missing_error(`No source available for .${tld}`);
 
   const data: WHOISData = {
     registrations: [],

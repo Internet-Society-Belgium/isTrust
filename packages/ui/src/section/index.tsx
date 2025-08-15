@@ -1,6 +1,6 @@
 import * as common from "@istrust/common";
 import { ErrorBoundary, JSX, Show, Suspense } from "solid-js";
-import { Issue } from "../issue";
+import { Issue, IssueFeatureRequireWebextension } from "../issue";
 import { List } from "../list";
 
 export function Section(props: { title: string; children: JSX.Element }) {
@@ -13,44 +13,8 @@ export function Section(props: { title: string; children: JSX.Element }) {
         </div>
         <div class="border-border w-full border-t border-solid" />
       </div>
-      <ErrorBoundary fallback={(error: Error) => <Issue error={error} />}>
-        {props.children}
-      </ErrorBoundary>
-    </>
-  );
-}
 
-export function SectionUnavailable(props: {
-  title: string;
-  children: JSX.Element;
-  message: JSX.Element;
-  link: string;
-}) {
-  return (
-    <>
-      <div class="align-center flex w-full items-center text-center">
-        <div class="border-border w-full border-t border-solid" />
-        <div class="mx-3 flex font-medium whitespace-nowrap">
-          <span class="text-sm">{props.title}</span>
-        </div>
-        <div class="border-border w-full border-t border-solid" />
-      </div>
-
-      <div class="relative">
-        {props.children}
-
-        <div class="bg-container/75 absolute top-0 z-1 h-full w-full">
-          <div class="flex h-full items-center justify-center">
-            <a
-              href={props.link}
-              class="border-border bg-container hover:bg-container-darker pointer-events-auto rounded-md border px-2 py-1 text-sm font-medium text-nowrap shadow hover:transition-colors"
-              target={props.link.startsWith("#") ? undefined : "_blank"}
-            >
-              {props.message}
-            </a>
-          </div>
-        </div>
-      </div>
+      {props.children}
     </>
   );
 }
@@ -73,42 +37,55 @@ export function SectionItem<T>(props: {
   };
 
   return (
-    <div class="flex items-center gap-2">
+    <div class="relative flex items-center gap-2">
       <div title={props.description}>{props.prefix}</div>
-      <Suspense fallback={<p class="text-muted">Loading...</p>}>
-        <Show
-          when={props.informations}
-          fallback={<p class="text-muted">{props.description}</p>}
-        >
-          {(informations) => (
-            <Show when={toArray(informations())}>
-              {(information) => (
-                <Show
-                  when={information().length > 0}
-                  fallback={<p class="text-muted">No information available</p>}
-                >
-                  <List each={information()} suffix={props.suffix}>
-                    {(item, index) => <>{props.children(item, index)}</>}
-                  </List>
-                </Show>
-              )}
-            </Show>
-          )}
-        </Show>
-      </Suspense>
+      <ErrorBoundary
+        fallback={(error: Error) => (
+          <>
+            <p class="text-muted">{props.description}</p>
+            <Issue error={error} />
+          </>
+        )}
+      >
+        <Suspense fallback={<p class="text-muted">Loading...</p>}>
+          <Show
+            when={props.informations}
+            fallback={<p class="text-muted">{props.description}</p>}
+          >
+            {(informations) => (
+              <Show when={toArray(informations())}>
+                {(information) => (
+                  <Show
+                    when={information().length > 0}
+                    fallback={
+                      <p class="text-muted">No information available</p>
+                    }
+                  >
+                    <List each={information()} suffix={props.suffix}>
+                      {(item, index) => <>{props.children(item, index)}</>}
+                    </List>
+                  </Show>
+                )}
+              </Show>
+            )}
+          </Show>
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }
 
-export function SectionItemUnavailable(props: {
+export function SectionItemRequireWebextension(props: {
   description: string;
   prefix: JSX.Element;
 }) {
   return (
-    <div class="flex items-center gap-2">
+    <div class="relative flex items-center gap-2">
       <div title={props.description}>{props.prefix}</div>
 
       <p class="text-muted">{props.description}</p>
+
+      <IssueFeatureRequireWebextension />
     </div>
   );
 }

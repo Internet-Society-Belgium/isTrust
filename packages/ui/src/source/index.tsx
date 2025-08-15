@@ -123,7 +123,7 @@ function Sources(props: {
             {(links) => (
               <For each={links()}>
                 {(link) => (
-                  <a href={link} target="_blank" rel="noopener noreferrer">
+                  <a href={link} target="_blank">
                     <IconExternalLink />
                   </a>
                 )}
