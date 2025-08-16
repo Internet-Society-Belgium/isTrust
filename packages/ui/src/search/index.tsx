@@ -42,6 +42,7 @@ export function SearchBar(props: {
   return (
     <div class="bg-container ring-border flex items-center gap-1 rounded-md p-1.5 ring-1">
       <button
+        title="Previous"
         class="enabled:hover:bg-container-darker disabled:text-muted flex-none rounded p-1.5 transition-colors disabled:pointer-events-none"
         disabled={historyIndex() <= 0}
         onClick={() => {
@@ -51,6 +52,7 @@ export function SearchBar(props: {
         <IconPrevious />
       </button>
       <button
+        title="Next"
         class="enabled:hover:bg-container-darker disabled:text-muted flex-none rounded p-1.5 transition-colors disabled:pointer-events-none"
         disabled={historyIndex() >= history().length - 1}
         onClick={() => {
@@ -60,6 +62,7 @@ export function SearchBar(props: {
         <IconNext />
       </button>
       <button
+        title="Reload"
         class="enabled:hover:bg-container-darker disabled:text-muted flex-none rounded p-1.5 transition-colors disabled:pointer-events-none"
         disabled={history().length <= 0}
         onClick={() => {
@@ -91,6 +94,7 @@ export function SearchBar(props: {
           placeholder="https://istrust.org/"
         />
         <button
+          title="Submit"
           type="submit"
           class="hover:bg-container-darker flex-none rounded p-1.5 transition-colors"
         >

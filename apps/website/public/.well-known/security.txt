@@ -1,0 +1,2 @@
+Contact: mailto:security@isoc.be
+Preferred-Languages: en,nl,fr
