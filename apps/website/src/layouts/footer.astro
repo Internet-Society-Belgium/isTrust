@@ -1,16 +1,16 @@
 ---
 import Button from "@/components/button/index.astro";
-import { getLocaleFromUrl, getLocalizedPath } from "@/i18n";
+import { getLangFromPath, getLocalizedPath } from "@/i18n";
 
-const locale = getLocaleFromUrl(Astro.url);
+const lang = getLangFromPath(Astro.url.pathname);
 ---
 
 <div class="flex flex-col items-center justify-center gap-4 p-4">
   <nav class="flex flex-wrap justify-center gap-4">
-    <Button href={getLocalizedPath(locale, "/legal")} redirect={true}>
+    <Button href={getLocalizedPath(lang, "/legal")} redirect={true}>
       <span class="text-muted hover:underline">Legal</span></Button
     >
-    <Button href={getLocalizedPath(locale, "/privacy")} redirect={true}
+    <Button href={getLocalizedPath(lang, "/privacy")} redirect={true}
       ><span class="text-muted hover:underline">Privacy</span></Button
     >
   </nav>

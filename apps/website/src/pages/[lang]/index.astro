@@ -1,5 +1,5 @@
 ---
-import { locales } from "@/i18n";
+import { langs } from "@/i18n";
 import Layout from "@/layouts/layout.astro";
 import GetSection from "./_section/get.astro";
 import HeroSection from "./_section/hero.astro";
@@ -7,18 +7,14 @@ import MissionSection from "./_section/mission.astro";
 import ScientificResearchSection from "./_section/scientific_research.astro";
 
 export async function getStaticPaths() {
-  return locales.map((locale) => ({ params: { locale } }));
+  return langs.map((lang) => ({ params: { lang } }));
 }
-
-const { locale } = Astro.params;
 ---
 
 <Layout>
   <section>
     <HeroSection />
   </section>
-
-  {locale}
 
   <section
     class="border-border from-background relative border-t bg-gradient-to-b to-white"

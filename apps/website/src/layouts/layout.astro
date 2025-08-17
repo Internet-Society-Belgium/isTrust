@@ -2,12 +2,12 @@
 import Footer from "./footer.astro";
 import Header from "./header.astro";
 import "@/styles/global.css";
-import { getLocaleFromUrl } from "@/i18n";
+import { getLangFromPath } from "@/i18n";
 
-const locale = getLocaleFromUrl(Astro.url);
+const lang = getLangFromPath(Astro.url.pathname);
 ---
 
-<html lang={locale}>
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -1,29 +1,23 @@
-export const locales = ["en", "fr", "nl"];
+import { translatedLangs } from "@istrust/i18n";
 
-export function getLocaleFromUrl(url: URL) {
-  const pathParts = url.pathname.split("/");
-  const locale = pathParts.at(1);
+export const langs = translatedLangs;
 
-  if (locale !== undefined && locales.includes(locale)) return locale;
-  return locales[0];
+export function getLangFromPath(path: string) {
+  const pathParts = path.split("/");
+  const lang = pathParts.at(1);
+
+  if (lang !== undefined && langs.includes(lang)) return lang;
+  return langs[0];
 }
 
-export function getLocalizedPath(locale: string, path: string) {
-  if (!locales.includes(locale)) {
-    locale = locales[0];
+export function getLocalizedPath(lang: string, path: string) {
+  if (!langs.includes(lang)) {
+    lang = langs[0];
   }
 
-  return `/${locale}/${path.replace(/^\//g, "")}`;
+  return `/${lang}/${path.replace(/^\//g, "")}`;
 }
 
-export function getUnlocalizedPath(url: URL) {
-  const pathParts = url.pathname.split("/");
-  const locale = pathParts.at(1);
-  const path = pathParts.slice(2).join("/");
-
-  if (locale === undefined) return path;
-
-  if (!locales.includes(locale)) return path;
-
-  return path;
+export function getUnlocalizedPath(path: string) {
+  return path.split("/").slice(2).join("/");
 }

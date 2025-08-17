@@ -1,4 +1,5 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { CertificateAlert } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
@@ -100,7 +101,7 @@ const cache: common.InformationCache = {
   },
 };
 
-export function App() {
+export function App(props: { lang: string }) {
   const [searchQuery, setSearchQuery] = createSignal<{
     text: string;
     forceUpdateCache: boolean;
@@ -194,7 +195,7 @@ export function App() {
             <CertificateAlert types={certificateData()?.types} />
 
             <div class="flex flex-col gap-1">
-              <Section title="Owner">
+              <Section title={i18n("Owner", { lang: props.lang })}>
                 <SectionItem
                   description="Individual name"
                   prefix={<IconUser />}
@@ -263,7 +264,7 @@ export function App() {
                 </SectionItem>
               </Section>
 
-              <Section title="Domain">
+              <Section title={i18n("Domain", { lang: props.lang })}>
                 <SectionItem
                   description="Registration"
                   prefix={<IconCalendar1 />}
@@ -327,7 +328,7 @@ export function App() {
                 </SectionItem>
               </Section>
 
-              <Section title="Visit">
+              <Section title={i18n("Visit", { lang: props.lang })}>
                 <SectionItemOnlyAvailableIn
                   platform="webextension"
                   description="First visit"

@@ -1,19 +1,21 @@
 ---
 import HeaderSection from "@/components/header/section.astro";
-import { locales } from "@/i18n";
+import { langs } from "@/i18n";
 import Layout from "@/layouts/layout.astro";
+import i18n from "@istrust/i18n";
 
 export async function getStaticPaths() {
-  return locales.map((locale) => ({ params: { locale } }));
+  return langs.map((lang) => ({ params: { lang } }));
 }
 
-const { locale } = Astro.params;
+const { lang } = Astro.params;
 ---
 
 <Layout>
-  {locale}
   <div class="mx-auto max-w-4xl p-12">
-    <HeaderSection header="Legal mention"> Who are we ? </HeaderSection>
+    <HeaderSection header="Legal mention">
+      {i18n("Who are we ?", { lang })}
+    </HeaderSection>
 
     <p class="m-6">
       "istrust.org" is operated by Internet Society Chapter Belgium vzw/asbl

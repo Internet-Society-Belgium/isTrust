@@ -1,12 +1,18 @@
 ---
 import Button from "@/components/button/index.astro";
-import { getLocalizedPath, getUnlocalizedPath, locales } from "@/i18n";
+import {
+  getLangFromPath,
+  getLocalizedPath,
+  getUnlocalizedPath,
+  langs,
+} from "@/i18n";
 
-const unlocalizedPath = getUnlocalizedPath(Astro.url);
+const unlocalizedPath = getUnlocalizedPath(Astro.url.pathname);
+const lang = getLangFromPath(Astro.url.pathname);
 ---
 
 <div class="flex h-20 items-center justify-between p-4">
-  <Button href="/" redirect={true}>
+  <Button href={getLocalizedPath(lang, "/")} redirect={true}>
     <div class="flex items-center justify-start gap-1 px-2 py-1">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -26,15 +32,19 @@ const unlocalizedPath = getUnlocalizedPath(Astro.url);
     </div>
   </Button>
 
-  <ul class="flex items-center justify-end gap-2">
+  <select
+    onchange="window.location.href = this.options[this.selectedIndex].value"
+    class="bg-elevated/50 border-border hover:bg-elevated hover:border-accented pointer-events-auto rounded-md border px-2 py-1 text-sm hover:transition-colors"
+  >
     {
-      locales.map((locale) => (
-        <li>
-          <a href={getLocalizedPath(locale, unlocalizedPath)}>
-            {locale.toUpperCase()}
-          </a>
-        </li>
+      langs.map((l) => (
+        <option
+          value={getLocalizedPath(l, unlocalizedPath)}
+          selected={l === lang}
+        >
+          {l.toUpperCase()}
+        </option>
       ))
     }
-  </ul>
+  </select>
 </div>

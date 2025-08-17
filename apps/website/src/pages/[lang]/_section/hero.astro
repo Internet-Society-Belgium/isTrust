@@ -6,7 +6,10 @@ import ButtonGet from "@/components/button/get.astro";
 import Button from "@/components/button/index.astro";
 import HeaderMain from "@/components/header/main.astro";
 import { stores } from "@/data/stores";
+import { getLangFromPath } from "@/i18n";
 import { Image } from "astro:assets";
+
+const lang = getLangFromPath(Astro.url.pathname);
 ---
 
 <div class="relative">
@@ -153,7 +156,7 @@ import { Image } from "astro:assets";
           </div>
         </div>
 
-        <App client:load />
+        <App client:load lang={lang} />
       </div>
     </div>
   </div>

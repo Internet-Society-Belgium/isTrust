@@ -26,7 +26,8 @@
 
   input,
   a,
-  button {
+  button,
+  select {
     @apply focus-visible:outline-2 focus-visible:outline-primary;
   }
 }
