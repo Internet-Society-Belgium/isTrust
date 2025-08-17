@@ -4,7 +4,7 @@ import { CertificateAlert } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
 import { FooterAvailability } from "@istrust/ui/footer/index";
-import { HeaderDomain } from "@istrust/ui/header/index";
+import { HeaderDomain, HeaderLogo } from "@istrust/ui/header/index";
 import {
   IconBuilding,
   IconCalendar1,
@@ -142,8 +142,10 @@ export function App() {
 
   return (
     <div
-      class={`${mode() === "detached" ? "bg-background min-h-screen" + " " : ""}flex items-center justify-center`}
+      class={`${mode() === "detached" ? "bg-background min-h-screen" + " " : ""}flex flex-col items-center justify-center gap-4`}
     >
+      {mode() === "detached" && <HeaderLogo />}
+
       <div
         class={`${mode() === "detached" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container flex w-sm flex-col p-4`}
       >

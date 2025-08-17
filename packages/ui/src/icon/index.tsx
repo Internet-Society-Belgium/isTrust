@@ -1,9 +1,9 @@
-export function IconIsTrust() {
+export function IconIsTrust(props: { size?: "md" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
+      width={props.size === "md" ? "2em" : "1em"}
+      height={props.size === "md" ? "2em" : "1em"}
       viewBox="0 0 135.467 135.467"
       data-copyright="Icon from isTrust - https://github.com/Internet-Society-Belgium/isTrust/blob/v2/LICENSE.md"
     >
