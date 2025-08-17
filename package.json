@@ -1,7 +1,7 @@
 {
   "name": "istrust",
   "version": "4.0.1",
-  "description": "Verify the trustworthiness of any domain",
+  "description": "Verify the trustworthiness of any website",
   "homepage": "https://github.com/Internet-Society-Belgium/isTrust#readme",
   "bugs": {
     "url": "https://github.com/Internet-Society-Belgium/isTrust/issues"

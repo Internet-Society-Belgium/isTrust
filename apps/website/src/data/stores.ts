@@ -1,11 +1,11 @@
-// https://gs.statcounter.com/browser-market-share
-type Platform = "chrome" | "safari" | "edge" | "firefox" | "thunderbird";
+type Platform = "chrome" | "edge" | "firefox"; // | "safari" | "thunderbird";
 
 interface Store {
   link: string;
   icon: () => Promise<typeof import("*.svg")>;
 }
 
+// https://gs.statcounter.com/browser-market-share
 export const stores: Record<Platform, Store> = {
   chrome: {
     link: "https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm",
@@ -23,8 +23,8 @@ export const stores: Record<Platform, Store> = {
     link: "https://addons.mozilla.org/firefox/addon/istrust/?utm_source=istrust.org",
     icon: () => import("../assets/platform/firefox.svg"),
   },
-  thunderbird: {
-    link: "https://addons.mozilla.org/firefox/addon/istrust/?utm_source=istrust.org",
-    icon: () => import("../assets/platform/thunderbird.svg"),
-  },
+  // thunderbird: {
+  //   link: "https://addons.mozilla.org/firefox/addon/istrust/?utm_source=istrust.org",
+  //   icon: () => import("../assets/platform/thunderbird.svg"),
+  // },
 };

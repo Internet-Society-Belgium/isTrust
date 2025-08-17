@@ -1,16 +1,11 @@
-import { feature_error, user_error } from "../../utils/error";
+import { WHOISData } from "../type";
 import * as be from "./be";
 import * as nl from "./nl";
 
-export async function get_data(domain: string) {
-  const tld = domain.split(".").at(-1);
-  if (tld === undefined) throw user_error("No TLD");
+const apis = new Map<string, (domain: string) => Promise<WHOISData>>()
+  .set("be", be.get_data)
+  .set("nl", nl.get_data);
 
-  if (tld === "be") {
-    return await be.get_data(domain);
-  } else if (tld === "nl") {
-    return await nl.get_data(domain);
-  }
-
-  throw feature_error(`No source available for .${tld}`);
+export function get_api(tld: string) {
+  return apis.get(tld);
 }

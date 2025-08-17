@@ -15,18 +15,19 @@ import {
   IconShieldX,
   IconUser,
 } from "@istrust/ui/icon/index";
+import { Issue } from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import {
   Section,
   SectionItem,
-  SectionItemUnavailable,
-  SectionUnavailable,
+  SectionItemNotAvailableIn,
 } from "@istrust/ui/section/index";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
 import { browser } from "#imports";
 import {
   createResource,
   createSignal,
+  ErrorBoundary,
   Match,
   onMount,
   Show,
@@ -64,7 +65,7 @@ export function App() {
   const [debug, setDebug] = createSignal<boolean>(false);
 
   onMount(() => {
-    const urlSearchParams = new URLSearchParams(document.location.search);
+    const urlSearchParams = new URLSearchParams(window.location.search);
 
     const paramQuery = urlSearchParams.get("q");
     if (paramQuery !== null) {
@@ -146,257 +147,263 @@ export function App() {
       <div
         class={`${mode() === "detached" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container flex w-sm flex-col p-4`}
       >
-        <div class="flex flex-col">
-          <HeaderDomain value={domain()} />
+        <div class="relative flex flex-col">
+          <ErrorBoundary fallback={(error: Error) => <Issue error={error} />}>
+            <HeaderDomain value={domain()} />
 
-          <CertificateAlert types={certificateData()?.types} />
+            <CertificateAlert types={certificateData()?.types} />
 
-          <div class="flex flex-col gap-1">
-            <Section title="Owner">
-              <SectionItem
-                description="Individual name"
-                prefix={<IconUser />}
-                informations={common.merge_informations(
-                  certificateData()?.individuals,
-                  whoisData()?.individuals,
-                )}
-                suffix={(individual) => (
-                  <SourceVerification
-                    information={individual}
-                    locale={navigator.language}
-                  />
-                )}
-              >
-                {(individual, index) => (
-                  <ListAdditionalItem index={index}>
-                    {individual.value}
-                  </ListAdditionalItem>
-                )}
-              </SectionItem>
-
-              <SectionItem
-                description="Organization name"
-                prefix={<IconBuilding />}
-                informations={common.merge_informations(
-                  certificateData()?.organizations,
-                  whoisData()?.organizations,
-                )}
-                suffix={(organization) => (
-                  <SourceVerification
-                    information={organization}
-                    locale={navigator.language}
-                  />
-                )}
-              >
-                {(organization, index) => (
-                  <ListAdditionalItem index={index}>
-                    {organization.value}
-                  </ListAdditionalItem>
-                )}
-              </SectionItem>
-
-              <SectionItem
-                description="Country of residence"
-                prefix={<IconMapPin />}
-                informations={common.merge_informations(
-                  certificateData()?.countries,
-                  whoisData()?.countries,
-                )}
-                suffix={(country) => (
-                  <SourceVerification
-                    information={country}
-                    locale={navigator.language}
-                  />
-                )}
-              >
-                {(country, index) => (
-                  <ListAdditionalItem index={index}>
-                    <Country
-                      value={country.value}
+            <div class="flex flex-col gap-1">
+              <Section title="Owner">
+                <SectionItem
+                  description="Individual name"
+                  prefix={<IconUser />}
+                  informations={common.merge_informations(
+                    certificateData()?.individuals,
+                    whoisData()?.individuals,
+                  )}
+                  suffix={(individual) => (
+                    <SourceVerification
+                      information={individual}
                       locale={navigator.language}
-                      type="text"
                     />
-                  </ListAdditionalItem>
-                )}
-              </SectionItem>
-            </Section>
+                  )}
+                >
+                  {(individual, index) => (
+                    <ListAdditionalItem index={index}>
+                      {individual.value}
+                    </ListAdditionalItem>
+                  )}
+                </SectionItem>
 
-            <Section title="Domain">
-              <SectionItem
-                description="Registration"
-                prefix={<IconCalendar1 />}
-                informations={whoisData()?.registrations}
-                suffix={(registration) => (
-                  <SourceInfo
-                    information={registration}
-                    locale={navigator.language}
-                  />
-                )}
-              >
-                {(registration, index) => (
-                  <Switch>
-                    <Match when={index === 0}>
-                      Registered <DatePastPeriod date={registration.value} />
-                    </Match>
-                    <Match when={true}>
-                      and <DatePastPeriod date={registration.value} />
-                    </Match>
-                  </Switch>
-                )}
-              </SectionItem>
+                <SectionItem
+                  description="Organization name"
+                  prefix={<IconBuilding />}
+                  informations={common.merge_informations(
+                    certificateData()?.organizations,
+                    whoisData()?.organizations,
+                  )}
+                  suffix={(organization) => (
+                    <SourceVerification
+                      information={organization}
+                      locale={navigator.language}
+                    />
+                  )}
+                >
+                  {(organization, index) => (
+                    <ListAdditionalItem index={index}>
+                      {organization.value}
+                    </ListAdditionalItem>
+                  )}
+                </SectionItem>
 
-              <SectionItem
-                description="Protection (DNSSEC)"
-                prefix={
-                  <Suspense fallback={<IconShield />}>
-                    <Show when={dnssecData()?.valid} fallback={<IconShield />}>
-                      {(valid) => (
+                <SectionItem
+                  description="Country of residence"
+                  prefix={<IconMapPin />}
+                  informations={common.merge_informations(
+                    certificateData()?.countries,
+                    whoisData()?.countries,
+                  )}
+                  suffix={(country) => (
+                    <SourceVerification
+                      information={country}
+                      locale={navigator.language}
+                    />
+                  )}
+                >
+                  {(country, index) => (
+                    <ListAdditionalItem index={index}>
+                      <Country
+                        value={country.value}
+                        locale={navigator.language}
+                        type="text"
+                      />
+                    </ListAdditionalItem>
+                  )}
+                </SectionItem>
+              </Section>
+
+              <Section title="Domain">
+                <SectionItem
+                  description="Registration"
+                  prefix={<IconCalendar1 />}
+                  informations={whoisData()?.registrations}
+                  suffix={(registration) => (
+                    <SourceInfo
+                      information={registration}
+                      locale={navigator.language}
+                    />
+                  )}
+                >
+                  {(registration, index) => (
+                    <Switch>
+                      <Match when={index === 0}>
+                        Registered <DatePastPeriod date={registration.value} />
+                      </Match>
+                      <Match when={true}>
+                        and <DatePastPeriod date={registration.value} />
+                      </Match>
+                    </Switch>
+                  )}
+                </SectionItem>
+
+                <SectionItem
+                  description="Protection (DNSSEC)"
+                  prefix={
+                    <Suspense fallback={<IconShield />}>
+                      <Show
+                        when={dnssecData()?.valid}
+                        fallback={<IconShield />}
+                      >
+                        {(valid) => (
+                          <Switch>
+                            <Match when={valid().value}>
+                              <IconShieldCheck />
+                            </Match>
+                            <Match when={!valid().value}>
+                              <IconShieldX />
+                            </Match>
+                          </Switch>
+                        )}
+                      </Show>
+                    </Suspense>
+                  }
+                  informations={dnssecData()?.valid}
+                  suffix={(valid) => (
+                    <SourceInfo
+                      information={valid}
+                      locale={navigator.language}
+                    />
+                  )}
+                >
+                  {(valid) => (
+                    <Switch>
+                      <Match when={valid.value}>Protected with DNSSEC</Match>
+                      <Match when={!valid.value}>
+                        Not protected with DNSSEC
+                      </Match>
+                    </Switch>
+                  )}
+                </SectionItem>
+              </Section>
+
+              <Section title="Visit">
+                <Switch>
+                  <Match when={import.meta.env.BROWSER === "safari"}>
+                    <SectionItemNotAvailableIn
+                      platform="Safari"
+                      description="First visit"
+                      prefix={<IconCalendar1 />}
+                    />
+
+                    <SectionItemNotAvailableIn
+                      platform="Safari"
+                      description="Frequency of visits"
+                      prefix={<IconCalendarCheck />}
+                    />
+                  </Match>
+                  <Match when={true}>
+                    <SectionItem
+                      description="First visit"
+                      prefix={<IconCalendar1 />}
+                      informations={historyData()?.visits}
+                      suffix={(visits) => (
+                        <SourceInfo
+                          information={visits}
+                          locale={navigator.language}
+                        />
+                      )}
+                    >
+                      {(visits, index) => (
                         <Switch>
-                          <Match when={valid().value}>
-                            <IconShieldCheck />
+                          <Match when={index === 0}>
+                            First visited{" "}
+                            <DatePastPeriod date={visits.value.at(0)} />
                           </Match>
-                          <Match when={!valid().value}>
-                            <IconShieldX />
+                          <Match when={true}>
+                            and <DatePastPeriod date={visits.value.at(0)} />
                           </Match>
                         </Switch>
                       )}
-                    </Show>
-                  </Suspense>
-                }
-                informations={dnssecData()?.valid}
-                suffix={(valid) => (
-                  <SourceInfo information={valid} locale={navigator.language} />
-                )}
-              >
-                {(valid) => (
-                  <Switch>
-                    <Match when={valid.value}>Protected with DNSSEC</Match>
-                    <Match when={!valid.value}>Not protected with DNSSEC</Match>
-                  </Switch>
-                )}
-              </SectionItem>
-            </Section>
+                    </SectionItem>
 
-            <Switch>
-              <Match when={import.meta.env.SAFARI}>
-                <SectionUnavailable
-                  title="Visit"
-                  message="Not available in Safari"
-                  link="https://istrust.org/#get"
-                >
-                  <SectionItemUnavailable
-                    description="First visit"
-                    prefix={<IconCalendar1 />}
-                  />
-
-                  <SectionItemUnavailable
-                    description="Frequency of visits"
-                    prefix={<IconCalendarCheck />}
-                  />
-                </SectionUnavailable>
-              </Match>
-              <Match when={true}>
-                <Section title="Visit">
-                  <SectionItem
-                    description="First visit"
-                    prefix={<IconCalendar1 />}
-                    informations={historyData()?.visits}
-                    suffix={(visits) => (
-                      <SourceInfo
-                        information={visits}
-                        locale={navigator.language}
-                      />
-                    )}
-                  >
-                    {(visits, index) => (
-                      <Switch>
-                        <Match when={index === 0}>
-                          First visited{" "}
-                          <DatePastPeriod date={visits.value.at(0)} />
-                        </Match>
-                        <Match when={true}>
-                          and <DatePastPeriod date={visits.value.at(0)} />
-                        </Match>
-                      </Switch>
-                    )}
-                  </SectionItem>
-
-                  <SectionItem
-                    description="Frequency of visits"
-                    prefix={<IconCalendarCheck />}
-                    informations={historyData()?.visits}
-                    suffix={(visits) => (
-                      <SourceInfo
-                        information={visits}
-                        locale={navigator.language}
-                      />
-                    )}
-                  >
-                    {(visits, index) => (
-                      <Switch>
-                        <Match when={index === 0}>
-                          Visited <DateFrequency dates={visits.value} />
-                        </Match>
-                        <Match when={true}>
-                          and <DateFrequency dates={visits.value} />
-                        </Match>
-                      </Switch>
-                    )}
-                  </SectionItem>
-                </Section>
-              </Match>
-            </Switch>
-
-            <FooterAvailability on="website" query={searchQuery()?.text} />
-
-            <Show when={debug()}>
-              <Section title="Debug">
-                <details>
-                  <summary>WHOIS raw data</summary>
-                  <Show when={whoisData()}>
-                    {(data) => (
-                      <pre class="overflow-scroll">
-                        {JSON.stringify(data(), undefined, 2)}
-                      </pre>
-                    )}
-                  </Show>
-                </details>
-
-                <details>
-                  <summary>certificate raw data</summary>
-                  <Show when={certificateData()}>
-                    {(data) => (
-                      <pre class="overflow-scroll">
-                        {JSON.stringify(data(), undefined, 2)}
-                      </pre>
-                    )}
-                  </Show>
-                </details>
-
-                <details>
-                  <summary>DNSSEC raw data</summary>
-                  <Show when={dnssecData()}>
-                    {(data) => (
-                      <pre class="overflow-scroll">
-                        {JSON.stringify(data(), undefined, 2)}
-                      </pre>
-                    )}
-                  </Show>
-                </details>
-
-                <details>
-                  <summary>history raw data</summary>
-                  <Show when={historyData()}>
-                    {(data) => (
-                      <pre class="overflow-scroll">
-                        {JSON.stringify(data(), undefined, 2)}
-                      </pre>
-                    )}
-                  </Show>
-                </details>
+                    <SectionItem
+                      description="Frequency of visits"
+                      prefix={<IconCalendarCheck />}
+                      informations={historyData()?.visits}
+                      suffix={(visits) => (
+                        <SourceInfo
+                          information={visits}
+                          locale={navigator.language}
+                        />
+                      )}
+                    >
+                      {(visits, index) => (
+                        <Switch>
+                          <Match when={index === 0}>
+                            Visited <DateFrequency dates={visits.value} />
+                          </Match>
+                          <Match when={true}>
+                            and <DateFrequency dates={visits.value} />
+                          </Match>
+                        </Switch>
+                      )}
+                    </SectionItem>
+                  </Match>
+                </Switch>
               </Section>
-            </Show>
-          </div>
+
+              <FooterAvailability on="website" query={searchQuery()?.text} />
+
+              <Show when={debug()}>
+                <Section title="Debug">
+                  <details>
+                    <summary>WHOIS raw data</summary>
+                    <Show when={whoisData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+
+                  <details>
+                    <summary>certificate raw data</summary>
+                    <Show when={certificateData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+
+                  <details>
+                    <summary>DNSSEC raw data</summary>
+                    <Show when={dnssecData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+
+                  <details>
+                    <summary>history raw data</summary>
+                    <Show when={historyData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+                </Section>
+              </Show>
+            </div>
+          </ErrorBoundary>
         </div>
       </div>
     </div>

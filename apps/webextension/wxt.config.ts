@@ -13,7 +13,7 @@ export default defineConfig({
   targetBrowsers: ["chrome", "firefox", "firefox-android", "safari", "edge"],
   manifest: () => ({
     name: "isTrust",
-    description: "Verify the trustworthiness of any domain",
+    description: "Verify the trustworthiness of any website",
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
     permissions:
       import.meta.env.BROWSER === "safari"
