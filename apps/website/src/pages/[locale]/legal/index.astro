@@ -1,9 +1,17 @@
 ---
-import HeaderSection from "../../components/header/section.astro";
-import Layout from "../../layouts/layout.astro";
+import HeaderSection from "@/components/header/section.astro";
+import { locales } from "@/i18n";
+import Layout from "@/layouts/layout.astro";
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params;
 ---
 
 <Layout>
+  {locale}
   <div class="mx-auto max-w-4xl p-12">
     <HeaderSection header="Legal mention"> Who are we ? </HeaderSection>
 

@@ -1,5 +1,8 @@
 ---
-import Button from "../components/button/index.astro";
+import Button from "@/components/button/index.astro";
+import { getLocalizedPath, getUnlocalizedPath, locales } from "@/i18n";
+
+const unlocalizedPath = getUnlocalizedPath(Astro.url);
 ---
 
 <div class="flex h-20 items-center justify-between p-4">
@@ -23,7 +26,15 @@ import Button from "../components/button/index.astro";
     </div>
   </Button>
 
-  <div class="flex items-center justify-end gap-2">
-    <!-- <div>EN</div> -->
-  </div>
+  <ul class="flex items-center justify-end gap-2">
+    {
+      locales.map((locale) => (
+        <li>
+          <a href={getLocalizedPath(locale, unlocalizedPath)}>
+            {locale.toUpperCase()}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </div>

@@ -1,0 +1,43 @@
+---
+import { locales } from "@/i18n";
+import Layout from "@/layouts/layout.astro";
+import GetSection from "./_section/get.astro";
+import HeroSection from "./_section/hero.astro";
+import MissionSection from "./_section/mission.astro";
+import ScientificResearchSection from "./_section/scientific_research.astro";
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params;
+---
+
+<Layout>
+  <section>
+    <HeroSection />
+  </section>
+
+  {locale}
+
+  <section
+    class="border-border from-background relative border-t bg-gradient-to-b to-white"
+  >
+    <div id="get" class="absolute -top-20"></div>
+    <GetSection />
+  </section>
+
+  <section
+    class="border-border from-background relative border-t bg-gradient-to-b to-white"
+  >
+    <div id="mission" class="absolute -top-20"></div>
+    <MissionSection />
+  </section>
+
+  <section
+    class="border-border from-background relative border-t bg-gradient-to-b to-white"
+  >
+    <div id="scientific-research" class="absolute -top-20"></div>
+    <ScientificResearchSection />
+  </section>
+</Layout>
