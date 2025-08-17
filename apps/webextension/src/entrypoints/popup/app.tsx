@@ -62,9 +62,12 @@ export function App() {
   }>();
 
   const [mode, setMode] = createSignal<"attached" | "detached">();
+  const [lang, setLang] = createSignal<string>("en");
   const [debug, setDebug] = createSignal<boolean>(false);
 
   onMount(() => {
+    setLang(navigator.language);
+
     const urlSearchParams = new URLSearchParams(window.location.search);
 
     const paramQuery = urlSearchParams.get("q");
@@ -167,7 +170,7 @@ export function App() {
                   suffix={(individual) => (
                     <SourceVerification
                       information={individual}
-                      locale={navigator.language}
+                      lang={lang()}
                     />
                   )}
                 >
@@ -188,7 +191,7 @@ export function App() {
                   suffix={(organization) => (
                     <SourceVerification
                       information={organization}
-                      locale={navigator.language}
+                      lang={lang()}
                     />
                   )}
                 >
@@ -207,17 +210,14 @@ export function App() {
                     whoisData()?.countries,
                   )}
                   suffix={(country) => (
-                    <SourceVerification
-                      information={country}
-                      locale={navigator.language}
-                    />
+                    <SourceVerification information={country} lang={lang()} />
                   )}
                 >
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
                       <Country
                         value={country.value}
-                        locale={navigator.language}
+                        lang={lang()}
                         type="text"
                       />
                     </ListAdditionalItem>
@@ -231,10 +231,7 @@ export function App() {
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
-                    <SourceInfo
-                      information={registration}
-                      locale={navigator.language}
-                    />
+                    <SourceInfo information={registration} lang={lang()} />
                   )}
                 >
                   {(registration, index) => (
@@ -272,10 +269,7 @@ export function App() {
                   }
                   informations={dnssecData()?.valid}
                   suffix={(valid) => (
-                    <SourceInfo
-                      information={valid}
-                      locale={navigator.language}
-                    />
+                    <SourceInfo information={valid} lang={lang()} />
                   )}
                 >
                   {(valid) => (
@@ -310,10 +304,7 @@ export function App() {
                       prefix={<IconCalendar1 />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
-                        <SourceInfo
-                          information={visits}
-                          locale={navigator.language}
-                        />
+                        <SourceInfo information={visits} lang={lang()} />
                       )}
                     >
                       {(visits, index) => (
@@ -334,10 +325,7 @@ export function App() {
                       prefix={<IconCalendarCheck />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
-                        <SourceInfo
-                          information={visits}
-                          locale={navigator.language}
-                        />
+                        <SourceInfo information={visits} lang={lang()} />
                       )}
                     >
                       {(visits, index) => (

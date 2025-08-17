@@ -21,7 +21,7 @@ export function CertificateAlert(props: {
                         {(evCertificate) => (
                           <SourceVerification
                             information={evCertificate}
-                            locale={navigator.language}
+                            lang={navigator.language}
                             type="good"
                           />
                         )}
@@ -42,7 +42,7 @@ export function CertificateAlert(props: {
                         {(ovCertificate) => (
                           <SourceVerification
                             information={ovCertificate}
-                            locale={navigator.language}
+                            lang={navigator.language}
                             type="good"
                           />
                         )}
@@ -63,7 +63,7 @@ export function CertificateAlert(props: {
                         {(ivCertificate) => (
                           <SourceVerification
                             information={ivCertificate}
-                            locale={navigator.language}
+                            lang={navigator.language}
                             type="good"
                           />
                         )}

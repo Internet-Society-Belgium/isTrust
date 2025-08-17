@@ -206,7 +206,7 @@ export function App(props: { lang: string }) {
                   suffix={(individual) => (
                     <SourceVerification
                       information={individual}
-                      locale={navigator.language}
+                      lang={props.lang}
                     />
                   )}
                 >
@@ -227,7 +227,7 @@ export function App(props: { lang: string }) {
                   suffix={(organization) => (
                     <SourceVerification
                       information={organization}
-                      locale={navigator.language}
+                      lang={props.lang}
                     />
                   )}
                 >
@@ -248,7 +248,7 @@ export function App(props: { lang: string }) {
                   suffix={(country) => (
                     <SourceVerification
                       information={country}
-                      locale={navigator.language}
+                      lang={props.lang}
                     />
                   )}
                 >
@@ -256,8 +256,8 @@ export function App(props: { lang: string }) {
                     <ListAdditionalItem index={index}>
                       <Country
                         value={country.value}
-                        locale={navigator.language}
                         type="text"
+                        lang={props.lang}
                       />
                     </ListAdditionalItem>
                   )}
@@ -270,10 +270,7 @@ export function App(props: { lang: string }) {
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
-                    <SourceInfo
-                      information={registration}
-                      locale={navigator.language}
-                    />
+                    <SourceInfo information={registration} lang={props.lang} />
                   )}
                 >
                   {(registration, index) => (
@@ -311,10 +308,7 @@ export function App(props: { lang: string }) {
                   }
                   informations={dnssecData()?.valid}
                   suffix={(valid) => (
-                    <SourceInfo
-                      information={valid}
-                      locale={navigator.language}
-                    />
+                    <SourceInfo information={valid} lang={props.lang} />
                   )}
                 >
                   {(valid) => (

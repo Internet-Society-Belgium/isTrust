@@ -13,7 +13,7 @@ import { Popover } from "../popover";
 
 export function SourceInfo(props: {
   information: common.Information<unknown>;
-  locale: Intl.LocalesArgument;
+  lang: string;
   type?: "good" | "bad";
 }) {
   return (
@@ -34,7 +34,7 @@ export function SourceInfo(props: {
               <span>Information provided</span>
               <div class="flex items-center gap-1">
                 <span>by</span>
-                <Sources sources={sources()} locale={props.locale} />
+                <Sources sources={sources()} lang={props.lang} />
               </div>
             </>
           )}
@@ -46,7 +46,7 @@ export function SourceInfo(props: {
 
 export function SourceVerification(props: {
   information: common.Information<unknown>;
-  locale: Intl.LocalesArgument;
+  lang: string;
   type?: "good" | "bad";
 }) {
   return (
@@ -79,7 +79,7 @@ export function SourceVerification(props: {
               {(sources) => (
                 <div class="flex items-center gap-1">
                   <span>from</span>
-                  <Sources sources={sources()} locale={props.locale} />
+                  <Sources sources={sources()} lang={props.lang} />
                 </div>
               )}
             </Show>
@@ -92,7 +92,7 @@ export function SourceVerification(props: {
               {(sources) => (
                 <div class="flex items-center gap-1">
                   <span>by</span>
-                  <Sources sources={sources()} locale={props.locale} />
+                  <Sources sources={sources()} lang={props.lang} />
                 </div>
               )}
             </Show>
@@ -105,7 +105,7 @@ export function SourceVerification(props: {
 
 function Sources(props: {
   sources: common.Information<unknown>["sources"];
-  locale: Intl.LocalesArgument;
+  lang: string;
 }) {
   return (
     <List each={props.sources}>
@@ -116,7 +116,7 @@ function Sources(props: {
           </Show>
           <Show when={source.country}>
             {(country) => (
-              <Country type="icon" value={country()} locale={props.locale} />
+              <Country type="icon" value={country()} lang={props.lang} />
             )}
           </Show>
           <Show when={source.links}>
