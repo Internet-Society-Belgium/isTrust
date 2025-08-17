@@ -9,16 +9,22 @@ const translations = new Map<string, Map<string, Translation>>()
 
 export const translatedLangs = ["en", ...translations.keys().toArray()];
 
-export default function (string: string, options?: { lang?: string }) {
-  if (options?.lang !== undefined) {
-    const lang = options.lang.toLowerCase();
+export default function (string: string, lang: string, values?: string[]) {
+  lang = lang.toLowerCase();
 
-    const translation = translations.get(lang);
+  const translation = translations.get(lang);
 
-    if (translation !== undefined) {
-      const translatedString = translation.get(string);
+  if (translation !== undefined) {
+    let translatedString = translation.get(string);
 
-      if (translatedString !== undefined) return translatedString;
+    if (translatedString !== undefined) {
+      if (values !== undefined) {
+        for (const value of values) {
+          translatedString = translatedString.replace("#", value);
+        }
+      }
+
+      return translatedString;
     }
   }
 
