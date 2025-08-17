@@ -1,4 +1,10 @@
+#!/usr/bin/env python3
+
 import requests
+import os
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+folder = f'{dir_path}/../src/country/flag'
 
 # https://www.iso.org/obp/ui/#search
 country_codes = [
@@ -253,7 +259,6 @@ country_codes = [
 "ZW"
 ]
 
-
 for country_code in country_codes:
     # https://github.com/HatScripts/circle-flags
     url = f'https://hatscripts.github.io/circle-flags/flags/{country_code.lower()}.svg'
@@ -265,7 +270,7 @@ for country_code in country_codes:
 
     component = component.replace('<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><mask id="a"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#a)">', '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512" data-copyright="Icon from Circle Flags by HatScripts - https://github.com/HatScripts/circle-flags/blob/gh-pages/LICENSE.md"><mask id="circle"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#circle)">')
 
-    with open(f'{country_code}.tsx', "w") as f:
+    with open(f'{folder}/{country_code}.tsx', "w") as f:
         f.write(component)
 
 index = 'import Other from "./other";\n'
@@ -286,5 +291,5 @@ for country_code in country_codes:
 index += f'else return <Other />;\n'
 index += '};\nreturn <div class="flex h-4 w-4 items-center justify-center">{getFlag(props.code)}</div>;\n};\n'
 
-with open(f'index.tsx', "w") as f:
+with open(f'{folder}/index.tsx', "w") as f:
     f.write(index)
