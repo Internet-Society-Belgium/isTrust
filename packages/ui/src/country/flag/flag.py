@@ -263,7 +263,7 @@ for country_code in country_codes:
 
     component = f'export function {country_code}() {{\nreturn (\n{svg}\n);\n}}\nexport default {country_code};\n'
 
-    component = component.replace('<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><mask id="a"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#a)">', '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><mask id="circle"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#circle)">')
+    component = component.replace('<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><mask id="a"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#a)">', '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512" data-copyright="Icon from Circle Flags by HatScripts - https://github.com/HatScripts/circle-flags/blob/gh-pages/LICENSE.md"><mask id="circle"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#circle)">')
 
     with open(f'{country_code}.tsx', "w") as f:
         f.write(component)
