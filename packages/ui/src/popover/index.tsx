@@ -7,7 +7,7 @@ import {
   Show,
   Switch,
 } from "solid-js";
-import { Portal } from "solid-js/web";
+import { isServer, Portal } from "solid-js/web";
 
 type RectAlign = "top" | "bottom";
 type RectJustify = "left" | "center" | "right";
@@ -53,6 +53,8 @@ export function Popover(props: {
   });
 
   const computeRect = () => {
+    if (isServer) return;
+
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 

@@ -1,17 +1,21 @@
 import * as common from "@istrust/common";
 import { JSX, Match, onMount, Switch } from "solid-js";
+import { isServer } from "solid-js/web";
 import { IconGithub } from "../icon";
 
 function issueBug(errorMessage: string) {
+  const hostname = isServer ? undefined : window.location.hostname;
+  const protocol = isServer ? undefined : window.location.protocol;
+
   return `# Scope
 Where did the error happened
 
-- [${window.location.hostname === "istrust.org" ? "x" : " "}] istrust.org
+- [${hostname !== undefined && hostname.endsWith("istrust.org") ? "x" : " "}] istrust.org
 - [ ] webextension
-    - [${window.location.protocol === "chrome-extension:" ? "x" : " "}] chrome
-    - [${window.location.hostname === "moz-extension:" ? "x" : " "}] firefox
+    - [${protocol === "chrome-extension:" ? "x" : " "}] chrome
+    - [${protocol === "moz-extension:" ? "x" : " "}] firefox
     - [ ] safari
-    - [${window.location.protocol === "edge-extension:" ? "x" : " "}] edge
+    - [${protocol === "edge-extension:" ? "x" : " "}] edge
 
 # Input URL or domain name
 
