@@ -153,14 +153,17 @@ export function App() {
         class={`${mode() === "detached" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container flex w-sm flex-col p-4`}
       >
         <div class="relative flex flex-col">
-          <ErrorBoundary fallback={(error: Error) => <Issue error={error} />}>
-            <HeaderDomain value={domain()} />
+          <ErrorBoundary
+            fallback={(error: Error) => <Issue lang={lang()} error={error} />}
+          >
+            <HeaderDomain lang={lang()} value={domain()} />
 
-            <CertificateAlert types={certificateData()?.types} />
+            <CertificateAlert lang={lang()} types={certificateData()?.types} />
 
             <div class="flex flex-col gap-1">
               <Section title="Owner">
                 <SectionItem
+                  lang={lang()}
                   description="Individual name"
                   prefix={<IconUser />}
                   informations={common.merge_informations(
@@ -169,8 +172,8 @@ export function App() {
                   )}
                   suffix={(individual) => (
                     <SourceVerification
-                      information={individual}
                       lang={lang()}
+                      information={individual}
                     />
                   )}
                 >
@@ -182,6 +185,7 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
+                  lang={lang()}
                   description="Organization name"
                   prefix={<IconBuilding />}
                   informations={common.merge_informations(
@@ -190,8 +194,8 @@ export function App() {
                   )}
                   suffix={(organization) => (
                     <SourceVerification
-                      information={organization}
                       lang={lang()}
+                      information={organization}
                     />
                   )}
                 >
@@ -203,6 +207,7 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
+                  lang={lang()}
                   description="Country of residence"
                   prefix={<IconMapPin />}
                   informations={common.merge_informations(
@@ -210,14 +215,14 @@ export function App() {
                     whoisData()?.countries,
                   )}
                   suffix={(country) => (
-                    <SourceVerification information={country} lang={lang()} />
+                    <SourceVerification lang={lang()} information={country} />
                   )}
                 >
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
                       <Country
-                        value={country.value}
                         lang={lang()}
+                        value={country.value}
                         type="text"
                       />
                     </ListAdditionalItem>
@@ -227,26 +232,36 @@ export function App() {
 
               <Section title="Domain">
                 <SectionItem
+                  lang={lang()}
                   description="Registration"
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
-                    <SourceInfo information={registration} lang={lang()} />
+                    <SourceInfo lang={lang()} information={registration} />
                   )}
                 >
                   {(registration, index) => (
                     <Switch>
                       <Match when={index === 0}>
-                        Registered <DatePastPeriod date={registration.value} />
+                        Registered{" "}
+                        <DatePastPeriod
+                          lang={lang()}
+                          date={registration.value}
+                        />
                       </Match>
                       <Match when={true}>
-                        and <DatePastPeriod date={registration.value} />
+                        and{" "}
+                        <DatePastPeriod
+                          lang={lang()}
+                          date={registration.value}
+                        />
                       </Match>
                     </Switch>
                   )}
                 </SectionItem>
 
                 <SectionItem
+                  lang={lang()}
                   description="Protection (DNSSEC)"
                   prefix={
                     <Suspense fallback={<IconShield />}>
@@ -269,7 +284,7 @@ export function App() {
                   }
                   informations={dnssecData()?.valid}
                   suffix={(valid) => (
-                    <SourceInfo information={valid} lang={lang()} />
+                    <SourceInfo lang={lang()} information={valid} />
                   )}
                 >
                   {(valid) => (
@@ -287,12 +302,14 @@ export function App() {
                 <Switch>
                   <Match when={import.meta.env.BROWSER === "safari"}>
                     <SectionItemNotAvailableIn
+                      lang={lang()}
                       platform="Safari"
                       description="First visit"
                       prefix={<IconCalendar1 />}
                     />
 
                     <SectionItemNotAvailableIn
+                      lang={lang()}
                       platform="Safari"
                       description="Frequency of visits"
                       prefix={<IconCalendarCheck />}
@@ -300,41 +317,52 @@ export function App() {
                   </Match>
                   <Match when={true}>
                     <SectionItem
+                      lang={lang()}
                       description="First visit"
                       prefix={<IconCalendar1 />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
-                        <SourceInfo information={visits} lang={lang()} />
+                        <SourceInfo lang={lang()} information={visits} />
                       )}
                     >
                       {(visits, index) => (
                         <Switch>
                           <Match when={index === 0}>
                             First visited{" "}
-                            <DatePastPeriod date={visits.value.at(0)} />
+                            <DatePastPeriod
+                              lang={lang()}
+                              date={visits.value.at(0)}
+                            />
                           </Match>
                           <Match when={true}>
-                            and <DatePastPeriod date={visits.value.at(0)} />
+                            and{" "}
+                            <DatePastPeriod
+                              lang={lang()}
+                              date={visits.value.at(0)}
+                            />
                           </Match>
                         </Switch>
                       )}
                     </SectionItem>
 
                     <SectionItem
+                      lang={lang()}
                       description="Frequency of visits"
                       prefix={<IconCalendarCheck />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
-                        <SourceInfo information={visits} lang={lang()} />
+                        <SourceInfo lang={lang()} information={visits} />
                       )}
                     >
                       {(visits, index) => (
                         <Switch>
                           <Match when={index === 0}>
-                            Visited <DateFrequency dates={visits.value} />
+                            Visited{" "}
+                            <DateFrequency lang={lang()} dates={visits.value} />
                           </Match>
                           <Match when={true}>
-                            and <DateFrequency dates={visits.value} />
+                            and{" "}
+                            <DateFrequency lang={lang()} dates={visits.value} />
                           </Match>
                         </Switch>
                       )}
@@ -343,7 +371,11 @@ export function App() {
                 </Switch>
               </Section>
 
-              <FooterAvailability on="website" query={searchQuery()?.text} />
+              <FooterAvailability
+                lang={lang()}
+                on="website"
+                query={searchQuery()?.text}
+              />
 
               <Show when={debug()}>
                 <Section title="Debug">

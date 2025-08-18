@@ -1,9 +1,8 @@
 import fr from "./translations/fr";
 import nl from "./translations/nl";
-import { Translation } from "./type";
 
 // Register new language here
-const translations = new Map<string, Map<string, Translation>>()
+const translations = new Map<string, Map<string, string>>()
   .set("fr", fr)
   .set("nl", nl);
 

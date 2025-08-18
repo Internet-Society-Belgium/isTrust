@@ -2,9 +2,9 @@ import { Match, Switch } from "solid-js";
 import { Flag } from "./flag";
 
 export function Country(props: {
+  lang: string;
   type: "text" | "icon";
   value: string;
-  lang: string;
 }) {
   const getRegionName = (code: string, lang: string) => {
     try {

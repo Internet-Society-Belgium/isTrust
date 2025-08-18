@@ -1,4 +1,5 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { For, Match, Show, Switch } from "solid-js";
 import { Country } from "../country";
 import {
@@ -31,10 +32,10 @@ export function SourceInfo(props: {
         <Show when={props.information.sources}>
           {(sources) => (
             <>
-              <span>Information provided</span>
+              <span>{i18n("Information provided", props.lang)}</span>
               <div class="flex items-center gap-1">
-                <span>by</span>
-                <Sources sources={sources()} lang={props.lang} />
+                <span>{i18n("by", props.lang)}</span>
+                <Sources lang={props.lang} sources={sources()} />
               </div>
             </>
           )}
@@ -72,27 +73,27 @@ export function SourceVerification(props: {
       <Switch>
         <Match when={!props.information.verified}>
           <div class="flex items-center gap-1">
-            <IconAlert /> Information without verification
+            <IconAlert /> {i18n("Information without verification", props.lang)}
           </div>
           <Show when={props.information.sources.length > 0}>
             <Show when={props.information.sources}>
               {(sources) => (
                 <div class="flex items-center gap-1">
-                  <span>from</span>
-                  <Sources sources={sources()} lang={props.lang} />
+                  <span>{i18n("from", props.lang)}</span>
+                  <Sources lang={props.lang} sources={sources()} />
                 </div>
               )}
             </Show>
           </Show>
         </Match>
         <Match when={props.information.verified}>
-          Information have been verified
+          {i18n("Information have been verified", props.lang)}
           <Show when={props.information.sources.length > 0}>
             <Show when={props.information.sources}>
               {(sources) => (
                 <div class="flex items-center gap-1">
-                  <span>by</span>
-                  <Sources sources={sources()} lang={props.lang} />
+                  <span>{i18n("by", props.lang)}</span>
+                  <Sources lang={props.lang} sources={sources()} />
                 </div>
               )}
             </Show>
@@ -116,7 +117,7 @@ function Sources(props: {
           </Show>
           <Show when={source.country}>
             {(country) => (
-              <Country type="icon" value={country()} lang={props.lang} />
+              <Country lang={props.lang} type="icon" value={country()} />
             )}
           </Show>
           <Show when={source.links}>

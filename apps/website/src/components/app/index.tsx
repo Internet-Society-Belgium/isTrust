@@ -177,8 +177,17 @@ export function App(props: { lang: string }) {
 
   return (
     <div class="relative flex w-xs flex-col gap-2 sm:w-sm">
-      <ErrorBoundary fallback={(error: Error) => <Issue error={error} />}>
+      <ErrorBoundary
+        fallback={(error: Error) => (
+          <div class="bg-container ring-border rounded-lg p-4 ring-1">
+            <div class="relative h-8 p-1">
+              <Issue lang={props.lang} error={error} />
+            </div>
+          </div>
+        )}
+      >
         <SearchBar
+          lang={props.lang}
           initValue={initValue()}
           reload={() => {
             reload();
@@ -190,13 +199,17 @@ export function App(props: { lang: string }) {
 
         <div class="bg-container ring-border rounded-lg p-4 ring-1">
           <div class="flex flex-col">
-            <HeaderDomain value={domain()} />
+            <HeaderDomain lang={props.lang} value={domain()} />
 
-            <CertificateAlert types={certificateData()?.types} />
+            <CertificateAlert
+              lang={props.lang}
+              types={certificateData()?.types}
+            />
 
             <div class="flex flex-col gap-1">
-              <Section title={i18n("Owner", { lang: props.lang })}>
+              <Section title={i18n("Owner", props.lang)}>
                 <SectionItem
+                  lang={props.lang}
                   description="Individual name"
                   prefix={<IconUser />}
                   informations={common.merge_informations(
@@ -205,8 +218,8 @@ export function App(props: { lang: string }) {
                   )}
                   suffix={(individual) => (
                     <SourceVerification
-                      information={individual}
                       lang={props.lang}
+                      information={individual}
                     />
                   )}
                 >
@@ -218,6 +231,7 @@ export function App(props: { lang: string }) {
                 </SectionItem>
 
                 <SectionItem
+                  lang={props.lang}
                   description="Organization name"
                   prefix={<IconBuilding />}
                   informations={common.merge_informations(
@@ -226,8 +240,8 @@ export function App(props: { lang: string }) {
                   )}
                   suffix={(organization) => (
                     <SourceVerification
-                      information={organization}
                       lang={props.lang}
+                      information={organization}
                     />
                   )}
                 >
@@ -239,6 +253,7 @@ export function App(props: { lang: string }) {
                 </SectionItem>
 
                 <SectionItem
+                  lang={props.lang}
                   description="Country of residence"
                   prefix={<IconMapPin />}
                   informations={common.merge_informations(
@@ -247,45 +262,55 @@ export function App(props: { lang: string }) {
                   )}
                   suffix={(country) => (
                     <SourceVerification
-                      information={country}
                       lang={props.lang}
+                      information={country}
                     />
                   )}
                 >
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
                       <Country
+                        lang={props.lang}
                         value={country.value}
                         type="text"
-                        lang={props.lang}
                       />
                     </ListAdditionalItem>
                   )}
                 </SectionItem>
               </Section>
 
-              <Section title={i18n("Domain", { lang: props.lang })}>
+              <Section title={i18n("Domain", props.lang)}>
                 <SectionItem
+                  lang={props.lang}
                   description="Registration"
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
-                    <SourceInfo information={registration} lang={props.lang} />
+                    <SourceInfo lang={props.lang} information={registration} />
                   )}
                 >
                   {(registration, index) => (
                     <Switch>
                       <Match when={index === 0}>
-                        Registered <DatePastPeriod date={registration.value} />
+                        Registered{" "}
+                        <DatePastPeriod
+                          lang={props.lang}
+                          date={registration.value}
+                        />
                       </Match>
                       <Match when={true}>
-                        and <DatePastPeriod date={registration.value} />
+                        and{" "}
+                        <DatePastPeriod
+                          lang={props.lang}
+                          date={registration.value}
+                        />
                       </Match>
                     </Switch>
                   )}
                 </SectionItem>
 
                 <SectionItem
+                  lang={props.lang}
                   description="Protection (DNSSEC)"
                   prefix={
                     <Suspense fallback={<IconShield />}>
@@ -308,7 +333,7 @@ export function App(props: { lang: string }) {
                   }
                   informations={dnssecData()?.valid}
                   suffix={(valid) => (
-                    <SourceInfo information={valid} lang={props.lang} />
+                    <SourceInfo lang={props.lang} information={valid} />
                   )}
                 >
                   {(valid) => (
@@ -322,14 +347,16 @@ export function App(props: { lang: string }) {
                 </SectionItem>
               </Section>
 
-              <Section title={i18n("Visit", { lang: props.lang })}>
+              <Section title={i18n("Visit", props.lang)}>
                 <SectionItemOnlyAvailableIn
+                  lang={props.lang}
                   platform="webextension"
                   description="First visit"
                   prefix={<IconCalendar1 />}
                 />
 
                 <SectionItemOnlyAvailableIn
+                  lang={props.lang}
                   platform="webextension"
                   description="Frequency of visits"
                   prefix={<IconCalendarCheck />}

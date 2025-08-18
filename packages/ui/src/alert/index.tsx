@@ -1,9 +1,11 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { For, JSX, Match, Show, Suspense, Switch } from "solid-js";
 import { IconThumbsDown, IconThumbsUp } from "../icon";
 import { SourceVerification } from "../source";
 
 export function CertificateAlert(props: {
+  lang: string;
   types?: common.Information<unknown>[];
 }) {
   return (
@@ -16,12 +18,12 @@ export function CertificateAlert(props: {
                 <Show when={evCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
                     <Alert type="good">
-                      <p>Legitimacy formally verified</p>
+                      {i18n("Legitimacy formally verified", props.lang)}
                       <For each={evCertificates()}>
                         {(evCertificate) => (
                           <SourceVerification
+                            lang={props.lang}
                             information={evCertificate}
-                            lang={navigator.language}
                             type="good"
                           />
                         )}
@@ -37,12 +39,13 @@ export function CertificateAlert(props: {
                 <Show when={ovCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
                     <Alert type="good">
-                      <p>Organization legitimacy verified</p>
+                      {i18n("Organization legitimacy verified", props.lang)}
+
                       <For each={ovCertificates()}>
                         {(ovCertificate) => (
                           <SourceVerification
+                            lang={props.lang}
                             information={ovCertificate}
-                            lang={navigator.language}
                             type="good"
                           />
                         )}
@@ -58,12 +61,12 @@ export function CertificateAlert(props: {
                 <Show when={ivCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
                     <Alert type="good">
-                      <p>Individual legitimacy verified</p>
+                      {i18n("Individual legitimacy verified", props.lang)}
                       <For each={ivCertificates()}>
                         {(ivCertificate) => (
                           <SourceVerification
+                            lang={props.lang}
                             information={ivCertificate}
-                            lang={navigator.language}
                             type="good"
                           />
                         )}
