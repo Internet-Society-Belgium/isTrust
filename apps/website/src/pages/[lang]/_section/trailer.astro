@@ -1,9 +1,15 @@
 ---
 import HeaderSection from "@/components/header/section.astro";
+import { getLangFromPath } from "@/i18n";
+import i18n from "@istrust/i18n";
+
+const lang = getLangFromPath(Astro.url.pathname);
 ---
 
 <div class="mx-auto max-w-4xl p-12">
-  <HeaderSection header="Trailer">Watch the video to learn more</HeaderSection>
+  <HeaderSection header={i18n("Trailer", lang)}
+    >{i18n("Watch the video to learn more", lang)}</HeaderSection
+  >
 
   <div class="mt-8">
     <video
@@ -15,7 +21,7 @@ import HeaderSection from "@/components/header/section.astro";
         src="https://istrust.org/teaser/teaser-v0.8.mp4"
         type="video/mp4"
       />
-      Your browser does not support this video
+      {i18n("Your browser does not support this video", lang)}
     </video>
   </div>
 </div>

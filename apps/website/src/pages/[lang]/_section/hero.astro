@@ -7,6 +7,7 @@ import Button from "@/components/button/index.astro";
 import HeaderMain from "@/components/header/main.astro";
 import { stores } from "@/data/stores";
 import { getLangFromPath } from "@/i18n";
+import i18n from "@istrust/i18n";
 import { Image } from "astro:assets";
 
 const lang = getLangFromPath(Astro.url.pathname);
@@ -29,8 +30,7 @@ const lang = getLangFromPath(Astro.url.pathname);
           href="#scientific-research"
           class="bg-primary/10 text-primary border-primary/25 flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-semibold"
         >
-          New improved version
-
+          {i18n("New improved version", lang)}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1.2em"
@@ -51,14 +51,16 @@ const lang = getLangFromPath(Astro.url.pathname);
 
       <div class="text-center sm:text-left">
         <HeaderMain>
-          Verify the trustworthiness
+          {i18n("Verify the trustworthiness", lang)}
           <br />
-          of any website
+          {i18n("of any website", lang)}
         </HeaderMain>
       </div>
 
       <div class="mt-6 flex justify-center gap-2">
-        <ButtonGet id="get-default" href="#get"> Get webextension </ButtonGet>
+        <ButtonGet id="get-default" href="#get"
+          >{i18n("Get webextension", lang)}
+        </ButtonGet>
 
         {
           Object.entries(stores).map(([key, value]) => (
@@ -75,7 +77,7 @@ const lang = getLangFromPath(Astro.url.pathname);
                   decoding="async"
                   loading="eager"
                 />
-                <span>Get webextension</span>
+                <span>{i18n("Get webextension", lang)}</span>
               </div>
             </ButtonGet>
           ))
@@ -152,7 +154,7 @@ const lang = getLangFromPath(Astro.url.pathname);
           </svg>
 
           <div class="text-muted font-semibold text-nowrap italic select-none">
-            Try it
+            {i18n("Try it", lang)}
           </div>
         </div>
 
@@ -164,7 +166,9 @@ const lang = getLangFromPath(Astro.url.pathname);
 
 <div class="bg-white p-6">
   <div class="mx-auto max-w-4xl">
-    <h2 class="text-center text-lg font-semibold text-pretty">Supported by</h2>
+    <h2 class="text-center text-lg font-semibold text-pretty">
+      {i18n("Supported by", lang)}
+    </h2>
 
     <div class="flex flex-wrap items-center justify-center gap-12 p-6">
       <Button href="https://internetsociety.be/">

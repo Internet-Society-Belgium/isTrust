@@ -40,7 +40,6 @@ export function CertificateAlert(props: {
                   <div class="mb-2 flex items-center justify-center">
                     <Alert type="good">
                       {i18n("Organization legitimacy verified", props.lang)}
-
                       <For each={ovCertificates()}>
                         {(ovCertificate) => (
                           <SourceVerification

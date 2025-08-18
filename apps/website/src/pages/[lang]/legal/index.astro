@@ -14,16 +14,20 @@ const { lang } = Astro.params;
 <Layout>
   <div class="mx-auto max-w-4xl p-12">
     <HeaderSection header="Legal mention">
-      {i18n("Who are we ?", { lang })}
+      {i18n("Who are we ?", lang)}
     </HeaderSection>
 
     <p class="m-6">
-      "istrust.org" is operated by Internet Society Chapter Belgium vzw/asbl
-      (non-profit organization).
+      "istrust.org" {
+        i18n(
+          "is operated by Internet Society Chapter Belgium vzw/asbl (non-profit organization)",
+          lang,
+        )
+      }
     </p>
 
     <p class="m-6">
-      Our postal address is:
+      {i18n("Our postal address is:", lang)}
       <br />
       Internet Society Belgium
       <br />
@@ -35,7 +39,7 @@ const { lang } = Astro.params;
     <p class="m-6">RPR/RPM Brussels: BE 0728.764.958</p>
 
     <p class="m-6">
-      Our website address is:
+      {i18n("Our website address is:", lang)}
       <a href="https://internetsociety.be" target="_blank" class="underline"
         >internetsociety.be</a
       >

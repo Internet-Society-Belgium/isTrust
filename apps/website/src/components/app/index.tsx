@@ -210,7 +210,7 @@ export function App(props: { lang: string }) {
               <Section title={i18n("Owner", props.lang)}>
                 <SectionItem
                   lang={props.lang}
-                  description="Individual name"
+                  description={i18n("Individual name", props.lang)}
                   prefix={<IconUser />}
                   informations={common.merge_informations(
                     certificateData()?.individuals,
@@ -232,7 +232,7 @@ export function App(props: { lang: string }) {
 
                 <SectionItem
                   lang={props.lang}
-                  description="Organization name"
+                  description={i18n("Organization name", props.lang)}
                   prefix={<IconBuilding />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
@@ -254,7 +254,7 @@ export function App(props: { lang: string }) {
 
                 <SectionItem
                   lang={props.lang}
-                  description="Country of residence"
+                  description={i18n("Country of residence", props.lang)}
                   prefix={<IconMapPin />}
                   informations={common.merge_informations(
                     certificateData()?.countries,
@@ -282,7 +282,7 @@ export function App(props: { lang: string }) {
               <Section title={i18n("Domain", props.lang)}>
                 <SectionItem
                   lang={props.lang}
-                  description="Registration"
+                  description={i18n("Registration", props.lang)}
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
@@ -292,14 +292,14 @@ export function App(props: { lang: string }) {
                   {(registration, index) => (
                     <Switch>
                       <Match when={index === 0}>
-                        Registered{" "}
+                        {i18n("Registered", props.lang)}{" "}
                         <DatePastPeriod
                           lang={props.lang}
                           date={registration.value}
                         />
                       </Match>
                       <Match when={true}>
-                        and{" "}
+                        {i18n("and", props.lang)}{" "}
                         <DatePastPeriod
                           lang={props.lang}
                           date={registration.value}
@@ -311,7 +311,7 @@ export function App(props: { lang: string }) {
 
                 <SectionItem
                   lang={props.lang}
-                  description="Protection (DNSSEC)"
+                  description={i18n("Protection (DNSSEC)", props.lang)}
                   prefix={
                     <Suspense fallback={<IconShield />}>
                       <Show
@@ -338,9 +338,11 @@ export function App(props: { lang: string }) {
                 >
                   {(valid) => (
                     <Switch>
-                      <Match when={valid.value}>Protected with DNSSEC</Match>
+                      <Match when={valid.value}>
+                        {i18n("Protected with DNSSEC", props.lang)}
+                      </Match>
                       <Match when={!valid.value}>
-                        Not protected with DNSSEC
+                        {i18n("Not protected with DNSSEC", props.lang)}
                       </Match>
                     </Switch>
                   )}
@@ -350,15 +352,15 @@ export function App(props: { lang: string }) {
               <Section title={i18n("Visit", props.lang)}>
                 <SectionItemOnlyAvailableIn
                   lang={props.lang}
-                  platform="webextension"
-                  description="First visit"
+                  platform={i18n("webextension", props.lang)}
+                  description={i18n("First visit", props.lang)}
                   prefix={<IconCalendar1 />}
                 />
 
                 <SectionItemOnlyAvailableIn
                   lang={props.lang}
-                  platform="webextension"
-                  description="Frequency of visits"
+                  platform={i18n("webextension", props.lang)}
+                  description={i18n("Frequency of visits", props.lang)}
                   prefix={<IconCalendarCheck />}
                 />
               </Section>

@@ -14,21 +14,25 @@ const { lang } = Astro.params;
 <Layout>
   <div class="mx-auto max-w-4xl p-12">
     <HeaderSection header="Privacy policy">
-      {i18n("Which personal data do we process", { lang })}
+      {i18n("Which personal data do we process", lang)}
     </HeaderSection>
 
     <p class="m-6">
-      As we want to protect your privacy,<span class="font-semibold"> NO </span>
-      personal data is processed nor stored on this website. Similarly, <span
-        class="font-semibold"
-      >
-        NO
-      </span>
-      cookie is used for tracking purposes.
+      {
+        i18n(
+          "As we want to protect your privacy, NO personal data is processed nor stored on this website. Similarly, NO cookie is used for tracking purposes",
+          lang,
+        )
+      }
     </p>
 
     <p class="m-6">
-      In case of question related to privacy or data protection, please contact
+      {
+        i18n(
+          "In case of question related to privacy or data protection, please contact",
+          lang,
+        )
+      }
       <a href="mailto:dpo@isoc.be" class="text-primary underline">dpo@isoc.be</a
       >
     </p>

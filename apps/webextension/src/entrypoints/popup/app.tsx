@@ -1,5 +1,6 @@
 import { messenger } from "@/utils/messaging";
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { CertificateAlert } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
@@ -161,10 +162,10 @@ export function App() {
             <CertificateAlert lang={lang()} types={certificateData()?.types} />
 
             <div class="flex flex-col gap-1">
-              <Section title="Owner">
+              <Section title={i18n("Owner", lang())}>
                 <SectionItem
                   lang={lang()}
-                  description="Individual name"
+                  description={i18n("Individual name", lang())}
                   prefix={<IconUser />}
                   informations={common.merge_informations(
                     certificateData()?.individuals,
@@ -186,7 +187,7 @@ export function App() {
 
                 <SectionItem
                   lang={lang()}
-                  description="Organization name"
+                  description={i18n("Organization name", lang())}
                   prefix={<IconBuilding />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
@@ -208,7 +209,7 @@ export function App() {
 
                 <SectionItem
                   lang={lang()}
-                  description="Country of residence"
+                  description={i18n("Country of residence", lang())}
                   prefix={<IconMapPin />}
                   informations={common.merge_informations(
                     certificateData()?.countries,
@@ -230,10 +231,10 @@ export function App() {
                 </SectionItem>
               </Section>
 
-              <Section title="Domain">
+              <Section title={i18n("Domain", lang())}>
                 <SectionItem
                   lang={lang()}
-                  description="Registration"
+                  description={i18n("Registration", lang())}
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
@@ -243,14 +244,14 @@ export function App() {
                   {(registration, index) => (
                     <Switch>
                       <Match when={index === 0}>
-                        Registered{" "}
+                        {i18n("Registered", lang())}{" "}
                         <DatePastPeriod
                           lang={lang()}
                           date={registration.value}
                         />
                       </Match>
                       <Match when={true}>
-                        and{" "}
+                        {i18n("and", lang())}{" "}
                         <DatePastPeriod
                           lang={lang()}
                           date={registration.value}
@@ -262,7 +263,7 @@ export function App() {
 
                 <SectionItem
                   lang={lang()}
-                  description="Protection (DNSSEC)"
+                  description={i18n("Protection (DNSSEC)", lang())}
                   prefix={
                     <Suspense fallback={<IconShield />}>
                       <Show
@@ -289,36 +290,38 @@ export function App() {
                 >
                   {(valid) => (
                     <Switch>
-                      <Match when={valid.value}>Protected with DNSSEC</Match>
+                      <Match when={valid.value}>
+                        {i18n("Protected with DNSSEC", lang())}
+                      </Match>
                       <Match when={!valid.value}>
-                        Not protected with DNSSEC
+                        {i18n("Not protected with DNSSEC", lang())}
                       </Match>
                     </Switch>
                   )}
                 </SectionItem>
               </Section>
 
-              <Section title="Visit">
+              <Section title={i18n("Visit", lang())}>
                 <Switch>
                   <Match when={import.meta.env.BROWSER === "safari"}>
                     <SectionItemNotAvailableIn
                       lang={lang()}
                       platform="Safari"
-                      description="First visit"
+                      description={i18n("First visit", lang())}
                       prefix={<IconCalendar1 />}
                     />
 
                     <SectionItemNotAvailableIn
                       lang={lang()}
                       platform="Safari"
-                      description="Frequency of visits"
+                      description={i18n("Frequency of visits", lang())}
                       prefix={<IconCalendarCheck />}
                     />
                   </Match>
                   <Match when={true}>
                     <SectionItem
                       lang={lang()}
-                      description="First visit"
+                      description={i18n("First visit", lang())}
                       prefix={<IconCalendar1 />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
@@ -328,14 +331,14 @@ export function App() {
                       {(visits, index) => (
                         <Switch>
                           <Match when={index === 0}>
-                            First visited{" "}
+                            {i18n("First visited", lang())}{" "}
                             <DatePastPeriod
                               lang={lang()}
                               date={visits.value.at(0)}
                             />
                           </Match>
                           <Match when={true}>
-                            and{" "}
+                            {i18n("and", lang())}{" "}
                             <DatePastPeriod
                               lang={lang()}
                               date={visits.value.at(0)}
@@ -347,7 +350,7 @@ export function App() {
 
                     <SectionItem
                       lang={lang()}
-                      description="Frequency of visits"
+                      description={i18n("Frequency of visits", lang())}
                       prefix={<IconCalendarCheck />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
@@ -357,11 +360,11 @@ export function App() {
                       {(visits, index) => (
                         <Switch>
                           <Match when={index === 0}>
-                            Visited{" "}
+                            {i18n("Visited", lang())}{" "}
                             <DateFrequency lang={lang()} dates={visits.value} />
                           </Match>
                           <Match when={true}>
-                            and{" "}
+                            {i18n("and", lang())}{" "}
                             <DateFrequency lang={lang()} dates={visits.value} />
                           </Match>
                         </Switch>

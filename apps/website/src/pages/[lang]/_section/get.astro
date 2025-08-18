@@ -2,11 +2,17 @@
 import ButtonStore from "@/components/button/store.astro";
 import HeaderSection from "@/components/header/section.astro";
 import { stores } from "@/data/stores";
+import { getLangFromPath } from "@/i18n";
+import i18n from "@istrust/i18n";
 import { Image } from "astro:assets";
+
+const lang = getLangFromPath(Astro.url.pathname);
 ---
 
 <div class="mx-auto max-w-4xl p-6">
-  <HeaderSection header="Store"> Get the webextension</HeaderSection>
+  <HeaderSection header={i18n("Store", lang)}>
+    {i18n("Get the webextension", lang)}</HeaderSection
+  >
 
   <div class="mt-6 flex flex-wrap justify-center gap-6 p-6">
     {
