@@ -1,6 +1,7 @@
-import { Translation } from "../type";
+import { Translations } from "../types";
 
-export default new Map<string, Translation>()
-  .set("Owner", "Owner FR")
-  .set("Domain", "Domain FR")
-  .set("Visit", "Visit FR");
+export const fr: Translations = {
+  Owner: "Owner FR",
+  "Verify the trustworthiness of any website":
+    "Vérifiez la fiabilité de n'importe quel site web",
+};

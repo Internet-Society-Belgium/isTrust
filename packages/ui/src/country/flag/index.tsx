@@ -250,8 +250,8 @@ import ZM from "./ZM";
 import ZW from "./ZW";
 
 export function Flag(props: { code: string }) {
-  const getFlag = (code: string) => {
-    code = code.toUpperCase();
+  const getFlag = () => {
+    const code = props.code.toUpperCase();
     if (code === "AD") return <AD />;
     else if (code === "AE") return <AE />;
     else if (code === "AF") return <AF />;
@@ -504,8 +504,6 @@ export function Flag(props: { code: string }) {
     else return <Other />;
   };
   return (
-    <div class="flex h-4 w-4 items-center justify-center">
-      {getFlag(props.code)}
-    </div>
+    <div class="flex h-4 w-4 items-center justify-center">{getFlag()}</div>
   );
 }
