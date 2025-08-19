@@ -156,7 +156,14 @@ export function App(props: { lang: string }) {
   );
 
   const search = (text: string) => {
-    void navigator.storage.persist();
+    if (
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      navigator.storage !== undefined &&
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      navigator.storage.persist !== undefined
+    ) {
+      navigator.storage.persist().catch(console.error);
+    }
 
     setSearchQuery({ text, forceUpdateCache: false });
 

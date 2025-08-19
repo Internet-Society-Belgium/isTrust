@@ -3,11 +3,13 @@
   "version": "4.0.1",
   "type": "module",
   "scripts": {
-    "build": "astro build",
+    "build": "npm run generate:manifest && astro build",
     "bundle": "npm run build && node ./scripts/bundle.js",
     "clean": "rm -rf .turbo .astro dist node_modules",
     "dev": "astro dev",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
+    "generate:assets": "pwa-assets-generator",
+    "generate:manifest": "node ./scripts/generate_manifest.js",
     "lint": "eslint src --max-warnings 0"
   },
   "dependencies": {
@@ -21,6 +23,7 @@
     "@istrust/prettier-config": "*",
     "@istrust/tailwind-config": "*",
     "@tailwindcss/vite": "^4.1.11",
+    "@vite-pwa/assets-generator": "^1.0.0",
     "archiver": "^7.0.1",
     "astro": "^5.12.8",
     "eslint": "^9.33.0",

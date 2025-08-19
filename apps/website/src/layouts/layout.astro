@@ -16,8 +16,10 @@ const lang = getLangFromPath(Astro.url.pathname);
       name="description"
       content="Verify the trustworthyness of any website"
     />
-    <link rel="icon" type="image/x-icon" href="/images/icon.ico" />
-    <link rel="icon" type="image/svg" href="/images/icon.svg" />
+    <link rel="icon" href="/images/icon.ico" sizes="48x48" />
+    <link rel="icon" href="/images/icon.svg" sizes="any" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon-180x180.png" />
+    <link rel="manifest" href={`/manifest/${lang}.webmanifest`} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/images/poster.png" />
   </head>
