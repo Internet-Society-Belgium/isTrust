@@ -1,4 +1,5 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { CertificateAlert } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
@@ -100,7 +101,7 @@ const cache: common.InformationCache = {
   },
 };
 
-export function App() {
+export function App(props: { lang: string }) {
   const [searchQuery, setSearchQuery] = createSignal<{
     text: string;
     forceUpdateCache: boolean;
@@ -176,8 +177,17 @@ export function App() {
 
   return (
     <div class="relative flex w-xs flex-col gap-2 sm:w-sm">
-      <ErrorBoundary fallback={(error: Error) => <Issue error={error} />}>
+      <ErrorBoundary
+        fallback={(error: Error) => (
+          <div class="bg-container ring-border rounded-lg p-4 ring-1">
+            <div class="relative h-8 p-1">
+              <Issue lang={props.lang} error={error} />
+            </div>
+          </div>
+        )}
+      >
         <SearchBar
+          lang={props.lang}
           initValue={initValue()}
           reload={() => {
             reload();
@@ -189,14 +199,18 @@ export function App() {
 
         <div class="bg-container ring-border rounded-lg p-4 ring-1">
           <div class="flex flex-col">
-            <HeaderDomain value={domain()} />
+            <HeaderDomain lang={props.lang} value={domain()} />
 
-            <CertificateAlert types={certificateData()?.types} />
+            <CertificateAlert
+              lang={props.lang}
+              types={certificateData()?.types}
+            />
 
             <div class="flex flex-col gap-1">
-              <Section title="Owner">
+              <Section title={i18n("Owner", props.lang)}>
                 <SectionItem
-                  description="Individual name"
+                  lang={props.lang}
+                  description={i18n("Individual name", props.lang)}
                   prefix={<IconUser />}
                   informations={common.merge_informations(
                     certificateData()?.individuals,
@@ -204,8 +218,8 @@ export function App() {
                   )}
                   suffix={(individual) => (
                     <SourceVerification
+                      lang={props.lang}
                       information={individual}
-                      locale={navigator.language}
                     />
                   )}
                 >
@@ -217,7 +231,8 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
-                  description="Organization name"
+                  lang={props.lang}
+                  description={i18n("Organization name", props.lang)}
                   prefix={<IconBuilding />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
@@ -225,8 +240,8 @@ export function App() {
                   )}
                   suffix={(organization) => (
                     <SourceVerification
+                      lang={props.lang}
                       information={organization}
-                      locale={navigator.language}
                     />
                   )}
                 >
@@ -238,7 +253,8 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
-                  description="Country of residence"
+                  lang={props.lang}
+                  description={i18n("Country of residence", props.lang)}
                   prefix={<IconMapPin />}
                   informations={common.merge_informations(
                     certificateData()?.countries,
@@ -246,16 +262,16 @@ export function App() {
                   )}
                   suffix={(country) => (
                     <SourceVerification
+                      lang={props.lang}
                       information={country}
-                      locale={navigator.language}
                     />
                   )}
                 >
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
                       <Country
+                        lang={props.lang}
                         value={country.value}
-                        locale={navigator.language}
                         type="text"
                       />
                     </ListAdditionalItem>
@@ -263,32 +279,39 @@ export function App() {
                 </SectionItem>
               </Section>
 
-              <Section title="Domain">
+              <Section title={i18n("Domain", props.lang)}>
                 <SectionItem
-                  description="Registration"
+                  lang={props.lang}
+                  description={i18n("Registration", props.lang)}
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
-                    <SourceInfo
-                      information={registration}
-                      locale={navigator.language}
-                    />
+                    <SourceInfo lang={props.lang} information={registration} />
                   )}
                 >
                   {(registration, index) => (
                     <Switch>
                       <Match when={index === 0}>
-                        Registered <DatePastPeriod date={registration.value} />
+                        {i18n("Registered", props.lang)}{" "}
+                        <DatePastPeriod
+                          lang={props.lang}
+                          date={registration.value}
+                        />
                       </Match>
                       <Match when={true}>
-                        and <DatePastPeriod date={registration.value} />
+                        {i18n("and", props.lang)}{" "}
+                        <DatePastPeriod
+                          lang={props.lang}
+                          date={registration.value}
+                        />
                       </Match>
                     </Switch>
                   )}
                 </SectionItem>
 
                 <SectionItem
-                  description="Protection (DNSSEC)"
+                  lang={props.lang}
+                  description={i18n("Protection (DNSSEC)", props.lang)}
                   prefix={
                     <Suspense fallback={<IconShield />}>
                       <Show
@@ -310,33 +333,34 @@ export function App() {
                   }
                   informations={dnssecData()?.valid}
                   suffix={(valid) => (
-                    <SourceInfo
-                      information={valid}
-                      locale={navigator.language}
-                    />
+                    <SourceInfo lang={props.lang} information={valid} />
                   )}
                 >
                   {(valid) => (
                     <Switch>
-                      <Match when={valid.value}>Protected with DNSSEC</Match>
+                      <Match when={valid.value}>
+                        {i18n("Protected with DNSSEC", props.lang)}
+                      </Match>
                       <Match when={!valid.value}>
-                        Not protected with DNSSEC
+                        {i18n("Not protected with DNSSEC", props.lang)}
                       </Match>
                     </Switch>
                   )}
                 </SectionItem>
               </Section>
 
-              <Section title="Visit">
+              <Section title={i18n("Visit", props.lang)}>
                 <SectionItemOnlyAvailableIn
-                  platform="webextension"
-                  description="First visit"
+                  lang={props.lang}
+                  platform={i18n("the extension", props.lang)}
+                  description={i18n("First visit", props.lang)}
                   prefix={<IconCalendar1 />}
                 />
 
                 <SectionItemOnlyAvailableIn
-                  platform="webextension"
-                  description="Frequency of visits"
+                  lang={props.lang}
+                  platform={i18n("the extension", props.lang)}
+                  description={i18n("Frequency of visits", props.lang)}
                   prefix={<IconCalendarCheck />}
                 />
               </Section>

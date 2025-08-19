@@ -1,0 +1,48 @@
+---
+import HeaderSection from "@/components/header/section.astro";
+import { langs } from "@/i18n";
+import Layout from "@/layouts/layout.astro";
+import i18n from "@istrust/i18n";
+
+export async function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+---
+
+<Layout>
+  <div class="mx-auto max-w-4xl p-12">
+    <HeaderSection header={i18n("Legal mention", lang)}>
+      {i18n("Who are we", lang)}
+    </HeaderSection>
+
+    <p class="m-6">
+      "istrust.org" {
+        i18n(
+          "is operated by Internet Society Chapter Belgium vzw/asbl (non-profit organization)",
+          lang,
+        )
+      }
+    </p>
+
+    <p class="m-6">
+      {i18n("Our postal address is:", lang)}
+      <br />
+      Internet Society Belgium
+      <br />
+      Notelaarstraat 285 | Rue du Noyer 285
+      <br />
+      1000 Brussels, Belgium
+    </p>
+
+    <p class="m-6">RPR/RPM Brussels: BE 0728.764.958</p>
+
+    <p class="m-6">
+      {i18n("Our website address is:", lang)}
+      <a href="https://internetsociety.be" target="_blank" class="underline"
+        >internetsociety.be</a
+      >
+    </p>
+  </div>
+</Layout>

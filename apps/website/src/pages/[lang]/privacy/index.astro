@@ -1,0 +1,40 @@
+---
+import HeaderSection from "@/components/header/section.astro";
+import { langs } from "@/i18n";
+import Layout from "@/layouts/layout.astro";
+import i18n from "@istrust/i18n";
+
+export async function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+---
+
+<Layout>
+  <div class="mx-auto max-w-4xl p-12">
+    <HeaderSection header={i18n("Privacy policy", lang)}>
+      {i18n("Which personal data do we process", lang)}
+    </HeaderSection>
+
+    <p class="m-6">
+      {
+        i18n(
+          "As we want to protect your privacy, NO personal data is processed nor stored on this website. Similarly, NO cookie is used for tracking purposes",
+          lang,
+        )
+      }
+    </p>
+
+    <p class="m-6">
+      {
+        i18n(
+          "In case of question related to privacy or data protection, please contact",
+          lang,
+        )
+      }
+      <a href="mailto:dpo@isoc.be" class="text-primary underline">dpo@isoc.be</a
+      >
+    </p>
+  </div>
+</Layout>

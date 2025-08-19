@@ -4,13 +4,14 @@
   "type": "module",
   "scripts": {
     "build": "astro build",
-    "bundle": "npm run build && node ./scripts/bundle.cjs",
+    "bundle": "npm run build && node ./scripts/bundle.js",
     "clean": "rm -rf .turbo .astro dist node_modules",
     "dev": "astro dev",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "lint": "eslint src --max-warnings 0"
   },
   "dependencies": {
+    "@istrust/i18n": "*",
     "@istrust/ui": "*",
     "solid-js": "^1.9.7"
   },

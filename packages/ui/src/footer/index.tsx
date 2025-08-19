@@ -1,13 +1,15 @@
+import i18n from "@istrust/i18n";
 import { Match, Show, Switch } from "solid-js";
 
 export function FooterAvailability(props: {
+  lang: string;
   on: "website" | "webextension";
   query: string | undefined;
 }) {
   return (
     <div class="mt-2 flex items-center justify-center">
       <p class="text-muted text-xs">
-        <span>Also available on </span>
+        <span>{i18n("Also available on", props.lang)} </span>
         <Switch>
           <Match when={props.on === "website"}>
             <Show

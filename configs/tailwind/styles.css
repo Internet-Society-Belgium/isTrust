@@ -22,11 +22,13 @@
 @layer base {
   html {
     color: oklch(20.8% 0.042 265.755); /* slate 900 */
+    scroll-behavior: smooth;
   }
 
   input,
   a,
-  button {
+  button,
+  select {
     @apply focus-visible:outline-2 focus-visible:outline-primary;
   }
 }

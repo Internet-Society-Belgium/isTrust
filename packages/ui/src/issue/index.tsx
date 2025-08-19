@@ -1,17 +1,22 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { JSX, Match, onMount, Switch } from "solid-js";
+import { isServer } from "solid-js/web";
 import { IconGithub } from "../icon";
 
 function issueBug(errorMessage: string) {
+  const hostname = isServer ? undefined : window.location.hostname;
+  const protocol = isServer ? undefined : window.location.protocol;
+
   return `# Scope
 Where did the error happened
 
-- [${window.location.hostname === "istrust.org" ? "x" : " "}] istrust.org
+- [${hostname !== undefined && hostname.endsWith("istrust.org") ? "x" : " "}] istrust.org
 - [ ] webextension
-    - [${window.location.protocol === "chrome-extension:" ? "x" : " "}] chrome
-    - [${window.location.hostname === "moz-extension:" ? "x" : " "}] firefox
+    - [${protocol === "chrome-extension:" ? "x" : " "}] chrome
+    - [${protocol === "moz-extension:" ? "x" : " "}] firefox
     - [ ] safari
-    - [${window.location.protocol === "edge-extension:" ? "x" : " "}] edge
+    - [${protocol === "edge-extension:" ? "x" : " "}] edge
 
 # Input URL or domain name
 
@@ -46,7 +51,7 @@ function issueURL(labels: string, body: string) {
   return `https://github.com/Internet-Society-Belgium/isTrust/issues/new?labels=${labels}&body=${encodedBody}`;
 }
 
-export function Issue(props: { error: Error }) {
+export function Issue(props: { lang: string; error: Error }) {
   onMount(() => {
     console.error(props.error);
   });
@@ -81,55 +86,64 @@ export function Issue(props: { error: Error }) {
           "FeatureRequireWebextensionError"
         }
       >
-        <IssueFeatureOnlyAvailableIn platform="webextension" />
+        <IssueFeatureOnlyAvailableIn
+          lang={props.lang}
+          platform={i18n("the extension", props.lang)}
+        />
       </Match>
       <Match
         when={(props.error.name as common.ErrorType) === "FeatureMissingError"}
       >
-        <IssueFeatureMissing message={props.error.message} />
+        <IssueFeatureMissing lang={props.lang} message={props.error.message} />
       </Match>
       <Match when={true}>
-        <IssueUnexpectedError message={props.error.message} />
+        <IssueUnexpectedError lang={props.lang} message={props.error.message} />
       </Match>
     </Switch>
   );
 }
 
-export function IssueFeatureOnlyAvailableIn(props: { platform: string }) {
+export function IssueFeatureOnlyAvailableIn(props: {
+  lang: string;
+  platform: string;
+}) {
   return (
     <IssueButton href="https://istrust.org/#get">
-      Only available in {props.platform}
+      {i18n("Only available in", props.lang)} {props.platform}
     </IssueButton>
   );
 }
 
-export function IssueFeatureNotAvailableIn(props: { platform: string }) {
+export function IssueFeatureNotAvailableIn(props: {
+  lang: string;
+  platform: string;
+}) {
   return (
     <IssueButton href="https://istrust.org/#get">
-      Not available in {props.platform}
+      {i18n("Not available in", props.lang)} {props.platform}
     </IssueButton>
   );
 }
 
-export function IssueFeatureMissing(props: { message: string }) {
+export function IssueFeatureMissing(props: { lang: string; message: string }) {
   return (
     <IssueButton
       href={issueURL("enhancement", issueFeature(props.message))}
       target="_blank"
     >
-      Feature not available
+      {i18n("Feature not available", props.lang)}
       <IconGithub />
     </IssueButton>
   );
 }
 
-export function IssueUnexpectedError(props: { message: string }) {
+export function IssueUnexpectedError(props: { lang: string; message: string }) {
   return (
     <IssueButton
       href={issueURL("bug", issueBug(props.message))}
       target="_blank"
     >
-      Unexpected error
+      {i18n("Unexpected error", props.lang)}
       <IconGithub />
     </IssueButton>
   );
@@ -141,7 +155,7 @@ function IssueButton(props: {
   target?: "_blank";
 }) {
   return (
-    <div class="bg-container/75 absolute top-0 z-1 h-full w-full">
+    <div class="bg-container/75 absolute inset-0 top-0 z-1">
       <div class="flex h-full items-center justify-center">
         <a
           href={props.href}

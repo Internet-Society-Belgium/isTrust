@@ -1,6 +1,9 @@
 {
   "extends": ["//"],
   "tasks": {
+    "build": {
+      "dependsOn": ["@istrust/i18n#build"]
+    },
     "check-types": {
       "dependsOn": ["build"]
     },

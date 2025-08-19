@@ -26,7 +26,11 @@
     "dev:code": "tsup --watch",
     "dev:styles": "npx @tailwindcss/cli -i ./src/styles.css -o ./dist/styles.css --minify --watch",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
+    "generate:flags": "node ./scripts/generate_flags.js",
     "lint": "eslint src --max-warnings 0"
+  },
+  "dependencies": {
+    "@istrust/i18n": "*"
   },
   "devDependencies": {
     "@istrust/common": "*",

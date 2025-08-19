@@ -24,6 +24,7 @@ export function Section(props: { title: string; children: JSX.Element }) {
 }
 
 export function SectionItem<T>(props: {
+  lang: string;
   description: string;
   informations?: common.Information<T> | common.Information<T>[];
   prefix: JSX.Element;
@@ -47,7 +48,7 @@ export function SectionItem<T>(props: {
         fallback={(error: Error) => (
           <>
             <p class="text-muted">{props.description}</p>
-            <Issue error={error} />
+            <Issue lang={props.lang} error={error} />
           </>
         )}
       >
@@ -80,6 +81,7 @@ export function SectionItem<T>(props: {
 }
 
 export function SectionItemOnlyAvailableIn(props: {
+  lang: string;
   description: string;
   prefix: JSX.Element;
   platform: string;
@@ -90,12 +92,16 @@ export function SectionItemOnlyAvailableIn(props: {
 
       <p class="text-muted">{props.description}</p>
 
-      <IssueFeatureOnlyAvailableIn platform={props.platform} />
+      <IssueFeatureOnlyAvailableIn
+        lang={props.lang}
+        platform={props.platform}
+      />
     </div>
   );
 }
 
 export function SectionItemNotAvailableIn(props: {
+  lang: string;
   description: string;
   prefix: JSX.Element;
   platform: string;
@@ -106,7 +112,7 @@ export function SectionItemNotAvailableIn(props: {
 
       <p class="text-muted">{props.description}</p>
 
-      <IssueFeatureNotAvailableIn platform={props.platform} />
+      <IssueFeatureNotAvailableIn lang={props.lang} platform={props.platform} />
     </div>
   );
 }

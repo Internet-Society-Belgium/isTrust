@@ -2,13 +2,25 @@
   "extends": ["//"],
   "tasks": {
     "bundle": {
-      "dependsOn": ["@istrust/common#build", "@istrust/ui#build"]
+      "dependsOn": [
+        "@istrust/common#build",
+        "@istrust/ui#build",
+        "@istrust/i18n#build"
+      ]
     },
     "check-types": {
-      "dependsOn": ["@istrust/common#check-types", "@istrust/ui#check-types"]
+      "dependsOn": [
+        "@istrust/common#check-types",
+        "@istrust/ui#check-types",
+        "@istrust/i18n#check-types"
+      ]
     },
     "lint": {
-      "dependsOn": ["@istrust/common#lint", "@istrust/ui#lint"]
+      "dependsOn": [
+        "@istrust/common#lint",
+        "@istrust/ui#lint",
+        "@istrust/i18n#lint"
+      ]
     }
   }
 }

@@ -2,7 +2,7 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "dependsOn": ["@istrust/common#build"]
+      "dependsOn": ["@istrust/common#build", "@istrust/i18n#build"]
     },
     "check-types": {
       "dependsOn": ["build"]
