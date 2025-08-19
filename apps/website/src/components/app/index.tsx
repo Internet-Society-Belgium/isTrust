@@ -352,14 +352,14 @@ export function App(props: { lang: string }) {
               <Section title={i18n("Visit", props.lang)}>
                 <SectionItemOnlyAvailableIn
                   lang={props.lang}
-                  platform={i18n("webextension", props.lang)}
+                  platform={i18n("the extension", props.lang)}
                   description={i18n("First visit", props.lang)}
                   prefix={<IconCalendar1 />}
                 />
 
                 <SectionItemOnlyAvailableIn
                   lang={props.lang}
-                  platform={i18n("webextension", props.lang)}
+                  platform={i18n("the extension", props.lang)}
                   description={i18n("Frequency of visits", props.lang)}
                   prefix={<IconCalendarCheck />}
                 />

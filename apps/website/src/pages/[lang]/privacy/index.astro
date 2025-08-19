@@ -13,7 +13,7 @@ const { lang } = Astro.params;
 
 <Layout>
   <div class="mx-auto max-w-4xl p-12">
-    <HeaderSection header="Privacy policy">
+    <HeaderSection header={i18n("Privacy policy", lang)}>
       {i18n("Which personal data do we process", lang)}
     </HeaderSection>
 

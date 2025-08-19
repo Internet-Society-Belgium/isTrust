@@ -13,8 +13,8 @@ const { lang } = Astro.params;
 
 <Layout>
   <div class="mx-auto max-w-4xl p-12">
-    <HeaderSection header="Legal mention">
-      {i18n("Who are we ?", lang)}
+    <HeaderSection header={i18n("Legal mention", lang)}>
+      {i18n("Who are we", lang)}
     </HeaderSection>
 
     <p class="m-6">

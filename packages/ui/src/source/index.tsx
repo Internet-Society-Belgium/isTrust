@@ -79,7 +79,7 @@ export function SourceVerification(props: {
             <Show when={props.information.sources}>
               {(sources) => (
                 <div class="flex items-center gap-1">
-                  <span>{i18n("from", props.lang)}</span>
+                  <span>{i18n("by", props.lang)}</span>
                   <Sources lang={props.lang} sources={sources()} />
                 </div>
               )}

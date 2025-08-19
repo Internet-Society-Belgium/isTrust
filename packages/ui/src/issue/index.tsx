@@ -88,7 +88,7 @@ export function Issue(props: { lang: string; error: Error }) {
       >
         <IssueFeatureOnlyAvailableIn
           lang={props.lang}
-          platform="webextension"
+          platform={i18n("the extension", props.lang)}
         />
       </Match>
       <Match
