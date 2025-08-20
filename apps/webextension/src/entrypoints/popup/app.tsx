@@ -146,7 +146,11 @@ export function App() {
 
   return (
     <div
-      class={`${mode() === "detached" ? "bg-background min-h-screen" + " " : ""}flex flex-col items-center justify-center gap-4`}
+      class={
+        mode() === "detached"
+          ? "bg-background flex min-h-screen flex-col items-center justify-center gap-4"
+          : undefined
+      }
     >
       {mode() === "detached" && <HeaderLogo />}
 
