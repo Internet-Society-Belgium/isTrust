@@ -44,10 +44,12 @@ for (const file of [
 
 const outputPath = join(dirPath, "../src/types.ts");
 let output =
-  "export type Translations = Record<Translated, string>;\n\nexport type Translated = \n";
+  "export type Translations = Record<Translated, string>;\n\nexport type Translated =";
 
 for (const string of Array.from(strings.values()).sort()) {
-  output += `|"${string}"\n`;
+  output += `\n  | "${string}"`;
 }
+
+output += ";\n";
 
 writeFileSync(outputPath, output);

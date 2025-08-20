@@ -17,7 +17,7 @@ export default defineBackground({
 
 function onInstalled() {
   browser.runtime.onInstalled.addListener(() => {
-    void common.update_cache(cache);
+    common.update_cache(cache).catch(console.error);
   });
 }
 
@@ -41,11 +41,13 @@ function contextMenus() {
     query = query.trim();
     if (query === "") return;
 
-    void browser.windows.create({
-      url: `${browser.runtime.getURL("/popup.html")}?q=${query}`,
-      type: "popup",
-      focused: true,
-    });
+    browser.windows
+      .create({
+        url: `${browser.runtime.getURL("/popup.html")}?q=${query}`,
+        type: "popup",
+        focused: true,
+      })
+      .catch(console.error);
   });
 }
 

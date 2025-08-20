@@ -1,1 +1,33 @@
-<meta http-equiv="refresh" content="0;url=/en/" />
+---
+import LayoutMinimal from "@/layouts/minimal.astro";
+import { translatedLangs } from "@istrust/i18n";
+---
+
+<LayoutMinimal>
+  <div class="min-h-screen">
+    <noscript><meta http-equiv="refresh" content="0; url=/en/" /></noscript>
+
+    <div id="langs" data-langs={translatedLangs.join(",")}></div>
+
+    <script>
+      const langs = document.querySelector<HTMLDivElement>("#langs");
+
+      const translatedLangs = langs?.dataset.langs?.split(",");
+      const language = navigator.language.split("-").at(0);
+
+      let path;
+
+      if (
+        translatedLangs !== undefined &&
+        language !== undefined &&
+        translatedLangs.includes(language)
+      ) {
+        path = `/${language}/`;
+      } else {
+        path = "/en/";
+      }
+
+      window.location.pathname = path;
+    </script>
+  </div>
+</LayoutMinimal>
