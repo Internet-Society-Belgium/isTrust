@@ -34,7 +34,7 @@ const lang = getLangFromPath(Astro.url.pathname);
 
   <select
     onchange="window.location.href = this.options[this.selectedIndex].value"
-    class="bg-elevated/50 border-border hover:bg-elevated hover:border-accented pointer-events-auto rounded-md border px-2 py-1 text-sm hover:transition-colors"
+    class="bg-elevated/50 border-border hover:bg-elevated hover:border-accented pointer-events-auto rounded-md border p-1 text-center text-sm hover:transition-colors"
   >
     {
       langs.map((l) => (

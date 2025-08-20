@@ -23,7 +23,12 @@ export function HeaderDomain(props: { lang: string; value?: string }) {
       >
         <Suspense
           fallback={
-            <p class="text-muted">{i18n("Configuring", props.lang)}...</p>
+            <div class="flex items-center gap-0.5">
+              <p class="text-muted">{i18n("Configuring", props.lang)}</p>
+              <div class="p-1">
+                <div class="border-muted size-4 animate-spin rounded-full border-2 border-t-transparent" />
+              </div>
+            </div>
           }
         >
           <Show

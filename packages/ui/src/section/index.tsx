@@ -46,13 +46,22 @@ export function SectionItem<T>(props: {
       <div title={props.description}>{props.prefix}</div>
       <ErrorBoundary
         fallback={(error: Error) => (
-          <>
+          <div>
             <p class="text-muted">{props.description}</p>
             <Issue lang={props.lang} error={error} />
-          </>
+          </div>
         )}
       >
-        <Suspense fallback={<p class="text-muted">Loading...</p>}>
+        <Suspense
+          fallback={
+            <div class="flex items-center gap-0.5">
+              <p class="text-muted">{props.description}</p>
+              <div class="p-1">
+                <div class="border-muted/75 size-4 animate-spin rounded-full border-2 border-t-transparent" />
+              </div>
+            </div>
+          }
+        >
           <Show
             when={props.informations}
             fallback={<p class="text-muted">{props.description}</p>}
