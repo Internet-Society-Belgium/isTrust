@@ -22,6 +22,7 @@ for (const translatedLang of translatedLangs) {
       "Verify the trustworthiness of any website",
       translatedLang,
     ),
+    scope: "/",
     start_url: `/${translatedLang}/`,
     theme_color: "#07f",
     background_color: "#f8fafc",
@@ -30,7 +31,7 @@ for (const translatedLang of translatedLangs) {
       action: `/${translatedLang}/`,
       enctype: "application/x-www-form-urlencoded",
       method: "GET",
-      params: { text: "q", url: "q" },
+      params: { url: "q" },
     },
     icons: [
       {
