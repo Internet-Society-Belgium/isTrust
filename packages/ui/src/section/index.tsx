@@ -1,4 +1,5 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { ErrorBoundary, JSX, Show, Suspense } from "solid-js";
 import {
   Issue,
@@ -46,13 +47,22 @@ export function SectionItem<T>(props: {
       <div title={props.description}>{props.prefix}</div>
       <ErrorBoundary
         fallback={(error: Error) => (
-          <>
+          <div>
             <p class="text-muted">{props.description}</p>
             <Issue lang={props.lang} error={error} />
-          </>
+          </div>
         )}
       >
-        <Suspense fallback={<p class="text-muted">Loading...</p>}>
+        <Suspense
+          fallback={
+            <div class="flex items-center gap-0.5">
+              <p class="text-muted">{props.description}</p>
+              <div class="p-1">
+                <div class="border-muted/75 size-4 animate-spin rounded-full border-2 border-t-transparent" />
+              </div>
+            </div>
+          }
+        >
           <Show
             when={props.informations}
             fallback={<p class="text-muted">{props.description}</p>}
@@ -63,7 +73,9 @@ export function SectionItem<T>(props: {
                   <Show
                     when={information().length > 0}
                     fallback={
-                      <p class="text-muted">No information available</p>
+                      <p class="text-muted">
+                        {i18n("No information available", props.lang)}
+                      </p>
                     }
                   >
                     <List each={information()} suffix={props.suffix}>

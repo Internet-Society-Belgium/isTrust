@@ -41,6 +41,7 @@ export type Translated =
   | "Mission"
   | "New improved version"
   | "Next"
+  | "No information available"
   | "Not available in"
   | "Not protected with DNSSEC"
   | "Only available in"
