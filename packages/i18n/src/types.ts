@@ -62,6 +62,7 @@ export type Translated =
   | "Registered"
   | "Registration"
   | "Reload"
+  | "Require an additional permission"
   | "Scientific research"
   | "Submit"
   | "Supported by"

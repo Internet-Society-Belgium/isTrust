@@ -19,6 +19,7 @@ import {
 import {
   Issue,
   IssueFeatureNotAvailableIn,
+  IssueFeatureRequireAdditionalPermission,
 } from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import {
@@ -27,7 +28,7 @@ import {
   SectionItemNotAvailable,
 } from "@istrust/ui/section/index";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
-import { browser } from "#imports";
+import { Browser, browser } from "#imports";
 import {
   createResource,
   createSignal,
@@ -68,6 +69,9 @@ export function App() {
 
   const base = "https://istrust.org/";
 
+  const [permissions, setPermissions] =
+    createSignal<Browser.permissions.Permissions>();
+
   onMount(() => {
     setLang(navigator.language);
 
@@ -95,7 +99,18 @@ export function App() {
         })
         .catch(console.error);
     }
+
+    updatePermissions();
   });
+
+  function updatePermissions() {
+    browser.permissions
+      .getAll()
+      .then((allPermissions) => {
+        setPermissions(allPermissions);
+      })
+      .catch(console.error);
+  }
 
   const [domain] = createResource(searchQuery, async (query) => {
     return await messenger.sendMessage("get_effective_domain", {
@@ -308,7 +323,7 @@ export function App() {
               </Section>
 
               <Switch>
-                <Match when={import.meta.env.BROWSER === "safari"}>
+                <Match when={import.meta.env.BROWSER === "chrome"}>
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
@@ -316,6 +331,48 @@ export function App() {
                         lang={lang()}
                         platform="Safari"
                         href={`${base}#get`}
+                      />
+                    }
+                  >
+                    <SectionItemNotAvailable
+                      description={i18n("First visit", lang())}
+                      prefix={<IconCalendar1 />}
+                    />
+
+                    <SectionItemNotAvailable
+                      description={i18n("Frequency of visits", lang())}
+                      prefix={<IconCalendarCheck />}
+                    />
+                  </Section>
+                </Match>
+                <Match
+                  when={
+                    permissions()?.permissions?.includes("history") !== true
+                  }
+                >
+                  <Section
+                    title={i18n("Visit", lang())}
+                    suffix={
+                      <IssueFeatureRequireAdditionalPermission
+                        lang={lang()}
+                        onClick={() => {
+                          const permision: Browser.permissions.Permissions = {
+                            permissions: ["history"],
+                          };
+                          browser.permissions
+                            .contains(permision)
+                            .then((value) => {
+                              if (!value) {
+                                browser.permissions
+                                  .request(permision)
+                                  .then(() => {
+                                    updatePermissions();
+                                  })
+                                  .catch(console.error);
+                              }
+                            })
+                            .catch(console.error);
+                        }}
                       />
                     }
                   >

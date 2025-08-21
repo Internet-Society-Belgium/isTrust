@@ -128,6 +128,21 @@ export function IssueFeatureNotAvailableIn(props: {
   );
 }
 
+export function IssueFeatureRequireAdditionalPermission(props: {
+  lang: string;
+  onClick: () => void;
+}) {
+  return (
+    <IssueButton
+      onClick={() => {
+        props.onClick();
+      }}
+    >
+      {i18n("Require an additional permission", props.lang)}
+    </IssueButton>
+  );
+}
+
 export function IssueFeatureMissing(props: { lang: string; message: string }) {
   return (
     <IssueLink href={issueURL("enhancement", issueFeature(props.message))}>
@@ -157,6 +172,23 @@ function IssueLink(props: { href: string; children: JSX.Element }) {
         >
           {props.children}
         </a>
+      </div>
+    </div>
+  );
+}
+
+function IssueButton(props: { children: JSX.Element; onClick: () => void }) {
+  return (
+    <div class="bg-container/75 absolute inset-0 top-0 z-1">
+      <div class="flex h-full items-center justify-center">
+        <button
+          class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1 rounded-md border-0 px-1.5 py-0.5 text-sm font-medium text-nowrap shadow ring transition-colors ring-inset"
+          onClick={() => {
+            props.onClick();
+          }}
+        >
+          {props.children}
+        </button>
       </div>
     </div>
   );
