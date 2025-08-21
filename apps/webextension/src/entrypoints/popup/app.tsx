@@ -4,7 +4,7 @@ import i18n from "@istrust/i18n";
 import { CertificateAlert } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
-import { FooterAvailability } from "@istrust/ui/footer/index";
+import { FooterWebsiteAvailability } from "@istrust/ui/footer/index";
 import { HeaderDomain, HeaderLogo } from "@istrust/ui/header/index";
 import {
   IconBuilding,
@@ -16,12 +16,15 @@ import {
   IconShieldX,
   IconUser,
 } from "@istrust/ui/icon/index";
-import { Issue } from "@istrust/ui/issue/index";
+import {
+  Issue,
+  IssueFeatureNotAvailableIn,
+} from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import {
   Section,
   SectionItem,
-  SectionItemNotAvailableIn,
+  SectionItemNotAvailable,
 } from "@istrust/ui/section/index";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
 import { browser } from "#imports";
@@ -57,14 +60,13 @@ export async function get_active_tab() {
 }
 
 export function App() {
-  const [searchQuery, setSearchQuery] = createSignal<{
-    text: string;
-    forceUpdateCache: boolean;
-  }>();
+  const [searchQuery, setSearchQuery] = createSignal<string>();
 
   const [mode, setMode] = createSignal<"attached" | "detached">();
   const [lang, setLang] = createSignal<string>("en");
   const [debug, setDebug] = createSignal<boolean>(false);
+
+  const base = "https://istrust.org/";
 
   onMount(() => {
     setLang(navigator.language);
@@ -74,7 +76,7 @@ export function App() {
     const paramQuery = urlSearchParams.get("q");
     if (paramQuery !== null) {
       setMode("detached");
-      setSearchQuery({ text: paramQuery, forceUpdateCache: false });
+      setSearchQuery(paramQuery);
 
       if (urlSearchParams.get("debug") !== null) {
         setDebug(true);
@@ -85,15 +87,9 @@ export function App() {
           if (tab.url !== undefined) {
             setMode("attached");
             try {
-              setSearchQuery({
-                text: new URL(tab.url).hostname,
-                forceUpdateCache: false,
-              });
+              setSearchQuery(new URL(tab.url).hostname);
             } catch {
-              setSearchQuery({
-                text: tab.url,
-                forceUpdateCache: false,
-              });
+              setSearchQuery(tab.url);
             }
           }
         })
@@ -103,8 +99,7 @@ export function App() {
 
   const [domain] = createResource(searchQuery, async (query) => {
     return await messenger.sendMessage("get_effective_domain", {
-      query: query.text,
-      forceUpdateCache: query.forceUpdateCache,
+      query,
     });
   });
 
@@ -159,15 +154,18 @@ export function App() {
       >
         <div class="relative flex flex-col">
           <ErrorBoundary
-            fallback={(error: Error) => <Issue lang={lang()} error={error} />}
+            fallback={(error: Error) => (
+              <Issue base={base} lang={lang()} error={error} />
+            )}
           >
-            <HeaderDomain lang={lang()} value={domain()} />
+            <HeaderDomain base={base} lang={lang()} value={domain()} />
 
             <CertificateAlert lang={lang()} types={certificateData()?.types} />
 
             <div class="flex flex-col gap-1">
               <Section title={i18n("Owner", lang())}>
                 <SectionItem
+                  base={base}
                   lang={lang()}
                   description={i18n("Individual name", lang())}
                   prefix={<IconUser />}
@@ -190,6 +188,7 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
+                  base={base}
                   lang={lang()}
                   description={i18n("Organization name", lang())}
                   prefix={<IconBuilding />}
@@ -212,6 +211,7 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
+                  base={base}
                   lang={lang()}
                   description={i18n("Country of residence", lang())}
                   prefix={<IconMapPin />}
@@ -237,6 +237,7 @@ export function App() {
 
               <Section title={i18n("Domain", lang())}>
                 <SectionItem
+                  base={base}
                   lang={lang()}
                   description={i18n("Registration", lang())}
                   prefix={<IconCalendar1 />}
@@ -266,6 +267,7 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
+                  base={base}
                   lang={lang()}
                   description={i18n("Protection (DNSSEC)", lang())}
                   prefix={
@@ -305,25 +307,33 @@ export function App() {
                 </SectionItem>
               </Section>
 
-              <Section title={i18n("Visit", lang())}>
-                <Switch>
-                  <Match when={import.meta.env.BROWSER === "safari"}>
-                    <SectionItemNotAvailableIn
-                      lang={lang()}
-                      platform="Safari"
+              <Switch>
+                <Match when={import.meta.env.BROWSER === "safari"}>
+                  <Section
+                    title={i18n("Visit", lang())}
+                    suffix={
+                      <IssueFeatureNotAvailableIn
+                        lang={lang()}
+                        platform="Safari"
+                        href={`${base}#get`}
+                      />
+                    }
+                  >
+                    <SectionItemNotAvailable
                       description={i18n("First visit", lang())}
                       prefix={<IconCalendar1 />}
                     />
 
-                    <SectionItemNotAvailableIn
-                      lang={lang()}
-                      platform="Safari"
+                    <SectionItemNotAvailable
                       description={i18n("Frequency of visits", lang())}
                       prefix={<IconCalendarCheck />}
                     />
-                  </Match>
-                  <Match when={true}>
+                  </Section>
+                </Match>
+                <Match when={true}>
+                  <Section title={i18n("Visit", lang())}>
                     <SectionItem
+                      base={base}
                       lang={lang()}
                       description={i18n("First visit", lang())}
                       prefix={<IconCalendar1 />}
@@ -353,6 +363,7 @@ export function App() {
                     </SectionItem>
 
                     <SectionItem
+                      base={base}
                       lang={lang()}
                       description={i18n("Frequency of visits", lang())}
                       prefix={<IconCalendarCheck />}
@@ -374,14 +385,14 @@ export function App() {
                         </Switch>
                       )}
                     </SectionItem>
-                  </Match>
-                </Switch>
-              </Section>
+                  </Section>
+                </Match>
+              </Switch>
 
-              <FooterAvailability
+              <FooterWebsiteAvailability
+                base={base}
                 lang={lang()}
-                on="website"
-                query={searchQuery()?.text}
+                query={searchQuery()}
               />
 
               <Show when={debug()}>

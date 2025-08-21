@@ -15,11 +15,17 @@ export function HeaderLogo() {
   );
 }
 
-export function HeaderDomain(props: { lang: string; value?: string }) {
+export function HeaderDomain(props: {
+  base?: string;
+  lang: string;
+  value?: string;
+}) {
   return (
     <div class="mb-2 flex items-center justify-center text-xl">
       <ErrorBoundary
-        fallback={(error: Error) => <Issue lang={props.lang} error={error} />}
+        fallback={(error: Error) => (
+          <Issue base={props.base} lang={props.lang} error={error} />
+        )}
       >
         <Suspense
           fallback={

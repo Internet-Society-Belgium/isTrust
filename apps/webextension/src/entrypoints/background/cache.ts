@@ -4,7 +4,7 @@ import { storage } from "#imports";
 export const cache: common.InformationCache = {
   psl: {
     set: async (key: string, value: string) => {
-      await storage.setItem(`local:psl:${key}`, value);
+      return storage.setItem(`local:psl:${key}`, value);
     },
     get: async (key: string) => {
       const item = await storage.getItem<string>(`local:psl:${key}`);
@@ -26,7 +26,7 @@ export const cache: common.InformationCache = {
   },
   rdap: {
     set: async (key: string, value: string) => {
-      await storage.setItem(`local:rdap:${key}`, value);
+      return storage.setItem(`local:rdap:${key}`, value);
     },
     get: async (key: string) => {
       const item = await storage.getItem<string>(`local:rdap:${key}`);

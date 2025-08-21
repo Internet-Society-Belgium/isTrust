@@ -1,14 +1,14 @@
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
 import { ErrorBoundary, JSX, Show, Suspense } from "solid-js";
-import {
-  Issue,
-  IssueFeatureNotAvailableIn,
-  IssueFeatureOnlyAvailableIn,
-} from "../issue";
+import { Issue } from "../issue";
 import { List } from "../list";
 
-export function Section(props: { title: string; children: JSX.Element }) {
+export function Section(props: {
+  title: string;
+  children: JSX.Element;
+  suffix?: JSX.Element;
+}) {
   return (
     <>
       <div class="align-center flex w-full items-center text-center">
@@ -19,12 +19,17 @@ export function Section(props: { title: string; children: JSX.Element }) {
         <div class="border-border w-full border-t border-solid" />
       </div>
 
-      {props.children}
+      <div class="relative">
+        {props.children}
+
+        {props.suffix}
+      </div>
     </>
   );
 }
 
 export function SectionItem<T>(props: {
+  base?: string;
   lang: string;
   description: string;
   informations?: common.Information<T> | common.Information<T>[];
@@ -49,7 +54,7 @@ export function SectionItem<T>(props: {
         fallback={(error: Error) => (
           <div>
             <p class="text-muted">{props.description}</p>
-            <Issue lang={props.lang} error={error} />
+            <Issue base={props.base} lang={props.lang} error={error} />
           </div>
         )}
       >
@@ -92,39 +97,15 @@ export function SectionItem<T>(props: {
   );
 }
 
-export function SectionItemOnlyAvailableIn(props: {
-  lang: string;
+export function SectionItemNotAvailable(props: {
   description: string;
   prefix: JSX.Element;
-  platform: string;
 }) {
   return (
     <div class="relative flex items-center gap-2">
       <div title={props.description}>{props.prefix}</div>
 
       <p class="text-muted">{props.description}</p>
-
-      <IssueFeatureOnlyAvailableIn
-        lang={props.lang}
-        platform={props.platform}
-      />
-    </div>
-  );
-}
-
-export function SectionItemNotAvailableIn(props: {
-  lang: string;
-  description: string;
-  prefix: JSX.Element;
-  platform: string;
-}) {
-  return (
-    <div class="relative flex items-center gap-2">
-      <div title={props.description}>{props.prefix}</div>
-
-      <p class="text-muted">{props.description}</p>
-
-      <IssueFeatureNotAvailableIn lang={props.lang} platform={props.platform} />
     </div>
   );
 }
