@@ -51,7 +51,7 @@ function issueURL(labels: string, body: string) {
   return `https://github.com/Internet-Society-Belgium/isTrust/issues/new?labels=${labels}&body=${encodedBody}`;
 }
 
-export function Issue(props: { lang: string; error: Error }) {
+export function Issue(props: { base?: string; lang: string; error: Error }) {
   onMount(() => {
     console.error(props.error);
   });
@@ -87,6 +87,7 @@ export function Issue(props: { lang: string; error: Error }) {
         }
       >
         <IssueFeatureOnlyAvailableIn
+          href={`${props.base !== undefined ? props.base : ""}#get`}
           lang={props.lang}
           platform={i18n("the extension", props.lang)}
         />
@@ -105,65 +106,89 @@ export function Issue(props: { lang: string; error: Error }) {
 
 export function IssueFeatureOnlyAvailableIn(props: {
   lang: string;
+  href: string;
   platform: string;
 }) {
   return (
-    <IssueButton href="https://istrust.org/#get">
+    <IssueLink href={props.href}>
       {i18n("Only available in", props.lang)} {props.platform}
-    </IssueButton>
+    </IssueLink>
   );
 }
 
 export function IssueFeatureNotAvailableIn(props: {
   lang: string;
+  href: string;
   platform: string;
 }) {
   return (
-    <IssueButton href="https://istrust.org/#get">
+    <IssueLink href={props.href}>
       {i18n("Not available in", props.lang)} {props.platform}
+    </IssueLink>
+  );
+}
+
+export function IssueFeatureRequireAdditionalPermission(props: {
+  lang: string;
+  onClick: () => void;
+}) {
+  return (
+    <IssueButton
+      onClick={() => {
+        props.onClick();
+      }}
+    >
+      {i18n("Require an additional permission", props.lang)}
     </IssueButton>
   );
 }
 
 export function IssueFeatureMissing(props: { lang: string; message: string }) {
   return (
-    <IssueButton
-      href={issueURL("enhancement", issueFeature(props.message))}
-      target="_blank"
-    >
+    <IssueLink href={issueURL("enhancement", issueFeature(props.message))}>
       {i18n("Feature not available", props.lang)}
       <IconGithub />
-    </IssueButton>
+    </IssueLink>
   );
 }
 
 export function IssueUnexpectedError(props: { lang: string; message: string }) {
   return (
-    <IssueButton
-      href={issueURL("bug", issueBug(props.message))}
-      target="_blank"
-    >
+    <IssueLink href={issueURL("bug", issueBug(props.message))}>
       {i18n("Unexpected error", props.lang)}
       <IconGithub />
-    </IssueButton>
+    </IssueLink>
   );
 }
 
-function IssueButton(props: {
-  href: string;
-  children: JSX.Element;
-  target?: "_blank";
-}) {
+function IssueLink(props: { href: string; children: JSX.Element }) {
   return (
     <div class="bg-container/75 absolute inset-0 top-0 z-1">
       <div class="flex h-full items-center justify-center">
         <a
           href={props.href}
           class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1 rounded-md border-0 px-1.5 py-0.5 text-sm font-medium text-nowrap shadow ring transition-colors ring-inset"
-          target={props.target}
+          target={!props.href.startsWith("#") ? "_blank" : undefined}
         >
           {props.children}
         </a>
+      </div>
+    </div>
+  );
+}
+
+function IssueButton(props: { children: JSX.Element; onClick: () => void }) {
+  return (
+    <div class="bg-container/75 absolute inset-0 top-0 z-1">
+      <div class="flex h-full items-center justify-center">
+        <button
+          class="ring-border bg-container hover:bg-container-darker pointer-events-auto flex items-center gap-1 rounded-md border-0 px-1.5 py-0.5 text-sm font-medium text-nowrap shadow ring transition-colors ring-inset"
+          onClick={() => {
+            props.onClick();
+          }}
+        >
+          {props.children}
+        </button>
       </div>
     </div>
   );

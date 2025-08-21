@@ -16,10 +16,10 @@ export default defineConfig({
     default_locale: "en",
     description: "__MSG_description__",
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
-    permissions:
-      import.meta.env.BROWSER === "safari"
-        ? ["activeTab", "contextMenus", "storage"]
-        : ["activeTab", "contextMenus", "storage", "history"],
+    permissions: ["activeTab", "contextMenus", "storage"],
+    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions
+    optional_permissions:
+      import.meta.env.BROWSER === "safari" ? undefined : ["history"],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions#host_permissions
     // prevent CORS errors
     host_permissions: ["https://api.dnsbelgium.be/*", "https://api.sidn.nl/*"],

@@ -65,6 +65,8 @@ export const fr: Translations = {
   Registered: "Enregistré",
   Registration: "Enregistrement",
   Reload: "Recharger",
+  "Require an additional permission":
+    "Nécessite une autorisation supplémentaire",
   "Scientific research": "Recherche scientifique",
   Submit: "Soumettre",
   "Supported by": "Soutenu par",

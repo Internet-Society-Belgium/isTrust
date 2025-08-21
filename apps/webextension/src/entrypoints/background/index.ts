@@ -52,16 +52,9 @@ function contextMenus() {
 }
 
 function onMessage() {
-  messenger.onMessage(
-    "get_effective_domain",
-    async ({ data: { query: text, forceUpdateCache } }) => {
-      if (forceUpdateCache) {
-        await common.force_update_cache(cache);
-      }
-
-      return await common.get_effective_domain(text, cache);
-    },
-  );
+  messenger.onMessage("get_effective_domain", async ({ data: { query } }) => {
+    return await common.get_effective_domain(query, cache);
+  });
 
   messenger.onMessage("get_whois_data", async ({ data: { domain } }) => {
     return await common.get_whois_data(domain, cache);

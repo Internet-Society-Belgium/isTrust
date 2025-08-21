@@ -11,9 +11,9 @@ const unlocalizedPath = getUnlocalizedPath(Astro.url.pathname);
 const lang = getLangFromPath(Astro.url.pathname);
 ---
 
-<div class="flex h-20 items-center justify-between p-4">
+<div class="flex h-20 items-center justify-between px-6 py-4">
   <Button href={getLocalizedPath(lang, "/")} redirect={true}>
-    <div class="flex items-center justify-start gap-1 px-2 py-1">
+    <div class="flex items-center justify-start gap-1">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="2em"
@@ -33,7 +33,7 @@ const lang = getLangFromPath(Astro.url.pathname);
   </Button>
 
   <select
-    onchange="window.location.href = this.options[this.selectedIndex].value"
+    onchange="window.location.pathname = this.options[this.selectedIndex].value"
     class="bg-elevated/50 border-border hover:bg-elevated hover:border-accented pointer-events-auto rounded-md border p-1 text-center text-sm hover:transition-colors"
   >
     {

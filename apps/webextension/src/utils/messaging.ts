@@ -6,7 +6,6 @@ import { defineExtensionMessaging } from "@webext-core/messaging";
 interface ProtocolMap {
   get_effective_domain(data: {
     query: string;
-    forceUpdateCache: boolean;
   }): Awaited<ReturnType<typeof common.get_effective_domain>>;
   get_whois_data(data: {
     domain: string;

@@ -14,13 +14,13 @@ import {
   IconShieldX,
   IconUser,
 } from "@istrust/ui/icon/index";
-import { Issue } from "@istrust/ui/issue/index";
+import { Issue, IssueFeatureOnlyAvailableIn } from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import { SearchBar } from "@istrust/ui/search/index";
 import {
   Section,
   SectionItem,
-  SectionItemOnlyAvailableIn,
+  SectionItemNotAvailable,
 } from "@istrust/ui/section/index";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
 import {
@@ -356,17 +356,22 @@ export function App(props: { lang: string }) {
                 </SectionItem>
               </Section>
 
-              <Section title={i18n("Visit", props.lang)}>
-                <SectionItemOnlyAvailableIn
-                  lang={props.lang}
-                  platform={i18n("the extension", props.lang)}
+              <Section
+                title={i18n("Visit", props.lang)}
+                suffix={
+                  <IssueFeatureOnlyAvailableIn
+                    lang={props.lang}
+                    href="#get"
+                    platform={i18n("the extension", props.lang)}
+                  />
+                }
+              >
+                <SectionItemNotAvailable
                   description={i18n("First visit", props.lang)}
                   prefix={<IconCalendar1 />}
                 />
 
-                <SectionItemOnlyAvailableIn
-                  lang={props.lang}
-                  platform={i18n("the extension", props.lang)}
+                <SectionItemNotAvailable
                   description={i18n("Frequency of visits", props.lang)}
                   prefix={<IconCalendarCheck />}
                 />
