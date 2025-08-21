@@ -1,4 +1,5 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { ErrorBoundary, JSX, Show, Suspense } from "solid-js";
 import {
   Issue,
@@ -72,7 +73,9 @@ export function SectionItem<T>(props: {
                   <Show
                     when={information().length > 0}
                     fallback={
-                      <p class="text-muted">No information available</p>
+                      <p class="text-muted">
+                        {i18n("No information available", props.lang)}
+                      </p>
                     }
                   >
                     <List each={information()} suffix={props.suffix}>

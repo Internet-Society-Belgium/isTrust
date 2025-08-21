@@ -43,6 +43,7 @@ export const fr: Translations = {
   Mission: "Mission",
   "New improved version": "Nouvelle version améliorée",
   Next: "Suivant",
+  "No information available": "Pas d'information disponible",
   "Not available in": "Non disponible dans",
   "Not protected with DNSSEC": "Non protégé par DNSSEC",
   "Only available in": "Disponible uniquement dans",
