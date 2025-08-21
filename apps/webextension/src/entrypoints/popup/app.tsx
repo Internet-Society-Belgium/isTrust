@@ -323,7 +323,7 @@ export function App() {
               </Section>
 
               <Switch>
-                <Match when={import.meta.env.BROWSER === "chrome"}>
+                <Match when={import.meta.env.BROWSER === "safari"}>
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
