@@ -2,10 +2,10 @@ import { Translations } from "../types";
 
 export const fr: Translations = {
   "# day ago": "il y a # jour",
-  "# days ago": "il y a # jours",
   "# day per month": "# jour par mois",
   "# day per week": "# jour par semaine",
   "# day per year": "# jour par an",
+  "# days ago": "il y a # jours",
   "# days per month": "# jours par mois",
   "# days per week": "# jours par semaine",
   "# days per year": "# jours par an",
@@ -48,7 +48,7 @@ export const fr: Translations = {
   "No information available": "Pas d'information disponible",
   "Not available in Safari": "Non disponible dans Safari",
   "Not enough history": "Pas assez d'historique",
-  "Not protected with DNSSEC": "Non protégé par DNSSEC",
+  "Not protected with": "Pas protégé par",
   "Only available in the extension": "Disponible uniquement dans l'extension",
   "Open source": "Open source",
   "Organization legitimacy verified": "Légitimité de l'organisation vérifiée",
@@ -63,8 +63,8 @@ export const fr: Translations = {
   Privacy: "Vie privée",
   "Privacy friendly": "Respectueux de la vie privée",
   "Privacy policy": "Politique de confidentialité",
-  "Protected with DNSSEC": "Protégé par DNSSEC",
-  "Protection (DNSSEC)": "Protection (DNSSEC)",
+  "Protected with": "Protégé par",
+  "Protection with": "Protection avec",
   Registered: "Enregistré",
   "Registered less than 1 year ago": "Enregistré il y a moins de 1 an",
   "Registered less than 6 months ago": "Enregistré il y a moins de 6 mois",
@@ -97,6 +97,8 @@ export const fr: Translations = {
     "Votre navigateur ne prend pas en charge cette vidéo",
   and: "et",
   by: "par",
+  "https://www.dnsbelgium.be/en/secure/dnssec":
+    "https://www.dnsbelgium.be/fr/securiser/dnssec",
   "is operated by Internet Society Chapter Belgium vzw/asbl (non-profit organization)":
     "est géré par Internet Society Chapter Belgium vzw/asbl (association sans but lucratif)",
   "less than 1 day a year": "moins d'un jour par an",
