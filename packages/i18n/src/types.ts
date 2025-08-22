@@ -60,6 +60,8 @@ export type Translated =
   | "Protected with DNSSEC"
   | "Protection (DNSSEC)"
   | "Registered"
+  | "Registered less than 1 year ago"
+  | "Registered less than 6 months ago"
   | "Registration"
   | "Reload"
   | "Require an additional permission"

@@ -1,7 +1,10 @@
 import { messenger } from "@/utils/messaging";
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
-import { CertificateAlert } from "@istrust/ui/alert/index";
+import {
+  AlertBannerCertificate,
+  AlertRegistration,
+} from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
 import { FooterWebsiteAvailability } from "@istrust/ui/footer/index";
@@ -175,7 +178,10 @@ export function App() {
           >
             <HeaderDomain base={base} lang={lang()} value={domain()} />
 
-            <CertificateAlert lang={lang()} types={certificateData()?.types} />
+            <AlertBannerCertificate
+              lang={lang()}
+              types={certificateData()?.types}
+            />
 
             <div class="flex flex-col gap-1">
               <Section title={i18n("Owner", lang())}>
@@ -262,22 +268,24 @@ export function App() {
                   )}
                 >
                   {(registration, index) => (
-                    <Switch>
-                      <Match when={index === 0}>
-                        {i18n("Registered", lang())}{" "}
-                        <DatePastPeriod
-                          lang={lang()}
-                          date={registration.value}
-                        />
-                      </Match>
-                      <Match when={true}>
-                        {i18n("and", lang())}{" "}
-                        <DatePastPeriod
-                          lang={lang()}
-                          date={registration.value}
-                        />
-                      </Match>
-                    </Switch>
+                    <AlertRegistration lang={lang()} date={registration.value}>
+                      <Switch>
+                        <Match when={index === 0}>
+                          {i18n("Registered", lang())}{" "}
+                          <DatePastPeriod
+                            lang={lang()}
+                            date={registration.value}
+                          />
+                        </Match>
+                        <Match when={true}>
+                          {i18n("and", lang())}{" "}
+                          <DatePastPeriod
+                            lang={lang()}
+                            date={registration.value}
+                          />
+                        </Match>
+                      </Switch>
+                    </AlertRegistration>
                   )}
                 </SectionItem>
 

@@ -1,6 +1,9 @@
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
-import { CertificateAlert } from "@istrust/ui/alert/index";
+import {
+  AlertBannerCertificate,
+  AlertRegistration,
+} from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
 import { HeaderDomain } from "@istrust/ui/header/index";
@@ -208,7 +211,7 @@ export function App(props: { lang: string }) {
           <div class="flex flex-col">
             <HeaderDomain lang={props.lang} value={domain()} />
 
-            <CertificateAlert
+            <AlertBannerCertificate
               lang={props.lang}
               types={certificateData()?.types}
             />
@@ -297,22 +300,27 @@ export function App(props: { lang: string }) {
                   )}
                 >
                   {(registration, index) => (
-                    <Switch>
-                      <Match when={index === 0}>
-                        {i18n("Registered", props.lang)}{" "}
-                        <DatePastPeriod
-                          lang={props.lang}
-                          date={registration.value}
-                        />
-                      </Match>
-                      <Match when={true}>
-                        {i18n("and", props.lang)}{" "}
-                        <DatePastPeriod
-                          lang={props.lang}
-                          date={registration.value}
-                        />
-                      </Match>
-                    </Switch>
+                    <AlertRegistration
+                      lang={props.lang}
+                      date={registration.value}
+                    >
+                      <Switch>
+                        <Match when={index === 0}>
+                          {i18n("Registered", props.lang)}{" "}
+                          <DatePastPeriod
+                            lang={props.lang}
+                            date={registration.value}
+                          />
+                        </Match>
+                        <Match when={true}>
+                          {i18n("and", props.lang)}{" "}
+                          <DatePastPeriod
+                            lang={props.lang}
+                            date={registration.value}
+                          />
+                        </Match>
+                      </Switch>
+                    </AlertRegistration>
                   )}
                 </SectionItem>
 
@@ -361,8 +369,8 @@ export function App(props: { lang: string }) {
                 suffix={
                   <IssueFeatureOnlyAvailableIn
                     lang={props.lang}
-                    href="#get"
                     platform={i18n("the extension", props.lang)}
+                    href="#get"
                   />
                 }
               >

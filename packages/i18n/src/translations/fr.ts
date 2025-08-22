@@ -15,8 +15,8 @@ export const fr: Translations = {
   "# minutes ago": "il y a # minutes",
   "# month ago": "il y a # mois",
   "# months ago": "il y a # mois",
-  "# year ago": "il y a # année",
-  "# years ago": "il y a # années",
+  "# year ago": "il y a # an",
+  "# years ago": "il y a # ans",
   "Also available on": "Aussi disponible sur",
   "As we want to protect your privacy, NO personal data is processed nor stored on this website. Similarly, NO cookie is used for tracking purposes":
     "Comme nous souhaitons protéger votre vie privée, AUCUNE donnée personnelle n'est traitée ni stockée sur ce site web. De même, AUCUN cookie n'est utilisé à des fins de suivi",
@@ -63,6 +63,8 @@ export const fr: Translations = {
   "Protected with DNSSEC": "Protégé par DNSSEC",
   "Protection (DNSSEC)": "Protection (DNSSEC)",
   Registered: "Enregistré",
+  "Registered less than 1 year ago": "Enregistré il y a moins de 1 an",
+  "Registered less than 6 months ago": "Enregistré il y a moins de 6 mois",
   Registration: "Enregistrement",
   Reload: "Recharger",
   "Require an additional permission":
