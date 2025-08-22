@@ -17,7 +17,7 @@ import {
   IconShieldX,
   IconUser,
 } from "@istrust/ui/icon/index";
-import { Issue, IssueFeatureOnlyAvailableIn } from "@istrust/ui/issue/index";
+import { Issue, IssueLink } from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import { SearchBar } from "@istrust/ui/search/index";
 import {
@@ -376,11 +376,9 @@ export function App(props: { lang: string }) {
               <Section
                 title={i18n("Visit", props.lang)}
                 suffix={
-                  <IssueFeatureOnlyAvailableIn
-                    lang={props.lang}
-                    platform={i18n("the extension", props.lang)}
-                    href="#get"
-                  />
+                  <IssueLink href="#get">
+                    {i18n("Only available in the extension", props.lang)}
+                  </IssueLink>
                 }
               >
                 <SectionItemNotAvailable

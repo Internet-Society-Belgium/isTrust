@@ -44,9 +44,9 @@ export const fr: Translations = {
   "New improved version": "Nouvelle version améliorée",
   Next: "Suivant",
   "No information available": "Pas d'information disponible",
-  "Not available in": "Non disponible dans",
+  "Not available in Safari": "Non disponible dans Safari",
   "Not protected with DNSSEC": "Non protégé par DNSSEC",
-  "Only available in": "Disponible uniquement dans",
+  "Only available in the extension": "Disponible uniquement dans l'extension",
   "Open source": "Open source",
   "Organization legitimacy verified": "Légitimité de l'organisation vérifiée",
   "Organization name": "Nom de l'organisation",
@@ -67,8 +67,7 @@ export const fr: Translations = {
   "Registered less than 6 months ago": "Enregistré il y a moins de 6 mois",
   Registration: "Enregistrement",
   Reload: "Recharger",
-  "Require an additional permission":
-    "Nécessite une autorisation supplémentaire",
+  "Require access to history": "Nécessite l'accès à l'historique",
   "Scientific research": "Recherche scientifique",
   Submit: "Soumettre",
   "Supported by": "Soutenu par",
@@ -100,5 +99,4 @@ export const fr: Translations = {
   "less than 1 day a year": "moins d'un jour par an",
   now: "maintenant",
   "of any website": "de n'importe quel site web",
-  "the extension": "l'extension",
 };

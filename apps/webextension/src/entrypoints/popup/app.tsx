@@ -19,11 +19,7 @@ import {
   IconShieldX,
   IconUser,
 } from "@istrust/ui/icon/index";
-import {
-  Issue,
-  IssueFeatureNotAvailableIn,
-  IssueFeatureRequireAdditionalPermission,
-} from "@istrust/ui/issue/index";
+import { Issue, IssueButton, IssueLink } from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import {
   Section,
@@ -335,11 +331,9 @@ export function App() {
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
-                      <IssueFeatureNotAvailableIn
-                        lang={lang()}
-                        platform="Safari"
-                        href={`${base}#get`}
-                      />
+                      <IssueLink href={`${base}#get`}>
+                        {i18n("Not available in Safari", lang())}
+                      </IssueLink>
                     }
                   >
                     <SectionItemNotAvailable
@@ -361,8 +355,7 @@ export function App() {
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
-                      <IssueFeatureRequireAdditionalPermission
-                        lang={lang()}
+                      <IssueButton
                         onClick={() => {
                           const permision: Browser.permissions.Permissions = {
                             permissions: ["history"],
@@ -381,7 +374,9 @@ export function App() {
                             })
                             .catch(console.error);
                         }}
-                      />
+                      >
+                        {i18n("Require access to history", lang())}
+                      </IssueButton>
                     }
                   >
                     <SectionItemNotAvailable

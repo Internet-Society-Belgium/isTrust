@@ -42,9 +42,9 @@ export type Translated =
   | "New improved version"
   | "Next"
   | "No information available"
-  | "Not available in"
+  | "Not available in Safari"
   | "Not protected with DNSSEC"
-  | "Only available in"
+  | "Only available in the extension"
   | "Open source"
   | "Organization legitimacy verified"
   | "Organization name"
@@ -64,7 +64,7 @@ export type Translated =
   | "Registered less than 6 months ago"
   | "Registration"
   | "Reload"
-  | "Require an additional permission"
+  | "Require access to history"
   | "Scientific research"
   | "Submit"
   | "Supported by"
@@ -89,5 +89,4 @@ export type Translated =
   | "is operated by Internet Society Chapter Belgium vzw/asbl (non-profit organization)"
   | "less than 1 day a year"
   | "now"
-  | "of any website"
-  | "the extension";
+  | "of any website";
