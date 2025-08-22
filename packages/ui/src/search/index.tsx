@@ -15,6 +15,10 @@ export function SearchBar(props: {
   let input!: HTMLInputElement;
 
   onMount(() => {
+    input.focus({
+      preventScroll: true,
+    });
+
     if (props.initValue !== undefined) {
       input.value = props.initValue;
       search(props.initValue);
