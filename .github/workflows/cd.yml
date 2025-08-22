@@ -2,6 +2,16 @@ name: CD
 
 on:
   workflow_dispatch:
+    inputs:
+      increment:
+        description: Increment
+        type: choice
+        required: true
+        default: "minor"
+        options:
+          - major
+          - minor
+          - patch
 
 permissions:
   contents: write
@@ -41,6 +51,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Release
-        run: npm run release -- --ci
+        run: npm run release -- --ci --increment ${{ inputs.increment }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
