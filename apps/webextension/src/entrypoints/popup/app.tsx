@@ -10,7 +10,7 @@ import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
 import { FooterWebsiteAvailability } from "@istrust/ui/footer/index";
 import { HeaderDomain, HeaderLogo } from "@istrust/ui/header/index";
 import {
-  IconBuilding,
+  IconBriefcase,
   IconCalendar1,
   IconCalendarCheck,
   IconMapPin,
@@ -212,7 +212,7 @@ export function App() {
                   base={base}
                   lang={lang()}
                   description={i18n("Organization name", lang())}
-                  prefix={<IconBuilding />}
+                  prefix={<IconBriefcase />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
                     whoisData()?.organizations,

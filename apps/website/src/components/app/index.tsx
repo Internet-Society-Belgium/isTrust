@@ -8,7 +8,7 @@ import { Country } from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
 import { HeaderDomain } from "@istrust/ui/header/index";
 import {
-  IconBuilding,
+  IconBriefcase,
   IconCalendar1,
   IconCalendarCheck,
   IconMapPin,
@@ -252,7 +252,7 @@ export function App(props: { lang: string }) {
                 <SectionItem
                   lang={props.lang}
                   description={i18n("Organization name", props.lang)}
-                  prefix={<IconBuilding />}
+                  prefix={<IconBriefcase />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
                     whoisData()?.organizations,
