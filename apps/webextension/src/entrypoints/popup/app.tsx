@@ -1,13 +1,18 @@
 import { messenger } from "@/utils/messaging";
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
-import { CertificateAlert } from "@istrust/ui/alert/index";
+import {
+  AlertBannerCertificate,
+  AlertFirstVisit,
+  AlertRegistration,
+  AlertVisitFrequency,
+} from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
 import { FooterWebsiteAvailability } from "@istrust/ui/footer/index";
 import { HeaderDomain, HeaderLogo } from "@istrust/ui/header/index";
 import {
-  IconBuilding,
+  IconBriefcase,
   IconCalendar1,
   IconCalendarCheck,
   IconMapPin,
@@ -16,11 +21,7 @@ import {
   IconShieldX,
   IconUser,
 } from "@istrust/ui/icon/index";
-import {
-  Issue,
-  IssueFeatureNotAvailableIn,
-  IssueFeatureRequireAdditionalPermission,
-} from "@istrust/ui/issue/index";
+import { Issue, IssueButton, IssueLink } from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import {
   Section,
@@ -100,17 +101,13 @@ export function App() {
         .catch(console.error);
     }
 
-    updatePermissions();
-  });
-
-  function updatePermissions() {
     browser.permissions
       .getAll()
       .then((allPermissions) => {
         setPermissions(allPermissions);
       })
       .catch(console.error);
-  }
+  });
 
   const [domain] = createResource(searchQuery, async (query) => {
     return await messenger.sendMessage("get_effective_domain", {
@@ -175,7 +172,10 @@ export function App() {
           >
             <HeaderDomain base={base} lang={lang()} value={domain()} />
 
-            <CertificateAlert lang={lang()} types={certificateData()?.types} />
+            <AlertBannerCertificate
+              lang={lang()}
+              types={certificateData()?.types}
+            />
 
             <div class="flex flex-col gap-1">
               <Section title={i18n("Owner", lang())}>
@@ -206,7 +206,7 @@ export function App() {
                   base={base}
                   lang={lang()}
                   description={i18n("Organization name", lang())}
-                  prefix={<IconBuilding />}
+                  prefix={<IconBriefcase />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
                     whoisData()?.organizations,
@@ -262,22 +262,24 @@ export function App() {
                   )}
                 >
                   {(registration, index) => (
-                    <Switch>
-                      <Match when={index === 0}>
-                        {i18n("Registered", lang())}{" "}
-                        <DatePastPeriod
-                          lang={lang()}
-                          date={registration.value}
-                        />
-                      </Match>
-                      <Match when={true}>
-                        {i18n("and", lang())}{" "}
-                        <DatePastPeriod
-                          lang={lang()}
-                          date={registration.value}
-                        />
-                      </Match>
-                    </Switch>
+                    <AlertRegistration lang={lang()} date={registration.value}>
+                      <Switch>
+                        <Match when={index === 0}>
+                          {i18n("Registered", lang())}{" "}
+                          <DatePastPeriod
+                            lang={lang()}
+                            date={registration.value}
+                          />
+                        </Match>
+                        <Match when={true}>
+                          {i18n("and", lang())}{" "}
+                          <DatePastPeriod
+                            lang={lang()}
+                            date={registration.value}
+                          />
+                        </Match>
+                      </Switch>
+                    </AlertRegistration>
                   )}
                 </SectionItem>
 
@@ -327,11 +329,9 @@ export function App() {
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
-                      <IssueFeatureNotAvailableIn
-                        lang={lang()}
-                        platform="Safari"
-                        href={`${base}#get`}
-                      />
+                      <IssueLink href={`${base}#get`}>
+                        {i18n("Not available in Safari", lang())}
+                      </IssueLink>
                     }
                   >
                     <SectionItemNotAvailable
@@ -353,8 +353,7 @@ export function App() {
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
-                      <IssueFeatureRequireAdditionalPermission
-                        lang={lang()}
+                      <IssueButton
                         onClick={() => {
                           const permision: Browser.permissions.Permissions = {
                             permissions: ["history"],
@@ -366,14 +365,16 @@ export function App() {
                                 browser.permissions
                                   .request(permision)
                                   .then(() => {
-                                    updatePermissions();
+                                    window.location.reload();
                                   })
                                   .catch(console.error);
                               }
                             })
                             .catch(console.error);
                         }}
-                      />
+                      >
+                        {i18n("Require access to history", lang())}
+                      </IssueButton>
                     }
                   >
                     <SectionItemNotAvailable
@@ -400,22 +401,27 @@ export function App() {
                       )}
                     >
                       {(visits, index) => (
-                        <Switch>
-                          <Match when={index === 0}>
-                            {i18n("First visited", lang())}{" "}
-                            <DatePastPeriod
-                              lang={lang()}
-                              date={visits.value.at(0)}
-                            />
-                          </Match>
-                          <Match when={true}>
-                            {i18n("and", lang())}{" "}
-                            <DatePastPeriod
-                              lang={lang()}
-                              date={visits.value.at(0)}
-                            />
-                          </Match>
-                        </Switch>
+                        <AlertFirstVisit
+                          lang={lang()}
+                          firstVisit={visits.value.at(0)}
+                        >
+                          <Switch>
+                            <Match when={index === 0}>
+                              {i18n("First visited", lang())}{" "}
+                              <DatePastPeriod
+                                lang={lang()}
+                                date={visits.value.at(0)}
+                              />
+                            </Match>
+                            <Match when={true}>
+                              {i18n("and", lang())}{" "}
+                              <DatePastPeriod
+                                lang={lang()}
+                                date={visits.value.at(0)}
+                              />
+                            </Match>
+                          </Switch>
+                        </AlertFirstVisit>
                       )}
                     </SectionItem>
 
@@ -430,16 +436,27 @@ export function App() {
                       )}
                     >
                       {(visits, index) => (
-                        <Switch>
-                          <Match when={index === 0}>
-                            {i18n("Visited", lang())}{" "}
-                            <DateFrequency lang={lang()} dates={visits.value} />
-                          </Match>
-                          <Match when={true}>
-                            {i18n("and", lang())}{" "}
-                            <DateFrequency lang={lang()} dates={visits.value} />
-                          </Match>
-                        </Switch>
+                        <AlertVisitFrequency
+                          lang={lang()}
+                          firstVisit={visits.value.at(0)}
+                        >
+                          <Switch>
+                            <Match when={index === 0}>
+                              {i18n("Visited", lang())}{" "}
+                              <DateFrequency
+                                lang={lang()}
+                                dates={visits.value}
+                              />
+                            </Match>
+                            <Match when={true}>
+                              {i18n("and", lang())}{" "}
+                              <DateFrequency
+                                lang={lang()}
+                                dates={visits.value}
+                              />
+                            </Match>
+                          </Switch>
+                        </AlertVisitFrequency>
                       )}
                     </SectionItem>
                   </Section>

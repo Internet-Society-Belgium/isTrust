@@ -16,6 +16,7 @@
   --color-primary: #07f;
 
   --color-good: oklch(62.7% 0.194 149.214); /* green 600 */
+  --color-warning: oklch(66.6% 0.179 58.318); /* amber 600 */
   --color-bad: oklch(57.7% 0.245 27.325); /* red 600 */
 }
 

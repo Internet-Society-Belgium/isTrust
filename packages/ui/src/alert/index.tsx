@@ -4,7 +4,89 @@ import { For, JSX, Match, Show, Suspense, Switch } from "solid-js";
 import { IconThumbsDown, IconThumbsUp } from "../icon";
 import { SourceVerification } from "../source";
 
-export function CertificateAlert(props: {
+export function AlertRegistration(props: {
+  lang: string;
+  date: string;
+  children: JSX.Element;
+}) {
+  const previousYear = new Date().setFullYear(new Date().getFullYear() - 1);
+  const previousSixMonth = new Date().setMonth(new Date().getMonth() - 6);
+
+  return (
+    <Switch>
+      <Match when={new Date(props.date).getTime() > previousSixMonth}>
+        <div
+          class="text-bad"
+          title={i18n("Registered less than 6 months ago", props.lang)}
+        >
+          {props.children}
+        </div>
+      </Match>
+      <Match when={new Date(props.date).getTime() > previousYear}>
+        <div
+          class="text-warning"
+          title={i18n("Registered less than 1 year ago", props.lang)}
+        >
+          {props.children}
+        </div>
+      </Match>
+      <Match when={true}>{props.children}</Match>
+    </Switch>
+  );
+}
+
+export function AlertFirstVisit(props: {
+  lang: string;
+  firstVisit?: string;
+  children: JSX.Element;
+}) {
+  const today = new Date();
+
+  return (
+    <Switch>
+      <Match
+        when={
+          props.firstVisit === undefined ||
+          new Date(props.firstVisit).toDateString() === today.toDateString()
+        }
+      >
+        <div
+          class="text-warning"
+          title={i18n("First visited less than 1 day ago", props.lang)}
+        >
+          {props.children}
+        </div>
+      </Match>
+      <Match when={true}>{props.children}</Match>
+    </Switch>
+  );
+}
+
+export function AlertVisitFrequency(props: {
+  lang: string;
+  firstVisit?: string;
+  children: JSX.Element;
+}) {
+  const today = new Date();
+
+  return (
+    <Switch>
+      <Match
+        when={
+          props.firstVisit === undefined ||
+          new Date(props.firstVisit).toDateString() === today.toDateString()
+        }
+      >
+        <div title={i18n("First visited less than 1 day ago", props.lang)}>
+          {i18n("Not enough history", props.lang)}
+        </div>
+      </Match>
+      <Match when={true}>{props.children}</Match>
+    </Switch>
+  );
+}
+
+export function AlertBannerCertificate(props: {
   lang: string;
   types?: common.Information<unknown>[];
 }) {
@@ -17,7 +99,7 @@ export function CertificateAlert(props: {
               {(evCertificates) => (
                 <Show when={evCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
-                    <Alert type="good">
+                    <AlertBanner type="good">
                       {i18n("Legitimacy formally verified", props.lang)}
                       <For each={evCertificates()}>
                         {(evCertificate) => (
@@ -28,7 +110,7 @@ export function CertificateAlert(props: {
                           />
                         )}
                       </For>
-                    </Alert>
+                    </AlertBanner>
                   </div>
                 </Show>
               )}
@@ -38,7 +120,7 @@ export function CertificateAlert(props: {
               {(ovCertificates) => (
                 <Show when={ovCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
-                    <Alert type="good">
+                    <AlertBanner type="good">
                       {i18n("Organization legitimacy verified", props.lang)}
                       <For each={ovCertificates()}>
                         {(ovCertificate) => (
@@ -49,7 +131,7 @@ export function CertificateAlert(props: {
                           />
                         )}
                       </For>
-                    </Alert>
+                    </AlertBanner>
                   </div>
                 </Show>
               )}
@@ -59,7 +141,7 @@ export function CertificateAlert(props: {
               {(ivCertificates) => (
                 <Show when={ivCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
-                    <Alert type="good">
+                    <AlertBanner type="good">
                       {i18n("Individual legitimacy verified", props.lang)}
                       <For each={ivCertificates()}>
                         {(ivCertificate) => (
@@ -70,7 +152,7 @@ export function CertificateAlert(props: {
                           />
                         )}
                       </For>
-                    </Alert>
+                    </AlertBanner>
                   </div>
                 </Show>
               )}
@@ -82,7 +164,7 @@ export function CertificateAlert(props: {
   );
 }
 
-function Alert(props: { type: "good" | "bad"; children: JSX.Element }) {
+function AlertBanner(props: { type: "good" | "bad"; children: JSX.Element }) {
   return (
     <Switch>
       <Match when={props.type === "good"}>

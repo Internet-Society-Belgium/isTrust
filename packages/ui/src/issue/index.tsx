@@ -86,11 +86,9 @@ export function Issue(props: { base?: string; lang: string; error: Error }) {
           "FeatureRequireWebextensionError"
         }
       >
-        <IssueFeatureOnlyAvailableIn
-          href={`${props.base !== undefined ? props.base : ""}#get`}
-          lang={props.lang}
-          platform={i18n("the extension", props.lang)}
-        />
+        <IssueLink href={`${props.base !== undefined ? props.base : ""}#get`}>
+          {i18n("Only available in the extension", props.lang)}
+        </IssueLink>
       </Match>
       <Match
         when={(props.error.name as common.ErrorType) === "FeatureMissingError"}
@@ -101,45 +99,6 @@ export function Issue(props: { base?: string; lang: string; error: Error }) {
         <IssueUnexpectedError lang={props.lang} message={props.error.message} />
       </Match>
     </Switch>
-  );
-}
-
-export function IssueFeatureOnlyAvailableIn(props: {
-  lang: string;
-  href: string;
-  platform: string;
-}) {
-  return (
-    <IssueLink href={props.href}>
-      {i18n("Only available in", props.lang)} {props.platform}
-    </IssueLink>
-  );
-}
-
-export function IssueFeatureNotAvailableIn(props: {
-  lang: string;
-  href: string;
-  platform: string;
-}) {
-  return (
-    <IssueLink href={props.href}>
-      {i18n("Not available in", props.lang)} {props.platform}
-    </IssueLink>
-  );
-}
-
-export function IssueFeatureRequireAdditionalPermission(props: {
-  lang: string;
-  onClick: () => void;
-}) {
-  return (
-    <IssueButton
-      onClick={() => {
-        props.onClick();
-      }}
-    >
-      {i18n("Require an additional permission", props.lang)}
-    </IssueButton>
   );
 }
 
@@ -161,7 +120,7 @@ export function IssueUnexpectedError(props: { lang: string; message: string }) {
   );
 }
 
-function IssueLink(props: { href: string; children: JSX.Element }) {
+export function IssueLink(props: { href: string; children: JSX.Element }) {
   return (
     <div class="bg-container/75 absolute inset-0 top-0 z-1">
       <div class="flex h-full items-center justify-center">
@@ -177,7 +136,10 @@ function IssueLink(props: { href: string; children: JSX.Element }) {
   );
 }
 
-function IssueButton(props: { children: JSX.Element; onClick: () => void }) {
+export function IssueButton(props: {
+  children: JSX.Element;
+  onClick: () => void;
+}) {
   return (
     <div class="bg-container/75 absolute inset-0 top-0 z-1">
       <div class="flex h-full items-center justify-center">

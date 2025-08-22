@@ -15,6 +15,10 @@ export function SearchBar(props: {
   let input!: HTMLInputElement;
 
   onMount(() => {
+    input.focus({
+      preventScroll: true,
+    });
+
     if (props.initValue !== undefined) {
       input.value = props.initValue;
       search(props.initValue);
@@ -30,7 +34,10 @@ export function SearchBar(props: {
   };
 
   const searchFromHistoryIndex = (offset: number) => {
-    const newHistoryIndex = historyIndex() + offset;
+    const newHistoryIndex = Math.max(
+      0,
+      Math.min(historyIndex() + offset, history().length),
+    );
 
     setHistoryIndex(newHistoryIndex);
 

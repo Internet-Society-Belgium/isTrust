@@ -1,11 +1,14 @@
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
-import { CertificateAlert } from "@istrust/ui/alert/index";
+import {
+  AlertBannerCertificate,
+  AlertRegistration,
+} from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
 import { HeaderDomain } from "@istrust/ui/header/index";
 import {
-  IconBuilding,
+  IconBriefcase,
   IconCalendar1,
   IconCalendarCheck,
   IconMapPin,
@@ -14,7 +17,7 @@ import {
   IconShieldX,
   IconUser,
 } from "@istrust/ui/icon/index";
-import { Issue, IssueFeatureOnlyAvailableIn } from "@istrust/ui/issue/index";
+import { Issue, IssueLink } from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import { SearchBar } from "@istrust/ui/search/index";
 import {
@@ -130,7 +133,12 @@ export function App(props: { lang: string }) {
         await common.force_update_cache(cache);
       }
 
-      return await common.get_effective_domain(query.text, cache);
+      try {
+        return await common.get_effective_domain(query.text, cache);
+      } catch (error) {
+        reset();
+        throw error;
+      }
     },
   );
 
@@ -174,12 +182,16 @@ export function App(props: { lang: string }) {
     const oldQuery = searchQuery();
     if (oldQuery === undefined) return;
 
+    reset();
+
+    setSearchQuery({ text: oldQuery.text, forceUpdateCache: true });
+  };
+
+  const reset = () => {
     mutateDomain();
     mutateWhoisData();
     mutateDnssecData();
     mutateCertificateData();
-
-    setSearchQuery({ text: oldQuery.text, forceUpdateCache: true });
   };
 
   return (
@@ -208,7 +220,7 @@ export function App(props: { lang: string }) {
           <div class="flex flex-col">
             <HeaderDomain lang={props.lang} value={domain()} />
 
-            <CertificateAlert
+            <AlertBannerCertificate
               lang={props.lang}
               types={certificateData()?.types}
             />
@@ -240,7 +252,7 @@ export function App(props: { lang: string }) {
                 <SectionItem
                   lang={props.lang}
                   description={i18n("Organization name", props.lang)}
-                  prefix={<IconBuilding />}
+                  prefix={<IconBriefcase />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
                     whoisData()?.organizations,
@@ -297,22 +309,27 @@ export function App(props: { lang: string }) {
                   )}
                 >
                   {(registration, index) => (
-                    <Switch>
-                      <Match when={index === 0}>
-                        {i18n("Registered", props.lang)}{" "}
-                        <DatePastPeriod
-                          lang={props.lang}
-                          date={registration.value}
-                        />
-                      </Match>
-                      <Match when={true}>
-                        {i18n("and", props.lang)}{" "}
-                        <DatePastPeriod
-                          lang={props.lang}
-                          date={registration.value}
-                        />
-                      </Match>
-                    </Switch>
+                    <AlertRegistration
+                      lang={props.lang}
+                      date={registration.value}
+                    >
+                      <Switch>
+                        <Match when={index === 0}>
+                          {i18n("Registered", props.lang)}{" "}
+                          <DatePastPeriod
+                            lang={props.lang}
+                            date={registration.value}
+                          />
+                        </Match>
+                        <Match when={true}>
+                          {i18n("and", props.lang)}{" "}
+                          <DatePastPeriod
+                            lang={props.lang}
+                            date={registration.value}
+                          />
+                        </Match>
+                      </Switch>
+                    </AlertRegistration>
                   )}
                 </SectionItem>
 
@@ -359,11 +376,9 @@ export function App(props: { lang: string }) {
               <Section
                 title={i18n("Visit", props.lang)}
                 suffix={
-                  <IssueFeatureOnlyAvailableIn
-                    lang={props.lang}
-                    href="#get"
-                    platform={i18n("the extension", props.lang)}
-                  />
+                  <IssueLink href="#get">
+                    {i18n("Only available in the extension", props.lang)}
+                  </IssueLink>
                 }
               >
                 <SectionItemNotAvailable

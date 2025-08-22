@@ -1,6 +1,6 @@
 import { createSignal, JSX, onMount } from "solid-js";
 
-export function Overflow(props: { children: JSX.Element }) {
+export function Overflow(props: { direction?: "rtl"; children: JSX.Element }) {
   const [overflowBegin, setOverflowBegin] = createSignal<boolean>(false);
   const [overflowEnd, setOverflowEnd] = createSignal<boolean>(false);
 
@@ -12,9 +12,14 @@ export function Overflow(props: { children: JSX.Element }) {
 
   const computeOverflow = () => {
     if (element.scrollWidth > element.clientWidth) {
-      const percent =
+      if (props.direction === "rtl") {
+        element.scrollBy(element.scrollWidth, 0);
+      }
+
+      const percent = Math.round(
         (element.scrollLeft / (element.scrollWidth - element.clientWidth)) *
-        100;
+          100,
+      );
 
       if (percent <= 0) {
         setOverflowBegin(false);
@@ -44,7 +49,7 @@ export function Overflow(props: { children: JSX.Element }) {
 
       <p
         ref={element}
-        class="overflow-x-auto overflow-y-hidden text-nowrap"
+        class="overflow-x-hidden overflow-y-hidden text-nowrap hover:overflow-x-auto [&::-webkit-scrollbar]:hidden"
         onScroll={() => {
           computeOverflow();
         }}

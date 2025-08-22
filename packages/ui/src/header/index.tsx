@@ -44,7 +44,7 @@ export function HeaderDomain(props: {
             }
           >
             {(value) => (
-              <Overflow>
+              <Overflow direction="rtl">
                 <h1>{value()}</h1>
               </Overflow>
             )}
