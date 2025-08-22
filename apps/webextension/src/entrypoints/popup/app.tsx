@@ -183,7 +183,8 @@ export function App() {
                 <SectionItem
                   base={base}
                   lang={lang()}
-                  description={i18n("Individual name", lang())}
+                  title={i18n("Individual name", lang())}
+                  description={<>{i18n("Individual name", lang())}</>}
                   prefix={<IconUser />}
                   informations={common.merge_informations(
                     certificateData()?.individuals,
@@ -206,7 +207,8 @@ export function App() {
                 <SectionItem
                   base={base}
                   lang={lang()}
-                  description={i18n("Organization name", lang())}
+                  title={i18n("Organization name", lang())}
+                  description={<>{i18n("Organization name", lang())}</>}
                   prefix={<IconBriefcase />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
@@ -229,7 +231,8 @@ export function App() {
                 <SectionItem
                   base={base}
                   lang={lang()}
-                  description={i18n("Country of residence", lang())}
+                  title={i18n("Country of residence", lang())}
+                  description={<>{i18n("Country of residence", lang())}</>}
                   prefix={<IconMapPin />}
                   informations={common.merge_informations(
                     certificateData()?.countries,
@@ -255,7 +258,8 @@ export function App() {
                 <SectionItem
                   base={base}
                   lang={lang()}
-                  description={i18n("Registration", lang())}
+                  title={i18n("Registration", lang())}
+                  description={<>{i18n("Registration", lang())}</>}
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
@@ -287,7 +291,13 @@ export function App() {
                 <SectionItem
                   base={base}
                   lang={lang()}
-                  description={i18n("Protection (DNSSEC)", lang())}
+                  title={`${i18n("Protection with", lang())} DNSSEC`}
+                  description={
+                    <>
+                      {i18n("Protection with", lang())}{" "}
+                      <TermDNSSEC lang={lang()} />
+                    </>
+                  }
                   prefix={
                     <Suspense fallback={<IconShield />}>
                       <Show
@@ -338,12 +348,12 @@ export function App() {
                     }
                   >
                     <SectionItemNotAvailable
-                      description={i18n("First visit", lang())}
+                      title={i18n("First visit", lang())}
                       prefix={<IconCalendar1 />}
                     />
 
                     <SectionItemNotAvailable
-                      description={i18n("Frequency of visits", lang())}
+                      title={i18n("Frequency of visits", lang())}
                       prefix={<IconCalendarCheck />}
                     />
                   </Section>
@@ -381,12 +391,12 @@ export function App() {
                     }
                   >
                     <SectionItemNotAvailable
-                      description={i18n("First visit", lang())}
+                      title={i18n("First visit", lang())}
                       prefix={<IconCalendar1 />}
                     />
 
                     <SectionItemNotAvailable
-                      description={i18n("Frequency of visits", lang())}
+                      title={i18n("Frequency of visits", lang())}
                       prefix={<IconCalendarCheck />}
                     />
                   </Section>
@@ -396,7 +406,8 @@ export function App() {
                     <SectionItem
                       base={base}
                       lang={lang()}
-                      description={i18n("First visit", lang())}
+                      title={i18n("First visit", lang())}
+                      description={<>{i18n("First visit", lang())}</>}
                       prefix={<IconCalendar1 />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
@@ -431,7 +442,8 @@ export function App() {
                     <SectionItem
                       base={base}
                       lang={lang()}
-                      description={i18n("Frequency of visits", lang())}
+                      title={i18n("Frequency of visits", lang())}
+                      description={<>{i18n("Frequency of visits", lang())}</>}
                       prefix={<IconCalendarCheck />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (

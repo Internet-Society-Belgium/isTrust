@@ -230,7 +230,8 @@ export function App(props: { lang: string }) {
               <Section title={i18n("Owner", props.lang)}>
                 <SectionItem
                   lang={props.lang}
-                  description={i18n("Individual name", props.lang)}
+                  title={i18n("Individual name", props.lang)}
+                  description={<>{i18n("Individual name", props.lang)}</>}
                   prefix={<IconUser />}
                   informations={common.merge_informations(
                     certificateData()?.individuals,
@@ -252,7 +253,8 @@ export function App(props: { lang: string }) {
 
                 <SectionItem
                   lang={props.lang}
-                  description={i18n("Organization name", props.lang)}
+                  title={i18n("Organization name", props.lang)}
+                  description={<>{i18n("Organization name", props.lang)}</>}
                   prefix={<IconBriefcase />}
                   informations={common.merge_informations(
                     certificateData()?.organizations,
@@ -274,7 +276,8 @@ export function App(props: { lang: string }) {
 
                 <SectionItem
                   lang={props.lang}
-                  description={i18n("Country of residence", props.lang)}
+                  title={i18n("Country of residence", props.lang)}
+                  description={<>{i18n("Country of residence", props.lang)}</>}
                   prefix={<IconMapPin />}
                   informations={common.merge_informations(
                     certificateData()?.countries,
@@ -302,7 +305,8 @@ export function App(props: { lang: string }) {
               <Section title={i18n("Domain", props.lang)}>
                 <SectionItem
                   lang={props.lang}
-                  description={i18n("Registration", props.lang)}
+                  title={i18n("Registration", props.lang)}
+                  description={<>{i18n("Registration", props.lang)}</>}
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
@@ -336,7 +340,13 @@ export function App(props: { lang: string }) {
 
                 <SectionItem
                   lang={props.lang}
-                  description={i18n("Protection (DNSSEC)", props.lang)}
+                  title={`${i18n("Protection with", props.lang)} DNSSEC`}
+                  description={
+                    <>
+                      {i18n("Protection with", props.lang)}{" "}
+                      <TermDNSSEC lang={props.lang} />
+                    </>
+                  }
                   prefix={
                     <Suspense fallback={<IconShield />}>
                       <Show
@@ -385,12 +395,12 @@ export function App(props: { lang: string }) {
                 }
               >
                 <SectionItemNotAvailable
-                  description={i18n("First visit", props.lang)}
+                  title={i18n("First visit", props.lang)}
                   prefix={<IconCalendar1 />}
                 />
 
                 <SectionItemNotAvailable
-                  description={i18n("Frequency of visits", props.lang)}
+                  title={i18n("Frequency of visits", props.lang)}
                   prefix={<IconCalendarCheck />}
                 />
               </Section>

@@ -31,7 +31,8 @@ export function Section(props: {
 export function SectionItem<T>(props: {
   base?: string;
   lang: string;
-  description: string;
+  title: string;
+  description: JSX.Element;
   informations?: common.Information<T> | common.Information<T>[];
   prefix: JSX.Element;
   // eslint-disable-next-line no-unused-vars
@@ -49,7 +50,7 @@ export function SectionItem<T>(props: {
 
   return (
     <div class="relative flex items-center gap-2">
-      <div title={props.description}>{props.prefix}</div>
+      <div title={props.title}>{props.prefix}</div>
       <ErrorBoundary
         fallback={(error: Error) => (
           <div>
@@ -98,14 +99,14 @@ export function SectionItem<T>(props: {
 }
 
 export function SectionItemNotAvailable(props: {
-  description: string;
+  title: string;
   prefix: JSX.Element;
 }) {
   return (
     <div class="relative flex items-center gap-2">
-      <div title={props.description}>{props.prefix}</div>
+      <div title={props.title}>{props.prefix}</div>
 
-      <p class="text-muted">{props.description}</p>
+      <p class="text-muted">{props.title}</p>
     </div>
   );
 }
