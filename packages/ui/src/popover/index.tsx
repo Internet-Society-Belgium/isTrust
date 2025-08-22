@@ -161,7 +161,7 @@ export function Popover(props: {
               <Switch>
                 <Match when={rect().align === "top"}>
                   <div
-                    class="text-border absolute"
+                    class="text-border absolute z-10"
                     style={{
                       left: `${(rect().anchor.x - 16 / 2).toString()}px`,
                       top: `${(rect().anchor.y - 8 - 1).toString()}px`,
@@ -179,7 +179,7 @@ export function Popover(props: {
                 </Match>
                 <Match when={rect().align === "bottom"}>
                   <div
-                    class="text-border absolute"
+                    class="text-border absolute z-10"
                     style={{
                       left: `${(rect().anchor.x - 16 / 2).toString()}px`,
                       top: `${(rect().anchor.y + 1).toString()}px`,
@@ -198,7 +198,7 @@ export function Popover(props: {
               </Switch>
 
               <div
-                class="pointer-events-none absolute flex"
+                class="pointer-events-none absolute z-10 flex"
                 style={{
                   left: `${rect().content.x.toString()}px`,
                   top: `${(rect().content.y + (rect().align === "top" ? 0 : 8 + 1)).toString()}px`,

@@ -22,7 +22,7 @@ export default defineConfig({
       import.meta.env.BROWSER === "safari" ? undefined : ["history"],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions#host_permissions
     // prevent CORS errors
-    host_permissions: ["https://api.dnsbelgium.be/*", "https://api.sidn.nl/*"],
+    host_permissions: ["http://*/*", "https://*/*"],
   }),
   zip: {
     artifactTemplate: "isTrust-{{name}}-{{browser}}-{{version}}.zip",

@@ -419,22 +419,26 @@ export function App() {
                           lang={lang()}
                           firstVisit={visits.value.at(0)}
                         >
-                          <Switch>
-                            <Match when={index === 0}>
-                              {i18n("First visited", lang())}{" "}
-                              <DatePastPeriod
-                                lang={lang()}
-                                date={visits.value.at(0)}
-                              />
-                            </Match>
-                            <Match when={true}>
-                              {i18n("and", lang())}{" "}
-                              <DatePastPeriod
-                                lang={lang()}
-                                date={visits.value.at(0)}
-                              />
-                            </Match>
-                          </Switch>
+                          <Show when={visits.value.at(0)}>
+                            {(firstVisit) => (
+                              <Switch>
+                                <Match when={index === 0}>
+                                  {i18n("First visited", lang())}{" "}
+                                  <DatePastPeriod
+                                    lang={lang()}
+                                    date={firstVisit()}
+                                  />
+                                </Match>
+                                <Match when={true}>
+                                  {i18n("and", lang())}{" "}
+                                  <DatePastPeriod
+                                    lang={lang()}
+                                    date={firstVisit()}
+                                  />
+                                </Match>
+                              </Switch>
+                            )}
+                          </Show>
                         </AlertFirstVisit>
                       )}
                     </SectionItem>

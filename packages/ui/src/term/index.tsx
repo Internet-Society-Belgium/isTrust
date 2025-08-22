@@ -5,7 +5,7 @@ export function TermDNSSEC(props: { lang: string }) {
     <a
       href={i18n("https://www.dnsbelgium.be/en/secure/dnssec", props.lang)}
       target="_blank"
-      class="underline decoration-dashed"
+      class="cursor-help hover:underline hover:decoration-dashed"
     >
       DNSSEC
     </a>
