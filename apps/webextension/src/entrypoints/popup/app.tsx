@@ -29,6 +29,7 @@ import {
   SectionItemNotAvailable,
 } from "@istrust/ui/section/index";
 import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
+import { TermDNSSEC } from "@istrust/ui/term/index";
 import { Browser, browser } from "#imports";
 import {
   createResource,
@@ -314,10 +315,12 @@ export function App() {
                   {(valid) => (
                     <Switch>
                       <Match when={valid.value}>
-                        {i18n("Protected with DNSSEC", lang())}
+                        {i18n("Protected with", lang())}{" "}
+                        <TermDNSSEC lang={lang()} />
                       </Match>
                       <Match when={!valid.value}>
-                        {i18n("Not protected with DNSSEC", lang())}
+                        {i18n("Not protected with", lang())}{" "}
+                        <TermDNSSEC lang={lang()} />
                       </Match>
                     </Switch>
                   )}
