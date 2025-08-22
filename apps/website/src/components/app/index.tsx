@@ -133,7 +133,12 @@ export function App(props: { lang: string }) {
         await common.force_update_cache(cache);
       }
 
-      return await common.get_effective_domain(query.text, cache);
+      try {
+        return await common.get_effective_domain(query.text, cache);
+      } catch (error) {
+        reset();
+        throw error;
+      }
     },
   );
 
@@ -177,12 +182,16 @@ export function App(props: { lang: string }) {
     const oldQuery = searchQuery();
     if (oldQuery === undefined) return;
 
+    reset();
+
+    setSearchQuery({ text: oldQuery.text, forceUpdateCache: true });
+  };
+
+  const reset = () => {
     mutateDomain();
     mutateWhoisData();
     mutateDnssecData();
     mutateCertificateData();
-
-    setSearchQuery({ text: oldQuery.text, forceUpdateCache: true });
   };
 
   return (
