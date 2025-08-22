@@ -44,6 +44,9 @@ export function AlertFirstVisit(props: {
 
   return (
     <Switch>
+      <Match when={props.firstVisit === undefined}>
+        <div class="text-warning">{i18n("Never visited", props.lang)}</div>
+      </Match>
       <Match
         when={
           props.firstVisit === undefined ||

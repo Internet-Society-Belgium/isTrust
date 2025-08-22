@@ -43,6 +43,7 @@ export const fr: Translations = {
   "Legal mention": "Mentions légales",
   "Legitimacy formally verified": "Légitimité formellement vérifiée",
   Mission: "Mission",
+  "Never visited": "Jamais visité",
   "New improved version": "Nouvelle version améliorée",
   Next: "Suivant",
   "No information available": "Pas d'information disponible",

@@ -40,6 +40,7 @@ export type Translated =
   | "Legal mention"
   | "Legitimacy formally verified"
   | "Mission"
+  | "Never visited"
   | "New improved version"
   | "Next"
   | "No information available"

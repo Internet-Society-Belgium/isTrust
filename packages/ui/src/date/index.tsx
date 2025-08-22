@@ -1,12 +1,9 @@
 import i18n from "@istrust/i18n";
 
-export function DatePastPeriod(props: {
-  lang: string;
-  date: string | undefined;
-}) {
+export function DatePastPeriod(props: { lang: string; date: string }) {
   const getText = () => {
     const now = new Date();
-    const then = new Date(props.date !== undefined ? props.date : now);
+    const then = new Date(props.date);
 
     const millisecond = Math.abs(now.getTime() - then.getTime());
 
