@@ -49,7 +49,7 @@ export function Overflow(props: { direction?: "rtl"; children: JSX.Element }) {
 
       <p
         ref={element}
-        class="overflow-x-auto overflow-y-hidden text-nowrap"
+        class="overflow-x-hidden overflow-y-hidden text-nowrap hover:overflow-x-auto [&::-webkit-scrollbar]:hidden"
         onScroll={() => {
           computeOverflow();
         }}
