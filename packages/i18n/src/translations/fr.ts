@@ -27,6 +27,8 @@ export const fr: Translations = {
   "Feature not available": "Fonctionalité non disponible",
   "First visit": "Première visite",
   "First visited": "Visité la première fois",
+  "First visited less than 1 day ago":
+    "Visité la première fois il y a moins de 1 jour",
   "Free forever": "Gratuit pour toujours",
   "Frequency of visits": "Fréquence des visites",
   "Get the extension": "Obtenir l'extension",
@@ -45,6 +47,7 @@ export const fr: Translations = {
   Next: "Suivant",
   "No information available": "Pas d'information disponible",
   "Not available in Safari": "Non disponible dans Safari",
+  "Not enough history": "Pas assez d'historique",
   "Not protected with DNSSEC": "Non protégé par DNSSEC",
   "Only available in the extension": "Disponible uniquement dans l'extension",
   "Open source": "Open source",

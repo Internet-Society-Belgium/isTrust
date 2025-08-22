@@ -3,7 +3,9 @@ import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
 import {
   AlertBannerCertificate,
+  AlertFirstVisit,
   AlertRegistration,
+  AlertVisitFrequency,
 } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
@@ -399,22 +401,27 @@ export function App() {
                       )}
                     >
                       {(visits, index) => (
-                        <Switch>
-                          <Match when={index === 0}>
-                            {i18n("First visited", lang())}{" "}
-                            <DatePastPeriod
-                              lang={lang()}
-                              date={visits.value.at(0)}
-                            />
-                          </Match>
-                          <Match when={true}>
-                            {i18n("and", lang())}{" "}
-                            <DatePastPeriod
-                              lang={lang()}
-                              date={visits.value.at(0)}
-                            />
-                          </Match>
-                        </Switch>
+                        <AlertFirstVisit
+                          lang={lang()}
+                          firstVisit={visits.value.at(0)}
+                        >
+                          <Switch>
+                            <Match when={index === 0}>
+                              {i18n("First visited", lang())}{" "}
+                              <DatePastPeriod
+                                lang={lang()}
+                                date={visits.value.at(0)}
+                              />
+                            </Match>
+                            <Match when={true}>
+                              {i18n("and", lang())}{" "}
+                              <DatePastPeriod
+                                lang={lang()}
+                                date={visits.value.at(0)}
+                              />
+                            </Match>
+                          </Switch>
+                        </AlertFirstVisit>
                       )}
                     </SectionItem>
 
@@ -429,16 +436,27 @@ export function App() {
                       )}
                     >
                       {(visits, index) => (
-                        <Switch>
-                          <Match when={index === 0}>
-                            {i18n("Visited", lang())}{" "}
-                            <DateFrequency lang={lang()} dates={visits.value} />
-                          </Match>
-                          <Match when={true}>
-                            {i18n("and", lang())}{" "}
-                            <DateFrequency lang={lang()} dates={visits.value} />
-                          </Match>
-                        </Switch>
+                        <AlertVisitFrequency
+                          lang={lang()}
+                          firstVisit={visits.value.at(0)}
+                        >
+                          <Switch>
+                            <Match when={index === 0}>
+                              {i18n("Visited", lang())}{" "}
+                              <DateFrequency
+                                lang={lang()}
+                                dates={visits.value}
+                              />
+                            </Match>
+                            <Match when={true}>
+                              {i18n("and", lang())}{" "}
+                              <DateFrequency
+                                lang={lang()}
+                                dates={visits.value}
+                              />
+                            </Match>
+                          </Switch>
+                        </AlertVisitFrequency>
                       )}
                     </SectionItem>
                   </Section>

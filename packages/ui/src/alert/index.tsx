@@ -35,6 +35,57 @@ export function AlertRegistration(props: {
   );
 }
 
+export function AlertFirstVisit(props: {
+  lang: string;
+  firstVisit?: string;
+  children: JSX.Element;
+}) {
+  const today = new Date();
+
+  return (
+    <Switch>
+      <Match
+        when={
+          props.firstVisit === undefined ||
+          new Date(props.firstVisit).toDateString() === today.toDateString()
+        }
+      >
+        <div
+          class="text-warning"
+          title={i18n("First visited less than 1 day ago", props.lang)}
+        >
+          {props.children}
+        </div>
+      </Match>
+      <Match when={true}>{props.children}</Match>
+    </Switch>
+  );
+}
+
+export function AlertVisitFrequency(props: {
+  lang: string;
+  firstVisit?: string;
+  children: JSX.Element;
+}) {
+  const today = new Date();
+
+  return (
+    <Switch>
+      <Match
+        when={
+          props.firstVisit === undefined ||
+          new Date(props.firstVisit).toDateString() === today.toDateString()
+        }
+      >
+        <div title={i18n("First visited less than 1 day ago", props.lang)}>
+          {i18n("Not enough history", props.lang)}
+        </div>
+      </Match>
+      <Match when={true}>{props.children}</Match>
+    </Switch>
+  );
+}
+
 export function AlertBannerCertificate(props: {
   lang: string;
   types?: common.Information<unknown>[];
