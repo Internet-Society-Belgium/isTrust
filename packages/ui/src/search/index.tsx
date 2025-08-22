@@ -30,7 +30,10 @@ export function SearchBar(props: {
   };
 
   const searchFromHistoryIndex = (offset: number) => {
-    const newHistoryIndex = historyIndex() + offset;
+    const newHistoryIndex = Math.max(
+      0,
+      Math.min(historyIndex() + offset, history().length),
+    );
 
     setHistoryIndex(newHistoryIndex);
 
