@@ -99,17 +99,13 @@ export function App() {
         .catch(console.error);
     }
 
-    updatePermissions();
-  });
-
-  function updatePermissions() {
     browser.permissions
       .getAll()
       .then((allPermissions) => {
         setPermissions(allPermissions);
       })
       .catch(console.error);
-  }
+  });
 
   const [domain] = createResource(searchQuery, async (query) => {
     return await messenger.sendMessage("get_effective_domain", {
@@ -367,7 +363,7 @@ export function App() {
                                 browser.permissions
                                   .request(permision)
                                   .then(() => {
-                                    updatePermissions();
+                                    window.location.reload();
                                   })
                                   .catch(console.error);
                               }
