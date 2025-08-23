@@ -1,10 +1,6 @@
-import { Buffer as BufferPolyfill } from "buffer";
-import dnsPacket from "dns-packet";
+import * as dnsPacket from "@leichtgewicht/dns-packet";
 import { source_error } from "../utils/error";
 import { DNSSECData } from "./type";
-
-// declare var Buffer: typeof BufferPolyfill;
-globalThis.Buffer = BufferPolyfill;
 
 interface Resolver {
   url: string;
@@ -13,72 +9,93 @@ interface Resolver {
   links: string[];
 }
 
-const DEFAULT_RESOLVER: Resolver = {
-  url: "https://cloudflare-dns.com/dns-query",
-  name: "Cloudflare",
-  country: "US",
-  links: ["https://one.one.one.one/dns/"],
-};
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-export async function get_data(domain: string, customResolver?: string) {
-  let resolver: Resolver | undefined;
-
-  if (customResolver !== undefined) {
-    const hostname = new URL(customResolver).hostname;
-    resolver = {
-      name: hostname,
-      url: customResolver,
-      links: [customResolver.replace(/dns-query$/, "")],
-    };
-  } else {
-    resolver = DEFAULT_RESOLVER;
+function uint8ToBase64(buffer: Uint8Array) {
+  let binary = "";
+  for (const byte of buffer) {
+    binary += String.fromCharCode(byte);
   }
+
+  return btoa(binary);
+}
+
+export async function get_data(domain: string) {
+  const resolvers: Resolver[] = [
+    {
+      // https://docs.quad9.net/services/
+      url: "https://dns12.quad9.net/dns-query",
+      name: "Quad9",
+      country: "CH",
+      links: ["https://quad9.net/"],
+    },
+    {
+      // https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-wireformat/
+      url: "https://cloudflare-dns.com/dns-query",
+      name: "Cloudflare",
+      country: "US",
+      links: ["https://one.one.one.one/dns/"],
+    },
+  ];
 
   const data: DNSSECData = {};
 
-  try {
-    // https://www.rfc-editor.org/rfc/rfc1035.html
-    const queryBuffer = dnsPacket.encode({
-      type: "query",
-      flags: dnsPacket.RECURSION_DESIRED | dnsPacket.AUTHENTIC_DATA,
-      questions: [
-        {
-          type: "A",
-          name: domain,
-        },
-      ],
-    });
-
-    const dnsQueryParam = queryBuffer.toString("base64").replace(/=/g, "");
-
-    const res = await fetch(`${resolver.url}?dns=${dnsQueryParam}`, {
-      headers: {
-        Accept: "application/dns-message",
+  // https://www.rfc-editor.org/rfc/rfc1035.html
+  const queryBuffer = dnsPacket.encode({
+    type: "query",
+    id: getRandomInt(1, 65534),
+    flags:
+      dnsPacket.RECURSION_DESIRED |
+      dnsPacket.AUTHENTIC_DATA |
+      dnsPacket.DNSSEC_OK,
+    questions: [
+      {
+        type: "A",
+        name: domain,
       },
-    });
+    ],
+  });
 
-    if (!res.ok) throw source_error("No DNS response");
+  const dnsQueryParam = uint8ToBase64(queryBuffer);
 
-    const resBuffer = await res.arrayBuffer();
-    const decoded = dnsPacket.decode(Buffer.from(resBuffer));
+  while (resolvers.length > 0) {
+    const resolver = resolvers.shift();
+    if (resolver === undefined) continue;
 
-    // https://datatracker.ietf.org/doc/rfc3655/
-    const validity = decoded.flag_ad;
-
-    data.valid = {
-      value: validity,
-      sources: [
-        {
-          organization: resolver.name,
-          links: resolver.links,
-          country: resolver.country,
+    try {
+      const res = await fetch(`${resolver.url}?dns=${dnsQueryParam}`, {
+        headers: {
+          Accept: "application/dns-message",
         },
-      ],
-      verified: true,
-    };
-  } catch (e) {
-    const error = e as Error;
-    console.error(`${error.message} from ${resolver.name}`);
+      });
+
+      if (!res.ok) throw source_error("No DNS response");
+
+      const resBytes = await res.bytes();
+      const decoded = dnsPacket.decode(resBytes);
+
+      // https://datatracker.ietf.org/doc/rfc3655/
+      const validity = decoded.flag_ad;
+      if (validity === undefined) continue;
+
+      data.valid = {
+        value: validity,
+        sources: [
+          {
+            organization: resolver.name,
+            links: resolver.links,
+            country: resolver.country,
+          },
+        ],
+        verified: true,
+      };
+
+      return data;
+    } catch {
+      continue;
+    }
   }
 
   return data;

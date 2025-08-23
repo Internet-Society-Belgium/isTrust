@@ -12,7 +12,6 @@ interface ProtocolMap {
   }): Awaited<ReturnType<typeof common.get_whois_data>>;
   get_dnssec_data(data: {
     domain: string;
-    resolver?: string;
   }): Awaited<ReturnType<typeof common.get_dnssec_data>>;
   get_history_data(data: {
     domain: string;

@@ -6,14 +6,14 @@ test("istrust.org", async () => {
 
   expect(dnssec).toStrictEqual({
     valid: {
-      value: false,
       sources: [
         {
-          country: "US",
-          links: ["https://one.one.one.one/dns/"],
-          organization: "Cloudflare",
+          country: "CH",
+          links: ["https://quad9.net/"],
+          organization: "Quad9",
         },
       ],
+      value: false,
       verified: true,
     },
   } satisfies typeof dnssec);
@@ -27,9 +27,9 @@ test("internetsociety.org", async () => {
       value: true,
       sources: [
         {
-          country: "US",
-          links: ["https://one.one.one.one/dns/"],
-          organization: "Cloudflare",
+          country: "CH",
+          links: ["https://quad9.net/"],
+          organization: "Quad9",
         },
       ],
       verified: true,
