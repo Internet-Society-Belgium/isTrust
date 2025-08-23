@@ -22,6 +22,13 @@ import {
 const CACHING_DAYS = 7;
 
 export async function update(cache: InformationCache) {
+  let loading = await cache.psl.get("_loading");
+
+  while (loading === "true") {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    loading = await cache.psl.get("_loading");
+  }
+
   const lastUpdate = await cache.rdap.get("_lastUpdate");
 
   const cachingOutdated = new Date().setDate(
@@ -37,40 +44,50 @@ export async function update(cache: InformationCache) {
 }
 
 export async function load(cache: InformationCache) {
-  await cache.rdap.clear();
+  await cache.psl.set("_loading", "true");
 
-  // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
-  const res = await fetch("https://data.iana.org/rdap/dns.json");
+  try {
+    await cache.rdap.clear();
 
-  if (!res.ok) throw source_error("RDAP bootstrap not available");
+    // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
+    const res = await fetch("https://data.iana.org/rdap/dns.json");
 
-  const json: unknown = await res.json();
+    if (!res.ok) throw source_error("RDAP bootstrap not available");
 
-  const bootstrap = validate_bootstrap(json);
+    const json: unknown = await res.json();
 
-  const promises: Promise<void>[] = [];
+    const bootstrap = validate_bootstrap(json);
 
-  for (const service of bootstrap.services) {
-    const tlds = service[0];
-    const apis = service[1];
+    const promises: Promise<void>[] = [];
 
-    for (let tld of tlds) {
-      try {
-        tld = parse_tld(tld);
+    for (const service of bootstrap.services) {
+      const tlds = service[0];
+      const apis = service[1];
 
-        const cachedData = await cache.rdap.get(tld);
-        const cachedApis = cachedData?.split(",") || [];
+      for (let tld of tlds) {
+        try {
+          tld = parse_tld(tld);
 
-        promises.push(cache.rdap.set(tld, [...cachedApis, ...apis].join(",")));
-      } catch (e) {
-        console.error(e);
+          const cachedData = await cache.rdap.get(tld);
+          const cachedApis = cachedData?.split(",") || [];
+
+          promises.push(
+            cache.rdap.set(tld, [...cachedApis, ...apis].join(",")),
+          );
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
+
+    await Promise.allSettled(promises);
+
+    await cache.rdap.set("_lastUpdate", new Date().toISOString());
+  } catch (e) {
+    console.error(e);
   }
 
-  await Promise.allSettled(promises);
-
-  await cache.rdap.set("_lastUpdate", new Date().toISOString());
+  await cache.psl.set("_loading", "false");
 }
 
 export async function get_data(domain: string, cache: InformationCache) {

@@ -6,6 +6,13 @@ import { source_error } from "../utils/error";
 const CACHING_DAYS = 7;
 
 export async function update(cache: InformationCache) {
+  let loading = await cache.psl.get("_loading");
+
+  while (loading === "true") {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    loading = await cache.psl.get("_loading");
+  }
+
   const lastUpdate = await cache.psl.get("_lastUpdate");
 
   const cachingOutdated = new Date().setDate(
@@ -21,48 +28,56 @@ export async function update(cache: InformationCache) {
 }
 
 export async function load(cache: InformationCache) {
-  await cache.psl.clear();
+  await cache.psl.set("_loading", "true");
 
-  // https://publicsuffix.org/list/
-  const res = await fetch(
-    "https://publicsuffix.org/list/public_suffix_list.dat",
-  );
+  try {
+    await cache.psl.clear();
 
-  if (!res.ok) throw source_error("Public Suffix List not available");
+    // https://publicsuffix.org/list/
+    const res = await fetch(
+      "https://publicsuffix.org/list/public_suffix_list.dat",
+    );
 
-  const text = await res.text();
-  const lines = text.split("\n");
+    if (!res.ok) throw source_error("Public Suffix List not available");
 
-  const promises: Promise<void>[] = [];
+    const text = await res.text();
+    const lines = text.split("\n");
 
-  for (let line of lines) {
-    line = line.trim();
+    const promises: Promise<void>[] = [];
 
-    if (line === "" || line === "\n" || line.startsWith("//")) continue;
+    for (let line of lines) {
+      line = line.trim();
 
-    let prefix = "";
-    let tld = line;
-    if (line.startsWith("!")) {
-      prefix = "!";
-      tld = line.substring(1);
-    } else if (line.startsWith("*.")) {
-      prefix = "*.";
-      tld = line.substring(2);
+      if (line === "" || line === "\n" || line.startsWith("//")) continue;
+
+      let prefix = "";
+      let tld = line;
+      if (line.startsWith("!")) {
+        prefix = "!";
+        tld = line.substring(1);
+      } else if (line.startsWith("*.")) {
+        prefix = "*.";
+        tld = line.substring(2);
+      }
+
+      try {
+        tld = parse_tld(tld);
+
+        const rule = `${prefix}${tld}`;
+        promises.push(cache.psl.set(rule, ""));
+      } catch (e) {
+        console.error(e);
+      }
     }
 
-    try {
-      tld = parse_tld(tld);
+    await Promise.allSettled(promises);
 
-      const rule = `${prefix}${tld}`;
-      promises.push(cache.psl.set(rule, ""));
-    } catch (e) {
-      console.error(e);
-    }
+    await cache.psl.set("_lastUpdate", new Date().toISOString());
+  } catch (e) {
+    console.error(e);
   }
 
-  await Promise.allSettled(promises);
-
-  await cache.psl.set("_lastUpdate", new Date().toISOString());
+  await cache.psl.set("_loading", "false");
 }
 
 // https://github.com/publicsuffix/list/wiki/Format#algorithm
