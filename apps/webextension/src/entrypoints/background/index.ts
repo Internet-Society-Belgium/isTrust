@@ -62,8 +62,8 @@ function onMessage() {
 
   messenger.onMessage(
     "get_dnssec_data",
-    async ({ data: { domain, resolver } }) => {
-      return await common.get_dnssec_data(domain, resolver);
+    async ({ data: { domain } }) => {
+      return await common.get_dnssec_data(domain);
     },
   );
 
