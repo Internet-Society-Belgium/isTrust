@@ -1,16 +1,25 @@
-import { Buffer as BufferPolyfill } from "buffer";
-import dnsPacket from "dns-packet";
+import * as dnsPacket from "@leichtgewicht/dns-packet";
 import { source_error } from "../utils/error";
 import { DNSSECData } from "./type";
-
-// declare var Buffer: typeof BufferPolyfill;
-globalThis.Buffer = BufferPolyfill;
 
 interface Resolver {
   url: string;
   name: string;
   country?: string;
   links: string[];
+}
+
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function uint8ToBase64(buffer: Uint8Array) {
+  let binary = "";
+  for (const byte of buffer) {
+    binary += String.fromCharCode(byte);
+  }
+
+  return btoa(binary);
 }
 
 export async function get_data(domain: string) {
@@ -36,6 +45,7 @@ export async function get_data(domain: string) {
   // https://www.rfc-editor.org/rfc/rfc1035.html
   const queryBuffer = dnsPacket.encode({
     type: "query",
+    id: getRandomInt(1, 65534),
     flags:
       dnsPacket.RECURSION_DESIRED |
       dnsPacket.AUTHENTIC_DATA |
@@ -48,7 +58,7 @@ export async function get_data(domain: string) {
     ],
   });
 
-  const dnsQueryParam = queryBuffer.toString("base64").replace(/=/g, "");
+  const dnsQueryParam = uint8ToBase64(queryBuffer);
 
   while (resolvers.length > 0) {
     const resolver = resolvers.shift();
@@ -63,11 +73,12 @@ export async function get_data(domain: string) {
 
       if (!res.ok) throw source_error("No DNS response");
 
-      const resBuffer = await res.arrayBuffer();
-      const decoded = dnsPacket.decode(Buffer.from(resBuffer));
+      const resBytes = await res.bytes();
+      const decoded = dnsPacket.decode(resBytes);
 
       // https://datatracker.ietf.org/doc/rfc3655/
       const validity = decoded.flag_ad;
+      if (validity === undefined) continue;
 
       data.valid = {
         value: validity,
