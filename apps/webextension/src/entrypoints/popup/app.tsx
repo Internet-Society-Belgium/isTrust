@@ -155,15 +155,20 @@ export function App() {
   return (
     <div
       class={
-        mode() === "detached"
+        mode() === "detached" || import.meta.env.BROWSER === "firefox-android"
           ? "bg-background flex min-h-screen flex-col items-center justify-center gap-4"
           : undefined
       }
     >
-      {mode() === "detached" && <HeaderLogo />}
+      {mode() === "detached" ||
+      import.meta.env.BROWSER === "firefox-android" ? (
+        <HeaderLogo />
+      ) : (
+        <></>
+      )}
 
       <div
-        class={`${mode() === "detached" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container flex w-sm flex-col p-4`}
+        class={`${mode() === "detached" || import.meta.env.BROWSER === "firefox-android" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container flex w-xs flex-col p-4 sm:w-sm`}
       >
         <div class="relative flex flex-col">
           <ErrorBoundary
@@ -344,6 +349,26 @@ export function App() {
                     suffix={
                       <IssueLink href={`${base}#get`}>
                         {i18n("Not available in Safari", lang())}
+                      </IssueLink>
+                    }
+                  >
+                    <SectionItemNotAvailable
+                      title={i18n("First visit", lang())}
+                      prefix={<IconCalendar1 />}
+                    />
+
+                    <SectionItemNotAvailable
+                      title={i18n("Frequency of visits", lang())}
+                      prefix={<IconCalendarCheck />}
+                    />
+                  </Section>
+                </Match>
+                <Match when={import.meta.env.BROWSER === "firefox-android"}>
+                  <Section
+                    title={i18n("Visit", lang())}
+                    suffix={
+                      <IssueLink href={`${base}#get`}>
+                        {i18n("Not available in Firefox on Android", lang())}
                       </IssueLink>
                     }
                   >

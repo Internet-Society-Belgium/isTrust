@@ -44,6 +44,7 @@ export type Translated =
   | "New improved version"
   | "Next"
   | "No information available"
+  | "Not available in Firefox on Android"
   | "Not available in Safari"
   | "Not enough history"
   | "Not protected with"

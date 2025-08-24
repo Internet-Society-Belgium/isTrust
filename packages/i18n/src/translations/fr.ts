@@ -47,6 +47,8 @@ export const fr: Translations = {
   "New improved version": "Nouvelle version améliorée",
   Next: "Suivant",
   "No information available": "Pas d'information disponible",
+  "Not available in Firefox on Android":
+    "Non disponible dans Firefox sur Android",
   "Not available in Safari": "Non disponible dans Safari",
   "Not enough history": "Pas assez d'historique",
   "Not protected with": "Pas protégé par",

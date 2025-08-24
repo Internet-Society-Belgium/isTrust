@@ -11,15 +11,20 @@ export default defineConfig({
     plugins: [tailwindcss()],
   }),
   targetBrowsers: ["chrome", "firefox", "firefox-android", "safari", "edge"],
-  manifest: () => ({
+  manifest: ({ browser }) => ({
     name: "isTrust",
     default_locale: "en",
     description: "__MSG_description__",
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
-    permissions: ["activeTab", "contextMenus", "storage"],
+    permissions:
+      browser === "firefox-android"
+        ? ["activeTab", "storage"]
+        : ["activeTab", "storage", "contextMenus"],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions
     optional_permissions:
-      import.meta.env.BROWSER === "safari" ? undefined : ["history"],
+      browser === "safari" || browser === "firefox-android"
+        ? undefined
+        : ["history"],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions#host_permissions
     // prevent CORS errors
     host_permissions: ["http://*/*", "https://*/*"],
