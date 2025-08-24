@@ -9,7 +9,9 @@ export default defineBackground({
   main() {
     onInstalled();
 
-    contextMenus();
+    if (import.meta.env.BROWSER !== "firefox-android") {
+      contextMenus();
+    }
 
     onMessage();
   },

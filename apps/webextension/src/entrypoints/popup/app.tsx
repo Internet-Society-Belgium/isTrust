@@ -358,6 +358,26 @@ export function App() {
                     />
                   </Section>
                 </Match>
+                <Match when={import.meta.env.BROWSER === "firefox-android"}>
+                  <Section
+                    title={i18n("Visit", lang())}
+                    suffix={
+                      <IssueLink href={`${base}#get`}>
+                        {i18n("Not available in Firefox on Android", lang())}
+                      </IssueLink>
+                    }
+                  >
+                    <SectionItemNotAvailable
+                      title={i18n("First visit", lang())}
+                      prefix={<IconCalendar1 />}
+                    />
+
+                    <SectionItemNotAvailable
+                      title={i18n("Frequency of visits", lang())}
+                      prefix={<IconCalendarCheck />}
+                    />
+                  </Section>
+                </Match>
                 <Match
                   when={
                     permissions()?.permissions?.includes("history") !== true
