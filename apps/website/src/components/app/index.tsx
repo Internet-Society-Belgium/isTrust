@@ -196,7 +196,7 @@ export function App(props: { lang: string }) {
   };
 
   return (
-    <div class="relative flex w-xs flex-col gap-2 sm:w-sm">
+    <div class="xs:w-sm relative flex w-xs flex-col gap-2">
       <ErrorBoundary
         fallback={(error: Error) => (
           <div class="bg-container ring-border rounded-lg p-4 ring-1">

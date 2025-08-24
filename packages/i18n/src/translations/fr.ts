@@ -34,8 +34,8 @@ export const fr: Translations = {
   "Get the extension": "Obtenir l'extension",
   "In case of question related to privacy or data protection, please contact":
     "Pour toute question relative à la confidentialité ou à la protection des données, veuillez contacter",
-  "Individual legitimacy verified": "Légitimité de l'individu vérifié",
   "Individual name": "Nom de l'individu",
+  "Individual verified": "Individu vérifié",
   "Information have been verified": "Information vérifiée",
   "Information provided": "Information fournie",
   "Information without verification": "Information sans vérification",
@@ -54,8 +54,8 @@ export const fr: Translations = {
   "Not protected with": "Pas protégé par",
   "Only available in the extension": "Disponible uniquement dans l'extension",
   "Open source": "Open source",
-  "Organization legitimacy verified": "Légitimité de l'organisation vérifiée",
   "Organization name": "Nom de l'organisation",
+  "Organization verified": "Organisation vérifiée",
   "Our postal address is:": "Notre adresse postale est :",
   "Our tool is free to use without any charge":
     "Notre outil est gratuit et peut être utilisé sans aucun frais",

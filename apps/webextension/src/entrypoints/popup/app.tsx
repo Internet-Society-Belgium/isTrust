@@ -168,7 +168,7 @@ export function App() {
       )}
 
       <div
-        class={`${mode() === "detached" || import.meta.env.BROWSER === "firefox-android" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container flex w-xs flex-col p-4 sm:w-sm`}
+        class={`${mode() === "detached" || import.meta.env.BROWSER === "firefox-android" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container xs:w-sm flex w-xs flex-col p-4`}
       >
         <div class="relative flex flex-col">
           <ErrorBoundary
