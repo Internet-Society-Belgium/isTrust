@@ -1,16 +1,5 @@
-import {
-  createSignal,
-  JSX,
-  Match,
-  onCleanup,
-  onMount,
-  Show,
-  Switch,
-} from "solid-js";
+import { createSignal, JSX, onCleanup, onMount, Show } from "solid-js";
 import { isServer, Portal } from "solid-js/web";
-
-type RectAlign = "top" | "bottom";
-type RectJustify = "left" | "center" | "right";
 
 export function Popover(props: {
   trigger: JSX.Element;
@@ -19,19 +8,14 @@ export function Popover(props: {
 }) {
   const [open, setOpen] = createSignal<boolean>(false);
 
-  const [rect, setRect] = createSignal<{
-    align: RectAlign;
-    justify: RectJustify;
-    anchor: { x: number; y: number };
-    content: { x: number; y: number; width: number; height: number };
-  }>();
-
   let trigger!: HTMLButtonElement;
+  let container!: HTMLDivElement;
+  let anchor!: HTMLDivElement;
   let content!: HTMLDivElement;
 
   onMount(() => {
-    document.addEventListener("resize", computeRect, { passive: true });
-    document.addEventListener("scroll", computeRect, { passive: true });
+    document.addEventListener("resize", resize, { passive: true });
+    document.addEventListener("scroll", resize, { passive: true });
 
     document.addEventListener("keydown", closeOnEscape, { passive: true });
     document.addEventListener("pointerdown", closeOnEvent, {
@@ -44,77 +28,96 @@ export function Popover(props: {
   });
 
   onCleanup(() => {
-    document.removeEventListener("resize", computeRect);
-    document.removeEventListener("scroll", computeRect);
+    document.removeEventListener("resize", resize);
+    document.removeEventListener("scroll", resize);
 
     document.removeEventListener("keydown", closeOnEscape);
     document.removeEventListener("pointerdown", closeOnEvent);
     document.removeEventListener("focus", closeOnEvent, { capture: true });
   });
 
-  const computeRect = () => {
+  const resize = () => {
     if (isServer) return;
 
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+    if (
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      container === undefined ||
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      anchor === undefined ||
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      content === undefined
+    ) {
+      return;
+    }
 
-    const triggerDomRect = trigger.getBoundingClientRect();
+    const windowVisibleWidth = window.innerWidth;
+    const windowVisibleHeight = window.innerHeight;
+
+    const triggerVisibleRect = trigger.getBoundingClientRect();
 
     const triggerRect = {
-      y: triggerDomRect.y + window.scrollY,
-      x: triggerDomRect.x + window.scrollX,
-      width: triggerDomRect.width,
-      height: triggerDomRect.height,
+      y: triggerVisibleRect.y + window.scrollY,
+      x: triggerVisibleRect.x + window.scrollX,
+      width: triggerVisibleRect.width,
+      height: triggerVisibleRect.height,
     };
 
-    const marginProportion = 10 / 100;
-    const windowWidthMargin = windowWidth * marginProportion;
-    const windowHeightMargin = windowHeight * marginProportion;
+    const windowMargin = 20;
 
-    const triggerWindowHeightProportion = triggerRect.y / windowHeight;
+    const triggerVisibleHeightProportion =
+      triggerVisibleRect.y / windowVisibleHeight;
 
-    const align: RectAlign =
-      triggerWindowHeightProportion < 0.5 ? "bottom" : "top";
+    const align = triggerVisibleHeightProportion < 0.5 ? "bottom" : "top";
 
     const arrowMargin = 10;
 
-    const safeX = Math.min(triggerRect.x - arrowMargin, windowWidthMargin);
+    const safeX = Math.min(triggerRect.x - arrowMargin, windowMargin);
     const safeY =
-      align === "top" ? windowHeightMargin : triggerRect.y + triggerRect.height;
+      align === "top" ? windowMargin : triggerRect.y + triggerRect.height;
     const safeWidth =
-      windowWidth -
+      windowVisibleWidth -
       safeX -
       Math.min(
-        windowWidth - (triggerRect.x + triggerRect.width + arrowMargin),
-        windowWidthMargin,
+        windowVisibleWidth - (triggerRect.x + triggerRect.width + arrowMargin),
+        windowMargin,
       );
     const safeHeight =
       align === "top"
         ? triggerRect.y - safeY
-        : windowHeight - windowHeightMargin - safeY;
+        : windowVisibleHeight - windowMargin - safeY;
 
-    const triggerSafeWidthProportion = (triggerRect.x - safeX) / safeWidth;
-    const justify: RectJustify =
-      triggerSafeWidthProportion < 1 / 3
-        ? "left"
-        : triggerSafeWidthProportion > 2 / 3
-          ? "right"
-          : "center";
+    const anchorWidth = 16;
+    const anchorX = triggerRect.x + triggerRect.width / 2 - anchorWidth / 2;
 
-    setRect({
-      align,
-      justify,
-      anchor: {
-        x: triggerRect.x + triggerRect.width / 2,
-        y: align === "top" ? triggerRect.y : triggerRect.y + triggerRect.height,
-      },
-      content: {
-        x: safeX,
-        y: safeY,
-        width: safeWidth,
-        height: safeHeight,
-      },
-    });
+    anchor.style.transform = `rotate(${align === "top" ? "0" : "180"}deg)`;
+    anchor.style.left = `${anchorX.toString()}px`;
+    anchor.style.top = `${(align === "top" ? triggerRect.y - 8 - 1 : triggerRect.y + triggerRect.height + 1).toString()}px`;
+
+    container.style.left = `${safeX.toString()}px`;
+    container.style.top = `${(safeY + (align === "top" ? 0 : 8 + 1)).toString()}px`;
+    container.style.width = `${safeWidth.toString()}px`;
+    container.style.height = `${(safeHeight - (8 + 1)).toString()}px`;
+    container.style.alignItems = align === "top" ? "flex-end" : "flex-start";
+
+    const contentVisibleRect = content.getBoundingClientRect();
+
+    const diffAnchorContentLeft = anchorX - contentVisibleRect.x;
+    const diffAnchorContentRight = -(
+      contentVisibleRect.x +
+      contentVisibleRect.width -
+      (anchorX + anchorWidth)
+    );
+
+    if (diffAnchorContentLeft < 0) {
+      content.style.transform = `translate(${(diffAnchorContentLeft - arrowMargin).toString()}px, 0px)`;
+    } else if (diffAnchorContentRight > 0) {
+      content.style.transform = `translate(${(diffAnchorContentRight + arrowMargin).toString()}px, 0px)`;
+    }
+
+    container.style.opacity = "1";
+    anchor.style.opacity = "1";
+
+    content.style.pointerEvents = "auto";
   };
 
   const closeOnEscape = (event: KeyboardEvent) => {
@@ -143,11 +146,13 @@ export function Popover(props: {
       <button
         ref={trigger}
         onClick={() => {
-          if (open()) return;
+          if (open()) {
+            setOpen(false);
+          } else {
+            setOpen(true);
 
-          computeRect();
-
-          setOpen(true);
+            resize();
+          }
         }}
         class={`${props.triggerClass !== undefined ? props.triggerClass : ""} rounded-full p-1 transition-colors`}
       >
@@ -155,76 +160,36 @@ export function Popover(props: {
       </button>
 
       <Show when={open()}>
-        <Show when={rect()}>
-          {(rect) => (
-            <Portal>
-              <Switch>
-                <Match when={rect().align === "top"}>
-                  <div
-                    class="text-border absolute z-10"
-                    style={{
-                      left: `${(rect().anchor.x - 16 / 2).toString()}px`,
-                      top: `${(rect().anchor.y - 8 - 1).toString()}px`,
-                    }}
-                  >
-                    <svg
-                      width="16px"
-                      height="8px"
-                      viewBox="0 0 255 127.5"
-                      fill="currentColor"
-                    >
-                      <polygon points="0,0 127.5,127.5 255,0" />
-                    </svg>
-                  </div>
-                </Match>
-                <Match when={rect().align === "bottom"}>
-                  <div
-                    class="text-border absolute z-10"
-                    style={{
-                      left: `${(rect().anchor.x - 16 / 2).toString()}px`,
-                      top: `${(rect().anchor.y + 1).toString()}px`,
-                    }}
-                  >
-                    <svg
-                      width="16px"
-                      height="8px"
-                      viewBox="0 0 255 127.5"
-                      fill="currentColor"
-                    >
-                      <polygon points="0,127.5 127.5,0 255,127.5" />
-                    </svg>
-                  </div>
-                </Match>
-              </Switch>
+        <Portal>
+          <div
+            ref={anchor}
+            class="text-border absolute z-10 transition"
+            style={{ opacity: "0" }}
+          >
+            <svg
+              width="16px"
+              height="8px"
+              viewBox="0 0 255 127.5"
+              fill="currentColor"
+            >
+              <polygon points="0,0 127.5,127.5 255,0" />
+            </svg>
+          </div>
 
-              <div
-                class="pointer-events-none absolute z-10 flex"
-                style={{
-                  left: `${rect().content.x.toString()}px`,
-                  top: `${(rect().content.y + (rect().align === "top" ? 0 : 8 + 1)).toString()}px`,
-                  width: `${rect().content.width.toString()}px`,
-                  height: `${(rect().content.height - (rect().align === "top" ? 8 + 1 : 8 + 1)).toString()}px`,
-                  "align-items":
-                    rect().align === "top" ? "flex-end" : "flex-start",
-                  "justify-content":
-                    rect().justify === "left"
-                      ? "flex-start"
-                      : rect().justify === "right"
-                        ? "flex-end"
-                        : "center",
-                }}
-              >
-                <div
-                  ref={content}
-                  class="bg-background ring-border pointer-events-auto rounded-lg p-2 shadow-lg ring"
-                  tabIndex={-1}
-                >
-                  {props.children}
-                </div>
-              </div>
-            </Portal>
-          )}
-        </Show>
+          <div
+            ref={container}
+            class="pointer-events-none absolute z-10 flex justify-center transition"
+            style={{ opacity: "0" }}
+          >
+            <div
+              ref={content}
+              class="bg-background ring-border rounded-lg p-2 shadow-lg ring"
+              tabIndex={-1}
+            >
+              {props.children}
+            </div>
+          </div>
+        </Portal>
       </Show>
     </>
   );
