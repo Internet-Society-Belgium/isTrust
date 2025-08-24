@@ -124,7 +124,7 @@ export function AlertBannerCertificate(props: {
                 <Show when={ovCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
                     <AlertBanner type="good">
-                      {i18n("Organization legitimacy verified", props.lang)}
+                      {i18n("Organization verified", props.lang)}
                       <For each={ovCertificates()}>
                         {(ovCertificate) => (
                           <SourceVerification
@@ -145,7 +145,7 @@ export function AlertBannerCertificate(props: {
                 <Show when={ivCertificates().length > 0}>
                   <div class="mb-2 flex items-center justify-center">
                     <AlertBanner type="good">
-                      {i18n("Individual legitimacy verified", props.lang)}
+                      {i18n("Individual verified", props.lang)}
                       <For each={ivCertificates()}>
                         {(ivCertificate) => (
                           <SourceVerification
