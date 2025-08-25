@@ -20,7 +20,7 @@ export async function get_data(domain: string) {
           {
             organization: "Quad9",
             country: "CH",
-            links: ["https://quad9.net/"],
+            links: ["https://quad9.net/service/threat-blocking/"],
           },
         ],
         verified: true,

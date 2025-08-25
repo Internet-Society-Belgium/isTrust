@@ -9,7 +9,7 @@ test("istrust.org", async () => {
       sources: [
         {
           country: "CH",
-          links: ["https://quad9.net/"],
+          links: ["https://quad9.net/service/threat-blocking/"],
           organization: "Quad9",
         },
       ],
