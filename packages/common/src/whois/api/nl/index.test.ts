@@ -2,9 +2,9 @@ import { expect, test } from "vitest";
 import { get_data } from ".";
 
 test("sidn.nl", async () => {
-  const whoisData = await get_data("sidn.nl");
+  const data = await get_data("sidn.nl");
 
-  expect(whoisData).toStrictEqual({
+  expect(data).toStrictEqual({
     countries: [],
     individuals: [],
     organizations: [
@@ -33,5 +33,5 @@ test("sidn.nl", async () => {
         verified: true,
       },
     ],
-  } satisfies typeof whoisData);
+  } satisfies typeof data);
 });
