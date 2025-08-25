@@ -63,7 +63,7 @@ function onMessage() {
   });
 
   messenger.onMessage("get_dnssec_data", async ({ data: { domain } }) => {
-    return await common.get_dnssec_data(domain);
+    return await common.get_dnssec_data(domain, true);
   });
 
   messenger.onMessage("get_history_data", async ({ data: { domain } }) => {
@@ -72,5 +72,9 @@ function onMessage() {
 
   messenger.onMessage("get_certificate_data", async ({ data: { domain } }) => {
     return await common.get_certificate_data(domain);
+  });
+
+  messenger.onMessage("get_blacklist_data", async ({ data: { domain } }) => {
+    return await common.get_blacklist_data(domain, true);
   });
 }

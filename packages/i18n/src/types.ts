@@ -36,6 +36,7 @@ export type Translated =
   | "Information have been verified"
   | "Information provided"
   | "Information without verification"
+  | "Known to be malicious"
   | "Legal"
   | "Legal mention"
   | "Legitimacy formally verified"

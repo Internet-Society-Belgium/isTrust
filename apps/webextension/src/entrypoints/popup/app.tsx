@@ -2,6 +2,7 @@ import { messenger } from "@/utils/messaging";
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
 import {
+  AlertBannerBlacklist,
   AlertBannerCertificate,
   AlertFirstVisit,
   AlertRegistration,
@@ -143,6 +144,15 @@ export function App() {
     },
   );
 
+  const [blacklistData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await messenger.sendMessage("get_blacklist_data", {
+        domain,
+      });
+    },
+  );
+
   const [historyData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
@@ -177,6 +187,11 @@ export function App() {
             )}
           >
             <HeaderDomain base={base} lang={lang()} value={domain()} />
+
+            <AlertBannerBlacklist
+              lang={lang()}
+              blocked={blacklistData()?.blocked}
+            />
 
             <AlertBannerCertificate
               lang={lang()}

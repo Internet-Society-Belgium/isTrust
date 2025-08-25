@@ -1,3 +1,4 @@
+import * as blacklist from "./blacklist";
 import * as certificate from "./certificate";
 import * as dnssec from "./dnssec";
 import * as psl from "./psl";
@@ -31,8 +32,12 @@ export async function get_certificate_data(eDomain: string) {
   return await certificate.get_data(eDomain);
 }
 
-export async function get_dnssec_data(eDomain: string) {
-  return await dnssec.get_data(eDomain);
+export async function get_dnssec_data(eDomain: string, cors?: boolean) {
+  return await dnssec.get_data(eDomain, cors);
+}
+
+export async function get_blacklist_data(eDomain: string, cors?: boolean) {
+  return await blacklist.get_data(eDomain, cors);
 }
 
 export async function update_cache(cache: InformationCache) {

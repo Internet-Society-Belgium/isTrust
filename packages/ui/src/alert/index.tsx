@@ -89,9 +89,24 @@ export function AlertVisitFrequency(props: {
   );
 }
 
+export function AlertBannerBlacklist(props: {
+  lang: string;
+  blocked?: common.Information<boolean>;
+}) {
+  return (
+    <Suspense>
+      <Show when={props.blocked?.value === true}>
+        <AlertBanner type="bad">
+          {i18n("Known to be malicious", props.lang)}
+        </AlertBanner>
+      </Show>
+    </Suspense>
+  );
+}
+
 export function AlertBannerCertificate(props: {
   lang: string;
-  types?: common.Information<unknown>[];
+  types?: common.Information<string>[];
 }) {
   return (
     <Suspense>

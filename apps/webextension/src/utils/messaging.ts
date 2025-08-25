@@ -19,6 +19,9 @@ interface ProtocolMap {
   get_certificate_data(data: {
     domain: string;
   }): Awaited<ReturnType<typeof common.get_certificate_data>>;
+  get_blacklist_data(data: {
+    domain: string;
+  }): Awaited<ReturnType<typeof common.get_blacklist_data>>;
 }
 
 export const messenger = defineExtensionMessaging<ProtocolMap>();
