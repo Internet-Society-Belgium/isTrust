@@ -6,7 +6,5 @@ export async function get_data(domain: string, cors: boolean = false) {
 
   data = await quad9.get_data(domain);
 
-  if (data.blocked?.value === true) return data;
-
   return data;
 }
