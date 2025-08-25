@@ -1,10 +1,10 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
 
-test("istrust.org", async () => {
-  const dnssec = await get_data("istrust.org");
+test("istrust.org CORS", async () => {
+  const data = await get_data("istrust.org", true);
 
-  expect(dnssec).toStrictEqual({
+  expect(data).toStrictEqual({
     valid: {
       sources: [
         {
@@ -16,23 +16,23 @@ test("istrust.org", async () => {
       value: false,
       verified: true,
     },
-  } satisfies typeof dnssec);
+  } satisfies typeof data);
 });
 
 test("internetsociety.org", async () => {
-  const dnssec = await get_data("internetsociety.org");
+  const data = await get_data("internetsociety.org");
 
-  expect(dnssec).toStrictEqual({
+  expect(data).toStrictEqual({
     valid: {
-      value: true,
       sources: [
         {
-          country: "CH",
-          links: ["https://quad9.net/"],
-          organization: "Quad9",
+          country: "US",
+          links: ["https://one.one.one.one/dns/"],
+          organization: "Cloudflare",
         },
       ],
+      value: true,
       verified: true,
     },
-  } satisfies typeof dnssec);
+  } satisfies typeof data);
 });
