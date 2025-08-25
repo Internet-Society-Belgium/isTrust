@@ -13,3 +13,14 @@ export function validate_response(json: unknown) {
     );
   return response.data;
 }
+
+const metaSchema = z.object({
+  meta: z.array(z.object({ name: z.string(), url: z.optional(z.string()) })),
+});
+
+export function validate_meta(json: unknown) {
+  const meta = metaSchema.safeParse(json);
+  if (!meta.success)
+    throw source_error(`Invalid meta format:\n${z.prettifyError(meta.error)}`);
+  return meta.data;
+}
