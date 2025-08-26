@@ -75,6 +75,6 @@ function onMessage() {
   });
 
   messenger.onMessage("get_blacklist_data", async ({ data: { domain } }) => {
-    return await common.get_blacklist_data(domain, true);
+    return await common.get_blacklist_data(domain);
   });
 }

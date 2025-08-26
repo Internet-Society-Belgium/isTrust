@@ -36,8 +36,8 @@ export async function get_dnssec_data(eDomain: string, cors?: boolean) {
   return await dnssec.get_data(eDomain, cors);
 }
 
-export async function get_blacklist_data(eDomain: string, cors?: boolean) {
-  return await blacklist.get_data(eDomain, cors);
+export async function get_blacklist_data(eDomain: string) {
+  return await blacklist.get_data(eDomain);
 }
 
 export async function update_cache(cache: InformationCache) {
