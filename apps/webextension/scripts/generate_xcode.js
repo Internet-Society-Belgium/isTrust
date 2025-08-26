@@ -80,7 +80,7 @@ let macOSAppEntitlements = await readFile(macOSAppEntitlementsPath, {
   encoding: "utf-8",
 });
 macOSAppEntitlements = macOSAppEntitlements.replaceAll(
-  "	<key>com.apple.security.files.user-selected.read-only</key>\n	<true/>",
+  /\s*<key>com\.apple\.security\.files\.user-selected\.read-only<\/key>\n\s*<true\/>/g,
   "",
 );
 writeFile(macOSAppEntitlementsPath, macOSAppEntitlements);
@@ -96,7 +96,7 @@ let macOSExtensionEntitlements = await readFile(
   },
 );
 macOSExtensionEntitlements = macOSExtensionEntitlements.replaceAll(
-  "	<key>com.apple.security.files.user-selected.read-only</key>\n	<true/>",
+  /\s*<key>com\.apple\.security\.files\.user-selected\.read-only<\/key>\n\s*<true\/>/g,
   "",
 );
 writeFile(macOSExtensionEntitlementsPath, macOSExtensionEntitlements);
