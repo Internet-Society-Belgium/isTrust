@@ -72,18 +72,34 @@ iOSInfoPlist = iOSInfoPlist.replaceAll(
 );
 writeFile(iOSInfoPlistPath, iOSInfoPlist);
 
-const macOSEntitlementsPath = join(
+const macOSAppEntitlementsPath = join(
   xcodePath,
   "isTrust/macOS (App)/isTrust.entitlements",
 );
-let macOSEntitlements = await readFile(macOSEntitlementsPath, {
+let macOSAppEntitlements = await readFile(macOSAppEntitlementsPath, {
   encoding: "utf-8",
 });
-macOSEntitlements = macOSEntitlements.replaceAll(
+macOSAppEntitlements = macOSAppEntitlements.replaceAll(
   "	<key>com.apple.security.files.user-selected.read-only</key>\n	<true/>",
   "",
 );
-writeFile(macOSEntitlementsPath, macOSEntitlements);
+writeFile(macOSAppEntitlementsPath, macOSAppEntitlements);
+
+const macOSExtensionEntitlementsPath = join(
+  xcodePath,
+  "isTrust/macOS (Extension)/isTrust.entitlements",
+);
+let macOSExtensionEntitlements = await readFile(
+  macOSExtensionEntitlementsPath,
+  {
+    encoding: "utf-8",
+  },
+);
+macOSExtensionEntitlements = macOSExtensionEntitlements.replaceAll(
+  "	<key>com.apple.security.files.user-selected.read-only</key>\n	<true/>",
+  "",
+);
+writeFile(macOSExtensionEntitlementsPath, macOSExtensionEntitlements);
 
 console.log("----------");
 console.log("Go to isTrust (file tree root)");
@@ -91,12 +107,10 @@ console.log("----- App -----");
 console.log("Go to isTrust (...)");
 console.log("Go to Signing & Capabilities");
 console.log("Team: Internet Society Chapter Begium");
-console.log("Remove unused permission");
 console.log("----- Extension -----");
 console.log("Go to isTrust Extension (...)");
 console.log("Go to Signing & Capabilities");
 console.log("Team: Internet Society Chapter Begium");
-console.log("Remove unused permission");
 console.log("Go to Product > Archive");
 console.log("Validate App (Window > Organize)");
 console.log("Distribute App (Window > Organize)");
