@@ -3,7 +3,7 @@ import { BlacklistData } from "../type";
 import { validate_meta, validate_response } from "./type";
 
 export async function get_data(domain: string) {
-  let data: BlacklistData = {};
+  const data: BlacklistData = {};
 
   try {
     const res = await fetch(`https://api.quad9.net/search/${domain}`);
@@ -32,12 +32,10 @@ export async function get_data(domain: string) {
       });
     }
 
-    data = {
-      blocked: {
-        value: blocked,
-        sources,
-        verified: true,
-      },
+    data.blocked = {
+      value: blocked,
+      sources,
+      verified: true,
     };
   } catch (e) {
     const error = e as Error;
