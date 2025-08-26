@@ -1,4 +1,4 @@
-import { user_error } from "./error";
+import { user_error } from "../error";
 
 export function parse_tld(text: string) {
   let tld;

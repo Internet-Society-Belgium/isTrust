@@ -1,6 +1,7 @@
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
 import {
+  AlertBannerBlacklist,
   AlertBannerCertificate,
   AlertRegistration,
 } from "@istrust/ui/alert/index";
@@ -150,6 +151,13 @@ export function App(props: { lang: string }) {
     },
   );
 
+  const [certificateData, { mutate: mutateCertificateData }] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await common.get_certificate_data(domain);
+    },
+  );
+
   const [dnssecData, { mutate: mutateDnssecData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
@@ -157,10 +165,10 @@ export function App(props: { lang: string }) {
     },
   );
 
-  const [certificateData, { mutate: mutateCertificateData }] = createResource(
+  const [blacklistData, { mutate: mutateBlacklistData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_certificate_data(domain);
+      return await common.get_blacklist_data(domain);
     },
   );
 
@@ -191,8 +199,9 @@ export function App(props: { lang: string }) {
   const reset = () => {
     mutateDomain();
     mutateWhoisData();
-    mutateDnssecData();
     mutateCertificateData();
+    mutateDnssecData();
+    mutateBlacklistData();
   };
 
   return (
@@ -220,6 +229,11 @@ export function App(props: { lang: string }) {
         <div class="bg-container ring-border rounded-lg p-4 ring-1">
           <div class="flex flex-col">
             <HeaderDomain lang={props.lang} value={domain()} />
+
+            <AlertBannerBlacklist
+              lang={props.lang}
+              blocked={blacklistData()?.blocked}
+            />
 
             <AlertBannerCertificate
               lang={props.lang}

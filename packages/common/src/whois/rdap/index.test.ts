@@ -27,9 +27,9 @@ const cache: InformationCache = {
 };
 
 test("istrust.org", async () => {
-  const whoisData = await get_data("istrust.org", cache);
+  const data = await get_data("istrust.org", cache);
 
-  expect(whoisData).toStrictEqual({
+  expect(data).toStrictEqual({
     countries: [
       {
         value: "BE",
@@ -78,13 +78,13 @@ test("istrust.org", async () => {
         verified: true,
       },
     ],
-  } satisfies typeof whoisData);
+  } satisfies typeof data);
 });
 
 test("github.com", async () => {
-  const whoisData = await get_data("github.com", cache);
+  const data = await get_data("github.com", cache);
 
-  expect(whoisData).toStrictEqual({
+  expect(data).toStrictEqual({
     countries: [
       {
         sources: [
@@ -137,5 +137,5 @@ test("github.com", async () => {
         verified: true,
       },
     ],
-  } satisfies typeof whoisData);
+  } satisfies typeof data);
 });

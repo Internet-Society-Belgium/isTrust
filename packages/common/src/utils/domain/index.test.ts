@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { parse_domain, parse_tld } from "./domain";
+import { parse_domain, parse_tld } from ".";
 
 test("рф", () => {
   expect(parse_tld("рф")).toStrictEqual("xn--p1ai");

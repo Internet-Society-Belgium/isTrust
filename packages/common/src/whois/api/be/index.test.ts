@@ -2,9 +2,9 @@ import { expect, test } from "vitest";
 import { get_data } from ".";
 
 test("dnsbelgium.be", async () => {
-  const whoisData = await get_data("dnsbelgium.be");
+  const data = await get_data("dnsbelgium.be");
 
-  expect(whoisData).toStrictEqual({
+  expect(data).toStrictEqual({
     countries: [
       {
         sources: [
@@ -45,5 +45,5 @@ test("dnsbelgium.be", async () => {
         verified: true,
       },
     ],
-  } satisfies typeof whoisData);
+  } satisfies typeof data);
 });
