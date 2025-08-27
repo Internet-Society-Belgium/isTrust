@@ -1,4 +1,4 @@
-type Platform = "chrome" | "edge" | "firefox"; // | "safari" | "thunderbird";
+type Platform = "chrome" | "edge" | "firefox" | "safari"; //| "thunderbird";
 
 interface Store {
   link: string;
@@ -11,10 +11,10 @@ export const stores: Record<Platform, Store> = {
     link: "https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm",
     icon: () => import("../assets/platform/chrome.svg"),
   },
-  // safari: {
-  //   link: "",
-  //   icon: () => import("../assets/platform/safari.svg"),
-  // },
+  safari: {
+    link: "https://apps.apple.com/app/istrust/id1600555060",
+    icon: () => import("../assets/platform/safari.svg"),
+  },
   edge: {
     link: "https://microsoftedge.microsoft.com/addons/detail/cphlaknpjmlpfaejjabjlgnekfkebeoo",
     icon: () => import("../assets/platform/edge.svg"),
