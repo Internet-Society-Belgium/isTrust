@@ -67,11 +67,11 @@
         />
     </a>
     <a
-        href="https://addons.mozilla.org/firefox/addon/istrust/?utm_source=github.com"
-        title="Firefox"
+        href="https://apps.apple.com/app/istrust/id1600555060"
+        title="Safari"
     >
         <img
-            src="https://upload.wikimedia.org/wikipedia/commons/2/28/Firefox_logo%2C_2017.svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/52/Safari_browser_logo.svg"
             width="40px"
         />
     </a>
@@ -81,6 +81,15 @@
     >
         <img
             src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg"
+            width="40px"
+        />
+    </a>
+    <a
+        href="https://addons.mozilla.org/firefox/addon/istrust/?utm_source=github.com"
+        title="Firefox"
+    >
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/2/28/Firefox_logo%2C_2017.svg"
             width="40px"
         />
     </a>
