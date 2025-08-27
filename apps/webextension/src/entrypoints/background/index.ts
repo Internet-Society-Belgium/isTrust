@@ -58,8 +58,16 @@ function onMessage() {
     return await common.get_effective_domain(query, cache);
   });
 
+  messenger.onMessage("get_blacklist_data", async ({ data: { domain } }) => {
+    return await common.get_blacklist_data(domain);
+  });
+
   messenger.onMessage("get_whois_data", async ({ data: { domain } }) => {
     return await common.get_whois_data(domain, cache);
+  });
+
+  messenger.onMessage("get_certificate_data", async ({ data: { domain } }) => {
+    return await common.get_certificate_data(domain);
   });
 
   messenger.onMessage("get_dnssec_data", async ({ data: { domain } }) => {
@@ -68,13 +76,5 @@ function onMessage() {
 
   messenger.onMessage("get_history_data", async ({ data: { domain } }) => {
     return await history.get_history_data(domain);
-  });
-
-  messenger.onMessage("get_certificate_data", async ({ data: { domain } }) => {
-    return await common.get_certificate_data(domain);
-  });
-
-  messenger.onMessage("get_blacklist_data", async ({ data: { domain } }) => {
-    return await common.get_blacklist_data(domain);
   });
 }

@@ -117,6 +117,15 @@ export function App() {
     });
   });
 
+  const [blacklistData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await messenger.sendMessage("get_blacklist_data", {
+        domain,
+      });
+    },
+  );
+
   const [whoisData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
@@ -139,15 +148,6 @@ export function App() {
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await messenger.sendMessage("get_certificate_data", {
-        domain,
-      });
-    },
-  );
-
-  const [blacklistData] = createResource(
-    () => (domain.state === "ready" ? domain() : undefined),
-    async (domain) => {
-      return await messenger.sendMessage("get_blacklist_data", {
         domain,
       });
     },
@@ -530,6 +530,17 @@ export function App() {
 
               <Show when={debug()}>
                 <Section title="Debug">
+                  <details>
+                    <summary>blacklist raw data</summary>
+                    <Show when={blacklistData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+
                   <details>
                     <summary>WHOIS raw data</summary>
                     <Show when={whoisData()}>

@@ -144,6 +144,13 @@ export function App(props: { lang: string }) {
     },
   );
 
+  const [blacklistData, { mutate: mutateBlacklistData }] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await common.get_blacklist_data(domain);
+    },
+  );
+
   const [whoisData, { mutate: mutateWhoisData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
@@ -162,13 +169,6 @@ export function App(props: { lang: string }) {
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await common.get_dnssec_data(domain);
-    },
-  );
-
-  const [blacklistData, { mutate: mutateBlacklistData }] = createResource(
-    () => (domain.state === "ready" ? domain() : undefined),
-    async (domain) => {
-      return await common.get_blacklist_data(domain);
     },
   );
 
@@ -198,10 +198,10 @@ export function App(props: { lang: string }) {
 
   const reset = () => {
     mutateDomain();
+    mutateBlacklistData();
     mutateWhoisData();
     mutateCertificateData();
     mutateDnssecData();
-    mutateBlacklistData();
   };
 
   return (
@@ -421,6 +421,17 @@ export function App(props: { lang: string }) {
 
               <Show when={debug()}>
                 <Section title="Debug">
+                  <details>
+                    <summary>blacklist raw data</summary>
+                    <Show when={blacklistData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+
                   <details>
                     <summary>WHOIS raw data</summary>
                     <Show when={whoisData()}>

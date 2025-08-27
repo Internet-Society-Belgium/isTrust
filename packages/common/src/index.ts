@@ -24,6 +24,10 @@ export async function get_effective_domain(
   return await psl.get_effective_domain(domain, cache);
 }
 
+export async function get_blacklist_data(eDomain: string) {
+  return await blacklist.get_data(eDomain);
+}
+
 export async function get_whois_data(eDomain: string, cache: InformationCache) {
   return await whois.get_data(eDomain, cache);
 }
@@ -34,10 +38,6 @@ export async function get_certificate_data(eDomain: string) {
 
 export async function get_dnssec_data(eDomain: string, cors?: boolean) {
   return await dnssec.get_data(eDomain, cors);
-}
-
-export async function get_blacklist_data(eDomain: string) {
-  return await blacklist.get_data(eDomain);
 }
 
 export async function update_cache(cache: InformationCache) {

@@ -7,21 +7,21 @@ interface ProtocolMap {
   get_effective_domain(data: {
     query: string;
   }): Awaited<ReturnType<typeof common.get_effective_domain>>;
+  get_blacklist_data(data: {
+    domain: string;
+  }): Awaited<ReturnType<typeof common.get_blacklist_data>>;
   get_whois_data(data: {
     domain: string;
   }): Awaited<ReturnType<typeof common.get_whois_data>>;
+  get_certificate_data(data: {
+    domain: string;
+  }): Awaited<ReturnType<typeof common.get_certificate_data>>;
   get_dnssec_data(data: {
     domain: string;
   }): Awaited<ReturnType<typeof common.get_dnssec_data>>;
   get_history_data(data: {
     domain: string;
   }): Awaited<ReturnType<typeof history.get_history_data>>;
-  get_certificate_data(data: {
-    domain: string;
-  }): Awaited<ReturnType<typeof common.get_certificate_data>>;
-  get_blacklist_data(data: {
-    domain: string;
-  }): Awaited<ReturnType<typeof common.get_blacklist_data>>;
 }
 
 export const messenger = defineExtensionMessaging<ProtocolMap>();
