@@ -1,6 +1,7 @@
 ---
 import "@/styles/global.css";
 import { getLangFromPath } from "@/i18n";
+import i18n from "@istrust/i18n";
 
 const lang = getLangFromPath(Astro.url.pathname);
 ---
@@ -13,7 +14,7 @@ const lang = getLangFromPath(Astro.url.pathname);
     <title>isTrust</title>
     <meta
       name="description"
-      content="Verify the trustworthyness of any website"
+      content={i18n("Verify the trustworthiness of any website", lang)}
     />
     <link rel="icon" href="/images/icon.ico" sizes="48x48" />
     <link rel="icon" href="/images/icon.svg" sizes="any" type="image/svg+xml" />
