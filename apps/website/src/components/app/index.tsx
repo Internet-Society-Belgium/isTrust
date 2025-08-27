@@ -41,68 +41,35 @@ import {
 } from "solid-js";
 
 const cache: common.InformationCache = {
-  psl: {
-    set: async (key: string, value: string) => {
-      return new Promise<void>((resolve) => {
-        localStorage.setItem(`psl:${key}`, value);
-        resolve();
-      });
-    },
-    get: async (key: string) => {
-      return new Promise<string | undefined>((resolve) => {
-        const item = localStorage.getItem(`psl:${key}`);
-        if (item === null) {
-          resolve(undefined);
-        } else {
-          resolve(item);
-        }
-      });
-    },
-    clear: async () => {
-      return new Promise<void>((resolve) => {
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          if (key === null) continue;
-
-          if (key.startsWith("psl:")) {
-            localStorage.removeItem(key);
-          }
-        }
-
-        resolve();
-      });
-    },
+  set: async (key: string, value: string) => {
+    return new Promise<void>((resolve) => {
+      localStorage.setItem(key, value);
+      resolve();
+    });
   },
-  rdap: {
-    set: async (key: string, value: string) => {
-      return new Promise<void>((resolve) => {
-        localStorage.setItem(`rdap:${key}`, value);
-        resolve();
-      });
-    },
-    get: async (key: string) => {
-      return new Promise<string | undefined>((resolve) => {
-        const item = localStorage.getItem(`rdap:${key}`);
-        if (item === null) {
-          resolve(undefined);
-        } else {
-          resolve(item);
-        }
-      });
-    },
-    clear: async () => {
-      return new Promise<void>((resolve) => {
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          if (key === null) continue;
+  get: async (key: string) => {
+    return new Promise<string | undefined>((resolve) => {
+      const item = localStorage.getItem(key);
+      if (item === null) {
+        resolve(undefined);
+      } else {
+        resolve(item);
+      }
+    });
+  },
+  clear: async (prefix: string) => {
+    return new Promise<void>((resolve) => {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key === null) continue;
 
-          if (key.startsWith("rdap:")) {
-            localStorage.removeItem(key);
-          }
+        if (key.startsWith(prefix)) {
+          localStorage.removeItem(key);
         }
-        resolve();
-      });
-    },
+      }
+
+      resolve();
+    });
   },
 };
 

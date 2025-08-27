@@ -6,14 +6,14 @@ import { source_error } from "../utils/error";
 const CACHING_DAYS = 7;
 
 export async function update(cache: InformationCache) {
-  let loading = await cache.psl.get("_loading");
+  let loading = await cache.get("psl:_loading");
 
   while (loading === "true") {
     await new Promise((resolve) => setTimeout(resolve, 100));
-    loading = await cache.psl.get("_loading");
+    loading = await cache.get("psl:_loading");
   }
 
-  const lastUpdate = await cache.psl.get("_lastUpdate");
+  const lastUpdate = await cache.get("psl:_lastUpdate");
 
   const cachingOutdated = new Date().setDate(
     new Date().getDate() - CACHING_DAYS,
@@ -28,10 +28,10 @@ export async function update(cache: InformationCache) {
 }
 
 export async function load(cache: InformationCache) {
-  await cache.psl.set("_loading", "true");
+  await cache.set("psl:_loading", "true");
 
   try {
-    await cache.psl.clear();
+    await cache.clear("psl:");
 
     // https://publicsuffix.org/list/
     const res = await fetch(
@@ -64,7 +64,7 @@ export async function load(cache: InformationCache) {
         tld = parse_tld(tld);
 
         const rule = `${prefix}${tld}`;
-        promises.push(cache.psl.set(rule, ""));
+        promises.push(cache.set(`psl:${rule}`, ""));
       } catch (e) {
         console.error(e);
       }
@@ -72,12 +72,12 @@ export async function load(cache: InformationCache) {
 
     await Promise.allSettled(promises);
 
-    await cache.psl.set("_lastUpdate", new Date().toISOString());
+    await cache.set("psl:_lastUpdate", new Date().toISOString());
   } catch (e) {
     console.error(e);
   }
 
-  await cache.psl.set("_loading", "false");
+  await cache.set("psl:_loading", "false");
 }
 
 // https://github.com/publicsuffix/list/wiki/Format#algorithm
@@ -93,21 +93,21 @@ export async function get_effective_domain(
     const eDomain = labels.slice(l === 0 ? 0 : l - 1).join(".");
 
     const exceptionRule = `!${labels.slice(l).join(".")}`;
-    const exceptionRuleMatch = await cache.psl.get(exceptionRule);
+    const exceptionRuleMatch = await cache.get(`psl:${exceptionRule}`);
     if (exceptionRuleMatch !== undefined) {
       return eDomain;
     }
 
     if (l < labels.length - 1) {
       const wildcardRule = `*.${labels.slice(l + 1).join(".")}`;
-      const wildcardRuleMatch = await cache.psl.get(wildcardRule);
+      const wildcardRuleMatch = await cache.get(`psl:${wildcardRule}`);
       if (wildcardRuleMatch !== undefined) {
         return eDomain;
       }
     }
 
     const rule = labels.slice(l).join(".");
-    const ruleMatch = await cache.psl.get(rule);
+    const ruleMatch = await cache.get(`psl:${rule}`);
     if (ruleMatch !== undefined) {
       return eDomain;
     }

@@ -22,14 +22,14 @@ import {
 const CACHING_DAYS = 7;
 
 export async function update(cache: InformationCache) {
-  let loading = await cache.psl.get("_loading");
+  let loading = await cache.get("rdap:_loading");
 
   while (loading === "true") {
     await new Promise((resolve) => setTimeout(resolve, 100));
-    loading = await cache.psl.get("_loading");
+    loading = await cache.get("rdap:_loading");
   }
 
-  const lastUpdate = await cache.rdap.get("_lastUpdate");
+  const lastUpdate = await cache.get("rdap:_lastUpdate");
 
   const cachingOutdated = new Date().setDate(
     new Date().getDate() - CACHING_DAYS,
@@ -44,10 +44,10 @@ export async function update(cache: InformationCache) {
 }
 
 export async function load(cache: InformationCache) {
-  await cache.psl.set("_loading", "true");
+  await cache.set("rdap:_loading", "true");
 
   try {
-    await cache.rdap.clear();
+    await cache.clear("rdap:");
 
     // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
     const res = await fetch("https://data.iana.org/rdap/dns.json");
@@ -68,11 +68,11 @@ export async function load(cache: InformationCache) {
         try {
           tld = parse_tld(tld);
 
-          const cachedData = await cache.rdap.get(tld);
+          const cachedData = await cache.get(`rdap:${tld}`);
           const cachedApis = cachedData?.split(",") || [];
 
           promises.push(
-            cache.rdap.set(tld, [...cachedApis, ...apis].join(",")),
+            cache.set(`rdap:${tld}`, [...cachedApis, ...apis].join(",")),
           );
         } catch (e) {
           console.error(e);
@@ -82,12 +82,12 @@ export async function load(cache: InformationCache) {
 
     await Promise.allSettled(promises);
 
-    await cache.rdap.set("_lastUpdate", new Date().toISOString());
+    await cache.set("rdap:_lastUpdate", new Date().toISOString());
   } catch (e) {
     console.error(e);
   }
 
-  await cache.psl.set("_loading", "false");
+  await cache.set("rdap:_loading", "false");
 }
 
 export async function get_data(domain: string, cache: InformationCache) {
@@ -96,7 +96,7 @@ export async function get_data(domain: string, cache: InformationCache) {
   const tld = domain.split(".").at(-1);
   if (tld === undefined) throw user_error("No TLD");
 
-  const bootstrap = await cache.rdap.get(tld);
+  const bootstrap = await cache.get(`rdap:${tld}`);
   if (bootstrap === undefined)
     throw feature_missing_error(`No source available for .${tld}`);
 

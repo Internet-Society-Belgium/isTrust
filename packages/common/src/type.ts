@@ -135,14 +135,7 @@ function normalize(value: unknown) {
 }
 
 export interface InformationCache {
-  psl: {
-    set(key: string, value: string): Promise<void>;
-    get(key: string): Promise<string | undefined>;
-    clear(): Promise<void>;
-  };
-  rdap: {
-    set(key: string, value: string): Promise<void>;
-    get(key: string): Promise<string | undefined>;
-    clear(): Promise<void>;
-  };
+  set(key: string, value: string): Promise<void>;
+  get(key: string): Promise<string | undefined>;
+  clear(prefix: string): Promise<void>;
 }
