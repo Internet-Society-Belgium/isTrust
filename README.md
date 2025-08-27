@@ -7,7 +7,7 @@
 </div>
 
 <h3 align="center">
-    <a href="https://www.istrust.org/">isTrust</a>
+    <a href="https://www.istrust.org/" target="_blank">isTrust</a>
 </h3>
 
 <p align="center">
@@ -58,8 +58,9 @@
 
 <div align="center">
     <a
-        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
         title="Chrome"
+        href="https://chrome.google.com/webstore/detail/istrust/kinlknncggaihnhdcalijdmpbhbflalm"
+        target="_blank"
     >
         <img
             src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Chrome_icon_%28September_2014%29.svg"
@@ -67,8 +68,9 @@
         />
     </a>
     <a
-        href="https://apps.apple.com/app/istrust/id1600555060"
         title="Safari"
+        href="https://apps.apple.com/app/istrust/id1600555060"
+        target="_blank"
     >
         <img
             src="https://upload.wikimedia.org/wikipedia/commons/5/52/Safari_browser_logo.svg"
@@ -76,8 +78,9 @@
         />
     </a>
     <a
-        href="https://microsoftedge.microsoft.com/addons/detail/cphlaknpjmlpfaejjabjlgnekfkebeoo"
         title="Edge"
+        href="https://microsoftedge.microsoft.com/addons/detail/cphlaknpjmlpfaejjabjlgnekfkebeoo"
+        target="_blank"
     >
         <img
             src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg"
@@ -85,8 +88,9 @@
         />
     </a>
     <a
-        href="https://addons.mozilla.org/firefox/addon/istrust/?utm_source=github.com"
         title="Firefox"
+        href="https://addons.mozilla.org/firefox/addon/istrust/?utm_source=github.com"
+        target="_blank"
     >
         <img
             src="https://upload.wikimedia.org/wikipedia/commons/2/28/Firefox_logo%2C_2017.svg"
