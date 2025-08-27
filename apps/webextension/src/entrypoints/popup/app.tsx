@@ -29,7 +29,7 @@ import {
   SectionItem,
   SectionItemNotAvailable,
 } from "@istrust/ui/section/index";
-import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
+import { Source } from "@istrust/ui/source/index";
 import { TermDNSSEC } from "@istrust/ui/term/index";
 import { Browser, browser } from "#imports";
 import {
@@ -211,10 +211,7 @@ export function App() {
                     whoisData()?.individuals,
                   )}
                   suffix={(individual) => (
-                    <SourceVerification
-                      lang={lang()}
-                      information={individual}
-                    />
+                    <Source lang={lang()} information={individual} />
                   )}
                 >
                   {(individual, index) => (
@@ -235,10 +232,7 @@ export function App() {
                     whoisData()?.organizations,
                   )}
                   suffix={(organization) => (
-                    <SourceVerification
-                      lang={lang()}
-                      information={organization}
-                    />
+                    <Source lang={lang()} information={organization} />
                   )}
                 >
                   {(organization, index) => (
@@ -259,7 +253,7 @@ export function App() {
                     whoisData()?.countries,
                   )}
                   suffix={(country) => (
-                    <SourceVerification lang={lang()} information={country} />
+                    <Source lang={lang()} information={country} />
                   )}
                 >
                   {(country, index) => (
@@ -283,7 +277,7 @@ export function App() {
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
-                    <SourceInfo lang={lang()} information={registration} />
+                    <Source lang={lang()} information={registration} />
                   )}
                 >
                   {(registration, index) => (
@@ -339,7 +333,7 @@ export function App() {
                   }
                   informations={dnssecData()?.valid}
                   suffix={(valid) => (
-                    <SourceInfo lang={lang()} information={valid} />
+                    <Source lang={lang()} information={valid} />
                   )}
                 >
                   {(valid) => (
@@ -451,7 +445,7 @@ export function App() {
                       prefix={<IconCalendar1 />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
-                        <SourceInfo lang={lang()} information={visits} />
+                        <Source lang={lang()} information={visits} />
                       )}
                     >
                       {(visits, index) => (
@@ -491,7 +485,7 @@ export function App() {
                       prefix={<IconCalendarCheck />}
                       informations={historyData()?.visits}
                       suffix={(visits) => (
-                        <SourceInfo lang={lang()} information={visits} />
+                        <Source lang={lang()} information={visits} />
                       )}
                     >
                       {(visits, index) => (

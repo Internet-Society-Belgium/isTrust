@@ -25,7 +25,6 @@ export async function get_data(domain: string) {
           links: ["https://one.one.one.one/dns/"],
         },
       ],
-      verified: true,
     };
   } catch (e) {
     const error = e as Error;

@@ -26,7 +26,7 @@ import {
   SectionItem,
   SectionItemNotAvailable,
 } from "@istrust/ui/section/index";
-import { SourceInfo, SourceVerification } from "@istrust/ui/source/index";
+import { Source } from "@istrust/ui/source/index";
 import { TermDNSSEC } from "@istrust/ui/term/index";
 import {
   createResource,
@@ -219,10 +219,7 @@ export function App(props: { lang: string }) {
                     whoisData()?.individuals,
                   )}
                   suffix={(individual) => (
-                    <SourceVerification
-                      lang={props.lang}
-                      information={individual}
-                    />
+                    <Source lang={props.lang} information={individual} />
                   )}
                 >
                   {(individual, index) => (
@@ -242,10 +239,7 @@ export function App(props: { lang: string }) {
                     whoisData()?.organizations,
                   )}
                   suffix={(organization) => (
-                    <SourceVerification
-                      lang={props.lang}
-                      information={organization}
-                    />
+                    <Source lang={props.lang} information={organization} />
                   )}
                 >
                   {(organization, index) => (
@@ -265,10 +259,7 @@ export function App(props: { lang: string }) {
                     whoisData()?.countries,
                   )}
                   suffix={(country) => (
-                    <SourceVerification
-                      lang={props.lang}
-                      information={country}
-                    />
+                    <Source lang={props.lang} information={country} />
                   )}
                 >
                   {(country, index) => (
@@ -291,7 +282,7 @@ export function App(props: { lang: string }) {
                   prefix={<IconCalendar1 />}
                   informations={whoisData()?.registrations}
                   suffix={(registration) => (
-                    <SourceInfo lang={props.lang} information={registration} />
+                    <Source lang={props.lang} information={registration} />
                   )}
                 >
                   {(registration, index) => (
@@ -349,7 +340,7 @@ export function App(props: { lang: string }) {
                   }
                   informations={dnssecData()?.valid}
                   suffix={(valid) => (
-                    <SourceInfo lang={props.lang} information={valid} />
+                    <Source lang={props.lang} information={valid} />
                   )}
                 >
                   {(valid) => (

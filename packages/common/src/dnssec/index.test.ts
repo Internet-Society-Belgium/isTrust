@@ -14,7 +14,6 @@ test("istrust.org CORS", async () => {
         },
       ],
       value: false,
-      verified: true,
     },
   } satisfies typeof data);
 });
@@ -32,7 +31,6 @@ test("internetsociety.org", async () => {
         },
       ],
       value: true,
-      verified: true,
     },
   } satisfies typeof data);
 });

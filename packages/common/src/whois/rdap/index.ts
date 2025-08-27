@@ -230,7 +230,6 @@ function improve_data(data: WHOISData, result: RdapResult) {
       const improvedRegistrations = improve_informations(data.registrations, {
         value: new Date(registrationDate).toISOString(),
         sources,
-        verified: true,
       });
       if (improvedRegistrations.length > 0) {
         data.registrations = improvedRegistrations;

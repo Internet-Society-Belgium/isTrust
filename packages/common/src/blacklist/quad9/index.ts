@@ -35,7 +35,6 @@ export async function get_data(domain: string) {
     data.blocked = {
       value: blocked,
       sources,
-      verified: true,
     };
   } catch (e) {
     const error = e as Error;
