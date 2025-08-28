@@ -97,7 +97,6 @@ export function SearchBar(props: {
           ref={input}
           type="q"
           name="q"
-          required
           spellcheck={false}
           class="bg-container-darker placeholder:text-dimmed w-full flex-1 rounded-md border-0 px-2.5 py-1 text-sm"
           placeholder="https://istrust.org/"

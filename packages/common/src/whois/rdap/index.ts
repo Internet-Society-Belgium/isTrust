@@ -4,6 +4,12 @@ import {
   InformationCache,
   Source,
 } from "../../type";
+import {
+  out_of_date,
+  releaseMutex,
+  updated,
+  waitMutex,
+} from "../../utils/cache";
 import { parse_tld } from "../../utils/domain";
 import {
   feature_missing_error,
@@ -21,73 +27,57 @@ import {
 
 const CACHING_DAYS = 7;
 
+const MUTEX_KEY = "rdap#loading";
+const LAST_UPDATE_KEY = "rdap#lastUpdate";
+const PREFIX = "rdap:";
+
 export async function update(cache: InformationCache) {
-  let loading = await cache.get("rdap:_loading");
+  await waitMutex(cache, MUTEX_KEY);
 
-  while (loading === "true") {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    loading = await cache.get("rdap:_loading");
-  }
+  if (await out_of_date(cache, LAST_UPDATE_KEY, CACHING_DAYS)) {
+    try {
+      // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
+      const res = await fetch("https://data.iana.org/rdap/dns.json");
 
-  const lastUpdate = await cache.get("rdap:_lastUpdate");
+      if (!res.ok) throw source_error("RDAP bootstrap not available");
 
-  const cachingOutdated = new Date().setDate(
-    new Date().getDate() - CACHING_DAYS,
-  );
+      const json: unknown = await res.json();
 
-  if (
-    lastUpdate === undefined ||
-    new Date(lastUpdate).getTime() < cachingOutdated
-  ) {
-    await load(cache);
-  }
-}
+      const bootstrap = validate_bootstrap(json);
 
-export async function load(cache: InformationCache) {
-  await cache.set("rdap:_loading", "true");
+      await cache.clear(PREFIX);
 
-  try {
-    await cache.clear("rdap:");
+      const promises: Promise<void>[] = [];
 
-    // https://www.iana.org/assignments/rdap-dns/rdap-dns.xhtml
-    const res = await fetch("https://data.iana.org/rdap/dns.json");
+      for (const service of bootstrap.services) {
+        const tlds = service[0];
+        const apis = service[1];
 
-    if (!res.ok) throw source_error("RDAP bootstrap not available");
+        for (let tld of tlds) {
+          try {
+            tld = parse_tld(tld);
 
-    const json: unknown = await res.json();
+            const cachedData = await cache.get(`${PREFIX}${tld}`);
+            const cachedApis = cachedData?.split(",") || [];
 
-    const bootstrap = validate_bootstrap(json);
-
-    const promises: Promise<void>[] = [];
-
-    for (const service of bootstrap.services) {
-      const tlds = service[0];
-      const apis = service[1];
-
-      for (let tld of tlds) {
-        try {
-          tld = parse_tld(tld);
-
-          const cachedData = await cache.get(`rdap:${tld}`);
-          const cachedApis = cachedData?.split(",") || [];
-
-          promises.push(
-            cache.set(`rdap:${tld}`, [...cachedApis, ...apis].join(",")),
-          );
-        } catch (e) {
-          console.error(e);
+            promises.push(
+              cache.set(`${PREFIX}${tld}`, [...cachedApis, ...apis].join(",")),
+            );
+          } catch (e) {
+            console.error(e);
+          }
         }
       }
+
+      await Promise.allSettled(promises);
+
+      await updated(cache, LAST_UPDATE_KEY);
+    } catch (e) {
+      console.error(e);
     }
-
-    await Promise.allSettled(promises);
-
-    await cache.set("rdap:_lastUpdate", new Date().toISOString());
-  } catch (e) {
-    console.error(e);
   }
 
-  await cache.set("rdap:_loading", "false");
+  await releaseMutex(cache, MUTEX_KEY);
 }
 
 export async function get_data(domain: string, cache: InformationCache) {
@@ -96,7 +86,7 @@ export async function get_data(domain: string, cache: InformationCache) {
   const tld = domain.split(".").at(-1);
   if (tld === undefined) throw user_error("No TLD");
 
-  const bootstrap = await cache.get(`rdap:${tld}`);
+  const bootstrap = await cache.get(`${PREFIX}${tld}`);
   if (bootstrap === undefined)
     throw feature_missing_error(`No source available for .${tld}`);
 
