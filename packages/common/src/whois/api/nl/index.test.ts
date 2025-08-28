@@ -30,7 +30,6 @@ test("sidn.nl", async () => {
           },
         ],
         value: "1999-11-18T00:00:00.000Z",
-        verified: true,
       },
     ],
   } satisfies typeof data);
