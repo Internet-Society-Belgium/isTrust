@@ -23,10 +23,10 @@ export function Source(props: {
         <Popover
           trigger={
             <Switch>
-              <Match when={props.information.verified}>
+              <Match when={props.information.verified === true}>
                 <IconBadgeCheck />
               </Match>
-              <Match when={!props.information.verified}>
+              <Match when={props.information.verified === false}>
                 <IconBadgeQuestion />
               </Match>
             </Switch>
@@ -42,7 +42,7 @@ export function Source(props: {
           }
         >
           <Switch>
-            <Match when={!props.information.verified}>
+            <Match when={props.information.verified === false}>
               <div class="flex items-center gap-1">
                 <IconAlert />{" "}
                 {i18n("Information without verification", props.lang)}
