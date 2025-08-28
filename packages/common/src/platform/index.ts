@@ -1,7 +1,7 @@
 import { improve_informations, InformationCache } from "../type";
 import * as disposable_email from "./disposable_email";
 import { PlatformData } from "./type";
-import * as url_shortner from "./url_shortner";
+import * as url_shortener from "./url_shortener";
 
 export async function get_data(domain: string, cache: InformationCache) {
   const data: PlatformData = {
@@ -17,9 +17,9 @@ export async function get_data(domain: string, cache: InformationCache) {
     data.platforms = improve_informations(data.platforms, platform);
   }
 
-  const urlShortnerPlatform = await url_shortner.get_data(domain, cache);
+  const urlShortenerPlatform = await url_shortener.get_data(domain, cache);
 
-  for (const platform of urlShortnerPlatform.platforms) {
+  for (const platform of urlShortenerPlatform.platforms) {
     data.platforms = improve_informations(data.platforms, platform);
   }
 

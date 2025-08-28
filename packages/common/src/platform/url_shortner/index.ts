@@ -7,14 +7,14 @@ import { PlatformData } from "../type";
 const CACHING_DAYS = 1;
 
 export async function update(cache: InformationCache) {
-  let loading = await cache.get("url_shortner:_loading");
+  let loading = await cache.get("url_shortener:_loading");
 
   while (loading === "true") {
     await new Promise((resolve) => setTimeout(resolve, 100));
-    loading = await cache.get("url_shortner:_loading");
+    loading = await cache.get("url_shortener:_loading");
   }
 
-  const lastUpdate = await cache.get("url_shortner:_lastUpdate");
+  const lastUpdate = await cache.get("url_shortener:_lastUpdate");
 
   const cachingOutdated = new Date().setDate(
     new Date().getDate() - CACHING_DAYS,
@@ -29,9 +29,9 @@ export async function update(cache: InformationCache) {
 }
 
 export async function load(cache: InformationCache) {
-  await cache.set("url_shortner:_loading", "true");
+  await cache.set("url_shortener:_loading", "true");
 
-  await cache.clear("url_shortner:");
+  await cache.clear("url_shortener:");
 
   // https://github.com/hagezi/dns-blocklists#urlshortener
   const res = await fetch(
@@ -50,14 +50,14 @@ export async function load(cache: InformationCache) {
 
     if (line === "" || line === "\n" || line.startsWith("#")) continue;
 
-    promises.push(cache.set(`url_shortner:${line}`, ""));
+    promises.push(cache.set(`url_shortener:${line}`, ""));
   }
 
   await Promise.allSettled(promises);
 
-  await cache.set("url_shortner:_lastUpdate", new Date().toISOString());
+  await cache.set("url_shortener:_lastUpdate", new Date().toISOString());
 
-  await cache.set("url_shortner:_loading", "false");
+  await cache.set("url_shortener:_loading", "false");
 }
 
 export async function get_data(domain: string, cache: InformationCache) {
@@ -70,11 +70,11 @@ export async function get_data(domain: string, cache: InformationCache) {
   const labels = domain.split(".");
 
   for (let l = 0; l < labels.length; l++) {
-    const match = await cache.get(`url_shortner:${labels.slice(l).join(".")}`);
+    const match = await cache.get(`url_shortener:${labels.slice(l).join(".")}`);
     if (match !== undefined) {
       data.platforms = [
         {
-          value: "url_shortner",
+          value: "url_shortener",
           sources: [
             {
               organization: "HaGeZi's Blocklist URL Shortener",

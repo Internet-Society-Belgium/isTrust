@@ -26,7 +26,7 @@ test("bit.ly", async () => {
             organization: "HaGeZi's Blocklist URL Shortener",
           },
         ],
-        value: "url_shortner",
+        value: "url_shortener",
       },
     ],
   } satisfies typeof data);

@@ -58,18 +58,18 @@ export function AlertBannerPlatform(props: {
             </Show>
             <Show
               when={platforms().filter(
-                (platform) => platform.value === "url_shortner",
+                (platform) => platform.value === "url_shortener",
               )}
             >
-              {(urlShortnerPlatforms) => (
-                <Show when={urlShortnerPlatforms().length > 0}>
+              {(urlShortenerPlatforms) => (
+                <Show when={urlShortenerPlatforms().length > 0}>
                   <AlertBanner type="warning">
                     {i18n("Known to shorten URL", props.lang)}
-                    <For each={urlShortnerPlatforms()}>
-                      {(urlShortnerPlatform) => (
+                    <For each={urlShortenerPlatforms()}>
+                      {(urlShortenerPlatform) => (
                         <Source
                           lang={props.lang}
-                          information={urlShortnerPlatform}
+                          information={urlShortenerPlatform}
                           type="warning"
                         />
                       )}
