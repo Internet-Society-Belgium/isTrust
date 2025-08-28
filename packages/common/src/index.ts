@@ -4,6 +4,7 @@ import * as dnssec from "./dnssec";
 import * as platform from "./platform";
 import * as disposableEmail from "./platform/disposable_email";
 import { Platform } from "./platform/type";
+import * as urlShortner from "./platform/url_shortner";
 import * as psl from "./psl";
 import {
   merge_informations,
@@ -56,6 +57,7 @@ export async function get_dnssec_data(eDomain: string, cors?: boolean) {
 export async function update_cache(cache: InformationCache) {
   await Promise.allSettled([
     disposableEmail.update(cache),
+    urlShortner.update(cache),
     psl.update(cache),
     rdap.update(cache),
   ]);

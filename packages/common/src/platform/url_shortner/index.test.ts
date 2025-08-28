@@ -14,19 +14,19 @@ const cache: InformationCache = {
   },
 };
 
-test("temp-mail.org", async () => {
-  const data = await get_data("temp-mail.org", cache);
+test("bit.ly", async () => {
+  const data = await get_data("bit.ly", cache);
 
   expect(data).toStrictEqual({
     platforms: [
       {
         sources: [
           {
-            links: ["https://github.com/disposable/disposable"],
-            organization: "Disposable email domains",
+            links: ["https://github.com/hagezi/dns-blocklists"],
+            organization: "HaGeZi's Blocklist URL Shortener",
           },
         ],
-        value: "disposable_email",
+        value: "url_shortner",
       },
     ],
   } satisfies typeof data);

@@ -39,15 +39,37 @@ export function AlertBannerPlatform(props: {
                 (platform) => platform.value === "disposable_email",
               )}
             >
-              {(disposableEmail) => (
-                <Show when={disposableEmail().length > 0}>
+              {(disposableEmailPlatforms) => (
+                <Show when={disposableEmailPlatforms().length > 0}>
                   <AlertBanner type="warning">
                     {i18n("Known to provide disposable email", props.lang)}
-                    <For each={disposableEmail()}>
-                      {(evCertificate) => (
+                    <For each={disposableEmailPlatforms()}>
+                      {(disposableEmailPlatform) => (
                         <Source
                           lang={props.lang}
-                          information={evCertificate}
+                          information={disposableEmailPlatform}
+                          type="warning"
+                        />
+                      )}
+                    </For>
+                  </AlertBanner>
+                </Show>
+              )}
+            </Show>
+            <Show
+              when={platforms().filter(
+                (platform) => platform.value === "url_shortner",
+              )}
+            >
+              {(urlShortnerPlatforms) => (
+                <Show when={urlShortnerPlatforms().length > 0}>
+                  <AlertBanner type="warning">
+                    {i18n("Known to shorten URL", props.lang)}
+                    <For each={urlShortnerPlatforms()}>
+                      {(urlShortnerPlatform) => (
+                        <Source
+                          lang={props.lang}
+                          information={urlShortnerPlatform}
                           type="warning"
                         />
                       )}
