@@ -3,6 +3,7 @@ import i18n from "@istrust/i18n";
 import {
   AlertBannerBlacklist,
   AlertBannerCertificate,
+  AlertBannerPlatform,
   AlertRegistration,
 } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
@@ -76,7 +77,7 @@ const cache: common.InformationCache = {
 export function App(props: { lang: string }) {
   const [searchQuery, setSearchQuery] = createSignal<{
     text: string;
-    forceUpdateCache: boolean;
+    clearCache: boolean;
   }>();
 
   const [initValue, setInitValue] = createSignal<string>();
@@ -97,13 +98,13 @@ export function App(props: { lang: string }) {
 
   const [domain, { mutate: mutateDomain }] = createResource(
     searchQuery,
-    async (query) => {
-      if (query.forceUpdateCache) {
-        await common.force_update_cache(cache);
+    (query) => {
+      if (query.clearCache) {
+        localStorage.clear();
       }
 
       try {
-        return await common.get_effective_domain(query.text, cache);
+        return common.get_domain(query.text);
       } catch (error) {
         reset();
         throw error;
@@ -118,24 +119,43 @@ export function App(props: { lang: string }) {
     },
   );
 
-  const [whoisData, { mutate: mutateWhoisData }] = createResource(
+  const [platformData, { mutate: mutatePlatformData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_whois_data(domain, cache);
+      return await common.get_platform_data(domain, cache);
+    },
+  );
+
+  const [eDomain, { mutate: mutateEDomain }] = createResource(
+    domain,
+    async (domain) => {
+      try {
+        return await common.get_effective_domain(domain, cache);
+      } catch (error) {
+        reset();
+        throw error;
+      }
+    },
+  );
+
+  const [whoisData, { mutate: mutateWhoisData }] = createResource(
+    () => (eDomain.state === "ready" ? eDomain() : undefined),
+    async (eDomain) => {
+      return await common.get_whois_data(eDomain, cache);
     },
   );
 
   const [certificateData, { mutate: mutateCertificateData }] = createResource(
-    () => (domain.state === "ready" ? domain() : undefined),
-    async (domain) => {
-      return await common.get_certificate_data(domain);
+    () => (eDomain.state === "ready" ? eDomain() : undefined),
+    async (eDomain) => {
+      return await common.get_certificate_data(eDomain);
     },
   );
 
   const [dnssecData, { mutate: mutateDnssecData }] = createResource(
-    () => (domain.state === "ready" ? domain() : undefined),
-    async (domain) => {
-      return await common.get_dnssec_data(domain);
+    () => (eDomain.state === "ready" ? eDomain() : undefined),
+    async (eDomain) => {
+      return await common.get_dnssec_data(eDomain);
     },
   );
 
@@ -149,7 +169,7 @@ export function App(props: { lang: string }) {
       navigator.storage.persist().catch(console.error);
     }
 
-    setSearchQuery({ text, forceUpdateCache: false });
+    setSearchQuery({ text, clearCache: false });
 
     resetErrorBoundaries();
   };
@@ -160,12 +180,14 @@ export function App(props: { lang: string }) {
 
     reset();
 
-    setSearchQuery({ text: oldQuery.text, forceUpdateCache: true });
+    setSearchQuery({ text: oldQuery.text, clearCache: true });
   };
 
   const reset = () => {
     mutateDomain();
+    mutateEDomain();
     mutateBlacklistData();
+    mutatePlatformData();
     mutateWhoisData();
     mutateCertificateData();
     mutateDnssecData();
@@ -195,11 +217,16 @@ export function App(props: { lang: string }) {
 
         <div class="bg-container ring-border rounded-lg p-4 ring-1">
           <div class="flex flex-col">
-            <HeaderDomain lang={props.lang} value={domain()} />
+            <HeaderDomain lang={props.lang} value={eDomain()} />
 
             <AlertBannerBlacklist
               lang={props.lang}
               blocked={blacklistData()?.blocked}
+            />
+
+            <AlertBannerPlatform
+              lang={props.lang}
+              platforms={platformData()?.platforms}
             />
 
             <AlertBannerCertificate

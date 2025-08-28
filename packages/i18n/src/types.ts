@@ -37,6 +37,7 @@ export type Translated =
   | "Information provided"
   | "Information without verification"
   | "Known to be malicious"
+  | "Known to provide disposable email"
   | "Legal"
   | "Legal mention"
   | "Legitimacy formally verified"
