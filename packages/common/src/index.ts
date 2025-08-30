@@ -50,8 +50,8 @@ export async function get_certificate_data(eDomain: string) {
   return await certificate.get_data(eDomain);
 }
 
-export async function get_dnssec_data(eDomain: string, cors?: boolean) {
-  return await dnssec.get_data(eDomain, cors);
+export async function get_dnssec_data(domain: string, cors?: boolean) {
+  return await dnssec.get_data(domain, cors);
 }
 
 export async function update_cache(cache: InformationCache) {
