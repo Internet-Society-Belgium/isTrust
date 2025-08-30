@@ -5,6 +5,7 @@ import {
   AlertBannerCertificate,
   AlertBannerPlatform,
   AlertRegistration,
+  AlertWhoisProxy,
 } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
@@ -238,7 +239,11 @@ export function App(props: { lang: string }) {
                 >
                   {(individual, index) => (
                     <ListAdditionalItem index={index}>
-                      {individual.value}
+                      <WhoisProxy
+                        lang={props.lang}
+                        name={individual.value}
+                        domain={domain()?.effective}
+                      />
                     </ListAdditionalItem>
                   )}
                 </SectionItem>
@@ -258,7 +263,11 @@ export function App(props: { lang: string }) {
                 >
                   {(organization, index) => (
                     <ListAdditionalItem index={index}>
-                      {organization.value}
+                      <WhoisProxy
+                        lang={props.lang}
+                        name={organization.value}
+                        domain={domain()?.effective}
+                      />
                     </ListAdditionalItem>
                   )}
                 </SectionItem>
@@ -454,5 +463,17 @@ export function App(props: { lang: string }) {
         </div>
       </ErrorBoundary>
     </div>
+  );
+}
+
+function WhoisProxy(props: { lang: string; name: string; domain?: string }) {
+  const [proxy] = createResource(async () => {
+    return await common.is_whois_proxy(props.name, cache, props.domain);
+  });
+
+  return (
+    <AlertWhoisProxy lang={props.lang} proxy={proxy()}>
+      {props.name}
+    </AlertWhoisProxy>
   );
 }

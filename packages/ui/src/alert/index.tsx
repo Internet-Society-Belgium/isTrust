@@ -15,7 +15,6 @@ export function AlertBannerBlacklist(props: {
           <Show when={blocked().value}>
             <AlertBanner type="bad">
               {i18n("Known to be malicious", props.lang)}
-
               <Source lang={props.lang} information={blocked()} type="bad" />
             </AlertBanner>
           </Show>
@@ -199,6 +198,26 @@ function AlertBanner(props: {
         </Match>
       </Switch>
     </div>
+  );
+}
+
+export function AlertWhoisProxy(props: {
+  lang: string;
+  proxy?: boolean;
+  children: JSX.Element;
+}) {
+  return (
+    <Switch>
+      <Match when={props.proxy === true}>
+        <div
+          class="text-warning"
+          title={i18n("Used to mask the real owner", props.lang)}
+        >
+          {props.children}
+        </div>
+      </Match>
+      <Match when={true}>{props.children}</Match>
+    </Switch>
   );
 }
 

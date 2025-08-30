@@ -8,6 +8,7 @@ import {
   AlertFirstVisit,
   AlertRegistration,
   AlertVisitFrequency,
+  AlertWhoisProxy,
 } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
@@ -230,7 +231,11 @@ export function App() {
                 >
                   {(individual, index) => (
                     <ListAdditionalItem index={index}>
-                      {individual.value}
+                      <WhoisProxy
+                        lang={lang()}
+                        name={individual.value}
+                        domain={domain()?.effective}
+                      />
                     </ListAdditionalItem>
                   )}
                 </SectionItem>
@@ -251,7 +256,11 @@ export function App() {
                 >
                   {(organization, index) => (
                     <ListAdditionalItem index={index}>
-                      {organization.value}
+                      <WhoisProxy
+                        lang={lang()}
+                        name={organization.value}
+                        domain={domain()?.effective}
+                      />
                     </ListAdditionalItem>
                   )}
                 </SectionItem>
@@ -610,5 +619,20 @@ export function App() {
         </div>
       </div>
     </div>
+  );
+}
+
+function WhoisProxy(props: { lang: string; name: string; domain?: string }) {
+  const [proxy] = createResource(async () => {
+    return await messenger.sendMessage("is_whois_proxy", {
+      organization: props.name,
+      domain: props.domain,
+    });
+  });
+
+  return (
+    <AlertWhoisProxy lang={props.lang} proxy={proxy()}>
+      {props.name}
+    </AlertWhoisProxy>
   );
 }

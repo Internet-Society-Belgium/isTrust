@@ -14,6 +14,7 @@ import {
 import { parse_domain } from "./utils/domain";
 import { ErrorType } from "./utils/error";
 import * as whois from "./whois";
+import * as whois_proxy from "./whois_proxy";
 import * as rdap from "./whois/rdap";
 
 export type { Information, InformationCache, ErrorType, Platform };
@@ -54,11 +55,20 @@ export async function get_dnssec_data(domain: string, cors?: boolean) {
   return await dnssec.get_data(domain, cors);
 }
 
+export async function is_whois_proxy(
+  organization: string,
+  cache: InformationCache,
+  eDomain?: string,
+) {
+  return await whois_proxy.is_proxy(organization, cache, eDomain);
+}
+
 export async function update_cache(cache: InformationCache) {
   await Promise.allSettled([
     disposableEmail.update(cache),
     urlShortener.update(cache),
     psl.update(cache),
     rdap.update(cache),
+    whois_proxy.update(cache),
   ]);
 }

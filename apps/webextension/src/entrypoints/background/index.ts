@@ -81,4 +81,11 @@ function onMessage() {
   messenger.onMessage("get_history_data", async ({ data: { domain } }) => {
     return await history.get_history_data(domain);
   });
+
+  messenger.onMessage(
+    "is_whois_proxy",
+    async ({ data: { organization, domain } }) => {
+      return await common.is_whois_proxy(organization, cache, domain);
+    },
+  );
 }

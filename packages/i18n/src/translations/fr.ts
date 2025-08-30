@@ -89,6 +89,8 @@ export const fr: Translations = {
   Trailer: "Bande-annonce",
   "Try it": "Essayez-le",
   "Unexpected error": "Erreur inattendue",
+  "Used to mask the real owner":
+    "Utilisé pour masquer le véritable propriétaire",
   "Verify the trustworthiness": "Vérifiez la fiabilité",
   "Verify the trustworthiness of any website":
     "Vérifiez la fiabilité de n'importe quel site web",

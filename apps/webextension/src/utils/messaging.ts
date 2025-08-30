@@ -25,6 +25,10 @@ interface ProtocolMap {
   get_history_data(data: {
     domain: string;
   }): Awaited<ReturnType<typeof history.get_history_data>>;
+  is_whois_proxy(data: {
+    organization: string;
+    domain?: string;
+  }): Awaited<ReturnType<typeof common.is_whois_proxy>>;
 }
 
 export const messenger = defineExtensionMessaging<ProtocolMap>();
