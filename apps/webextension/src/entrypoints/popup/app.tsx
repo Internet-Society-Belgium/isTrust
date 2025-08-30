@@ -4,6 +4,7 @@ import i18n from "@istrust/i18n";
 import {
   AlertBannerBlacklist,
   AlertBannerCertificate,
+  AlertBannerPlatform,
   AlertFirstVisit,
   AlertRegistration,
   AlertVisitFrequency,
@@ -112,7 +113,7 @@ export function App() {
   });
 
   const [domain] = createResource(searchQuery, async (query) => {
-    return await messenger.sendMessage("get_effective_domain", {
+    return await messenger.sendMessage("get_domain", {
       query,
     });
   });
@@ -121,7 +122,15 @@ export function App() {
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await messenger.sendMessage("get_blacklist_data", {
-        domain,
+        domain: domain.full,
+      });
+    },
+  );
+  const [platformData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await messenger.sendMessage("get_platform_data", {
+        domain: domain.full,
       });
     },
   );
@@ -130,16 +139,7 @@ export function App() {
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await messenger.sendMessage("get_whois_data", {
-        domain,
-      });
-    },
-  );
-
-  const [dnssecData] = createResource(
-    () => (domain.state === "ready" ? domain() : undefined),
-    async (domain) => {
-      return await messenger.sendMessage("get_dnssec_data", {
-        domain,
+        domain: domain.effective,
       });
     },
   );
@@ -148,7 +148,16 @@ export function App() {
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await messenger.sendMessage("get_certificate_data", {
-        domain,
+        domain: domain.effective,
+      });
+    },
+  );
+
+  const [dnssecData] = createResource(
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await messenger.sendMessage("get_dnssec_data", {
+        domain: domain.full,
       });
     },
   );
@@ -157,7 +166,7 @@ export function App() {
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
       return await messenger.sendMessage("get_history_data", {
-        domain,
+        domain: domain.effective,
       });
     },
   );
@@ -186,11 +195,16 @@ export function App() {
               <Issue base={base} lang={lang()} error={error} />
             )}
           >
-            <HeaderDomain base={base} lang={lang()} value={domain()} />
+            <HeaderDomain base={base} lang={lang()} domain={domain()} />
 
             <AlertBannerBlacklist
               lang={lang()}
               blocked={blacklistData()?.blocked}
+            />
+
+            <AlertBannerPlatform
+              lang={lang()}
+              platforms={platformData()?.platforms}
             />
 
             <AlertBannerCertificate
@@ -527,6 +541,17 @@ export function App() {
                   <details>
                     <summary>blacklist raw data</summary>
                     <Show when={blacklistData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+
+                  <details>
+                    <summary>platform raw data</summary>
+                    <Show when={platformData()}>
                       {(data) => (
                         <pre class="overflow-scroll">
                           {JSON.stringify(data(), undefined, 2)}

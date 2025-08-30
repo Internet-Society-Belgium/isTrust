@@ -405,6 +405,17 @@ export function App(props: { lang: string }) {
                   </details>
 
                   <details>
+                    <summary>platform raw data</summary>
+                    <Show when={platformData()}>
+                      {(data) => (
+                        <pre class="overflow-scroll">
+                          {JSON.stringify(data(), undefined, 2)}
+                        </pre>
+                      )}
+                    </Show>
+                  </details>
+
+                  <details>
                     <summary>WHOIS raw data</summary>
                     <Show when={whoisData()}>
                       {(data) => (

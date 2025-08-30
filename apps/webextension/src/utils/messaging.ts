@@ -4,12 +4,15 @@ import * as common from "@istrust/common";
 import { defineExtensionMessaging } from "@webext-core/messaging";
 
 interface ProtocolMap {
-  get_effective_domain(data: {
+  get_domain(data: {
     query: string;
-  }): Awaited<ReturnType<typeof common.get_effective_domain>>;
+  }): Awaited<ReturnType<typeof common.get_domain>>;
   get_blacklist_data(data: {
     domain: string;
   }): Awaited<ReturnType<typeof common.get_blacklist_data>>;
+  get_platform_data(data: {
+    domain: string;
+  }): Awaited<ReturnType<typeof common.get_platform_data>>;
   get_whois_data(data: {
     domain: string;
   }): Awaited<ReturnType<typeof common.get_whois_data>>;
