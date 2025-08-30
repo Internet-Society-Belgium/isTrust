@@ -15,16 +15,16 @@ const cache: InformationCache = {
 };
 
 test("isoc.org: Domains by Proxy, LLC", async () => {
-  const proxy = await is_proxy("isoc.org", "Domains by Proxy, LLC", cache);
+  const proxy = await is_proxy("Domains by Proxy, LLC", cache, "isoc.org");
 
   expect(proxy).toStrictEqual(true);
 });
 
 test("www.domainsbyproxy.com: Domains by Proxy, LLC", async () => {
   const proxy = await is_proxy(
-    "www.domainsbyproxy.com",
     "Domains by Proxy, LLC",
     cache,
+    "www.domainsbyproxy.com",
   );
 
   expect(proxy).toStrictEqual(false);
