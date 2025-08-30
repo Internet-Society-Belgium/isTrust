@@ -14,7 +14,6 @@ test("istrust.org", async () => {
         },
       ],
       value: false,
-      verified: true,
     },
   } satisfies typeof data);
 });

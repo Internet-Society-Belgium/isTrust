@@ -41,7 +41,6 @@ export async function get_data(domain: string) {
       {
         value: new Date(registrationDate).toISOString(),
         sources,
-        verified: true,
       },
     ];
 

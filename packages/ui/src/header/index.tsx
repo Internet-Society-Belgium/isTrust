@@ -18,7 +18,10 @@ export function HeaderLogo() {
 export function HeaderDomain(props: {
   base?: string;
   lang: string;
-  value?: string;
+  domain?: {
+    full: string;
+    effective: string;
+  };
 }) {
   return (
     <div class="mb-2 flex items-center justify-center text-xl">
@@ -38,14 +41,26 @@ export function HeaderDomain(props: {
           }
         >
           <Show
-            when={props.value}
+            when={props.domain}
             fallback={
               <p class="text-muted">{i18n("Domain name", props.lang)}</p>
             }
           >
-            {(value) => (
+            {(domain) => (
               <Overflow direction="rtl">
-                <h1>{value()}</h1>
+                <h1>
+                  <Show
+                    when={domain().full.replace(
+                      new RegExp(`${domain().effective}$`),
+                      "",
+                    )}
+                  >
+                    {(subdomain) => (
+                      <span class="text-muted/50">{subdomain()}</span>
+                    )}
+                  </Show>
+                  <span>{domain().effective}</span>
+                </h1>
               </Overflow>
             )}
           </Show>

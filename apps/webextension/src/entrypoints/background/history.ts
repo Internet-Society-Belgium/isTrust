@@ -80,7 +80,6 @@ export async function get_history_data(domain: string) {
     visits: {
       value: visitsSorted,
       sources,
-      verified: true,
     },
   };
 

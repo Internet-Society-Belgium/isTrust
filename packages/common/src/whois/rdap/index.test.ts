@@ -3,26 +3,14 @@ import { get_data } from ".";
 import { InformationCache } from "../../type";
 
 /* eslint-disable @typescript-eslint/require-await */
-let storePsl: Record<string, string> = {};
-let storeRdap: Record<string, string> = {};
+let store: Record<string, string> = {};
 const cache: InformationCache = {
-  psl: {
-    set: async (key: string, value: string) => {
-      storePsl[key] = value;
-    },
-    get: async (key: string) => storePsl[key],
-    clear: async () => {
-      storePsl = {};
-    },
+  set: async (key: string, value: string) => {
+    store[key] = value;
   },
-  rdap: {
-    set: async (key: string, value: string) => {
-      storeRdap[key] = value;
-    },
-    get: async (key: string) => storeRdap[key],
-    clear: async () => {
-      storeRdap = {};
-    },
+  get: async (key: string) => store[key],
+  clear: async () => {
+    store = {};
   },
 };
 
@@ -75,7 +63,6 @@ test("istrust.org", async () => {
             organization: "Gandi SAS",
           },
         ],
-        verified: true,
       },
     ],
   } satisfies typeof data);
@@ -134,7 +121,6 @@ test("github.com", async () => {
           },
         ],
         value: "2007-10-09T00:00:00.000Z",
-        verified: true,
       },
     ],
   } satisfies typeof data);

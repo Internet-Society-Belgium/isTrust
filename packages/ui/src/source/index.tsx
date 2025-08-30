@@ -12,95 +12,98 @@ import {
 import { List } from "../list";
 import { Popover } from "../popover";
 
-export function SourceInfo(props: {
+export function Source(props: {
   information: common.Information<unknown>;
   lang: string;
-  type?: "good" | "bad";
+  type?: "good" | "warning" | "bad";
 }) {
   return (
-    <Show when={props.information.sources.length > 0}>
-      <Popover
-        trigger={<IconInfo />}
-        triggerClass={
-          props.type === "good"
-            ? "hover:bg-good/10"
-            : props.type === "bad"
-              ? "hover:bg-bad/10"
-              : "hover:bg-container-darker"
-        }
-      >
-        <Show when={props.information.sources}>
-          {(sources) => (
-            <>
-              <span>{i18n("Information provided", props.lang)}</span>
+    <Switch>
+      <Match when={props.information.verified !== undefined}>
+        <Popover
+          trigger={
+            <Switch>
+              <Match when={props.information.verified === true}>
+                <IconBadgeCheck />
+              </Match>
+              <Match when={props.information.verified === false}>
+                <IconBadgeQuestion />
+              </Match>
+            </Switch>
+          }
+          triggerClass={
+            props.type === "good"
+              ? "hover:bg-good/10"
+              : props.type === "warning"
+                ? "hover:bg-warning/10"
+                : props.type === "bad"
+                  ? "hover:bg-bad/10"
+                  : "hover:bg-container-darker"
+          }
+        >
+          <Switch>
+            <Match when={props.information.verified === false}>
               <div class="flex items-center gap-1">
-                <span>{i18n("by", props.lang)}</span>
-                <Sources lang={props.lang} sources={sources()} />
+                <IconAlert />{" "}
+                {i18n("Information without verification", props.lang)}
               </div>
-            </>
-          )}
-        </Show>
-      </Popover>
-    </Show>
-  );
-}
+              <Show when={props.information.sources.length > 0}>
+                <Show when={props.information.sources}>
+                  {(sources) => (
+                    <div class="flex items-center gap-1">
+                      <span>{i18n("by", props.lang)}</span>
+                      <Sources lang={props.lang} sources={sources()} />
+                    </div>
+                  )}
+                </Show>
+              </Show>
+            </Match>
+            <Match when={props.information.verified}>
+              {i18n("Information have been verified", props.lang)}
+              <Show when={props.information.sources.length > 0}>
+                <Show when={props.information.sources}>
+                  {(sources) => (
+                    <div class="flex items-center gap-1">
+                      <span>{i18n("by", props.lang)}</span>
+                      <Sources lang={props.lang} sources={sources()} />
+                    </div>
+                  )}
+                </Show>
+              </Show>
+            </Match>
+          </Switch>
+        </Popover>
+      </Match>
 
-export function SourceVerification(props: {
-  information: common.Information<unknown>;
-  lang: string;
-  type?: "good" | "bad";
-}) {
-  return (
-    <Popover
-      trigger={
-        <Switch>
-          <Match when={props.information.verified}>
-            <IconBadgeCheck />
-          </Match>
-          <Match when={!props.information.verified}>
-            <IconBadgeQuestion />
-          </Match>
-        </Switch>
-      }
-      triggerClass={
-        props.type === "good"
-          ? "hover:bg-good/10"
-          : props.type === "bad"
-            ? "hover:bg-bad/10"
-            : "hover:bg-container-darker"
-      }
-    >
-      <Switch>
-        <Match when={!props.information.verified}>
-          <div class="flex items-center gap-1">
-            <IconAlert /> {i18n("Information without verification", props.lang)}
-          </div>
-          <Show when={props.information.sources.length > 0}>
+      <Match when={true}>
+        <Show when={props.information.sources.length > 0}>
+          <Popover
+            trigger={<IconInfo />}
+            triggerClass={
+              props.type === "good"
+                ? "hover:bg-good/10"
+                : props.type === "warning"
+                  ? "hover:bg-warning/10"
+                  : props.type === "bad"
+                    ? "hover:bg-bad/10"
+                    : "hover:bg-container-darker"
+            }
+          >
             <Show when={props.information.sources}>
               {(sources) => (
-                <div class="flex items-center gap-1">
-                  <span>{i18n("by", props.lang)}</span>
-                  <Sources lang={props.lang} sources={sources()} />
-                </div>
+                <>
+                  <span>{i18n("Information provided", props.lang)}</span>
+                  <div class="flex items-center gap-1">
+                    <span>{i18n("by", props.lang)}</span>
+                    <Sources lang={props.lang} sources={sources()} />
+                  </div>
+                </>
               )}
             </Show>
-          </Show>
-        </Match>
-        <Match when={props.information.verified}>
-          {i18n("Information have been verified", props.lang)}
-          <Show when={props.information.sources.length > 0}>
-            <Show when={props.information.sources}>
-              {(sources) => (
-                <div class="flex items-center gap-1">
-                  <span>{i18n("by", props.lang)}</span>
-                  <Sources lang={props.lang} sources={sources()} />
-                </div>
-              )}
-            </Show>
-          </Show>
-        </Match>
-      </Switch>
-    </Popover>
+          </Popover>
+        </Show>
+      </Match>
+    </Switch>
   );
 }
 

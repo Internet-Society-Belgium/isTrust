@@ -7,7 +7,7 @@ export interface Source {
 export interface Information<T> {
   value: T;
   sources: Source[];
-  verified: boolean;
+  verified?: boolean;
 }
 
 export function merge_informations<T>(
@@ -41,11 +41,11 @@ export function improve_informations<T>(
     return informations;
   }
 
-  if (match.verified && !information.verified) {
+  if (match.verified === true && information.verified === false) {
     return informations;
   }
 
-  if (!match.verified && information.verified) {
+  if (match.verified === false && information.verified === true) {
     match.verified = true;
     match.sources = information.sources;
     return informations;
@@ -135,14 +135,7 @@ function normalize(value: unknown) {
 }
 
 export interface InformationCache {
-  psl: {
-    set(key: string, value: string): Promise<void>;
-    get(key: string): Promise<string | undefined>;
-    clear(): Promise<void>;
-  };
-  rdap: {
-    set(key: string, value: string): Promise<void>;
-    get(key: string): Promise<string | undefined>;
-    clear(): Promise<void>;
-  };
+  set(key: string, value: string): Promise<void>;
+  get(key: string): Promise<string | undefined>;
+  clear(prefix: string): Promise<void>;
 }
