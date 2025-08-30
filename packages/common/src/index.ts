@@ -20,8 +20,15 @@ export type { Information, InformationCache, ErrorType, Platform };
 
 export { merge_informations };
 
-export function get_domain(query: string) {
-  return parse_domain(query);
+export async function get_domain(query: string, cache: InformationCache) {
+  const full = parse_domain(query);
+
+  const effective = await psl.get_effective_domain(full, cache);
+
+  return {
+    full,
+    effective,
+  };
 }
 
 export async function get_blacklist_data(domain: string) {
@@ -33,13 +40,6 @@ export async function get_platform_data(
   cache: InformationCache,
 ) {
   return await platform.get_data(domain, cache);
-}
-
-export async function get_effective_domain(
-  domain: string,
-  cache: InformationCache,
-) {
-  return await psl.get_effective_domain(domain, cache);
 }
 
 export async function get_whois_data(eDomain: string, cache: InformationCache) {

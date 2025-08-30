@@ -41,7 +41,8 @@ export const fr: Translations = {
   "Information without verification": "Information sans vérification",
   "Known to be malicious": "Connu pour être malveillant",
   "Known to provide disposable email": "Connu pour fournir des e-mail jetables",
-  "Known to shorten URL": "Connu pour reduire les URL",
+  "Known to redirect to another domain":
+    "Connu pour rediriger vers un autre domaine",
   Legal: "Légal",
   "Legal mention": "Mentions légales",
   "Legitimacy formally verified": "Légitimité formellement vérifiée",

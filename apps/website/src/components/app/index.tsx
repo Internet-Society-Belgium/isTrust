@@ -98,13 +98,13 @@ export function App(props: { lang: string }) {
 
   const [domain, { mutate: mutateDomain }] = createResource(
     searchQuery,
-    (query) => {
+    async (query) => {
       if (query.clearCache) {
         localStorage.clear();
       }
 
       try {
-        return common.get_domain(query.text);
+        return await common.get_domain(query.text, cache);
       } catch (error) {
         reset();
         throw error;
@@ -115,47 +115,35 @@ export function App(props: { lang: string }) {
   const [blacklistData, { mutate: mutateBlacklistData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_blacklist_data(domain);
+      return await common.get_blacklist_data(domain.full);
     },
   );
 
   const [platformData, { mutate: mutatePlatformData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_platform_data(domain, cache);
-    },
-  );
-
-  const [eDomain, { mutate: mutateEDomain }] = createResource(
-    domain,
-    async (domain) => {
-      try {
-        return await common.get_effective_domain(domain, cache);
-      } catch (error) {
-        reset();
-        throw error;
-      }
+      return await common.get_platform_data(domain.full, cache);
     },
   );
 
   const [whoisData, { mutate: mutateWhoisData }] = createResource(
-    () => (eDomain.state === "ready" ? eDomain() : undefined),
-    async (eDomain) => {
-      return await common.get_whois_data(eDomain, cache);
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await common.get_whois_data(domain.effective, cache);
     },
   );
 
   const [certificateData, { mutate: mutateCertificateData }] = createResource(
-    () => (eDomain.state === "ready" ? eDomain() : undefined),
-    async (eDomain) => {
-      return await common.get_certificate_data(eDomain);
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await common.get_certificate_data(domain.effective);
     },
   );
 
   const [dnssecData, { mutate: mutateDnssecData }] = createResource(
-    () => (eDomain.state === "ready" ? eDomain() : undefined),
-    async (eDomain) => {
-      return await common.get_dnssec_data(eDomain);
+    () => (domain.state === "ready" ? domain() : undefined),
+    async (domain) => {
+      return await common.get_dnssec_data(domain.effective);
     },
   );
 
@@ -185,7 +173,6 @@ export function App(props: { lang: string }) {
 
   const reset = () => {
     mutateDomain();
-    mutateEDomain();
     mutateBlacklistData();
     mutatePlatformData();
     mutateWhoisData();
@@ -217,7 +204,7 @@ export function App(props: { lang: string }) {
 
         <div class="bg-container ring-border rounded-lg p-4 ring-1">
           <div class="flex flex-col">
-            <HeaderDomain lang={props.lang} value={eDomain()} />
+            <HeaderDomain lang={props.lang} domain={domain()} />
 
             <AlertBannerBlacklist
               lang={props.lang}

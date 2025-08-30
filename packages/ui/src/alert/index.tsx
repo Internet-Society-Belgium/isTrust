@@ -64,7 +64,7 @@ export function AlertBannerPlatform(props: {
               {(urlShortenerPlatforms) => (
                 <Show when={urlShortenerPlatforms().length > 0}>
                   <AlertBanner type="warning">
-                    {i18n("Known to shorten URL", props.lang)}
+                    {i18n("Known to redirect to another domain", props.lang)}
                     <For each={urlShortenerPlatforms()}>
                       {(urlShortenerPlatform) => (
                         <Source
