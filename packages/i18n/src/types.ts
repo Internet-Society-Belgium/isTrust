@@ -81,6 +81,7 @@ export type Translated =
   | "Trailer"
   | "Try it"
   | "Unexpected error"
+  | "Used to mask the real owner"
   | "Verify the trustworthiness"
   | "Verify the trustworthiness of any website"
   | "View document"
