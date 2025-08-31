@@ -175,7 +175,9 @@ export function App() {
   return (
     <div
       class={
-        mode() === "detached" || import.meta.env.BROWSER === "firefox-android"
+        mode() === "detached" ||
+        import.meta.env.BROWSER === "firefox-android" ||
+        import.meta.env.BROWSER === "safari-ios"
           ? "bg-background flex min-h-screen flex-col items-center justify-center gap-4"
           : undefined
       }
@@ -188,7 +190,7 @@ export function App() {
       )}
 
       <div
-        class={`${mode() === "detached" || import.meta.env.BROWSER === "firefox-android" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container xs:w-sm flex w-xs flex-col p-4`}
+        class={`${mode() === "detached" || import.meta.env.BROWSER === "firefox-android" || import.meta.env.BROWSER === "safari-ios" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container xs:w-sm flex w-xs flex-col p-4`}
       >
         <div class="relative flex flex-col">
           <ErrorBoundary
@@ -375,7 +377,12 @@ export function App() {
               </Section>
 
               <Switch>
-                <Match when={import.meta.env.BROWSER === "safari"}>
+                <Match
+                  when={
+                    import.meta.env.BROWSER === "safari-macos" ||
+                    import.meta.env.BROWSER === "safari-ios"
+                  }
+                >
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
