@@ -43,20 +43,13 @@ project = project.replaceAll(
   "PRODUCT_BUNDLE_IDENTIFIER = be.isoc.isTrust.Extension;",
   "PRODUCT_BUNDLE_IDENTIFIER = be.isoc.istrust.extension;",
 );
+project = project.replaceAll(
+  "INFOPLIST_KEY_CFBundleDisplayName = isTrust;",
+  'INFOPLIST_KEY_CFBundleDisplayName = isTrust;\nINFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";',
+);
 writeFile(projectPath, project);
 
 if (macos) {
-  const projectPath = join(
-    xcodePath,
-    "isTrust/isTrust.xcodeproj/project.pbxproj",
-  );
-  let project = await readFile(projectPath, { encoding: "utf-8" });
-  project = project.replaceAll(
-    "INFOPLIST_KEY_CFBundleDisplayName = isTrust;",
-    'INFOPLIST_KEY_CFBundleDisplayName = isTrust;\nINFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";',
-  );
-  writeFile(projectPath, project);
-
   const viewControllerPath = join(
     xcodePath,
     "isTrust/isTrust/ViewController.swift",
