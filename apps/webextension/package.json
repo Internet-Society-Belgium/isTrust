@@ -23,7 +23,6 @@
     "@istrust/common": "*",
     "@istrust/i18n": "*",
     "@istrust/ui": "*",
-    "@webext-core/messaging": "^2.2.0",
     "solid-js": "^1.9.3"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-import { messenger } from "@/utils/messaging";
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
 import {
@@ -44,6 +43,7 @@ import {
   Suspense,
   Switch,
 } from "solid-js";
+import * as history from "./history";
 
 async function get_tab() {
   const tabs = await browser.tabs.query({
@@ -64,6 +64,39 @@ export async function get_active_tab() {
 
   return tab;
 }
+
+const cache: common.InformationCache = {
+  set: async (key: string, value: string) => {
+    return new Promise<void>((resolve) => {
+      localStorage.setItem(key, value);
+      resolve();
+    });
+  },
+  get: async (key: string) => {
+    return new Promise<string | undefined>((resolve) => {
+      const item = localStorage.getItem(key);
+      if (item === null) {
+        resolve(undefined);
+      } else {
+        resolve(item);
+      }
+    });
+  },
+  clear: async (prefix: string) => {
+    return new Promise<void>((resolve) => {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key === null) continue;
+
+        if (key.startsWith(prefix)) {
+          localStorage.removeItem(key);
+        }
+      }
+
+      resolve();
+    });
+  },
+};
 
 export function App() {
   const [searchQuery, setSearchQuery] = createSignal<string>();
@@ -114,61 +147,48 @@ export function App() {
   });
 
   const [domain] = createResource(searchQuery, async (query) => {
-    return await messenger.sendMessage("get_domain", {
-      query,
-    });
+    return await common.get_domain(query, cache);
   });
 
   const [blacklistData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await messenger.sendMessage("get_blacklist_data", {
-        domain: domain.full,
-      });
+      return await common.get_blacklist_data(domain.full);
     },
   );
+
   const [platformData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await messenger.sendMessage("get_platform_data", {
-        domain: domain.full,
-      });
+      return await common.get_platform_data(domain.full, cache);
     },
   );
 
   const [whoisData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await messenger.sendMessage("get_whois_data", {
-        domain: domain.effective,
-      });
+      return await common.get_whois_data(domain.effective, cache);
     },
   );
 
   const [certificateData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await messenger.sendMessage("get_certificate_data", {
-        domain: domain.effective,
-      });
+      return await common.get_certificate_data(domain.effective);
     },
   );
 
   const [dnssecData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await messenger.sendMessage("get_dnssec_data", {
-        domain: domain.full,
-      });
+      return await common.get_dnssec_data(domain.full);
     },
   );
 
   const [historyData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await messenger.sendMessage("get_history_data", {
-        domain: domain.effective,
-      });
+      return await history.get_history_data(domain.effective);
     },
   );
 
@@ -631,10 +651,7 @@ export function App() {
 
 function WhoisProxy(props: { lang: string; name: string; domain?: string }) {
   const [proxy] = createResource(async () => {
-    return await messenger.sendMessage("is_whois_proxy", {
-      organization: props.name,
-      domain: props.domain,
-    });
+    return await common.is_whois_proxy(props.name, cache, props.domain);
   });
 
   return (

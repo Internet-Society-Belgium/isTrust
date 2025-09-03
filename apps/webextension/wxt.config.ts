@@ -25,8 +25,8 @@ export default defineConfig({
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions
     permissions:
       browser === "firefox-android" || browser === "safari-ios"
-        ? ["activeTab", "storage"]
-        : ["activeTab", "storage", "contextMenus"],
+        ? ["activeTab"]
+        : ["activeTab", "contextMenus"],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions
     optional_permissions:
       browser === "safari-macos" ||
