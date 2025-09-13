@@ -1,27 +1,16 @@
-import { messenger } from "@/utils/messaging";
-import * as common from "@istrust/common";
 import { browser, defineBackground } from "#imports";
-import { cache } from "./cache";
-import * as history from "./history";
 
 export default defineBackground({
   persistent: false,
   main() {
-    onInstalled();
-
-    if (import.meta.env.BROWSER !== "firefox-android") {
+    if (
+      import.meta.env.BROWSER !== "firefox-android" &&
+      import.meta.env.BROWSER !== "safari-ios"
+    ) {
       contextMenus();
     }
-
-    onMessage();
   },
 });
-
-function onInstalled() {
-  browser.runtime.onInstalled.addListener(() => {
-    common.update_cache(cache).catch(console.error);
-  });
-}
 
 function contextMenus() {
   browser.contextMenus.create({
@@ -51,41 +40,4 @@ function contextMenus() {
       })
       .catch(console.error);
   });
-}
-
-function onMessage() {
-  messenger.onMessage("get_domain", async ({ data: { query } }) => {
-    return await common.get_domain(query, cache);
-  });
-
-  messenger.onMessage("get_blacklist_data", async ({ data: { domain } }) => {
-    return await common.get_blacklist_data(domain);
-  });
-
-  messenger.onMessage("get_platform_data", async ({ data: { domain } }) => {
-    return await common.get_platform_data(domain, cache);
-  });
-
-  messenger.onMessage("get_whois_data", async ({ data: { domain } }) => {
-    return await common.get_whois_data(domain, cache);
-  });
-
-  messenger.onMessage("get_certificate_data", async ({ data: { domain } }) => {
-    return await common.get_certificate_data(domain);
-  });
-
-  messenger.onMessage("get_dnssec_data", async ({ data: { domain } }) => {
-    return await common.get_dnssec_data(domain, true);
-  });
-
-  messenger.onMessage("get_history_data", async ({ data: { domain } }) => {
-    return await history.get_history_data(domain);
-  });
-
-  messenger.onMessage(
-    "is_whois_proxy",
-    async ({ data: { organization, domain } }) => {
-      return await common.is_whois_proxy(organization, cache, domain);
-    },
-  );
 }

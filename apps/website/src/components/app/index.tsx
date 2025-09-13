@@ -5,6 +5,7 @@ import {
   AlertBannerCertificate,
   AlertBannerPlatform,
   AlertRegistration,
+  AlertWhoisPrivacyOrganization,
   AlertWhoisProxy,
 } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
@@ -263,7 +264,7 @@ export function App(props: { lang: string }) {
                 >
                   {(organization, index) => (
                     <ListAdditionalItem index={index}>
-                      <WhoisProxy
+                      <WhoisPrivacyProxy
                         lang={props.lang}
                         name={organization.value}
                         domain={domain()?.effective}
@@ -472,8 +473,39 @@ function WhoisProxy(props: { lang: string; name: string; domain?: string }) {
   });
 
   return (
-    <AlertWhoisProxy lang={props.lang} proxy={proxy()}>
-      {props.name}
-    </AlertWhoisProxy>
+    <Switch>
+      <Match when={proxy()}>
+        <AlertWhoisProxy lang={props.lang}>{props.name}</AlertWhoisProxy>
+      </Match>
+      <Match when={true}>{props.name}</Match>
+    </Switch>
+  );
+}
+
+function WhoisPrivacyProxy(props: {
+  lang: string;
+  name: string;
+  domain?: string;
+}) {
+  const [privacy] = createResource(async () => {
+    return await common.is_whois_privacy(props.name);
+  });
+
+  const [proxy] = createResource(async () => {
+    return await common.is_whois_proxy(props.name, cache, props.domain);
+  });
+
+  return (
+    <Switch>
+      <Match when={privacy()}>
+        <AlertWhoisPrivacyOrganization lang={props.lang}>
+          {props.name}
+        </AlertWhoisPrivacyOrganization>
+      </Match>
+      <Match when={proxy()}>
+        <AlertWhoisProxy lang={props.lang}>{props.name}</AlertWhoisProxy>
+      </Match>
+      <Match when={true}>{props.name}</Match>
+    </Switch>
   );
 }

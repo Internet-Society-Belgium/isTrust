@@ -56,7 +56,10 @@ export async function get_history_data(domain: string) {
         links: [],
       },
     ];
-  } else if (import.meta.env.BROWSER === "safari") {
+  } else if (
+    import.meta.env.BROWSER === "safari-macos" ||
+    import.meta.env.BROWSER === "safari-ios"
+  ) {
     sources = [
       {
         organization: "Safari",

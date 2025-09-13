@@ -54,6 +54,7 @@ export type Translated =
   | "Only available in the extension"
   | "Open source"
   | "Organization name"
+  | "Organization name should always be public"
   | "Organization verified"
   | "Our postal address is:"
   | "Our tool is free to use without any charge"
