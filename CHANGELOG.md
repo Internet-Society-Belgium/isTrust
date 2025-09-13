@@ -1,6 +1,36 @@
 # Changelog
 
-## [4.0.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.0.0...4.0.1)
+## [4.1.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.0.1...4.1.0)
+
+### Merged
+
+- 199 safari ios [`#200`](https://github.com/Internet-Society-Belgium/isTrust/pull/200)
+- 197 whois privacy proxy [`#198`](https://github.com/Internet-Society-Belgium/isTrust/pull/198)
+- 195 platform [`#196`](https://github.com/Internet-Society-Belgium/isTrust/pull/196)
+- 192 safari macos [`#193`](https://github.com/Internet-Society-Belgium/isTrust/pull/193)
+- 190 blocklist [`#191`](https://github.com/Internet-Society-Belgium/isTrust/pull/191)
+- 188 popover overflow [`#189`](https://github.com/Internet-Society-Belgium/isTrust/pull/189)
+- 186 firefox android [`#187`](https://github.com/Internet-Society-Belgium/isTrust/pull/187)
+- 182 quad9 [`#183`](https://github.com/Internet-Society-Belgium/isTrust/pull/183)
+- 180 cors [`#181`](https://github.com/Internet-Society-Belgium/isTrust/pull/181)
+- 178 dnssec explanation [`#179`](https://github.com/Internet-Society-Belgium/isTrust/pull/179)
+- 174 warning [`#177`](https://github.com/Internet-Society-Belgium/isTrust/pull/177)
+- 175 optional permission [`#176`](https://github.com/Internet-Society-Belgium/isTrust/pull/176)
+- 171 loading animation [`#173`](https://github.com/Internet-Society-Belgium/isTrust/pull/173)
+- 168 pwa [`#170`](https://github.com/Internet-Society-Belgium/isTrust/pull/170)
+- 154 internationalization [`#169`](https://github.com/Internet-Society-Belgium/isTrust/pull/169)
+- 166 deploy website [`#167`](https://github.com/Internet-Society-Belgium/isTrust/pull/167)
+- 164 edge [`#165`](https://github.com/Internet-Society-Belgium/isTrust/pull/165)
+- 161 firefox [`#163`](https://github.com/Internet-Society-Belgium/isTrust/pull/163)
+- 160 chrome [`#162`](https://github.com/Internet-Society-Belgium/isTrust/pull/162)
+
+### Commits
+
+- build: update [`38bfcb6`](https://github.com/Internet-Society-Belgium/isTrust/commit/38bfcb6fa8e2afefc9469fd14789326bcf18bc79)
+- 184 extension storage speed (#185) [`c438b0a`](https://github.com/Internet-Society-Belgium/isTrust/commit/c438b0a23fa21483be632cabec6c30040d8f1a48)
+- ci(cd): inputs [`0353393`](https://github.com/Internet-Society-Belgium/isTrust/commit/035339342fe17556f65670d392ecac3a66c8da49)
+
+## [4.0.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.0.0...4.0.1) - 2025-08-15
 
 ### Merged
 
@@ -8,9 +38,9 @@
 
 ### Commits
 
+- chore: release v4.0.1 [`fbd2b31`](https://github.com/Internet-Society-Belgium/isTrust/commit/fbd2b316cca9fb7e7076302d54f5269c1d836a6e)
 - ci: cd permission [`7e2e488`](https://github.com/Internet-Society-Belgium/isTrust/commit/7e2e48891029f20d3aef6d3ad6e4a539c78d95c8)
 - build: fix bundle version [`4cc3085`](https://github.com/Internet-Society-Belgium/isTrust/commit/4cc3085d539e28c7de893ddb08d3cd99aba8e910)
-- Update ci.yml [`5d6736c`](https://github.com/Internet-Society-Belgium/isTrust/commit/5d6736c9bedeebdc8c302f44a1d8785bf24daea3)
 
 ## [4.0.0](https://github.com/Internet-Society-Belgium/isTrust/compare/3.9.1...4.0.0) - 2025-08-13
 

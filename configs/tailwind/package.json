@@ -1,6 +1,6 @@
 {
   "name": "@istrust/tailwind-config",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "exports": {
     ".": "./styles.css"
   }
