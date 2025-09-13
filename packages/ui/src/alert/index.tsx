@@ -201,23 +201,31 @@ function AlertBanner(props: {
   );
 }
 
-export function AlertWhoisProxy(props: {
+export function AlertWhoisPrivacyOrganization(props: {
   lang: string;
-  proxy?: boolean;
   children: JSX.Element;
 }) {
   return (
-    <Switch>
-      <Match when={props.proxy === true}>
-        <div
-          class="text-warning"
-          title={i18n("Used to mask the real owner", props.lang)}
-        >
-          {props.children}
-        </div>
-      </Match>
-      <Match when={true}>{props.children}</Match>
-    </Switch>
+    <div
+      class="text-warning"
+      title={i18n("Organization name should always be public", props.lang)}
+    >
+      {props.children}
+    </div>
+  );
+}
+
+export function AlertWhoisProxy(props: {
+  lang: string;
+  children: JSX.Element;
+}) {
+  return (
+    <div
+      class="text-warning"
+      title={i18n("Used to mask the real owner", props.lang)}
+    >
+      {props.children}
+    </div>
   );
 }
 

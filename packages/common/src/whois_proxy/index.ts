@@ -64,13 +64,13 @@ export async function update(cache: InformationCache) {
 }
 
 export async function is_proxy(
-  organization: string,
+  name: string,
   cache: InformationCache,
   domain?: string,
 ) {
   await update(cache);
 
-  const key = encode(organization);
+  const key = encode(name);
 
   const match = await cache.get(`${PREFIX}${key}`);
 

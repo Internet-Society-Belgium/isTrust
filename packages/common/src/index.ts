@@ -14,6 +14,7 @@ import {
 import { parse_domain } from "./utils/domain";
 import { ErrorType } from "./utils/error";
 import * as whois from "./whois";
+import * as whois_privacy from "./whois_privacy";
 import * as whois_proxy from "./whois_proxy";
 import * as rdap from "./whois/rdap";
 
@@ -55,12 +56,16 @@ export async function get_dnssec_data(domain: string, cors?: boolean) {
   return await dnssec.get_data(domain, cors);
 }
 
+export async function is_whois_privacy(name: string) {
+  return await whois_privacy.is_privacy(name);
+}
+
 export async function is_whois_proxy(
-  organization: string,
+  name: string,
   cache: InformationCache,
   eDomain?: string,
 ) {
-  return await whois_proxy.is_proxy(organization, cache, eDomain);
+  return await whois_proxy.is_proxy(name, cache, eDomain);
 }
 
 export async function update_cache(cache: InformationCache) {

@@ -59,6 +59,8 @@ export const fr: Translations = {
   "Only available in the extension": "Disponible uniquement dans l'extension",
   "Open source": "Open source",
   "Organization name": "Nom de l'organisation",
+  "Organization name should always be public":
+    "Le nom de l'organisation doit toujours être public",
   "Organization verified": "Organisation vérifiée",
   "Our postal address is:": "Notre adresse postale est :",
   "Our tool is free to use without any charge":
