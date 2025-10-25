@@ -1,6 +1,14 @@
 # Changelog
 
-## [4.1.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.0.1...4.1.0)
+## [4.1.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.1.0...4.1.1)
+
+### Commits
+
+- build: update [`cf534eb`](https://github.com/Internet-Society-Belgium/isTrust/commit/cf534ebb737a744d0bf1db90ba1d25e2258c2a96)
+- fix(dnssec): dns-message -&gt; dns-json [`c3d8953`](https://github.com/Internet-Society-Belgium/isTrust/commit/c3d8953ca9afb84d1687b52588a3a471291a07bd)
+- fix(history): required permission [`b25a7eb`](https://github.com/Internet-Society-Belgium/isTrust/commit/b25a7ebd020eb293afaf385eb647a6dd92f165cc)
+
+## [4.1.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.0.1...4.1.0) - 2025-09-13
 
 ### Merged
 
@@ -28,7 +36,7 @@
 
 - build: update [`38bfcb6`](https://github.com/Internet-Society-Belgium/isTrust/commit/38bfcb6fa8e2afefc9469fd14789326bcf18bc79)
 - 184 extension storage speed (#185) [`c438b0a`](https://github.com/Internet-Society-Belgium/isTrust/commit/c438b0a23fa21483be632cabec6c30040d8f1a48)
-- ci(cd): inputs [`0353393`](https://github.com/Internet-Society-Belgium/isTrust/commit/035339342fe17556f65670d392ecac3a66c8da49)
+- chore: release v4.1.0 [`c40b0a7`](https://github.com/Internet-Society-Belgium/isTrust/commit/c40b0a77c0a309d70395b8650851ec7cbbacfdb2)
 
 ## [4.0.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.0.0...4.0.1) - 2025-08-15
 
