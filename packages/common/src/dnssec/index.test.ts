@@ -1,16 +1,16 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
 
-test("istrust.org CORS", async () => {
-  const data = await get_data("istrust.org", true);
+test("istrust.org", async () => {
+  const data = await get_data("istrust.org");
 
   expect(data).toStrictEqual({
     valid: {
       sources: [
         {
-          country: "CH",
-          links: ["https://quad9.net/"],
-          organization: "Quad9",
+          country: "US",
+          links: ["https://one.one.one.one/dns/"],
+          organization: "Cloudflare",
         },
       ],
       value: false,
