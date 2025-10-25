@@ -77,7 +77,7 @@ test("github.com", async () => {
         sources: [
           {
             country: "US",
-            links: [],
+            links: ["https://www.markmonitor.com/about-us/"],
             organization: "Markmonitor Inc.",
           },
         ],
@@ -90,7 +90,7 @@ test("github.com", async () => {
         sources: [
           {
             country: "US",
-            links: [],
+            links: ["https://www.markmonitor.com/about-us/"],
             organization: "Markmonitor Inc.",
           },
         ],
@@ -103,7 +103,7 @@ test("github.com", async () => {
         sources: [
           {
             country: "US",
-            links: [],
+            links: ["https://www.markmonitor.com/about-us/"],
             organization: "Markmonitor Inc.",
           },
         ],
@@ -116,7 +116,10 @@ test("github.com", async () => {
         sources: [
           {
             country: "US",
-            links: ["http://www.markmonitor.com"],
+            links: [
+              "http://www.markmonitor.com",
+              "https://www.markmonitor.com/about-us/",
+            ],
             organization: "MarkMonitor Inc.",
           },
         ],
