@@ -24,7 +24,7 @@ import {
   IconShieldX,
   IconUser,
 } from "@istrust/ui/icon/index";
-import { Issue, IssueButton, IssueLink } from "@istrust/ui/issue/index";
+import { Issue, IssueLink } from "@istrust/ui/issue/index";
 import { ListAdditionalItem } from "@istrust/ui/list/index";
 import {
   Section,
@@ -33,7 +33,7 @@ import {
 } from "@istrust/ui/section/index";
 import { Source } from "@istrust/ui/source/index";
 import { TermDNSSEC } from "@istrust/ui/term/index";
-import { Browser, browser } from "#imports";
+import { browser } from "#imports";
 import {
   createResource,
   createSignal,
@@ -108,9 +108,6 @@ export function App() {
 
   const base = "https://istrust.org/";
 
-  const [permissions, setPermissions] =
-    createSignal<Browser.permissions.Permissions>();
-
   onMount(() => {
     setLang(navigator.language);
 
@@ -138,13 +135,6 @@ export function App() {
         })
         .catch(console.error);
     }
-
-    browser.permissions
-      .getAll()
-      .then((allPermissions) => {
-        setPermissions(allPermissions);
-      })
-      .catch(console.error);
   });
 
   const [domain] = createResource(searchQuery, async (query) => {
@@ -430,49 +420,6 @@ export function App() {
                       <IssueLink href={`${base}#get`}>
                         {i18n("Not available in Firefox on Android", lang())}
                       </IssueLink>
-                    }
-                  >
-                    <SectionItemNotAvailable
-                      title={i18n("First visit", lang())}
-                      prefix={<IconCalendar1 />}
-                    />
-
-                    <SectionItemNotAvailable
-                      title={i18n("Frequency of visits", lang())}
-                      prefix={<IconCalendarCheck />}
-                    />
-                  </Section>
-                </Match>
-                <Match
-                  when={
-                    permissions()?.permissions?.includes("history") !== true
-                  }
-                >
-                  <Section
-                    title={i18n("Visit", lang())}
-                    suffix={
-                      <IssueButton
-                        onClick={() => {
-                          const permision: Browser.permissions.Permissions = {
-                            permissions: ["history"],
-                          };
-                          browser.permissions
-                            .contains(permision)
-                            .then((value) => {
-                              if (!value) {
-                                browser.permissions
-                                  .request(permision)
-                                  .then(() => {
-                                    window.location.reload();
-                                  })
-                                  .catch(console.error);
-                              }
-                            })
-                            .catch(console.error);
-                        }}
-                      >
-                        {i18n("Require access to history", lang())}
-                      </IssueButton>
                     }
                   >
                     <SectionItemNotAvailable

@@ -79,7 +79,6 @@ export const fr: Translations = {
   "Registered less than 6 months ago": "Enregistré il y a moins de 6 mois",
   Registration: "Enregistrement",
   Reload: "Recharger",
-  "Require access to history": "Nécessite l'accès à l'historique",
   "Scientific research": "Recherche scientifique",
   Submit: "Soumettre",
   "Supported by": "Soutenu par",

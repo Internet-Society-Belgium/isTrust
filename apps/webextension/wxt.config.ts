@@ -26,14 +26,9 @@ export default defineConfig({
     permissions:
       browser === "firefox-android" || browser === "safari-ios"
         ? ["activeTab"]
-        : ["activeTab", "contextMenus"],
-    // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions
-    optional_permissions:
-      browser === "safari-macos" ||
-      browser === "safari-ios" ||
-      browser === "firefox-android"
-        ? undefined
-        : ["history"],
+        : browser === "safari-macos"
+          ? ["activeTab", "contextMenus"]
+          : ["activeTab", "contextMenus", "history"],
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions#host_permissions
     // prevent CORS errors
     host_permissions: ["http://*/*", "https://*/*"],

@@ -72,7 +72,6 @@ export type Translated =
   | "Registered less than 6 months ago"
   | "Registration"
   | "Reload"
-  | "Require access to history"
   | "Scientific research"
   | "Submit"
   | "Supported by"
