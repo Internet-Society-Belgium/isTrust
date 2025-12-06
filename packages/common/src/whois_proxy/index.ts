@@ -2,7 +2,7 @@ import { InformationCache } from "../type";
 import { out_of_date, releaseMutex, updated, waitMutex } from "../utils/cache";
 import { source_error } from "../utils/error";
 
-const CACHING_DAYS = 1;
+const CACHING_DAYS = 30;
 
 const MUTEX_KEY = "whois_proxy#loading";
 const LAST_UPDATE_KEY = "whois_proxy#lastUpdate";
