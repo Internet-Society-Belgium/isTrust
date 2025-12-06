@@ -19,6 +19,7 @@
   "dependencies": {
     "@istrust/i18n": "*",
     "@peculiar/x509": "^1.13.0",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "zod": "^4.0.5"
   },
   "devDependencies": {
@@ -28,6 +29,6 @@
     "eslint": "^9.33.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5",
-    "vitest": "^3.2.2"
+    "vitest": "^4.0.15"
   }
 }
