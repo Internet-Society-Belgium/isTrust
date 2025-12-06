@@ -23,7 +23,7 @@ export async function get_data(domain: string) {
   ];
 
   try {
-    const res = await fetch(`https://api.sidn.nl/rest/whois?domain=${domain}`);
+    const res = await fetch(`https://api.sidn.nl/rdap/whois?domain=${domain}`);
 
     if (!res.ok) throw source_error("No registration response");
 
