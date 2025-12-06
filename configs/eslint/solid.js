@@ -10,7 +10,8 @@ export const config = {
   languageOptions: {
     parser: tsParser,
     parserOptions: {
-      project: "tsconfig.json",
+      projectService: true,
+      tsconfigRootDir: import.meta.dirname,
     },
     globals: {
       document: false,
