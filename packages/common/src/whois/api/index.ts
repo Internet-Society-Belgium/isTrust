@@ -2,7 +2,10 @@ import { WHOISData } from "../type";
 import * as be from "./be";
 import * as nl from "./nl";
 
-const apis = new Map<string, (domain: string) => Promise<WHOISData>>()
+const apis = new Map<
+  string,
+  (domain: string, canBypassCORS: boolean) => Promise<WHOISData>
+>()
   .set("be", be.get_data)
   .set("nl", nl.get_data);
 

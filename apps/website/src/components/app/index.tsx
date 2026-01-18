@@ -131,7 +131,7 @@ export function App(props: { lang: string }) {
   const [whoisData, { mutate: mutateWhoisData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_whois_data(domain.effective, cache);
+      return await common.get_whois_data(domain.effective, cache, false);
     },
   );
 

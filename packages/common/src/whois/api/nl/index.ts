@@ -6,7 +6,7 @@ import {
 import { WHOISData } from "../../type";
 import { validate_whois } from "./type";
 
-export async function get_data(domain: string) {
+export async function get_data(domain: string, canBypassCORS: boolean) {
   const data: WHOISData = {
     registrations: [],
     individuals: [],
@@ -52,7 +52,11 @@ export async function get_data(domain: string) {
     const error = e as Error;
     console.error(error);
 
-    throw feature_require_webextension_error("Source require webextension");
+    if (canBypassCORS) {
+      throw source_error("api.sidn.nl not available");
+    } else {
+      throw feature_require_webextension_error("Source require webextension");
+    }
   }
 
   return data;

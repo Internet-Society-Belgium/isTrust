@@ -44,8 +44,12 @@ export async function get_platform_data(
   return await platform.get_data(domain, cache);
 }
 
-export async function get_whois_data(eDomain: string, cache: InformationCache) {
-  return await whois.get_data(eDomain, cache);
+export async function get_whois_data(
+  eDomain: string,
+  cache: InformationCache,
+  canBypassCORS: boolean,
+) {
+  return await whois.get_data(eDomain, cache, canBypassCORS);
 }
 
 export async function get_certificate_data(eDomain: string) {

@@ -158,7 +158,7 @@ export function App() {
   const [whoisData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_whois_data(domain.effective, cache);
+      return await common.get_whois_data(domain.effective, cache, true);
     },
   );
 
