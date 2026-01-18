@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { get_data } from ".";
 
 test("sidn.nl", async () => {
-  const data = await get_data("sidn.nl");
+  const data = await get_data("sidn.nl", true);
 
   expect(data).toStrictEqual({
     countries: [],

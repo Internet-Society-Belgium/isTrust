@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { get_data } from ".";
 
 test("dnsbelgium.be", async () => {
-  const data = await get_data("dnsbelgium.be");
+  const data = await get_data("dnsbelgium.be", true);
 
   expect(data).toStrictEqual({
     countries: [
@@ -48,7 +48,7 @@ test("dnsbelgium.be", async () => {
 });
 
 test("internetsociety.be", async () => {
-  const data = await get_data("internetsociety.be");
+  const data = await get_data("internetsociety.be", true);
 
   expect(data).toStrictEqual({
     countries: [
