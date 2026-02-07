@@ -1,8 +1,11 @@
 import { fr } from "./translations/fr";
+import { nl } from "./translations/nl";
 import { Translated, Translations } from "./types";
 
 // Register new language here
-const translations = new Map<string, Translations>().set("fr", fr);
+const translations = new Map<string, Translations>()
+  .set("fr", fr)
+  .set("nl", nl);
 
 export const translatedLangs = ["en", ...translations.keys().toArray()];
 

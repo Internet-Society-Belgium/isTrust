@@ -82,7 +82,6 @@ export type Translated =
   | "Try it"
   | "Unexpected error"
   | "Used to mask the real owner"
-  | "Verify the trustworthiness"
   | "Verify the trustworthiness of any website"
   | "View document"
   | "Visit"
@@ -90,12 +89,11 @@ export type Translated =
   | "Watch the video to learn more"
   | "What set us apart"
   | "Which personal data do we process"
-  | "Who are we"
+  | "Who we are"
   | "Your browser does not support this video"
   | "and"
   | "by"
   | "https://www.dnsbelgium.be/en/secure/dnssec"
   | "is operated by Internet Society Chapter Belgium vzw/asbl (non-profit organization)"
   | "less than 1 day a year"
-  | "now"
-  | "of any website";
+  | "now";

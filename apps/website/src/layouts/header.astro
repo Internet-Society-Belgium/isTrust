@@ -38,7 +38,7 @@ const lang = getLangFromPath(Astro.url.pathname);
       class="bg-elevated/50 border-border hover:bg-elevated hover:border-accented pointer-events-auto w-full appearance-none rounded-md border py-1 pr-5 pl-2 text-sm transition-colors"
     >
       {
-        langs.map((l) => (
+        langs.sort().map((l) => (
           <option
             value={getLocalizedPath(l, unlocalizedPath)}
             selected={l === lang}

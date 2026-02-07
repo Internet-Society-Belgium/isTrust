@@ -92,7 +92,6 @@ export const fr: Translations = {
   "Unexpected error": "Erreur inattendue",
   "Used to mask the real owner":
     "Utilisé pour masquer le véritable propriétaire",
-  "Verify the trustworthiness": "Vérifiez la fiabilité",
   "Verify the trustworthiness of any website":
     "Vérifiez la fiabilité de n'importe quel site web",
   "View document": "Voir le document",
@@ -102,7 +101,7 @@ export const fr: Translations = {
   "What set us apart": "Ce qui nous distingue",
   "Which personal data do we process":
     "Quelles sont les données personnelles que nous traitons ?",
-  "Who are we": "Qui sommes-nous",
+  "Who we are": "Qui nous sommes",
   "Your browser does not support this video":
     "Votre navigateur ne prend pas en charge cette vidéo",
   and: "et",
@@ -113,5 +112,4 @@ export const fr: Translations = {
     "est géré par Internet Society Chapter Belgium vzw/asbl (association sans but lucratif)",
   "less than 1 day a year": "moins d'un jour par an",
   now: "maintenant",
-  "of any website": "de n'importe quel site web",
 };
