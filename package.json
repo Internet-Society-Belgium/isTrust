@@ -49,8 +49,8 @@
     "release-it": "^19.0.3",
     "turbo": "^2.5.4"
   },
-  "packageManager": "npm@11.4.2",
+  "packageManager": "npm@11.6.2",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   }
 }
