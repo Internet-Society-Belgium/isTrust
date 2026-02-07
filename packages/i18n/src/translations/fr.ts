@@ -24,13 +24,14 @@ export const fr: Translations = {
   "Country of residence": "Pays de résidence",
   Domain: "Domaine",
   "Domain name": "Nom de domaine",
-  "Feature not available": "Fonctionalité non disponible",
+  "Feature not available": "Fonctionnalité non disponible",
   "First visit": "Première visite",
   "First visited": "Visité la première fois",
   "First visited less than 1 day ago":
     "Visité la première fois il y a moins de 1 jour",
-  "Free forever": "Gratuit pour toujours",
+  "Free Forever": "Gratuit pour toujours",
   "Frequency of visits": "Fréquence des visites",
+  "Fully Transparent": "Totalement transparent",
   "Get the extension": "Obtenir l'extension",
   "In case of question related to privacy or data protection, please contact":
     "Pour toute question relative à la confidentialité ou à la protection des données, veuillez contacter",
@@ -40,7 +41,8 @@ export const fr: Translations = {
   "Information provided": "Information fournie",
   "Information without verification": "Information sans vérification",
   "Known to be malicious": "Connu pour être malveillant",
-  "Known to provide disposable email": "Connu pour fournir des e-mail jetables",
+  "Known to provide disposable email":
+    "Connu pour fournir des e-mails jetables",
   "Known to redirect to another domain":
     "Connu pour rediriger vers un autre domaine",
   Legal: "Légal",
@@ -50,6 +52,8 @@ export const fr: Translations = {
   "Never visited": "Jamais visité",
   "New improved version": "Nouvelle version améliorée",
   Next: "Suivant",
+  "No fees, no subscriptions. We believe online safety should be a right, not a luxury.":
+    "Pas de frais, pas d'abonnement. Nous pensons que la sécurité en ligne devrait être un droit, pas un luxe.",
   "No information available": "Pas d'information disponible",
   "Not available in Firefox on Android":
     "Non disponible dans Firefox sur Android",
@@ -57,21 +61,20 @@ export const fr: Translations = {
   "Not enough history": "Pas assez d'historique",
   "Not protected with": "Pas protégé par",
   "Only available in the extension": "Disponible uniquement dans l'extension",
-  "Open source": "Open source",
   "Organization name": "Nom de l'organisation",
   "Organization name should always be public":
     "Le nom de l'organisation doit toujours être public",
   "Organization verified": "Organisation vérifiée",
+  "Our code is 100% open source. Audit us or contribute on":
+    "Notre code est 100% open source. Auditez-nous ou contribuez sur",
   "Our postal address is:": "Notre adresse postale est :",
-  "Our tool is free to use without any charge":
-    "Notre outil est gratuit et peut être utilisé sans aucun frais",
   "Our website address is:": "L'adresse de notre site web est :",
   Owner: "Propriétaire",
-  Platform: "Platforme",
+  Platform: "Plateforme",
   Previous: "Précédent",
   Privacy: "Vie privée",
-  "Privacy friendly": "Respectueux de la vie privée",
   "Privacy policy": "Politique de confidentialité",
+  "Private by Design": "Respect de la vie privée",
   "Protected with": "Protégé par",
   "Protection with": "Protection avec",
   Registered: "Enregistré",
@@ -82,9 +85,6 @@ export const fr: Translations = {
   "Scientific research": "Recherche scientifique",
   Submit: "Soumettre",
   "Supported by": "Soutenu par",
-  "The source code is available on": "Le code source est disponible sur",
-  "The tool does not send any information back to us":
-    "L'outil ne nous renvoie aucune information",
   "The tool was improved with concepts developed in the context of a master thesis in the field of cyber security":
     "L'outil a été amélioré grâce à des concepts développés dans le cadre d'un mémoire de master dans le domaine de la cybersécurité",
   Trailer: "Bande-annonce",
@@ -104,6 +104,8 @@ export const fr: Translations = {
   "Who we are": "Qui nous sommes",
   "Your browser does not support this video":
     "Votre navigateur ne prend pas en charge cette vidéo",
+  "Your data stays with you. We track nothing and send zero data to our servers.":
+    "Vos données restent avec vous. Nous ne suivons rien et n'envoyons aucune donnée à nos serveurs.",
   and: "et",
   by: "par",
   "https://www.dnsbelgium.be/en/secure/dnssec":

@@ -28,8 +28,9 @@ export const nl: Translations = {
   "First visit": "Eerste bezoek",
   "First visited": "Eerst bezocht",
   "First visited less than 1 day ago": "Eerst bezocht minder dan 1 dag geleden",
-  "Free forever": "Altijd gratis",
+  "Free Forever": "Altijd gratis",
   "Frequency of visits": "Bezoekfrequentie",
+  "Fully Transparent": "Volledig transparant",
   "Get the extension": "Download de extensie",
   "In case of question related to privacy or data protection, please contact":
     "Voor vragen over privacy of gegevensbescherming kunt u contact opnemen met",
@@ -50,6 +51,8 @@ export const nl: Translations = {
   "Never visited": "Nooit bezocht",
   "New improved version": "Nieuwe verbeterde versie",
   Next: "Volgende",
+  "No fees, no subscriptions. We believe online safety should be a right, not a luxury.":
+    "Geen kosten, geen abonnementen. Wij geloven dat online veiligheid een recht moet zijn, geen luxe.",
   "No information available": "Geen informatie beschikbaar",
   "Not available in Firefox on Android":
     "Niet beschikbaar in Firefox op Android",
@@ -57,21 +60,20 @@ export const nl: Translations = {
   "Not enough history": "Niet genoeg geschiedenis",
   "Not protected with": "Niet beschermd met",
   "Only available in the extension": "Alleen beschikbaar in de extensie",
-  "Open source": "Open source",
   "Organization name": "Naam van organisatie",
   "Organization name should always be public":
     "Organisatienaam moet altijd openbaar zijn",
   "Organization verified": "Organisatie geverifieerd",
+  "Our code is 100% open source. Audit us or contribute on":
+    "Onze code is 100% open source. Controleer ons of draag bij op",
   "Our postal address is:": "Ons postadres is:",
-  "Our tool is free to use without any charge":
-    "Onze tool is gratis te gebruiken zonder enige kosten",
   "Our website address is:": "Ons websiteadres is:",
   Owner: "Eigenaar",
   Platform: "Platform",
   Previous: "Vorige",
   Privacy: "Privacy",
-  "Privacy friendly": "Privacyvriendelijk",
   "Privacy policy": "Privacybeleid",
+  "Private by Design": "Ingebouwde privacy",
   "Protected with": "Beschermd met",
   "Protection with": "Bescherming met",
   Registered: "Geregistreerd",
@@ -83,9 +85,6 @@ export const nl: Translations = {
   "Scientific research": "Wetenschappelijk onderzoek",
   Submit: "Verzenden",
   "Supported by": "Ondersteund door",
-  "The source code is available on": "De broncode is beschikbaar op",
-  "The tool does not send any information back to us":
-    "De tool stuurt geen informatie naar ons terug",
   "The tool was improved with concepts developed in the context of a master thesis in the field of cyber security":
     "De tool is verbeterd met concepten ontwikkeld in het kader van een masterscriptie op het gebied van cyberbeveiliging",
   Trailer: "Trailer",
@@ -105,6 +104,8 @@ export const nl: Translations = {
   "Who we are": "Wie wij zijn",
   "Your browser does not support this video":
     "Uw browser ondersteunt deze video niet",
+  "Your data stays with you. We track nothing and send zero data to our servers.":
+    "Uw gegevens blijven bij u. Wij tracken niets en sturen geen gegevens naar onze servers.",
   and: "en",
   by: "door",
   "https://www.dnsbelgium.be/en/secure/dnssec":
