@@ -2,7 +2,7 @@ import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
 import { JSX, Match, onMount, Switch } from "solid-js";
 import { isServer } from "solid-js/web";
-import { IconGithub } from "../icon";
+import { IconGitHub } from "../icon";
 
 function issueBug(errorMessage: string) {
   const hostname = isServer ? undefined : window.location.hostname;
@@ -106,7 +106,7 @@ export function IssueFeatureMissing(props: { lang: string; message: string }) {
   return (
     <IssueLink href={issueURL("enhancement", issueFeature(props.message))}>
       {i18n("Feature not available", props.lang)}
-      <IconGithub />
+      <IconGitHub />
     </IssueLink>
   );
 }
@@ -115,7 +115,7 @@ export function IssueUnexpectedError(props: { lang: string; message: string }) {
   return (
     <IssueLink href={issueURL("bug", issueBug(props.message))}>
       {i18n("Unexpected error", props.lang)}
-      <IconGithub />
+      <IconGitHub />
     </IssueLink>
   );
 }

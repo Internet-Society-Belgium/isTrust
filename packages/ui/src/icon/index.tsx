@@ -439,7 +439,7 @@ export function IconAlert() {
   );
 }
 
-export function IconGithub() {
+export function IconGitHub() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
