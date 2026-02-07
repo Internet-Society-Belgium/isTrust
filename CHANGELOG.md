@@ -1,6 +1,14 @@
 # Changelog
 
-## [4.1.2](https://github.com/Internet-Society-Belgium/isTrust/compare/4.1.1...4.1.2)
+## [4.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.1.2...4.2.0)
+
+### Commits
+
+- build: update [`705b3c9`](https://github.com/Internet-Society-Belgium/isTrust/commit/705b3c9ddf3ea356594af648d045642299fd67ad)
+- build: update [`a498387`](https://github.com/Internet-Society-Belgium/isTrust/commit/a4983871ea1df01639fc5e203fe1f27968c124dd)
+- feat(i18n): nl [`e73e724`](https://github.com/Internet-Society-Belgium/isTrust/commit/e73e7240a28b4b77f4737a947122137b62ef0cf1)
+
+## [4.1.2](https://github.com/Internet-Society-Belgium/isTrust/compare/4.1.1...4.1.2) - 2026-01-18
 
 ### Commits
 
