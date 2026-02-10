@@ -73,7 +73,7 @@ export const nl: Translations = {
   Previous: "Vorige",
   Privacy: "Privacy",
   "Privacy policy": "Privacybeleid",
-  "Private by Design": "Ingebouwde privacy",
+  "Privacy by Design": "Ingebouwde privacy",
   "Protected with": "Beschermd met",
   "Protection with": "Bescherming met",
   Registered: "Geregistreerd",

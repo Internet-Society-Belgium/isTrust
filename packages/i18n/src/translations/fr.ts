@@ -74,7 +74,7 @@ export const fr: Translations = {
   Previous: "Précédent",
   Privacy: "Vie privée",
   "Privacy policy": "Politique de confidentialité",
-  "Private by Design": "Respect de la vie privée",
+  "Privacy by Design": "Respect de la vie privée",
   "Protected with": "Protégé par",
   "Protection with": "Protection avec",
   Registered: "Enregistré",

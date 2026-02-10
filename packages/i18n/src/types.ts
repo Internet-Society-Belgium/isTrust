@@ -65,7 +65,7 @@ export type Translated =
   | "Previous"
   | "Privacy"
   | "Privacy policy"
-  | "Private by Design"
+  | "Privacy by Design"
   | "Protected with"
   | "Protection with"
   | "Registered"
