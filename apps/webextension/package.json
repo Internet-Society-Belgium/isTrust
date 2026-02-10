@@ -3,11 +3,10 @@
   "version": "4.2.0",
   "type": "module",
   "scripts": {
-    "bundle": "npm run bundle:chrome && npm run bundle:edge && npm run bundle:firefox && npm run bundle:firefox-android",
+    "bundle": "npm run bundle:chrome && npm run bundle:edge && npm run bundle:firefox",
     "bundle:chrome": "npm run generate:locales && wxt zip --browser chrome --mv3",
     "bundle:edge": "npm run generate:locales && wxt zip --browser edge --mv3",
     "bundle:firefox": "npm run generate:locales && wxt zip --browser firefox --mv2",
-    "bundle:firefox-android": "npm run generate:locales && wxt zip --browser firefox-android --mv2",
     "check-types": "npm run generate:locales && wxt prepare && tsc --noEmit",
     "clean": "rm -rf .turbo .wxt dist node_modules",
     "dev": "npm run dev:chrome",

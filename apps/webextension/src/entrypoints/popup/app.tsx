@@ -103,6 +103,7 @@ export function App() {
   const [searchQuery, setSearchQuery] = createSignal<string>();
 
   const [mode, setMode] = createSignal<"attached" | "detached">();
+  const [os, setOs] = createSignal<string>();
   const [lang, setLang] = createSignal<string>("en");
   const [debug, setDebug] = createSignal<boolean>(false);
 
@@ -135,6 +136,10 @@ export function App() {
         })
         .catch(console.error);
     }
+
+    browser.runtime.getPlatformInfo().then(({ os }) => {
+      setOs(os);
+    });
   });
 
   const [domain] = createResource(searchQuery, async (query) => {
@@ -187,21 +192,21 @@ export function App() {
     <div
       class={
         mode() === "detached" ||
-        import.meta.env.BROWSER === "firefox-android" ||
+        (import.meta.env.BROWSER === "firefox" && os() === "android") ||
         import.meta.env.BROWSER === "safari-ios"
           ? "bg-background flex min-h-screen flex-col items-center justify-center gap-4"
           : undefined
       }
     >
       {mode() === "detached" ||
-      import.meta.env.BROWSER === "firefox-android" ? (
+      (import.meta.env.BROWSER === "firefox" && os() === "android") ? (
         <HeaderLogo />
       ) : (
         <></>
       )}
 
       <div
-        class={`${mode() === "detached" || import.meta.env.BROWSER === "firefox-android" || import.meta.env.BROWSER === "safari-ios" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container xs:w-sm flex w-xs flex-col p-4`}
+        class={`${mode() === "detached" || (import.meta.env.BROWSER === "firefox" && os() === "android") || import.meta.env.BROWSER === "safari-ios" ? "ring-border rounded-lg ring-1" + " " : ""}bg-container xs:w-sm flex w-xs flex-col p-4`}
       >
         <div class="relative flex flex-col">
           <ErrorBoundary
@@ -413,7 +418,11 @@ export function App() {
                     />
                   </Section>
                 </Match>
-                <Match when={import.meta.env.BROWSER === "firefox-android"}>
+                <Match
+                  when={
+                    import.meta.env.BROWSER === "firefox" && os() === "android"
+                  }
+                >
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={

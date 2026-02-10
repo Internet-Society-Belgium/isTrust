@@ -39,10 +39,7 @@ export async function get_history_data(domain: string) {
 
   let sources: common.Information<unknown>["sources"] = [];
 
-  if (
-    import.meta.env.BROWSER === "firefox" ||
-    import.meta.env.BROWSER === "firefox-android"
-  ) {
+  if (import.meta.env.BROWSER === "firefox") {
     sources = [
       {
         organization: "Firefox",
