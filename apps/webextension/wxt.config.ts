@@ -30,7 +30,7 @@ export default defineConfig({
       browser === "firefox"
         ? {
             gecko: {
-              id: "@istrust",
+              id: "{431b3adb-f3bf-46e8-8542-151be2dc00c4}",
               data_collection_permissions: {
                 required: ["none"],
               },
