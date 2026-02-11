@@ -1,6 +1,14 @@
 # Changelog
 
-## [4.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.1.2...4.2.0)
+## [4.3.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.2.0...4.3.0)
+
+### Commits
+
+- refactor(i18n): marketing [`e1fd031`](https://github.com/Internet-Society-Belgium/isTrust/commit/e1fd031fcd203600b0cd4a0d5757f1e07e908d58)
+- feat: compatibility with firefox on android [`3c8eb6d`](https://github.com/Internet-Society-Belgium/isTrust/commit/3c8eb6d830615e2116428fc0ae8992ec31fdd034)
+- style: github typo [`6a34fac`](https://github.com/Internet-Society-Belgium/isTrust/commit/6a34fac2cdc5e6281fd1358c67f7d1c2236afa80)
+
+## [4.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.1.2...4.2.0) - 2026-02-07
 
 ### Commits
 
