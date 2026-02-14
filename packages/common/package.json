@@ -17,6 +17,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@dnsquery/dns-packet": "^6.1.1",
     "@istrust/i18n": "*",
     "@peculiar/x509": "^1.13.0",
     "prettier-plugin-tailwindcss": "^0.7.2",

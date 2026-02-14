@@ -177,7 +177,7 @@ export function App() {
   const [dnssecData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_dnssec_data(domain.full);
+      return await common.get_dnssec_data(domain.full, true);
     },
   );
 

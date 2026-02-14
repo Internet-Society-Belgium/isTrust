@@ -47,7 +47,7 @@ export async function get_platform_data(
 export async function get_whois_data(
   eDomain: string,
   cache: InformationCache,
-  canBypassCORS: boolean,
+  canBypassCORS: boolean = false,
 ) {
   return await whois.get_data(eDomain, cache, canBypassCORS);
 }
@@ -56,8 +56,11 @@ export async function get_certificate_data(eDomain: string) {
   return await certificate.get_data(eDomain);
 }
 
-export async function get_dnssec_data(domain: string) {
-  return await dnssec.get_data(domain);
+export async function get_dnssec_data(
+  domain: string,
+  canBypassCORS: boolean = false,
+) {
+  return await dnssec.get_data(domain, canBypassCORS);
 }
 
 export async function is_whois_privacy(name: string) {

@@ -145,7 +145,7 @@ export function App(props: { lang: string }) {
   const [dnssecData, { mutate: mutateDnssecData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_dnssec_data(domain.full);
+      return await common.get_dnssec_data(domain.full, false);
     },
   );
 
