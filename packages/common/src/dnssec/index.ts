@@ -1,7 +1,13 @@
 import * as dnsPacket from "@dnsquery/dns-packet";
 import { DNSSECData } from "./type";
 
-const DOH_RESOLVERS = [
+const DOH_RESOLVERS: {
+  name: string;
+  country: string;
+  links: string[];
+  endpoint: string;
+  cors: boolean;
+}[] = [
   // NGO
 
   {
@@ -66,6 +72,13 @@ const DOH_RESOLVERS = [
     endpoint: "https://odvr.nic.cz/dns-query",
     cors: true,
   },
+  {
+    name: "Restena",
+    country: "LU",
+    links: ["https://www.restena.lu/en/service/public-dns-resolver"],
+    endpoint: "https://dnspub.restena.lu/dns-query",
+    cors: true,
+  },
 
   // Privacy friendly
 
@@ -76,13 +89,6 @@ const DOH_RESOLVERS = [
     endpoint: "https://cloudflare-dns.com/dns-query",
     cors: false,
   },
-  // {
-  //   name: "DNS.SB",
-  //   country: "DE",
-  //   links: ["https://dns.sb/"],
-  //   endpoint: "https://dns.sb/dns-query",
-  //   cors: false,
-  // },
   {
     name: "Mullvad",
     country: "SE",
@@ -95,6 +101,13 @@ const DOH_RESOLVERS = [
     country: "CA",
     links: ["https://controld.com/free-dns"],
     endpoint: "https://freedns.controld.com/p0",
+    cors: true,
+  },
+  {
+    name: "DNS.SB",
+    country: "DE",
+    links: ["https://dns.sb/"],
+    endpoint: "https://doh.dns.sb/dns-query",
     cors: true,
   },
   // {
