@@ -138,7 +138,7 @@ export function App(props: { lang: string }) {
   const [certificateData, { mutate: mutateCertificateData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_certificate_data(domain.effective);
+      return await common.get_certificate_data(domain.effective, false);
     },
   );
 

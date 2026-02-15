@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { get_data } from ".";
 
 test("istrust.org", async () => {
-  const data = await get_data("istrust.org");
+  const data = await get_data("istrust.org", true);
 
   expect(data).toStrictEqual({
     countries: [],
@@ -24,8 +24,66 @@ test("istrust.org", async () => {
   } satisfies typeof data);
 });
 
+test("icann.org", async () => {
+  const data = await get_data("icann.org", true);
+
+  expect(data).toStrictEqual({
+    countries: [
+      {
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "Sectigo Limited",
+          },
+        ],
+        value: "US",
+        verified: true,
+      },
+    ],
+    individuals: [],
+    organizations: [
+      {
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "Sectigo Limited",
+          },
+        ],
+        value: "Internet Corporation For Assigned Names and Numbers",
+        verified: true,
+      },
+    ],
+    types: [
+      {
+        sources: [
+          {
+            country: "GB",
+            links: [],
+            organization: "Sectigo Limited",
+          },
+        ],
+        value: "OV",
+        verified: true,
+      },
+      {
+        sources: [
+          {
+            country: "US",
+            links: [],
+            organization: "Let's Encrypt",
+          },
+        ],
+        value: "DV",
+        verified: true,
+      },
+    ],
+  } satisfies typeof data);
+});
+
 test("digicert.com", async () => {
-  const data = await get_data("digicert.com");
+  const data = await get_data("digicert.com", true);
 
   expect(data).toStrictEqual({
     countries: [
@@ -83,51 +141,14 @@ test("digicert.com", async () => {
 });
 
 test("google.com", async () => {
-  const data = await get_data("google.com");
+  const data = await get_data("google.com", true);
 
   expect(data).toStrictEqual({
-    countries: [
-      {
-        value: "BR",
-        verified: true,
-        sources: [
-          {
-            country: "BR",
-            links: [],
-            organization: "ICP-Brasil",
-          },
-        ],
-      },
-    ],
+    countries: [],
     individuals: [],
-    organizations: [
-      {
-        value: "GOOGLE PAY BRASIL INSTITUICAO DE PAGAMENTO LTDA",
-        verified: true,
-        sources: [
-          {
-            country: "BR",
-            links: [],
-            organization: "ICP-Brasil",
-          },
-        ],
-      },
-    ],
+    organizations: [],
     types: [
       {
-        value: "OV",
-        verified: true,
-        sources: [
-          {
-            country: "BR",
-            links: [],
-            organization: "ICP-Brasil",
-          },
-        ],
-      },
-      {
-        value: "DV",
-        verified: true,
         sources: [
           {
             country: "US",
@@ -135,6 +156,8 @@ test("google.com", async () => {
             organization: "Google Trust Services",
           },
         ],
+        value: "DV",
+        verified: true,
       },
     ],
   } satisfies typeof data);

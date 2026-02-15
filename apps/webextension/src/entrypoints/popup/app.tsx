@@ -170,7 +170,7 @@ export function App() {
   const [certificateData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
-      return await common.get_certificate_data(domain.effective);
+      return await common.get_certificate_data(domain.effective, true);
     },
   );
 

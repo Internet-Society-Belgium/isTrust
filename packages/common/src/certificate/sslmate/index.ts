@@ -17,8 +17,16 @@ export async function get_data(domain: string) {
     const jsonSearch: unknown = await res.json();
     const resultsSearch = validate_sslmate_search(jsonSearch);
 
+    const now = new Date();
+
     for (const resultSearch of resultsSearch) {
       if (resultSearch.revoked === true) continue;
+
+      try {
+        const notBefore = new Date(resultSearch.not_before);
+        const notAfter = new Date(resultSearch.not_after);
+        if (now < notBefore || now > notAfter) continue;
+      } catch (error) {}
 
       const cert = x509.parse_cert(resultSearch.cert_der);
 
