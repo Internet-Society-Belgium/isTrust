@@ -1,5 +1,6 @@
 import { improve_informations } from "../type";
 import * as crtsh from "./crtsh";
+import * as merkelmap from "./merkelmap";
 import * as sslmate from "./sslmate";
 import { CertificateData, CertificateType } from "./type";
 import { X509Data } from "./x509/type";
@@ -11,6 +12,10 @@ const DATA_SOURCE: {
   {
     get: sslmate.get_data,
     cors: false,
+  },
+  {
+    get: merkelmap.get_data,
+    cors: true,
   },
   {
     get: crtsh.get_data,
