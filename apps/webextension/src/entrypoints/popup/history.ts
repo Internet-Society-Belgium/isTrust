@@ -6,7 +6,11 @@ export interface HistoryData {
 }
 
 export async function get_history_data(domain: string) {
-  const historyItems = await browser.history.search({ text: domain });
+  const historyItems = await browser.history.search({
+    text: domain,
+    startTime: 0,
+    maxResults: Number.MAX_SAFE_INTEGER,
+  });
 
   const visits = [];
 
