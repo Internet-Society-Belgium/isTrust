@@ -1,12 +1,20 @@
 # Changelog
 
-## [4.3.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.2.0...4.3.0)
+## [4.4.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.3.0...4.4.0)
+
+### Commits
+
+- build: update [`03e8ad9`](https://github.com/Internet-Society-Belgium/isTrust/commit/03e8ad96183ca82d3ae87b9758480f28468d17b2)
+- feat(dnssec): multiple providers [`c93c58d`](https://github.com/Internet-Society-Belgium/isTrust/commit/c93c58d93b16e946ec31426c96175707797b197f)
+- feat(certificate): crtsh [`8a15174`](https://github.com/Internet-Society-Belgium/isTrust/commit/8a1517455934de36825f5ad02964a5c5ec3d2ae7)
+
+## [4.3.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.2.0...4.3.0) - 2026-02-11
 
 ### Commits
 
 - refactor(i18n): marketing [`e1fd031`](https://github.com/Internet-Society-Belgium/isTrust/commit/e1fd031fcd203600b0cd4a0d5757f1e07e908d58)
 - feat: compatibility with firefox on android [`3c8eb6d`](https://github.com/Internet-Society-Belgium/isTrust/commit/3c8eb6d830615e2116428fc0ae8992ec31fdd034)
-- style: github typo [`6a34fac`](https://github.com/Internet-Society-Belgium/isTrust/commit/6a34fac2cdc5e6281fd1358c67f7d1c2236afa80)
+- chore: release v4.3.0 [`7d47601`](https://github.com/Internet-Society-Belgium/isTrust/commit/7d47601aeda0a69f901f801fecb77328715090f1)
 
 ## [4.2.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.1.2...4.2.0) - 2026-02-07
 
