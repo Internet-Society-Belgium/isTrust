@@ -1,5 +1,6 @@
 import eslint from "@eslint/js";
 import prettierConfig from "eslint-config-prettier";
+import { defineConfig } from "eslint/config";
 import tsEslint from "typescript-eslint";
 
 export const config = {
@@ -23,8 +24,4 @@ export const config = {
   },
 };
 
-export default tsEslint.config(
-  eslint.configs.recommended,
-  prettierConfig,
-  config,
-);
+export default defineConfig(eslint.configs.recommended, prettierConfig, config);

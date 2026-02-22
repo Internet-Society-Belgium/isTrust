@@ -6,7 +6,9 @@ test("istrust.org", async () => {
     const data = await get_data("istrust.org", true);
 
     console.log(
-      `From: ${data?.valid?.sources.map(({ organization }) => organization)}`,
+      `From: ${JSON.stringify(
+        data?.valid?.sources.map(({ organization }) => organization),
+      )}`,
     );
 
     expect(data).toMatchObject({
@@ -22,7 +24,9 @@ test("internetsociety.org", async () => {
     const data = await get_data("internetsociety.org", true);
 
     console.log(
-      `From: ${data?.valid?.sources.map(({ organization }) => organization)}`,
+      `From: ${JSON.stringify(
+        data?.valid?.sources.map(({ organization }) => organization),
+      )}`,
     );
 
     expect(data).toMatchObject({
@@ -38,7 +42,9 @@ test("icann.org", async () => {
     const data = await get_data("icann.org", true);
 
     console.log(
-      `From: ${data?.valid?.sources.map(({ organization }) => organization)}`,
+      `From: ${JSON.stringify(
+        data?.valid?.sources.map(({ organization }) => organization),
+      )}`,
     );
 
     expect(data).toMatchObject({

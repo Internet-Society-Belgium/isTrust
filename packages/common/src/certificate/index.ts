@@ -32,7 +32,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
   };
 
   const dataSources = DATA_SOURCE.filter(({ cors }) =>
-    canBypassCORS === true ? true : cors === false,
+    canBypassCORS ? true : !cors,
   )
     .map((value) => ({
       value,

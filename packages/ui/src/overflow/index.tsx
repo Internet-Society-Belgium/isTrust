@@ -4,6 +4,7 @@ export function Overflow(props: { direction?: "rtl"; children: JSX.Element }) {
   const [overflowBegin, setOverflowBegin] = createSignal<boolean>(false);
   const [overflowEnd, setOverflowEnd] = createSignal<boolean>(false);
 
+  // eslint-disable-next-line no-unassigned-vars
   let element!: HTMLDivElement;
 
   onMount(() => {
@@ -40,7 +41,7 @@ export function Overflow(props: { direction?: "rtl"; children: JSX.Element }) {
       <div
         class={
           (overflowBegin()
-            ? "from-container bg-gradient-to-r to-transparent"
+            ? "from-container bg-linear-to-r to-transparent"
             : "") +
           " " +
           "pointer-events-none absolute inset-y-0 left-0 h-full w-4 transition-colors"
@@ -60,7 +61,7 @@ export function Overflow(props: { direction?: "rtl"; children: JSX.Element }) {
       <div
         class={
           (overflowEnd()
-            ? "from-container bg-gradient-to-l to-transparent"
+            ? "from-container bg-linear-to-l to-transparent"
             : "") +
           " " +
           "pointer-events-none absolute inset-y-0 right-0 h-full w-4 transition-colors"

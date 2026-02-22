@@ -8,9 +8,13 @@ export function Popover(props: {
 }) {
   const [open, setOpen] = createSignal<boolean>(false);
 
+  // eslint-disable-next-line no-unassigned-vars
   let trigger!: HTMLButtonElement;
+  // eslint-disable-next-line no-unassigned-vars
   let container!: HTMLDivElement;
+  // eslint-disable-next-line no-unassigned-vars
   let anchor!: HTMLDivElement;
+  // eslint-disable-next-line no-unassigned-vars
   let content!: HTMLDivElement;
 
   onMount(() => {

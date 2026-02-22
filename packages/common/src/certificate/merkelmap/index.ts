@@ -12,11 +12,11 @@ export async function get_data(domain: string) {
   try {
     let page = 0;
     let has_next_page = true;
-    let results = [];
+    const results = [];
 
     while (has_next_page) {
       const resSearch = await fetch(
-        `https://api.merklemap.com/v1/certificates/${domain}?page=${page}`,
+        `https://api.merklemap.com/v1/certificates/${domain}?page=${page.toString()}`,
       );
 
       if (!resSearch.ok) throw source_error("No certificate response");
@@ -37,7 +37,9 @@ export async function get_data(domain: string) {
         const notBefore = new Date(result.not_before);
         const notAfter = new Date(result.not_after);
         if (now < notBefore || now > notAfter) continue;
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
 
       const resCertificate = await fetch(
         `https://api.merklemap.com/v1/certificates/hash/${result.fingerprint_sha256}`,
@@ -48,7 +50,7 @@ export async function get_data(domain: string) {
       const jsonCertificate: unknown = await resCertificate.json();
       const resultCertificate = validate_merkelmap_certificate(jsonCertificate);
 
-      if (resultCertificate.x509_info.is_valid !== true) continue;
+      if (!resultCertificate.x509_info.is_valid) continue;
 
       const cert = x509.parse_cert(resultCertificate.raw_certificate_der);
 

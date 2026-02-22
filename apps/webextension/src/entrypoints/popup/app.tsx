@@ -137,9 +137,12 @@ export function App() {
         .catch(console.error);
     }
 
-    browser.runtime.getPlatformInfo().then(({ os }) => {
-      setOs(os);
-    });
+    browser.runtime
+      .getPlatformInfo()
+      .then(({ os }) => {
+        setOs(os);
+      })
+      .catch(() => {});
   });
 
   const [domain] = createResource(searchQuery, async (query) => {

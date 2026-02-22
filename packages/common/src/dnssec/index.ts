@@ -6,7 +6,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
   const data: DNSSECData = {};
 
   const resolvers = DOH_RESOLVERS.filter(({ protectedByCORS }) =>
-    canBypassCORS === true ? true : protectedByCORS === false,
+    canBypassCORS ? true : !protectedByCORS,
   )
     .map((value) => ({
       value,
@@ -27,7 +27,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
           {
             type: "OPT",
             name: ".",
-            // @ts-ignore https://github.com/dnsquery/dns-packet/issues/1
+            // @ts-expect-error https://github.com/dnsquery/dns-packet/issues/1
             flags: dnsPacket.DNSSEC_OK,
           },
         ],
@@ -36,7 +36,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
       const res = await fetch(resolver.endpoint, {
         method: "POST",
         headers: { "content-type": "application/dns-message" },
-        // @ts-ignore
+        // @ts-expect-error https://github.com/whatwg/fetch/issues/1732
         body: queryPacket,
       });
 
@@ -44,7 +44,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
       const responseData = dnsPacket.decode(responseBytes);
 
       // https://datatracker.ietf.org/doc/rfc3655/
-      const validity = responseData.flag_ad || false;
+      const validity = responseData.flag_ad === true;
 
       data.valid = {
         value: validity,

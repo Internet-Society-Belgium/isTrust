@@ -2,16 +2,22 @@ import { browser, defineBackground } from "#imports";
 
 export default defineBackground({
   persistent: false,
-  async main() {
-    if (
-      !(
-        (import.meta.env.BROWSER === "firefox" &&
-          (await browser.runtime.getPlatformInfo()).os === "android") ||
-        import.meta.env.BROWSER === "safari-ios"
-      )
-    ) {
-      contextMenus();
-    }
+  main() {
+    browser.runtime
+      .getPlatformInfo()
+      .then(({ os }) => {
+        if (
+          !(
+            (import.meta.env.BROWSER === "firefox" && os === "android") ||
+            import.meta.env.BROWSER === "safari-ios"
+          )
+        ) {
+          contextMenus();
+        }
+      })
+      .catch(() => {
+        contextMenus();
+      });
   },
 });
 

@@ -2,7 +2,7 @@ import eslint from "@eslint/js";
 import * as tsParser from "@typescript-eslint/parser";
 import prettierConfig from "eslint-config-prettier";
 import solidTsConfig from "eslint-plugin-solid/configs/typescript";
-import tsEslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 export const config = {
   files: ["**/*.tsx"],
@@ -24,8 +24,4 @@ export const config = {
   },
 };
 
-export default tsEslint.config(
-  eslint.configs.recommended,
-  prettierConfig,
-  config,
-);
+export default defineConfig(eslint.configs.recommended, prettierConfig, config);

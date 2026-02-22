@@ -23,10 +23,12 @@ export async function get_data(domain: string) {
       while (textCertificate === undefined && retries < 2) {
         try {
           const resCertificate = await fetch(
-            `https://crt.sh/?d=${resultSearch.id}`,
+            `https://crt.sh/?d=${resultSearch.id.toString()}`,
           );
           textCertificate = await resCertificate.text();
-        } catch (error) {}
+        } catch (error) {
+          console.error(error);
+        }
 
         retries += 1;
 

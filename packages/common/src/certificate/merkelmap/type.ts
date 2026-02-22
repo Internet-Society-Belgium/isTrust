@@ -1,4 +1,3 @@
-import { boolean } from "zod";
 import { z } from "zod/mini";
 import { source_error } from "../../utils/error";
 
@@ -6,8 +5,6 @@ import { source_error } from "../../utils/error";
 const merklemapSearchSchema = z.object({
   certificates: z.array(
     z.object({
-      is_precertificate: z.boolean(),
-      subject_common_name: z.string(),
       not_before: z.string(),
       not_after: z.string(),
       fingerprint_sha256: z.string(),
@@ -28,19 +25,9 @@ export function validate_merkelmap_search(json: unknown) {
 
 // https://www.merklemap.com/documentation/get-certificate
 const merklemapCertificateSchema = z.object({
-  printed_certificate: z.string(),
   x509_info: z.object({
-    not_before: z.string(),
-    not_after: z.string(),
     is_valid: z.boolean(),
-    public_key_algorithm: z.string(),
-    public_key_params: z.string(),
-    signature_algorithm: z.string(),
-    signature_value: z.string(),
   }),
-  issuer: z.string(),
-  logs: z.array(z.string()),
-  is_precertificate: z.boolean(),
   raw_certificate_der: z.string(),
 });
 

@@ -26,7 +26,9 @@ export async function get_data(domain: string) {
         const notBefore = new Date(resultSearch.not_before);
         const notAfter = new Date(resultSearch.not_after);
         if (now < notBefore || now > notAfter) continue;
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
 
       const cert = x509.parse_cert(resultSearch.cert_der);
 

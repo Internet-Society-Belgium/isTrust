@@ -23,7 +23,7 @@ const rdapValueSchema = z.union([
 type RdapValue = z.infer<typeof rdapValueSchema>;
 
 export function stringify_rdap_value(value: RdapValue) {
-  let rdapValueString = "";
+  let rdapValueString: string;
 
   if (Array.isArray(value)) {
     rdapValueString = value.map((v) => stringify_rdap_value(v)).join(" ");
