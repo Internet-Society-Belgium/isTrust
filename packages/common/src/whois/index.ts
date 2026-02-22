@@ -17,5 +17,6 @@ export async function get_data(
     return await api_get_data(domain, canBypassCORS);
   }
 
+  // https://deployment.rdap.org/
   return await rdap.get_data(domain, cache);
 }
