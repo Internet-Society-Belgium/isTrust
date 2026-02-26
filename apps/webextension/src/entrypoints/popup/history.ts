@@ -9,7 +9,7 @@ export async function get_history_data(domain: string) {
   const historyItems = await browser.history.search({
     text: domain,
     startTime: 0,
-    maxResults: Number.MAX_SAFE_INTEGER,
+    maxResults: 1000000000,
   });
 
   const visits = [];
