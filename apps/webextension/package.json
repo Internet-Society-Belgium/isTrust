@@ -1,6 +1,6 @@
 {
   "name": "webextension",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "type": "module",
   "scripts": {
     "bundle": "npm run bundle:chrome && npm run bundle:edge && npm run bundle:firefox",

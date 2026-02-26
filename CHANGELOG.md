@@ -1,6 +1,14 @@
 # Changelog
 
-## [4.4.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.3.0...4.4.0)
+## [4.4.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.4.0...4.4.1)
+
+### Commits
+
+- build: update npm [`b2eab3c`](https://github.com/Internet-Society-Belgium/isTrust/commit/b2eab3cce2fbfc1f7fe6bf114ed90a99a7b58415)
+- build: update [`83c8a0c`](https://github.com/Internet-Society-Belgium/isTrust/commit/83c8a0cb58b494a59f9ffca3b70b440775c3628f)
+- build: update [`d99f0b6`](https://github.com/Internet-Society-Belgium/isTrust/commit/d99f0b6866172907443b4731e302a82ce51a1d03)
+
+## [4.4.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.3.0...4.4.0) - 2026-02-22
 
 ### Commits
 
