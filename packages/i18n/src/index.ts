@@ -7,7 +7,7 @@ const translations = new Map<string, Translations>()
   .set("fr", fr)
   .set("nl", nl);
 
-export const translatedLangs = ["en", ...translations.keys().toArray()];
+export const translatedLangs = ["en", ...Array.from(translations.keys())];
 
 export default function (string: Translated, lang: string, values?: string[]) {
   let translatedString: string | undefined;
