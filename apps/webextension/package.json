@@ -11,6 +11,7 @@
     "clean": "rm -rf .turbo .wxt dist node_modules",
     "dev": "npm run dev:chrome",
     "dev:chrome": "npm run generate:locales && wxt --browser chrome",
+    "dev:edge": "npm run generate:locales && wxt --browser edge",
     "dev:firefox": "npm run generate:locales && wxt --browser firefox",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "generate:locales": "node ./scripts/generate_locales.js",

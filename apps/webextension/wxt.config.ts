@@ -46,5 +46,8 @@ export default defineConfig({
     startUrls: ["wikipedia.org"],
     openDevtools: true,
     // chromiumArgs: ["--user-data-dir=./.wxt/chrome-data"],
+    binaries: {
+      edge: "/opt/microsoft/msedge/msedge",
+    },
   },
 });
