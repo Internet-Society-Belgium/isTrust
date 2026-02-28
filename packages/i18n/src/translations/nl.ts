@@ -18,6 +18,13 @@ export const nl: Translations = {
   "# year ago": "# jaar geleden",
   "# years ago": "# jaren geleden",
   "Also available on": "Ook beschikbaar op",
+  "Analyze audio": "Audio analyseren",
+  "Analyze frame": "Frame analyseren",
+  "Analyze image": "Afbeelding analyseren",
+  "Analyze link": "Link analyseren",
+  "Analyze page": "Pagina analyseren",
+  "Analyze selection": "Selectie analyseren",
+  "Analyze video": "Video analyseren",
   "As we want to protect your privacy, NO personal data is processed nor stored on this website. Similarly, NO cookie is used for tracking purposes":
     "Omdat wij uw privacy willen beschermen, worden er GEEN persoonlijke gegevens verwerkt of opgeslagen op deze website. Evenzo worden er GEEN cookies gebruikt voor trackingdoeleinden",
   Configuring: "Configureren",

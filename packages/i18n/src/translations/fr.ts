@@ -18,6 +18,13 @@ export const fr: Translations = {
   "# year ago": "il y a # an",
   "# years ago": "il y a # ans",
   "Also available on": "Aussi disponible sur",
+  "Analyze audio": "Analyser l'audio",
+  "Analyze frame": "Analyser la sous-page",
+  "Analyze image": "Analyser l'image",
+  "Analyze link": "Analyser le lien",
+  "Analyze page": "Analyser la page",
+  "Analyze selection": "Analyser la sélection",
+  "Analyze video": "Analyser la vidéo",
   "As we want to protect your privacy, NO personal data is processed nor stored on this website. Similarly, NO cookie is used for tracking purposes":
     "Comme nous souhaitons protéger votre vie privée, AUCUNE donnée personnelle n'est traitée ni stockée sur ce site web. De même, AUCUN cookie n'est utilisé à des fins de suivi",
   Configuring: "Configuration",
