@@ -63,8 +63,6 @@ function contextMenus() {
   });
 
   browser.contextMenus.onClicked.addListener((info) => {
-    console.log(info);
-
     let query;
 
     if (info.menuItemId === "istrust-page") {
