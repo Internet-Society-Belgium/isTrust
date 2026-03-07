@@ -167,23 +167,23 @@ export function Popover(props: {
         <Portal>
           <div
             ref={anchor}
-            class="text-border absolute z-10 transition"
-            style={{ opacity: "0" }}
+            class="absolute shadow-lg transition"
+            style={{ opacity: "0", "z-index": 11 }}
           >
-            <svg
-              width="16px"
-              height="8px"
-              viewBox="0 0 255 127.5"
-              fill="currentColor"
-            >
-              <polygon points="0,0 127.5,127.5 255,0" />
+            <svg width="16px" height="8px" viewBox="0 0 255 127.5">
+              <path
+                d="M 0,0 L 127.5,127.5 L 255,0"
+                fill="#f8fafc" // var(--color-background)
+                stroke="#e2e8f0" // var(--color-border)
+                stroke-width="20"
+              />
             </svg>
           </div>
 
           <div
             ref={container}
-            class="pointer-events-none absolute z-10 flex justify-center transition"
-            style={{ opacity: "0" }}
+            class="pointer-events-none absolute flex justify-center transition"
+            style={{ opacity: "0", "z-index": 10 }}
           >
             <div
               ref={content}
