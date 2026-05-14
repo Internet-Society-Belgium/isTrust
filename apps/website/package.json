@@ -18,14 +18,14 @@
     "solid-js": "^1.9.7"
   },
   "devDependencies": {
-    "@astrojs/solid-js": "^5.1.0",
+    "@astrojs/solid-js": "^6.0.1",
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
     "@istrust/tailwind-config": "*",
     "@tailwindcss/vite": "^4.1.11",
     "@vite-pwa/assets-generator": "^1.0.0",
-    "archiver": "^7.0.1",
-    "astro": "^5.18.1",
+    "archiver": "^8.0.0",
+    "astro": "^6.3.3",
     "eslint": "^10.0.0",
     "prettier": "^3.7.4",
     "tailwindcss": "^4.1.11"

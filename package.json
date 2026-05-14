@@ -10,10 +10,8 @@
     "type": "git",
     "url": "https://github.com/Internet-Society-Belgium/isTrust.git"
   },
-  "author": {
-    "name": "etoome",
-    "url": "https://etoo.me/"
-  },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "author": "Julien Taes",
   "type": "module",
   "workspaces": [
     "configs/*",
@@ -46,7 +44,7 @@
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "prettier": "^3.2.5",
-    "release-it": "^19.0.3",
+    "release-it": "^20.0.1",
     "turbo": "^2.5.4"
   },
   "packageManager": "npm@11.11.0",

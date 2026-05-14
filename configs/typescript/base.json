@@ -14,7 +14,8 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "ignoreDeprecations": "6.0"
   },
   "display": "Base",
   "exclude": ["node_modules"]

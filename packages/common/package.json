@@ -20,7 +20,7 @@
     "@dnsquery/dns-packet": "^6.1.1",
     "@istrust/i18n": "*",
     "@peculiar/x509": "^1.13.0",
-    "prettier-plugin-tailwindcss": "^0.7.2",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "zod": "^4.0.5"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "@istrust/typescript-config": "*",
     "eslint": "^10.0.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.4.5",
+    "typescript": "^6.0.3",
     "vitest": "^4.0.15"
   }
 }
