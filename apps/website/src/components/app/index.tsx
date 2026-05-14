@@ -86,13 +86,12 @@ export function App(props: { lang: string }) {
   const [debug, setDebug] = createSignal<boolean>(false);
 
   onMount(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-
-    const paramQuery = urlSearchParams.get("q");
-    if (paramQuery !== null) {
-      setInitValue(paramQuery);
+    const hash = window.location.hash.replace(/^#/, "").trim();
+    if (hash !== "") {
+      setInitValue(hash);
     }
 
+    const urlSearchParams = new URLSearchParams(window.location.search);
     if (urlSearchParams.get("debug") !== null) {
       setDebug(true);
     }
@@ -158,6 +157,8 @@ export function App(props: { lang: string }) {
     ) {
       navigator.storage.persist().catch(console.error);
     }
+
+    window.location.hash = text;
 
     setSearchQuery({ text, clearCache: false });
 
