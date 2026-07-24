@@ -70,12 +70,8 @@ export async function is_whois_privacy(name: string) {
   return await whois_privacy.is_privacy(name);
 }
 
-export async function is_whois_proxy(
-  name: string,
-  cache: InformationCache,
-  eDomain?: string,
-) {
-  return await whois_proxy.is_proxy(name, cache, eDomain);
+export async function is_whois_proxy(name: string, cache: InformationCache) {
+  return await whois_proxy.is_proxy(name, cache);
 }
 
 export async function update_cache(cache: InformationCache) {

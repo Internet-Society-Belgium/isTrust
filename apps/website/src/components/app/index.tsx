@@ -470,7 +470,7 @@ export function App(props: { lang: string }) {
 
 function WhoisProxy(props: { lang: string; name: string; domain?: string }) {
   const [proxy] = createResource(async () => {
-    return await common.is_whois_proxy(props.name, cache, props.domain);
+    return await common.is_whois_proxy(props.name, cache);
   });
 
   return (
@@ -493,7 +493,7 @@ function WhoisPrivacyProxy(props: {
   });
 
   const [proxy] = createResource(async () => {
-    return await common.is_whois_proxy(props.name, cache, props.domain);
+    return await common.is_whois_proxy(props.name, cache);
   });
 
   return (
