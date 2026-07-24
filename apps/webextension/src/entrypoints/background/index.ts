@@ -7,12 +7,10 @@ export default defineBackground({
     browser.runtime
       .getPlatformInfo()
       .then(({ os }) => {
-        if (
-          !(
-            (import.meta.env.BROWSER === "firefox" && os === "android") ||
-            import.meta.env.BROWSER === "safari-ios"
-          )
-        ) {
+        if (!(
+          (import.meta.env.BROWSER === "firefox" && os === "android") ||
+          import.meta.env.BROWSER === "safari-ios"
+        )) {
           contextMenus();
         }
       })

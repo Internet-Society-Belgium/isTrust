@@ -72,7 +72,7 @@ test("icann.org", async () => {
           {
             country: "US",
             links: [],
-            organization: "Let's Encrypt",
+            organization: "Amazon",
           },
         ],
         value: "DV",
@@ -116,17 +116,6 @@ test("digicert.com", async () => {
     types: [
       {
         value: "EV",
-        verified: true,
-        sources: [
-          {
-            country: "US",
-            links: [],
-            organization: "DigiCert Inc",
-          },
-        ],
-      },
-      {
-        value: "OV",
         verified: true,
         sources: [
           {

@@ -34,11 +34,11 @@ test("аррӏе.com", () => {
 });
 
 test("10.10.10.10", () => {
-  expect(() => parse_domain("10.10.10.10")).toThrowError(
+  expect(() => parse_domain("10.10.10.10")).toThrow(
     "IP addresses are not supported",
   );
 });
 
 test("tld", () => {
-  expect(() => parse_domain("tld")).toThrowError("Invalid domain name");
+  expect(() => parse_domain("tld")).toThrow("Invalid domain name");
 });

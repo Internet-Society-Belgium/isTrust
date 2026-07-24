@@ -44,7 +44,7 @@
     "prettier": "^3.2.5",
     "tailwindcss": "^4.1.11",
     "tsup": "^8.5.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "solid-js": "^1.8.17"

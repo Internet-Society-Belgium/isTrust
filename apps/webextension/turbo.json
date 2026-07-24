@@ -15,6 +15,9 @@
         "@istrust/i18n#check-types"
       ]
     },
+    "dev": {
+      "dependsOn": ["@istrust/i18n#build"]
+    },
     "lint": {
       "dependsOn": [
         "@istrust/common#lint",
