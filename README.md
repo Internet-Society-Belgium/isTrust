@@ -73,7 +73,7 @@
         target="_blank"
     >
         <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/52/Safari_browser_logo.svg"
+            src="https://upload.wikimedia.org/wikipedia/en/7/71/Safari_Liquid_Glass_icon.png"
             width="40px"
         />
     </a>
