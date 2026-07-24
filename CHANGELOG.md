@@ -1,12 +1,28 @@
 # Changelog
 
-## [4.4.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.4.0...4.4.1)
+## [4.5.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.4.1...4.5.0)
+
+### Merged
+
+- build(deps): bump brace-expansion from 1.1.12 to 1.1.13 [`#213`](https://github.com/Internet-Society-Belgium/isTrust/pull/213)
+- build(deps-dev): bump handlebars from 4.7.8 to 4.7.9 [`#212`](https://github.com/Internet-Society-Belgium/isTrust/pull/212)
+- build(deps-dev): bump astro from 5.18.0 to 5.18.1 [`#211`](https://github.com/Internet-Society-Belgium/isTrust/pull/211)
+- build(deps): bump picomatch [`#210`](https://github.com/Internet-Society-Belgium/isTrust/pull/210)
+- build(deps): bump ajv from 8.17.1 to 8.18.0 [`#208`](https://github.com/Internet-Society-Belgium/isTrust/pull/208)
+
+### Commits
+
+- build: update [`c2d3165`](https://github.com/Internet-Society-Belgium/isTrust/commit/c2d3165e92091aa1ae22b944d3daca7f98567ab4)
+- build: update [`7b12b2e`](https://github.com/Internet-Society-Belgium/isTrust/commit/7b12b2e4562631c893e17c3df1dc1ef300f96ee7)
+- build: update [`84da945`](https://github.com/Internet-Society-Belgium/isTrust/commit/84da94513c8f9a363c204ffc63e4be71b9bbfb71)
+
+## [4.4.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.4.0...4.4.1) - 2026-02-26
 
 ### Commits
 
 - build: update npm [`b2eab3c`](https://github.com/Internet-Society-Belgium/isTrust/commit/b2eab3cce2fbfc1f7fe6bf114ed90a99a7b58415)
 - build: update [`83c8a0c`](https://github.com/Internet-Society-Belgium/isTrust/commit/83c8a0cb58b494a59f9ffca3b70b440775c3628f)
-- build: update [`d99f0b6`](https://github.com/Internet-Society-Belgium/isTrust/commit/d99f0b6866172907443b4731e302a82ce51a1d03)
+- chore: release v4.4.1 [`15ebecd`](https://github.com/Internet-Society-Belgium/isTrust/commit/15ebecde8a434d3034c80f61535a48b5b0af06e7)
 
 ## [4.4.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.3.0...4.4.0) - 2026-02-22
 

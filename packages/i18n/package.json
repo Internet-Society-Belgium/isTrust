@@ -1,6 +1,6 @@
 {
   "name": "@istrust/i18n",
-  "version": "4.4.1",
+  "version": "4.5.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
