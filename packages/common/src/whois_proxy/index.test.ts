@@ -20,6 +20,12 @@ test(" Domains by Proxy, LLC ", async () => {
   expect(proxy).toStrictEqual(true);
 });
 
+test("Domains By Proxy, LLC", async () => {
+  const proxy = await is_proxy("Domains By Proxy, LLC", cache);
+
+  expect(proxy).toStrictEqual(true);
+});
+
 test("Registrant of domain.tld", async () => {
   const proxy = await is_proxy("Registrant of domain.tld", cache);
 

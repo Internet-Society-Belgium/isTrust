@@ -63,7 +63,7 @@ export async function is_proxy(name: string, cache: InformationCache) {
   const whoisProxyPatterns = validate_whois_proxy_patterns(json);
 
   for (const pattern of whoisProxyPatterns) {
-    if (new RegExp(pattern).test(name)) {
+    if (new RegExp(pattern, "i").test(name)) {
       return true;
     }
   }
