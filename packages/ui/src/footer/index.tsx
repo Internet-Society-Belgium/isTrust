@@ -21,7 +21,7 @@ export function FooterWebsiteAvailability(props: {
         >
           {(query) => (
             <a
-              href={`https://istrust.org/?q=${query()}`}
+              href={`https://istrust.org/#${query()}`}
               class="underline"
               target="_blank"
             >
