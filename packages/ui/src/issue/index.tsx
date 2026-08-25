@@ -86,7 +86,7 @@ export function Issue(props: { base?: string; lang: string; error: Error }) {
           "FeatureRequireWebextensionError"
         }
       >
-        <IssueLink href={`${props.base !== undefined ? props.base : ""}#get`}>
+        <IssueLink href={`${props.base !== undefined ? props.base : ""}#_get`}>
           {i18n("Only available in the extension", props.lang)}
         </IssueLink>
       </Match>

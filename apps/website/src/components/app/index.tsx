@@ -87,7 +87,7 @@ export function App(props: { lang: string }) {
 
   onMount(() => {
     const hash = window.location.hash.replace(/^#/, "").trim();
-    if (hash !== "") {
+    if (hash !== "" && !hash.startsWith("_")) {
       setInitValue(hash);
     }
 
@@ -386,7 +386,7 @@ export function App(props: { lang: string }) {
               <Section
                 title={i18n("Visit", props.lang)}
                 suffix={
-                  <IssueLink href="#get">
+                  <IssueLink href="#_get">
                     {i18n("Only available in the extension", props.lang)}
                   </IssueLink>
                 }

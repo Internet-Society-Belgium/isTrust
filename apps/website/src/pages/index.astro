@@ -7,10 +7,10 @@ import { translatedLangs } from "@istrust/i18n";
   <div class="min-h-screen">
     <noscript><meta http-equiv="refresh" content="0; url=/en/" /></noscript>
 
-    <div id="langs" data-langs={translatedLangs.join(",")}></div>
+    <div id="_langs" data-langs={translatedLangs.join(",")}></div>
 
     <script>
-      const langs = document.querySelector<HTMLDivElement>("#langs");
+      const langs = document.querySelector<HTMLDivElement>("#_langs");
 
       const translatedLangs = langs?.dataset.langs?.split(",");
       const language = navigator.language.split("-").at(0);

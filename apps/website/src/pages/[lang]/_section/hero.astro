@@ -27,7 +27,7 @@ const lang = getLangFromPath(Astro.url.pathname);
     <div>
       <div class="mx-auto mb-6 w-fit bg-white">
         <a
-          href="#scientific-research"
+          href="#_scientific-research"
           class="bg-primary/10 text-primary border-primary/25 flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-semibold"
         >
           {i18n("New improved version", lang)}
@@ -56,14 +56,14 @@ const lang = getLangFromPath(Astro.url.pathname);
       </div>
 
       <div class="mt-6 flex justify-center gap-2">
-        <ButtonGet id="get-default" href="#get"
+        <ButtonGet id="_get-default" href="#_get"
           >{i18n("Get the extension", lang)}
         </ButtonGet>
 
         {
           Object.entries(stores).map(([key, value]) => (
             <ButtonGet
-              id={`get-${key}`}
+              id={`_get-${key}`}
               href={value.link}
               style="display: none;"
             >
@@ -95,9 +95,9 @@ const lang = getLangFromPath(Astro.url.pathname);
           }
 
           const getDefault =
-            document.querySelector<HTMLAnchorElement>(`#get-default`);
+            document.querySelector<HTMLAnchorElement>(`#_get-default`);
           const getStore = document.querySelector<HTMLAnchorElement>(
-            `#get-${browser()}`,
+            `#_get-${browser()}`,
           );
 
           if (getDefault !== null && getStore !== null) {

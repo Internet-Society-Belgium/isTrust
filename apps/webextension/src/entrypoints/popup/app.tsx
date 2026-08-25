@@ -405,7 +405,7 @@ export function App() {
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
-                      <IssueLink href={`${base}#get`}>
+                      <IssueLink href={`${base}#_get`}>
                         {i18n("Not available in Safari", lang())}
                       </IssueLink>
                     }
@@ -429,7 +429,7 @@ export function App() {
                   <Section
                     title={i18n("Visit", lang())}
                     suffix={
-                      <IssueLink href={`${base}#get`}>
+                      <IssueLink href={`${base}#_get`}>
                         {i18n("Not available in Firefox on Android", lang())}
                       </IssueLink>
                     }
