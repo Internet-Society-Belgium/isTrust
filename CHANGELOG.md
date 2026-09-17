@@ -1,6 +1,14 @@
 # Changelog
 
-## [4.5.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.4.1...4.5.0)
+## [4.5.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.5.0...4.5.1)
+
+### Commits
+
+- fix(website): fragment collision [`c8b5cc9`](https://github.com/Internet-Society-Belgium/isTrust/commit/c8b5cc9ada5e7c2c183978ed069552a207daa8dd)
+- fix(whois proxy): case insensitive [`a04e162`](https://github.com/Internet-Society-Belgium/isTrust/commit/a04e162fc3d6240da935ead73f5e7eb64c5f8df8)
+- fix(webextension): footer link [`a8ced23`](https://github.com/Internet-Society-Belgium/isTrust/commit/a8ced23d284e5d467b3277112bfd3f3846b926dd)
+
+## [4.5.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.4.1...4.5.0) - 2026-07-24
 
 ### Merged
 
