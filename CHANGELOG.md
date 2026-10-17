@@ -1,6 +1,8 @@
 # Changelog
 
-## [4.5.2](https://github.com/Internet-Society-Belgium/isTrust/compare/4.5.1...4.5.2)
+## [4.5.3](https://github.com/Internet-Society-Belgium/isTrust/compare/4.5.2...4.5.3)
+
+## [4.5.2](https://github.com/Internet-Society-Belgium/isTrust/compare/4.5.1...4.5.2) - 2026-10-17
 
 ### Commits
 
