@@ -1,12 +1,20 @@
 # Changelog
 
-## [4.5.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.5.0...4.5.1)
+## [4.5.2](https://github.com/Internet-Society-Belgium/isTrust/compare/4.5.1...4.5.2)
 
 ### Commits
 
+- build: update [`f9f7248`](https://github.com/Internet-Society-Belgium/isTrust/commit/f9f72481af39dd01564b65d504d26c86388fdd39)
+- fix(website): ux improvements [`3e71c8e`](https://github.com/Internet-Society-Belgium/isTrust/commit/3e71c8eb7b4dc3b29dbe55b6fa9b8c7f6f65d753)
+- fix(webextension): clean contextMenu [`91275b6`](https://github.com/Internet-Society-Belgium/isTrust/commit/91275b6100dda464e146e448fcd67c1ded059fbf)
+
+## [4.5.1](https://github.com/Internet-Society-Belgium/isTrust/compare/4.5.0...4.5.1) - 2026-09-17
+
+### Commits
+
+- chore: release v4.5.1 [`01babee`](https://github.com/Internet-Society-Belgium/isTrust/commit/01babee7c89bb3ad6199ad081503d37128144d8d)
 - fix(website): fragment collision [`c8b5cc9`](https://github.com/Internet-Society-Belgium/isTrust/commit/c8b5cc9ada5e7c2c183978ed069552a207daa8dd)
 - fix(whois proxy): case insensitive [`a04e162`](https://github.com/Internet-Society-Belgium/isTrust/commit/a04e162fc3d6240da935ead73f5e7eb64c5f8df8)
-- fix(webextension): footer link [`a8ced23`](https://github.com/Internet-Society-Belgium/isTrust/commit/a8ced23d284e5d467b3277112bfd3f3846b926dd)
 
 ## [4.5.0](https://github.com/Internet-Society-Belgium/isTrust/compare/4.4.1...4.5.0) - 2026-07-24
 
