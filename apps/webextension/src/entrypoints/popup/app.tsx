@@ -1,3 +1,5 @@
+// https://github.com/PeculiarVentures/x509#%EF%B8%8F-reflect-polyfill-required
+import "reflect-metadata";
 import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
 import {

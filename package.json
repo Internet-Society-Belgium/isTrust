@@ -30,7 +30,8 @@
     "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
     "lint": "turbo lint",
     "release": "release-it",
-    "test": "turbo test"
+    "test": "turbo test",
+    "update": "npm-check-updates --interactive --workspaces"
   },
   "config": {
     "commitizen": {
@@ -39,13 +40,14 @@
   },
   "devDependencies": {
     "@istrust/prettier-config": "*",
-    "@release-it/bumper": "^7.0.5",
-    "auto-changelog": "^2.5.0",
-    "commitizen": "^4.3.1",
+    "@release-it/bumper": "^8.0.1",
+    "auto-changelog": "^2.7.0",
+    "commitizen": "^4.3.2",
     "cz-conventional-changelog": "^3.3.0",
-    "prettier": "^3.2.5",
-    "release-it": "^20.0.1",
-    "turbo": "^2.5.4"
+    "npm-check-updates": "^23.1.1",
+    "prettier": "^3.9.10",
+    "release-it": "^21.1.1",
+    "turbo": "^2.11.9"
   },
   "packageManager": "npm@11.11.0",
   "engines": {
