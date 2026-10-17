@@ -7,8 +7,8 @@ const lang = getLangFromPath(Astro.url.pathname);
 ---
 
 <div class="mx-auto max-w-4xl p-6">
-  <HeaderSection header={i18n("Mission", lang)}
-    >{i18n("What set us apart", lang)}
+  <HeaderSection header={i18n("Mission", lang)}>
+    {i18n("What set us apart", lang)}
   </HeaderSection>
 
   <div class="mt-6 flex flex-wrap justify-center gap-6 p-6">
@@ -17,12 +17,10 @@ const lang = getLangFromPath(Astro.url.pathname);
         <h2 class="font-semibold">{i18n("Free Forever", lang)}</h2>
 
         <p class="text-muted">
-          {
-            i18n(
-              "No fees, no subscriptions. We believe online safety should be a right, not a luxury.",
-              lang,
-            )
-          }
+          {i18n(
+            "No fees, no subscriptions. We believe online safety should be a right, not a luxury.",
+            lang,
+          )}
         </p>
       </div>
     </div>
@@ -31,17 +29,18 @@ const lang = getLangFromPath(Astro.url.pathname);
         <h2 class="font-semibold">{i18n("Fully Transparent", lang)}</h2>
 
         <p class="text-muted">
-          {
-            i18n(
-              "Our code is 100% open source. Audit us or contribute on",
-              lang,
-            )
-          }
+          {i18n(
+            "Our code is 100% open source. Audit us or contribute on",
+            lang,
+          )}{" "}
           <a
             href="https://github.com/Internet-Society-Belgium/isTrust/"
             target="_blank"
-            class="underline">GitHub</a
-          ><span>.</span>
+            class="underline"
+          >
+            GitHub
+          </a>
+          <span>.</span>
         </p>
       </div>
     </div>
@@ -50,12 +49,10 @@ const lang = getLangFromPath(Astro.url.pathname);
         <h2 class="font-semibold">{i18n("Privacy by Design", lang)}</h2>
 
         <p class="text-muted">
-          {
-            i18n(
-              "Your data stays with you. We track nothing and send zero data to our servers.",
-              lang,
-            )
-          }
+          {i18n(
+            "Your data stays with you. We track nothing and send zero data to our servers.",
+            lang,
+          )}
         </p>
       </div>
     </div>

@@ -3,9 +3,10 @@ interface Props {
   id: string;
   href: string;
   style?: string;
+  newTab?: boolean;
 }
 
-const { id, href, style } = Astro.props;
+const { id, href, style, newTab = false } = Astro.props;
 ---
 
 <a
@@ -13,7 +14,7 @@ const { id, href, style } = Astro.props;
   class="bg-primary rounded-full px-4 py-3 font-semibold text-white shadow duration-200 hover:-translate-y-0.5 focus-visible:outline-offset-2"
   href={href}
   style={style}
-  target="_blank"
+  target={newTab ? "_blank" : null}
 >
   <slot />
 </a>

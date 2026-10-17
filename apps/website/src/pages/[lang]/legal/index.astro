@@ -18,12 +18,11 @@ const { lang } = Astro.params;
     </HeaderSection>
 
     <p class="m-6">
-      "istrust.org" {
-        i18n(
-          "is operated by Internet Society Chapter Belgium vzw/asbl (non-profit organization)",
-          lang,
-        )
-      }
+      "istrust.org"{" "}
+      {i18n(
+        "is operated by Internet Society Chapter Belgium vzw/asbl (non-profit organization)",
+        lang,
+      )}
     </p>
 
     <p class="m-6">
@@ -40,9 +39,9 @@ const { lang } = Astro.params;
 
     <p class="m-6">
       {i18n("Our website address is:", lang)}
-      <a href="https://internetsociety.be" target="_blank" class="underline"
-        >internetsociety.be</a
-      >
+      <a href="https://internetsociety.be" target="_blank" class="underline">
+        internetsociety.be
+      </a>
     </p>
   </div>
 </Layout>

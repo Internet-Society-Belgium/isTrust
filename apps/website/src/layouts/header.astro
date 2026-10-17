@@ -37,16 +37,14 @@ const lang = getLangFromPath(Astro.url.pathname);
       onchange="window.location.pathname = this.options[this.selectedIndex].value"
       class="bg-elevated/50 border-border hover:bg-elevated hover:border-accented pointer-events-auto w-full appearance-none rounded-md border py-1 pr-5 pl-2 text-sm transition-colors"
     >
-      {
-        langs.sort().map((l) => (
-          <option
-            value={getLocalizedPath(l, unlocalizedPath)}
-            selected={l === lang}
-          >
-            {l.toUpperCase()}
-          </option>
-        ))
-      }
+      {langs.sort().map((l) => (
+        <option
+          value={getLocalizedPath(l, unlocalizedPath)}
+          selected={l === lang}
+        >
+          {l.toUpperCase()}
+        </option>
+      ))}
     </select>
     <svg
       class="pointer-events-none absolute top-2 right-1"
@@ -63,8 +61,7 @@ const lang = getLangFromPath(Astro.url.pathname);
         stroke-linejoin="round"
         stroke-width="2"
         d="m6 9l6 6l6-6"
-      >
-      </path>
+      ></path>
     </svg>
   </div>
 </div>

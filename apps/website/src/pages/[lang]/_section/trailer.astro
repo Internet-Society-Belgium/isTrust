@@ -7,9 +7,9 @@ const lang = getLangFromPath(Astro.url.pathname);
 ---
 
 <div class="mx-auto max-w-4xl p-6">
-  <HeaderSection header={i18n("Trailer", lang)}
-    >{i18n("Watch the video to learn more", lang)}</HeaderSection
-  >
+  <HeaderSection header={i18n("Trailer", lang)}>
+    {i18n("Watch the video to learn more", lang)}
+  </HeaderSection>
 
   <div class="mt-8">
     <video

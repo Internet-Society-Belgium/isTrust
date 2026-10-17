@@ -18,23 +18,20 @@ const { lang } = Astro.params;
     </HeaderSection>
 
     <p class="m-6">
-      {
-        i18n(
-          "As we want to protect your privacy, NO personal data is processed nor stored on this website. Similarly, NO cookie is used for tracking purposes",
-          lang,
-        )
-      }
+      {i18n(
+        "As we want to protect your privacy, NO personal data is processed nor stored on this website. Similarly, NO cookie is used for tracking purposes",
+        lang,
+      )}
     </p>
 
     <p class="m-6">
-      {
-        i18n(
-          "In case of question related to privacy or data protection, please contact",
-          lang,
-        )
-      }
-      <a href="mailto:dpo@isoc.be" class="text-primary underline">dpo@isoc.be</a
-      >
+      {i18n(
+        "In case of question related to privacy or data protection, please contact",
+        lang,
+      )}
+      <a href="mailto:dpo@isoc.be" class="text-primary underline">
+        dpo@isoc.be
+      </a>
     </p>
   </div>
 </Layout>

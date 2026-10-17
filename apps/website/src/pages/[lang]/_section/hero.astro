@@ -14,15 +14,9 @@ const lang = getLangFromPath(Astro.url.pathname);
 ---
 
 <div class="relative">
-  <div
-    class="absolute inset-0 -z-2 [background-image:radial-gradient(#d4d4d4_1px,transparent_1px)] [background-size:20px_20px]"
-  >
-  </div>
+  <div class="absolute inset-0 -z-2 [background-image:radial-gradient(#d4d4d4_1px,transparent_1px)] [background-size:20px_20px]"></div>
 
-  <div
-    class="absolute inset-0 -z-1 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#000_80%)]"
-  >
-  </div>
+  <div class="absolute inset-0 -z-1 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#000_80%)]"></div>
   <div class="mx-auto max-w-4xl px-6 pt-12 pb-6">
     <div>
       <div class="mx-auto mb-6 w-fit bg-white">
@@ -44,7 +38,8 @@ const lang = getLangFromPath(Astro.url.pathname);
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              d="m9 18l6-6l-6-6"></path>
+              d="m9 18l6-6l-6-6"
+            ></path>
           </svg>
         </a>
       </div>
@@ -56,53 +51,62 @@ const lang = getLangFromPath(Astro.url.pathname);
       </div>
 
       <div class="mt-6 flex justify-center gap-2">
-        <ButtonGet id="_get-default" href="#_get"
-          >{i18n("Get the extension", lang)}
+        <ButtonGet id="_get-default" href="#_get" newTab={false}>
+          {i18n("Get the extension", lang)}
         </ButtonGet>
 
-        {
-          Object.entries(stores).map(([key, value]) => (
-            <ButtonGet
-              id={`_get-${key}`}
-              href={value.link}
-              style="display: none;"
-            >
-              <div class="flex items-center justify-center gap-2">
-                <Image
-                  src={value.icon()}
-                  alt={key}
-                  class="h-6 w-6 object-contain"
-                  decoding="async"
-                  loading="eager"
-                />
-                <span>{i18n("Get the extension", lang)}</span>
-              </div>
-            </ButtonGet>
-          ))
-        }
+        {Object.entries(stores).map(([key, value]) => (
+          <ButtonGet
+            id={`_get-${key}`}
+            href={value.link}
+            style="display: none;"
+            newTab={true}
+          >
+            <div class="flex items-center justify-center gap-2">
+              <Image
+                src={value.icon()}
+                alt={key}
+                class="h-6 w-6 object-contain"
+                decoding="async"
+                loading="eager"
+              />
+              <span>{i18n("Get the extension", lang)}</span>
+            </div>
+          </ButtonGet>
+        ))}
         <script>
-          function browser() {
-            const ua = navigator.userAgent;
+          const isPWA =
+            window.matchMedia("(display-mode: standalone)").matches ||
+            window.navigator.standalone === true;
 
-            if (ua.includes("Chrome") || ua.includes("Chromium")) {
-              if (ua.includes("Edg")) return "edge";
-
-              return "chrome";
+          window.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+              window.location.reload();
             }
-            if (ua.includes("Safari")) return "safari";
+          });
 
-            if (ua.includes("Firefox")) return "firefox";
-          }
+          if (!isPWA) {
+            function browser() {
+              const ua = navigator.userAgent;
 
-          const getDefault =
-            document.querySelector<HTMLAnchorElement>(`#_get-default`);
-          const getStore = document.querySelector<HTMLAnchorElement>(
-            `#_get-${browser()}`,
-          );
+              if (ua.includes("Chrome") || ua.includes("Chromium")) {
+                if (ua.includes("Edg")) return "edge";
+                return "chrome";
+              }
+              if (ua.includes("Safari")) return "safari";
+              if (ua.includes("Firefox")) return "firefox";
+            }
 
-          if (getDefault !== null && getStore !== null) {
-            getStore.style.display = "inherit";
-            getDefault.style.display = "none";
+            const getDefault =
+              document.querySelector<HTMLAnchorElement>(`#_get-default`);
+            const getStore = document.querySelector<HTMLAnchorElement>(
+              `#_get-${browser()}`,
+            );
+
+            if (getDefault !== null && getStore !== null) {
+              getStore.style.display = "inherit";
+              getDefault.style.display = "none";
+            }
           }
         </script>
       </div>
@@ -110,9 +114,7 @@ const lang = getLangFromPath(Astro.url.pathname);
 
     <div class="mt-28 flex justify-center">
       <div class="relative">
-        <div
-          class="absolute -top-14 flex w-full items-start justify-center gap-2"
-        >
+        <div class="absolute -top-14 flex w-full items-start justify-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="3em"
@@ -136,7 +138,8 @@ const lang = getLangFromPath(Astro.url.pathname);
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="1.167"
-                  d="m1.167 5.25 3.5-1.75-3.5-1.75"></path>
+                  d="m1.167 5.25 3.5-1.75-3.5-1.75"
+                ></path>
               </marker>
             </defs>
             <path
@@ -148,7 +151,8 @@ const lang = getLangFromPath(Astro.url.pathname);
               stroke-width="32"
               marker-end="url(#a)"
               d="M77 77q17 636 646 646"
-              transform="rotate(92 402.86 423.054)"></path>
+              transform="rotate(92 402.86 423.054)"
+            ></path>
           </svg>
 
           <div class="text-muted font-semibold text-nowrap italic select-none">
