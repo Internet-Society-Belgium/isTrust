@@ -46,7 +46,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "npm-check-updates": "^23.1.1",
     "prettier": "^3.9.10",
-    "release-it": "^21.1.1",
+    "release-it": "^21.1.2",
     "turbo": "^2.11.9"
   },
   "packageManager": "npm@11.11.0",
