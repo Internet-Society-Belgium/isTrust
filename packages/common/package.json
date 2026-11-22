@@ -13,6 +13,7 @@
     "clean": "rm -rf .turbo dist node_modules",
     "dev": "tsup --watch",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
+    "format:check": "prettier --check \"*.{js,ts,json}\" && prettier ./src --check",
     "lint": "eslint src --max-warnings 0",
     "test": "vitest run --exclude \"**/*.live.test.ts\"",
     "test:live": "vitest run .live.test"

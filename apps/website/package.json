@@ -8,6 +8,7 @@
     "clean": "rm -rf .turbo .astro dist node_modules",
     "dev": "astro dev",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
+    "format:check": "prettier --check \"*.{js,ts,json}\" && prettier ./src --check",
     "generate:assets": "pwa-assets-generator",
     "generate:manifest": "node ./scripts/generate_manifest.js",
     "lint": "eslint src --max-warnings 0"
