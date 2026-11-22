@@ -85,32 +85,10 @@ test("github.com", async () => {
         verified: false,
       },
     ],
-    individuals: [
-      {
-        sources: [
-          {
-            country: "US",
-            links: ["https://www.markmonitor.com/about-us/"],
-            organization: "Markmonitor Inc.",
-          },
-        ],
-        value: "REDACTED REGISTRANT",
-        verified: false,
-      },
-    ],
-    organizations: [
-      {
-        sources: [
-          {
-            country: "US",
-            links: ["https://www.markmonitor.com/about-us/"],
-            organization: "Markmonitor Inc.",
-          },
-        ],
-        value: "GitHub, Inc.",
-        verified: false,
-      },
-    ],
+    // MarkMonitor's RDAP now redacts the registrant ("REDACTED FOR PRIVACY",
+    // empty name, no organization), so none is reported.
+    individuals: [],
+    organizations: [],
     registrations: [
       {
         sources: [

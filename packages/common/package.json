@@ -14,7 +14,8 @@
     "dev": "tsup --watch",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "lint": "eslint src --max-warnings 0",
-    "test": "vitest run"
+    "test": "vitest run --exclude \"**/*.live.test.ts\"",
+    "test:live": "vitest run .live.test"
   },
   "dependencies": {
     "@dnsquery/dns-packet": "^6.1.1",
