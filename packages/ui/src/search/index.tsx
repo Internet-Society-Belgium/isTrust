@@ -12,7 +12,6 @@ export function SearchBar(props: {
   const [historyIndex, setHistoryIndex] = createSignal<number>(0);
   const [history, setHistory] = createSignal<string[]>([]);
 
-  // eslint-disable-next-line no-unassigned-vars
   let input!: HTMLInputElement;
 
   onMount(() => {

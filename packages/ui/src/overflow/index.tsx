@@ -4,7 +4,6 @@ export function Overflow(props: { direction?: "rtl"; children: JSX.Element }) {
   const [overflowBegin, setOverflowBegin] = createSignal<boolean>(false);
   const [overflowEnd, setOverflowEnd] = createSignal<boolean>(false);
 
-  // eslint-disable-next-line no-unassigned-vars
   let element!: HTMLDivElement;
 
   onMount(() => {
