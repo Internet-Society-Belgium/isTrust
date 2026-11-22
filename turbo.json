@@ -15,7 +15,10 @@
     },
     "format": {},
     "lint": {},
-    "test": {}
+    "test": {},
+    "test:live": {
+      "cache": false
+    }
   },
   "ui": "tui"
 }
