@@ -21,7 +21,7 @@
   "dependencies": {
     "@dnsquery/dns-packet": "^6.1.1",
     "@istrust/i18n": "*",
-    "@peculiar/x509": "^2.2.0",
+    "@peculiar/x509": "^3.1.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
