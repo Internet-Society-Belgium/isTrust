@@ -68,7 +68,7 @@ GitHub Issues in `Internet-Society-Belgium/isTrust`, via the `gh` CLI. See `docs
 
 ### Triage labels
 
-Default label strings: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+Triage labels live in the `triage:` family: `triage:needs-triage`, `triage:needs-info`, `triage:ready-for-agent`, `triage:ready-for-human`, `triage:wontfix`. Issue types use the `type:` family (`type:bug`, `type:enhancement`, `type:question`, `type:docs`, `type:dependencies`). See `docs/agents/triage-labels.md`.
 
 ### Domain docs
 
