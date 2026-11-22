@@ -28,11 +28,13 @@
     "dev:webextension": "turbo dev --filter=webextension --filter=./packages/*",
     "dev:website": "turbo dev --filter=website --filter=./packages/*",
     "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
+    "format:check": "prettier --check \"*.{js,ts,json}\" && turbo format:check",
     "lint": "turbo lint",
     "release": "release-it",
     "test": "turbo test",
     "test:live": "turbo test:live",
-    "update": "npm-check-updates --interactive --workspaces"
+    "update": "npm-check-updates --interactive --workspaces",
+    "verify": "prettier --check \"*.{js,ts,json}\" && turbo format:check lint check-types test"
   },
   "config": {
     "commitizen": {
