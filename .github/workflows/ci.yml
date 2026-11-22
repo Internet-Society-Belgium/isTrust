@@ -142,3 +142,38 @@ jobs:
 
       - name: Test
         run: npm run test -- --affected
+
+  test_live:
+    name: Live tests
+    needs: [lint, check_types]
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    env:
+      TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Live tests call real external services, so a failure can come from the
+      # network or from upstream data changing. Report it, but don't fail CI.
+      - name: Live tests
+        id: live
+        continue-on-error: true
+        run: npm run test:live -- --affected -- --retry=2
+
+      - name: Warn on live test failure
+        if: steps.live.outcome == 'failure'
+        run: echo "::warning title=Live tests failed::Live tests failed. They depend on external services, so this doesn't block the merge. Check the Live tests step log before merging."
