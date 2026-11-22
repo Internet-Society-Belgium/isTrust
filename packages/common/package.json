@@ -29,6 +29,7 @@
     "@istrust/typescript-config": "*",
     "eslint": "^10.13.0",
     "prettier": "^3.9.10",
+    "reflect-metadata": "^0.2.2",
     "typescript": "^7.0.2",
     "vitest": "^5.0.5"
   }
