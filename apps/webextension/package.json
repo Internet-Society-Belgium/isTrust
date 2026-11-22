@@ -14,6 +14,7 @@
     "dev:edge": "npm run generate:locales && wxt --browser edge",
     "dev:firefox": "npm run generate:locales && wxt --browser firefox",
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
+    "format:check": "prettier --check \"*.{js,ts,json}\" && prettier ./src --check",
     "generate:locales": "node ./scripts/generate_locales.js",
     "generate:xcode:ios": "wxt build --browser safari-ios --mv2 && node ./scripts/generate_xcode.js ios",
     "generate:xcode:macos": "wxt build --browser safari-macos --mv2 && node ./scripts/generate_xcode.js macos",
