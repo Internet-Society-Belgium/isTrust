@@ -21,8 +21,8 @@
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
     "@istrust/typescript-config": "*",
-    "eslint": "^10.13.0",
-    "prettier": "^3.9.10",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
     "typescript": "^7.0.2"
   }
 }

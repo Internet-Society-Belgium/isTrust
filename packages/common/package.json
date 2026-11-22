@@ -22,17 +22,16 @@
     "@dnsquery/dns-packet": "^6.1.1",
     "@istrust/i18n": "*",
     "@peculiar/x509": "^2.2.0",
-    "prettier-plugin-tailwindcss": "^0.8.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
     "@istrust/typescript-config": "*",
-    "eslint": "^10.13.0",
-    "prettier": "^3.9.10",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
     "reflect-metadata": "^0.2.2",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.1"
   }
 }

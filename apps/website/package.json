@@ -17,19 +17,19 @@
     "@istrust/i18n": "*",
     "@istrust/ui": "*",
     "reflect-metadata": "^0.2.2",
-    "solid-js": "^1.9.17"
+    "solid-js": "^1.9.20"
   },
   "devDependencies": {
-    "@astrojs/solid-js": "^7.1.0",
+    "@astrojs/solid-js": "^7.1.6",
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
     "@istrust/tailwind-config": "*",
-    "@tailwindcss/vite": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.5",
     "@vite-pwa/assets-generator": "^2.0.0",
     "archiver": "^8.0.0",
-    "astro": "^7.4.0",
-    "eslint": "^10.13.0",
-    "prettier": "^3.9.10",
-    "tailwindcss": "^4.3.3"
+    "astro": "^7.4.13",
+    "eslint": "^10.15.0",
+    "prettier": "^3.10.1",
+    "tailwindcss": "^4.3.5"
   }
 }
