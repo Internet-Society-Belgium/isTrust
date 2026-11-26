@@ -33,7 +33,7 @@
     "@istrust/tailwind-config": "*",
     "@tailwindcss/vite": "^4.3.5",
     "@types/chrome": "^0.3.7",
-    "@wxt-dev/auto-icons": "^1.1.2",
+    "@wxt-dev/auto-icons": "^2.0.0",
     "@wxt-dev/module-solid": "^1.1.4",
     "eslint": "^10.15.0",
     "prettier": "^3.10.1",
