@@ -106,15 +106,11 @@ export function get_data(cert: X509Certificate) {
   return data;
 }
 
-// Trims the values of a certificate field and drops blank ones.
-export function clean_values(values: string[]) {
-  return values.map((value) => value.trim()).filter((value) => value !== "");
-}
-
-// Joins the values of a certificate field with one space, ignoring blank
-// values and surrounding whitespace.
 export function join_values(values: string[]) {
-  const text = clean_values(values).join(" ");
+  const text = values
+    .map((value) => value.trim())
+    .filter((value) => value !== "")
+    .join(" ");
   if (text === "") return;
   return text;
 }

@@ -290,7 +290,7 @@ test("improve_data_array add country", () => {
   ] satisfies typeof array);
 });
 
-test("improve_data_array add source from another organisation", () => {
+test("improve_data_array add source from another organization", () => {
   const array: Information<string>[] = [
     {
       value: "value",

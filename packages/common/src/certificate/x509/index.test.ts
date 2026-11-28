@@ -1,11 +1,5 @@
 import { describe, expect, test } from "vitest";
-import {
-  clean_values,
-  get_data,
-  is_valid_cert,
-  join_values,
-  parse_cert,
-} from ".";
+import { get_data, is_valid_cert, join_values, parse_cert } from ".";
 import { CA, CLIENT_AUTH, DV, EV, EXPIRED, IV } from "./fixtures";
 
 // Base64 DER, as returned by the Certspotter and MerkleMap APIs.
@@ -52,7 +46,7 @@ describe("get_data", () => {
         country: "BE",
         links: [],
       },
-      individualNames: ["Jane", "Doe"],
+      individualNames: ["Internet Society", "ISOC"],
       country: "BE",
     });
   });
@@ -66,31 +60,6 @@ describe("get_data", () => {
         links: [],
       },
     });
-  });
-});
-
-describe("clean_values", () => {
-  test("keeps each value", () => {
-    expect(clean_values(["Jane", "Marie", "Doe"])).toStrictEqual([
-      "Jane",
-      "Marie",
-      "Doe",
-    ]);
-  });
-
-  test("trims each value", () => {
-    expect(clean_values([" Jane ", "  Doe"])).toStrictEqual(["Jane", "Doe"]);
-  });
-
-  test("drops blank values", () => {
-    expect(clean_values(["Jane", "", "  ", "Doe"])).toStrictEqual([
-      "Jane",
-      "Doe",
-    ]);
-  });
-
-  test("no values", () => {
-    expect(clean_values([])).toStrictEqual([]);
   });
 });
 

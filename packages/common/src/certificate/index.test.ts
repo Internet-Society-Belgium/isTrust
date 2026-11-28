@@ -26,58 +26,80 @@ function individual(value: string) {
 
 test("lists the given name and the surname separately", async () => {
   certificates = [
-    { type: "IV", issuer: ISSUER, individualNames: ["Jane", "Doe"] },
+    {
+      type: "IV",
+      issuer: ISSUER,
+      individualNames: ["Internet Society", "ISOC"],
+    },
   ];
 
   const data = await get_data("iv.example.test", true);
 
   expect(data?.individuals).toStrictEqual([
-    individual("Jane"),
-    individual("Doe"),
+    individual("Internet Society"),
+    individual("ISOC"),
   ]);
 });
 
 test("lists a given name only", async () => {
-  certificates = [{ type: "IV", issuer: ISSUER, individualNames: ["Jane"] }];
+  certificates = [
+    { type: "IV", issuer: ISSUER, individualNames: ["Internet Society"] },
+  ];
 
   const data = await get_data("iv.example.test", true);
 
-  expect(data?.individuals).toStrictEqual([individual("Jane")]);
+  expect(data?.individuals).toStrictEqual([individual("Internet Society")]);
 });
 
 test("lists a surname only", async () => {
-  certificates = [{ type: "IV", issuer: ISSUER, individualNames: ["Doe"] }];
+  certificates = [{ type: "IV", issuer: ISSUER, individualNames: ["ISOC"] }];
 
   const data = await get_data("iv.example.test", true);
 
-  expect(data?.individuals).toStrictEqual([individual("Doe")]);
+  expect(data?.individuals).toStrictEqual([individual("ISOC")]);
 });
 
 test("lists a shared name once", async () => {
   certificates = [
-    { type: "IV", issuer: ISSUER, individualNames: ["Jane", "Doe"] },
-    { type: "IV", issuer: ISSUER, individualNames: ["John", "Doe"] },
+    {
+      type: "IV",
+      issuer: ISSUER,
+      individualNames: ["Internet Society", "ISOC"],
+    },
+    {
+      type: "IV",
+      issuer: ISSUER,
+      individualNames: ["Internet Society Belgium", "ISOC"],
+    },
   ];
 
   const data = await get_data("iv.example.test", true);
 
   expect(data?.individuals).toStrictEqual([
-    individual("Jane"),
-    individual("Doe"),
-    individual("John"),
+    individual("Internet Society"),
+    individual("ISOC"),
+    individual("Internet Society Belgium"),
   ]);
 });
 
 test("lists the same person once", async () => {
   certificates = [
-    { type: "IV", issuer: ISSUER, individualNames: ["Jane", "Doe"] },
-    { type: "IV", issuer: ISSUER, individualNames: ["Jane", "Doe"] },
+    {
+      type: "IV",
+      issuer: ISSUER,
+      individualNames: ["Internet Society", "ISOC"],
+    },
+    {
+      type: "IV",
+      issuer: ISSUER,
+      individualNames: ["Internet Society", "ISOC"],
+    },
   ];
 
   const data = await get_data("iv.example.test", true);
 
   expect(data?.individuals).toStrictEqual([
-    individual("Jane"),
-    individual("Doe"),
+    individual("Internet Society"),
+    individual("ISOC"),
   ]);
 });
