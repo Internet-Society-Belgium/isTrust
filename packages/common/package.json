@@ -15,8 +15,8 @@
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "format:check": "prettier --check \"*.{js,ts,json}\" && prettier ./src --check",
     "lint": "eslint src --max-warnings 0",
-    "test": "vitest run --exclude \"**/*.live.test.ts\"",
-    "test:live": "vitest run .live.test"
+    "test": "vitest run --project unit",
+    "test:live": "vitest run --project live"
   },
   "dependencies": {
     "@dnsquery/dns-packet": "^6.1.1",
