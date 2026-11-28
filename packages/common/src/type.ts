@@ -8,7 +8,7 @@ export interface Information<T, M = unknown> {
   value: T;
   sources: Source[];
   verified?: boolean;
-  // Extra facts about the value, such as who owns a country entry.
+  // Extra facts about the value, such as a country's role.
   meta?: M[];
 }
 
@@ -39,15 +39,13 @@ export function improve_informations<T, M>(
   }
 
   if (match === undefined) {
-    if (information.meta !== undefined) {
-      information.meta = improve_meta([], information.meta);
-    }
     informations.push(information);
     return informations;
   }
 
+  // shortcut: Set compares by identity, enough for string meta; compare contents if meta becomes objects.
   if (information.meta !== undefined) {
-    match.meta = improve_meta(match.meta ?? [], information.meta);
+    match.meta = [...new Set([...(match.meta ?? []), ...information.meta])];
   }
 
   if (match.verified === true && information.verified === false) {
@@ -68,15 +66,6 @@ export function improve_informations<T, M>(
   }
 
   return informations;
-}
-
-// shortcut: entries compare with ===, fine for string meta, deep-compare if meta becomes objects.
-function improve_meta<M>(meta: M[], extra: M[]) {
-  for (const entry of extra) {
-    if (!meta.includes(entry)) meta.push(entry);
-  }
-
-  return meta;
 }
 
 function improve_sources(sources: Source[], source: Source) {

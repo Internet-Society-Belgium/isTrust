@@ -383,3 +383,18 @@ test("improve_informations keeps two distinct sources", () => {
     "B",
   ]);
 });
+
+test("improve_informations unions meta without duplicates", () => {
+  // Bank of America: the US is both its office and where it is incorporated.
+  const informations: Information<string, string>[] = [
+    { value: "US", sources: [], meta: ["office"] },
+  ];
+
+  improve_informations(informations, {
+    value: "US",
+    sources: [],
+    meta: ["incorporated", "office"],
+  });
+
+  expect(informations[0]?.meta).toStrictEqual(["office", "incorporated"]);
+});

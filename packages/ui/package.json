@@ -28,8 +28,7 @@
     "format": "prettier --write \"*.{js,ts,json}\" && prettier ./src --write",
     "format:check": "prettier --check \"*.{js,ts,json}\" && prettier ./src --check",
     "generate:flags": "node ./scripts/generate_flags.js",
-    "lint": "eslint src --max-warnings 0",
-    "test": "vitest run"
+    "lint": "eslint src --max-warnings 0"
   },
   "dependencies": {
     "@istrust/i18n": "*"
@@ -46,8 +45,7 @@
     "prettier": "^3.10.1",
     "tailwindcss": "^4.3.5",
     "tsup": "^9.0.0",
-    "typescript": "^7.0.2",
-    "vitest": "^5.1.2"
+    "typescript": "^7.0.2"
   },
   "peerDependencies": {
     "solid-js": "^1.8.17"

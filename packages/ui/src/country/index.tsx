@@ -2,7 +2,6 @@ import * as common from "@istrust/common";
 import i18n from "@istrust/i18n";
 import { createResource, Match, Resource, Switch } from "solid-js";
 import { Flag } from "./flag";
-import { country_title } from "./title";
 
 // A country is the proxy's when whois gives it and the whois owner is a proxy
 // service.
@@ -43,18 +42,19 @@ export function Country(props: {
     }
   };
 
+  // Native tooltip: proxy warning, country name, then one line per role.
   const title = () =>
-    country_title(
+    [
+      ...(props.proxy === true
+        ? [i18n("Country of the proxy service, not of the owner", props.lang)]
+        : []),
       getRegionName(props.value, props.lang),
-      props.meta,
-      {
-        office: i18n("Office", props.lang),
-        incorporated: i18n("Place of incorporation", props.lang),
-      },
-      props.proxy === true
-        ? i18n("Country of the proxy service, not of the owner", props.lang)
-        : undefined,
-    );
+      ...(props.meta ?? []).map((role) =>
+        role === "office"
+          ? i18n("Office", props.lang)
+          : i18n("Place of incorporation", props.lang),
+      ),
+    ].join("\n");
 
   return (
     <Switch>
