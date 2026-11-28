@@ -9,8 +9,13 @@ import {
   AlertRegistration,
   AlertWhoisPrivacyOrganization,
   AlertWhoisProxy,
+  AlertWhoisProxyCountry,
 } from "@istrust/ui/alert/index";
-import { Country } from "@istrust/ui/country/index";
+import {
+  Country,
+  create_is_proxy_country,
+  sort_countries,
+} from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
 import { HeaderDomain } from "@istrust/ui/header/index";
 import {
@@ -142,6 +147,8 @@ export function App(props: { lang: string }) {
       return await common.get_certificate_data(domain.effective, false);
     },
   );
+
+  const isProxyCountry = create_is_proxy_country(whoisData, cache);
 
   const [dnssecData, { mutate: mutateDnssecData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
@@ -284,9 +291,12 @@ export function App(props: { lang: string }) {
                   title={i18n("Country of residence", props.lang)}
                   description={<>{i18n("Country of residence", props.lang)}</>}
                   prefix={<IconMapPin />}
-                  informations={common.merge_informations(
-                    certificateData()?.countries,
-                    whoisData()?.countries,
+                  informations={sort_countries(
+                    common.merge_informations(
+                      certificateData()?.countries,
+                      whoisData()?.countries,
+                    ),
+                    isProxyCountry,
                   )}
                   suffix={(country) => (
                     <Source lang={props.lang} information={country} />
@@ -294,11 +304,16 @@ export function App(props: { lang: string }) {
                 >
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
-                      <Country
+                      <AlertWhoisProxyCountry
                         lang={props.lang}
-                        value={country.value}
-                        type="text"
-                      />
+                        proxy={isProxyCountry(country)}
+                      >
+                        <Country
+                          lang={props.lang}
+                          value={country.value}
+                          type="text"
+                        />
+                      </AlertWhoisProxyCountry>
                     </ListAdditionalItem>
                   )}
                 </SectionItem>

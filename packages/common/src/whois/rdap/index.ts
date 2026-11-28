@@ -1,3 +1,4 @@
+import { normalize_country } from "../../country";
 import {
   improve_informations,
   improve_links,
@@ -149,7 +150,7 @@ export async function get_data(domain: string, cache: InformationCache) {
   return data;
 }
 
-function improve_data(data: WHOISData, result: RdapResult) {
+export function improve_data(data: WHOISData, result: RdapResult) {
   let organization: string | undefined;
 
   const registrarEntity = result.entities.find((e) => {
@@ -329,7 +330,7 @@ function get_country(vcardArray: JCard) {
   if (cc !== undefined) {
     const countryCode = stringify_rdap_value(cc);
 
-    return countryCode;
+    return normalize_country(countryCode);
   }
 
   const addressValue = adrProperty[3];
@@ -339,7 +340,7 @@ function get_country(vcardArray: JCard) {
 
     const countryName = stringify_rdap_value(countryValue);
 
-    return countryName;
+    return normalize_country(countryName);
   }
 
   return;

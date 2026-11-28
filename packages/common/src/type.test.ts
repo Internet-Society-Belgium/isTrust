@@ -364,3 +364,22 @@ test("improve_data_array source without country matches", () => {
     },
   ] satisfies typeof array);
 });
+
+test("improve_informations keeps two distinct sources", () => {
+  const informations: Information<string>[] = [
+    {
+      value: "BE",
+      sources: [{ organization: "A", links: [] }],
+    },
+  ];
+
+  const merged = improve_informations(informations, {
+    value: "BE",
+    sources: [{ organization: "B", links: [] }],
+  });
+
+  expect(merged[0]?.sources.map((s) => s.organization)).toStrictEqual([
+    "A",
+    "B",
+  ]);
+});

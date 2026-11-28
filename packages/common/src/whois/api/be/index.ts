@@ -1,3 +1,4 @@
+import { normalize_country } from "../../../country";
 import { Source } from "../../../type";
 import {
   feature_require_webextension_error,
@@ -63,8 +64,9 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
       data.organizations = [{ value: contact.companyName, sources, verified }];
     }
 
-    if (contact.country !== null) {
-      data.countries = [{ value: contact.country, sources, verified }];
+    const country = normalize_country(contact.country ?? undefined);
+    if (country !== undefined) {
+      data.countries = [{ value: country, sources, verified }];
     }
   } catch (e) {
     const error = e as Error;

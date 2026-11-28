@@ -75,6 +75,7 @@ export type Translated =
   | "Privacy policy"
   | "Protected with"
   | "Protection with"
+  | "Proxy country, not owner's"
   | "Registered"
   | "Registered less than 1 year ago"
   | "Registered less than 6 months ago"
