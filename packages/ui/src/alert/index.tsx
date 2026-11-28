@@ -242,10 +242,7 @@ export function AlertWhoisProxyCountry(props: {
     <Show when={props.proxy} fallback={props.children}>
       <div
         class="text-bad"
-        title={i18n(
-          "Country of the proxy service, not of the owner",
-          props.lang,
-        )}
+        title={i18n("Proxy country, not owner's", props.lang)}
       >
         {props.children}
       </div>

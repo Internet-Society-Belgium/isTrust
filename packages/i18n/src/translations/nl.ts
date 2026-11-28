@@ -29,8 +29,7 @@ export const nl: Translations = {
     "Omdat wij uw privacy willen beschermen, worden er GEEN persoonlijke gegevens verwerkt of opgeslagen op deze website. Evenzo worden er GEEN cookies gebruikt voor trackingdoeleinden",
   Configuring: "Configureren",
   "Country of residence": "Land van verblijf",
-  "Country of the proxy service, not of the owner":
-    "Land van de proxydienst, niet van de eigenaar",
+  "Proxy country, not owner's": "Land van de proxy, niet van de eigenaar",
   Domain: "Domein",
   "Domain name": "Domeinnaam",
   "Feature not available": "Functie niet beschikbaar",
