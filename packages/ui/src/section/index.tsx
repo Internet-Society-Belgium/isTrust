@@ -30,7 +30,7 @@ export function Section(props: {
 
 // `testid` and the `data-state` markers (loading, error, unavailable, empty,
 // ready, and not-available on SectionItemNotAvailable) are hooks for the E2E
-// tests in apps/e2e: they don't depend on the language, unlike the text.
+// tests in tests/e2e: they don't depend on the language, unlike the text.
 export function SectionItem<T>(props: {
   testid?: string;
   base?: string;

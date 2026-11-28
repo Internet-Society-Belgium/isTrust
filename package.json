@@ -16,7 +16,8 @@
   "workspaces": [
     "configs/*",
     "packages/*",
-    "apps/*"
+    "apps/*",
+    "tests/*"
   ],
   "scripts": {
     "bundle": "turbo bundle",
