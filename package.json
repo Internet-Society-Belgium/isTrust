@@ -28,12 +28,14 @@
     "dev:webextension": "turbo dev --filter=webextension --filter=./packages/*",
     "dev:website": "turbo dev --filter=website --filter=./packages/*",
     "format": "prettier --write \"*.{js,ts,json}\" && turbo format",
-    "format:check": "prettier --check \"*.{js,ts,json}\" && turbo format:check",
+    "format:check": "turbo run format:check",
+    "format:check:root": "prettier --check \"*.{js,ts,json}\"",
     "lint": "turbo lint",
     "release": "release-it",
     "test": "turbo test",
     "test:live": "turbo test:live",
-    "verify": "prettier --check \"*.{js,ts,json}\" && turbo format:check lint check-types test"
+    "verify": "turbo run format:check lint check-types test --continue=dependencies-successful --output-logs=errors-only",
+    "verify:force": "npm run verify -- --force"
   },
   "config": {
     "commitizen": {
