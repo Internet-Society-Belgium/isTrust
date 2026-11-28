@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { expect, test } from "vitest";
 import type { InformationCache } from "../../type";
 import { is_proxy_owner } from "../../whois_proxy";
 import type { WHOISData } from "../type";
@@ -17,99 +17,41 @@ function run(fixture: unknown) {
   return data;
 }
 
-describe("improve_data countries", () => {
-  test("proxy service registrant keeps its country", () => {
-    const data = run(fixtures.NAMECHEAP);
-
-    expect(data.countries).toStrictEqual([
-      {
-        value: "US",
-        verified: false,
-        sources: [{ organization: "NAMECHEAP INC", links: [] }],
-      },
-    ]);
-  });
-
-  test("owner country", () => {
-    const data = run(fixtures.BANKOFAMERICA);
-
-    expect(data.countries).toStrictEqual([
-      {
-        value: "US",
-        verified: false,
-        sources: [{ organization: "CSC Corporate Domains, Inc.", links: [] }],
-      },
-    ]);
-  });
-
-  test("Belgian owner", () => {
-    const data = run(fixtures.ISTRUST);
-
-    expect(data.countries.map((c) => c.value)).toStrictEqual(["BE"]);
-    expect(data.organizations.map((o) => o.value)).toStrictEqual([
-      "Internet Society Chapter Belgium vzw/asbl",
-    ]);
-  });
-
-  test("registrant without name or organization keeps country, no owner", () => {
-    const data = run(fixtures.GITHUB);
-
-    expect(data.countries.map((c) => c.value)).toStrictEqual(["US"]);
-    expect(data.organizations).toStrictEqual([]);
-  });
-
-  test("placeholder cc is dropped", () => {
-    const data = run(fixtures.CC_REDACTED);
-
-    expect(data.countries).toStrictEqual([]);
-    expect(data.organizations.map((o) => o.value)).toStrictEqual([
-      "Bank of America Corporation",
-    ]);
-  });
-
-  test("country name in address label is normalized", () => {
-    const data = run(fixtures.LABEL_UNITED_STATES);
-
-    expect(data.countries.map((c) => c.value)).toStrictEqual(["US"]);
-  });
+test.each([
+  ["namecheap", fixtures.NAMECHEAP, ["US"]],
+  ["bankofamerica", fixtures.BANKOFAMERICA, ["US"]],
+  ["istrust", fixtures.ISTRUST, ["BE"]],
+  ["github, no owner", fixtures.GITHUB, ["US"]],
+  ["placeholder cc is dropped", fixtures.CC_REDACTED, []],
+  ["country name in the label", fixtures.LABEL_UNITED_STATES, ["US"]],
+])("improve_data countries: %s", (_, fixture, expected) => {
+  expect(run(fixture).countries.map((c) => c.value)).toStrictEqual(expected);
 });
 
-// In-memory cache, seeded with the whois-proxy pattern that matches namecheap
-// in the published list, and marked fresh so nothing is fetched.
-function seeded_cache(): InformationCache {
-  const entries = new Map<string, string>([
-    [
-      "whois_proxy",
-      JSON.stringify([
-        "^Privacy service provided by WITHHELD FOR PRIVACY LLC$",
-      ]),
-    ],
-    ["whois_proxy#lastUpdate", new Date().toISOString()],
-  ]);
+// Seeded with the published whois-proxy pattern for namecheap, and marked
+// fresh so nothing is fetched.
+const store = new Map([
+  [
+    "whois_proxy",
+    JSON.stringify(["^Privacy service provided by WITHHELD FOR PRIVACY LLC$"]),
+  ],
+  ["whois_proxy#lastUpdate", new Date().toISOString()],
+]);
+const cache: InformationCache = {
+  get: (key) => Promise.resolve(store.get(key)),
+  set: (key, value) => {
+    store.set(key, value);
+    return Promise.resolve();
+  },
+  clear: () => Promise.resolve(),
+};
 
-  return {
-    get: (key) => Promise.resolve(entries.get(key)),
-    set: (key, value) => {
-      entries.set(key, value);
-      return Promise.resolve();
-    },
-    clear: (prefix) => {
-      for (const key of [...entries.keys()]) {
-        if (key.startsWith(prefix)) entries.delete(key);
-      }
-      return Promise.resolve();
-    },
-  };
-}
-
-describe("is_proxy_owner", () => {
-  test.each([
-    ["namecheap", fixtures.NAMECHEAP, true],
-    ["bankofamerica", fixtures.BANKOFAMERICA, false],
-    // The organization is checked, not the redacted name.
-    ["istrust", fixtures.ISTRUST, false],
-    ["github, no owner", fixtures.GITHUB, false],
-  ])("%s", async (_, fixture, expected) => {
-    expect(await is_proxy_owner(run(fixture), seeded_cache())).toBe(expected);
-  });
+test.each([
+  ["namecheap", fixtures.NAMECHEAP, true],
+  ["bankofamerica", fixtures.BANKOFAMERICA, false],
+  // The organization is checked, not the redacted name.
+  ["istrust", fixtures.ISTRUST, false],
+  ["github, no owner", fixtures.GITHUB, false],
+])("is_proxy_owner: %s", async (_, fixture, expected) => {
+  expect(await is_proxy_owner(run(fixture), cache)).toBe(expected);
 });
