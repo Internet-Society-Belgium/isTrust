@@ -1,6 +1,9 @@
 // Test certificates for the offline x509 tests, generated with openssl.
 // A test root CA ("isTrust Test Root") signs the leaf certificates, valid
 // until 2126 except EXPIRED (2020-2021). Their private keys are not kept.
+// IV was added later. It is signed by a different throwaway CA that also uses
+// the name "isTrust Test Root", so the two CAs are not the same key. Use IV
+// only for tests that don't check the signature.
 
 export const CA = `-----BEGIN CERTIFICATE-----
 MIIB7DCCAZOgAwIBAgIUfwV/UPFirMCNQhHBRqJtM7eoRp8wCgYIKoZIzj0EAwIw
@@ -72,4 +75,21 @@ BgNVHQ4EFgQU4fhUWfTTuxea8t9Py/ZfI2zxxnIwHwYDVR0jBBgwFoAUtnnJ9ib/
 roSuOHkPDagVxbyDLwwwCgYIKoZIzj0EAwIDSQAwRgIhALmgl9Tc3jFklwF27RLn
 chzT17ORsD8Lzo2n4mjllak4AiEAh3GfsMTqbfwRyEOk2EKgq5YiMnbShoqPUeGp
 eL1YFMc=
+-----END CERTIFICATE-----`;
+
+// IV certificate for "Jane Doe", signed by a separate throwaway CA. get_data
+// does not check the signature, so it only matters that the subject is real.
+export const IV = `-----BEGIN CERTIFICATE-----
+MIICJTCCAcqgAwIBAgICEjQwCgYIKoZIzj0EAwIwQzELMAkGA1UEBhMCQkUxGDAW
+BgNVBAoMD2lzVHJ1c3QgVGVzdCBDQTEaMBgGA1UEAwwRaXNUcnVzdCBUZXN0IFJv
+b3QwIBcNMjYwMTAxMDAwMDAwWhgPMjEyNjAxMDEwMDAwMDBaMFcxCzAJBgNVBAYT
+AkJFMREwDwYDVQQHDAhCcnVzc2VsczENMAsGA1UEKgwESmFuZTEMMAoGA1UEBAwD
+RG9lMRgwFgYDVQQDDA9pdi5leGFtcGxlLnRlc3QwWTATBgcqhkjOPQIBBggqhkjO
+PQMBBwNCAATfyTyxya2d9DerwdqTKF4j1COu+th3TGecR6pTSw6ybMCdgvR7VZgT
+RAalWNbLvr08G29dS4aj5jFOz8QKFoPuo4GXMIGUMAwGA1UdEwEB/wQCMAAwEwYD
+VR0lBAwwCgYIKwYBBQUHAwEwEwYDVR0gBAwwCjAIBgZngQwBAgMwGgYDVR0RBBMw
+EYIPaXYuZXhhbXBsZS50ZXN0MB0GA1UdDgQWBBTnn3jCtZPhw/NJfht9R9n+99dL
+MjAfBgNVHSMEGDAWgBQVaGybCH6+7KE51Nd348zr1adqazAKBggqhkjOPQQDAgNJ
+ADBGAiEAtyDuJ+85uNAN6BcHbcOJfQsUjBpkYv03eLg56jLoVOcCIQCAaF0JoQGK
+sYUpoXeikcEeg6QOOzdnLjJ5n+z3f2236Q==
 -----END CERTIFICATE-----`;

@@ -88,9 +88,13 @@ export function get_data(cert: X509Certificate) {
     data.incCountry = subjectIncCountry;
   }
 
-  const subjectGivenName = atos(cert.subjectName.getField(oid.GIVEN_NAME));
-  if (subjectGivenName !== undefined) {
-    data.individual = subjectGivenName;
+  // IV certificates carry the name as separate givenName and surname fields.
+  const subjectIndividual = atos([
+    ...cert.subjectName.getField(oid.GIVEN_NAME),
+    ...cert.subjectName.getField(oid.SURNAME),
+  ]);
+  if (subjectIndividual !== undefined) {
+    data.individual = subjectIndividual;
   }
 
   return data;

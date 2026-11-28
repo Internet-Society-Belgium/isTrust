@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { get_data, is_valid_cert, parse_cert } from ".";
-import { CA, CLIENT_AUTH, DV, EV, EXPIRED } from "./fixtures";
+import { CA, CLIENT_AUTH, DV, EV, EXPIRED, IV } from "./fixtures";
 
 // Base64 DER, as returned by the Certspotter and MerkleMap APIs.
 function pem_to_base64(pem: string) {
@@ -35,6 +35,19 @@ describe("get_data", () => {
       organization: "Example Org (Web)",
       country: "BE",
       incCountry: "BE",
+    });
+  });
+
+  test("IV certificate", () => {
+    expect(get_data(parse_cert(IV))).toStrictEqual({
+      type: "IV",
+      issuer: {
+        organization: "isTrust Test CA",
+        country: "BE",
+        links: [],
+      },
+      individual: "Jane Doe",
+      country: "BE",
     });
   });
 
