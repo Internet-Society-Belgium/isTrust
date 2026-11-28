@@ -1,23 +1,16 @@
-import type { CountryMeta, CountryRole } from "@istrust/common";
+import type { CountryRole } from "@istrust/common";
 
 // Hover text for a country row: optional warning, the country name, then one
-// line per meta entry.
+// line per role.
 export function country_title(
   name: string,
-  meta: CountryMeta[] | undefined,
+  meta: CountryRole[] | undefined,
   labels: Record<CountryRole, string>,
   warning?: string,
 ) {
-  const lines: string[] = [];
-
-  if (warning !== undefined) lines.push(warning);
-
-  lines.push(name);
-
-  for (const entry of meta ?? []) {
-    const label = labels[entry.role];
-    lines.push(entry.owner === undefined ? label : `${label}: ${entry.owner}`);
-  }
-
-  return lines.join("\n");
+  return [
+    ...(warning !== undefined ? [warning] : []),
+    name,
+    ...(meta ?? []).map((role) => labels[role]),
+  ].join("\n");
 }

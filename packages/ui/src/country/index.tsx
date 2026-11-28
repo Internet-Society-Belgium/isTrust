@@ -27,7 +27,7 @@ export function Country(props: {
   lang: string;
   type: "text" | "icon";
   value: string;
-  meta?: common.CountryMeta[];
+  meta?: common.CountryRole[];
   proxy?: boolean;
 }) {
   const getRegionName = (code: string, lang: string) => {
@@ -49,7 +49,7 @@ export function Country(props: {
       props.meta,
       {
         office: i18n("Office", props.lang),
-        incorporated: i18n("Incorporated in", props.lang),
+        incorporated: i18n("Place of incorporation", props.lang),
       },
       props.proxy === true
         ? i18n("Country of the proxy service, not of the owner", props.lang)

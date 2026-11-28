@@ -41,7 +41,6 @@ describe("get_data", () => {
         links: [],
       },
       organization: "Example Org (Web)",
-      owner: "Example Org",
       country: "BE",
       incCountry: "BE",
     });

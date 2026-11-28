@@ -1,6 +1,5 @@
 import type { Information } from "../type";
 import { ISO_3166_ALPHA_2 } from "./iso3166";
-import { CountryMeta, CountryRole } from "./type";
 
 // XK (Kosovo) is not ISO 3166-1, but RDAP, certificates and the .be API use it.
 // Accepted on purpose so Kosovar owners are not dropped.
@@ -50,8 +49,4 @@ export function sort_countries<M>(
   };
 
   return [...countries].sort((a, b) => rank(a) - rank(b));
-}
-
-export function country_meta(role: CountryRole, owner?: string): CountryMeta {
-  return owner === undefined ? { role } : { role, owner };
 }

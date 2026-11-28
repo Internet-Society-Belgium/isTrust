@@ -1,4 +1,4 @@
-import { country_meta, normalize_country } from "../../../country";
+import { normalize_country } from "../../../country";
 import { Source } from "../../../type";
 import {
   feature_require_webextension_error,
@@ -71,7 +71,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
           value: country,
           sources,
           verified,
-          meta: [country_meta("office", contact.companyName ?? undefined)],
+          meta: ["office"],
         },
       ];
     }

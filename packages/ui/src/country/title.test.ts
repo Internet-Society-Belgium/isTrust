@@ -1,39 +1,12 @@
 import { expect, test } from "vitest";
 import { country_title } from "./title";
 
-const labels = { office: "Office", incorporated: "Incorporated in" };
+const labels = { office: "Office", incorporated: "Place of incorporation" };
 
-test("office", () => {
+test("one line per role", () => {
   expect(
-    country_title(
-      "United States",
-      [{ role: "office", owner: "Bank of America Corporation" }],
-      labels,
-    ),
-  ).toBe("United States\nOffice: Bank of America Corporation");
-});
-
-test("incorporated", () => {
-  expect(
-    country_title(
-      "Ireland",
-      [
-        {
-          role: "incorporated",
-          owner: "Bank of America Europe Designated Activity Company",
-        },
-      ],
-      labels,
-    ),
-  ).toBe(
-    "Ireland\nIncorporated in: Bank of America Europe Designated Activity Company",
-  );
-});
-
-test("unnamed owner shows only the role", () => {
-  expect(country_title("Belgium", [{ role: "office" }], labels)).toBe(
-    "Belgium\nOffice",
-  );
+    country_title("United States", ["office", "incorporated"], labels),
+  ).toBe("United States\nOffice\nPlace of incorporation");
 });
 
 test("no meta shows only the name", () => {
@@ -41,12 +14,7 @@ test("no meta shows only the name", () => {
 });
 
 test("proxy warning comes first", () => {
-  expect(
-    country_title(
-      "Iceland",
-      [{ role: "office", owner: "Withheld for Privacy ehf" }],
-      labels,
-      "Proxy country",
-    ),
-  ).toBe("Proxy country\nIceland\nOffice: Withheld for Privacy ehf");
+  expect(country_title("Iceland", ["office"], labels, "Proxy country")).toBe(
+    "Proxy country\nIceland\nOffice",
+  );
 });

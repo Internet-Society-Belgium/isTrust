@@ -75,8 +75,6 @@ export function get_data(cert: X509Certificate) {
     cert.subjectName.getField(oid.ORGANIZATION),
   );
   if (subjectOrganization !== undefined) {
-    data.owner = subjectOrganization;
-
     const organizationUnit = join_values(
       cert.subjectName.getField(oid.ORGANIZATION_UNIT),
     );

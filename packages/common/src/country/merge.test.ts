@@ -9,119 +9,43 @@ function country(
   return { value, sources: [], verified: true, meta };
 }
 
-test("merge unions meta under the same country code", () => {
-  // Bank of America: the US is both where the company has its office and
-  // where it is incorporated.
-  const certificate = [
-    country("US", [{ role: "office", owner: "Bank of America Corporation" }]),
-  ];
-  const whois = [
-    country("US", [
-      { role: "incorporated", owner: "Bank of America Corporation" },
-    ]),
-  ];
-
-  expect(merge_informations(certificate, whois)).toStrictEqual([
-    {
-      value: "US",
-      sources: [],
-      verified: true,
-      meta: [
-        { role: "office", owner: "Bank of America Corporation" },
-        { role: "incorporated", owner: "Bank of America Corporation" },
-      ],
-    },
-  ]);
+test("merge unions roles under the same country code", () => {
+  // Bank of America: the US is both its office and where it is incorporated.
+  expect(
+    merge_informations(
+      [country("US", ["office"])],
+      [country("US", ["incorporated"])],
+    ),
+  ).toStrictEqual([country("US", ["office", "incorporated"])]);
 });
 
-test("merge keeps one entry for a country with a single meta", () => {
-  const certificate = [
-    country("IE", [
-      {
-        role: "incorporated",
-        owner: "Bank of America Europe Designated Activity Company",
-      },
-    ]),
-  ];
-  const whois = [
-    country("IE", [
-      {
-        role: "incorporated",
-        owner: "Bank of America Europe Designated Activity Company",
-      },
-    ]),
-  ];
-
-  expect(merge_informations(certificate, whois)).toStrictEqual([
-    {
-      value: "IE",
-      sources: [],
-      verified: true,
-      meta: [
-        {
-          role: "incorporated",
-          owner: "Bank of America Europe Designated Activity Company",
-        },
-      ],
-    },
-  ]);
+test("merge keeps one role when both sides agree", () => {
+  expect(
+    merge_informations(
+      [country("IE", ["incorporated"])],
+      [country("IE", ["incorporated"])],
+    ),
+  ).toStrictEqual([country("IE", ["incorporated"])]);
 });
 
-test("meta dedupes on role and normalized owner", () => {
+test("meta dedupes on first insert", () => {
   const informations: CountryInformation[] = [];
 
-  improve_informations(informations, {
-    value: "BE",
-    sources: [],
-    verified: false,
-    meta: [
-      { role: "office", owner: "Example Org" },
-      { role: "office", owner: "Example Org" },
-    ],
-  });
-  improve_informations(informations, {
-    value: "BE",
-    sources: [],
-    verified: false,
-    meta: [{ role: "office", owner: "EXAMPLE, ORG." }],
-  });
+  improve_informations(informations, country("BE", ["office", "office"]));
 
-  expect(informations[0]?.meta).toStrictEqual([
-    { role: "office", owner: "Example Org" },
-  ]);
-});
-
-test("meta keeps unnamed owners apart from named ones", () => {
-  const informations: CountryInformation[] = [
-    country("BE", [{ role: "office" }]),
-  ];
-
-  improve_informations(informations, {
-    ...country("BE", [{ role: "office", owner: "Example Org" }]),
-    verified: false,
-  });
-
-  expect(informations[0]?.meta).toStrictEqual([
-    { role: "office" },
-    { role: "office", owner: "Example Org" },
-  ]);
+  expect(informations[0]?.meta).toStrictEqual(["office"]);
 });
 
 test("meta merges on any information type", () => {
-  const informations: Information<string, { tag: string }>[] = [
+  const informations: Information<string, string>[] = [
     { value: "Example Org", sources: [] },
   ];
 
   improve_informations(informations, {
-    value: "Example Org",
-    sources: [],
-    meta: [{ tag: "a" }, { tag: "a" }],
-  });
-  improve_informations(informations, {
     value: "example org",
     sources: [],
-    meta: [{ tag: "b" }],
+    meta: ["a", "a", "b"],
   });
 
-  expect(informations[0]?.meta).toStrictEqual([{ tag: "a" }, { tag: "b" }]);
+  expect(informations[0]?.meta).toStrictEqual(["a", "b"]);
 });

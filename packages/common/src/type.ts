@@ -28,7 +28,7 @@ export function merge_informations<T, M>(
 
 export function improve_informations<T, M>(
   informations: Information<T, M>[],
-  information: Information<T, M>,
+  information: NoInfer<Information<T, M>>,
 ) {
   let match: Information<T, M> | undefined;
   for (const info of informations) {
@@ -70,12 +70,10 @@ export function improve_informations<T, M>(
   return informations;
 }
 
-// Appends entries not already present, compared on their normalized content.
-// shortcut: key order counts, so build each meta type with one helper.
+// shortcut: entries compare with ===, fine for string meta, deep-compare if meta becomes objects.
 function improve_meta<M>(meta: M[], extra: M[]) {
-  const key = (m: M) => normalize(JSON.stringify(m));
   for (const entry of extra) {
-    if (!meta.some((m) => key(m) === key(entry))) meta.push(entry);
+    if (!meta.includes(entry)) meta.push(entry);
   }
 
   return meta;

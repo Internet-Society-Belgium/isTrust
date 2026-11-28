@@ -21,11 +21,7 @@ import * as rdap from "./whois/rdap";
 import type { WHOISData } from "./whois/type";
 
 export type { Information, InformationCache, ErrorType, Platform, WHOISData };
-export type {
-  CountryInformation,
-  CountryMeta,
-  CountryRole,
-} from "./country/type";
+export type { CountryInformation, CountryRole } from "./country/type";
 
 export { merge_informations, sort_countries };
 
