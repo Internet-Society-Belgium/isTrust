@@ -1,6 +1,14 @@
 {
   "extends": ["//"],
   "tasks": {
+    "build:chrome": {
+      "dependsOn": [
+        "@istrust/common#build",
+        "@istrust/ui#build",
+        "@istrust/i18n#build"
+      ],
+      "outputs": ["dist/chrome-mv3/**"]
+    },
     "bundle": {
       "dependsOn": [
         "@istrust/common#build",

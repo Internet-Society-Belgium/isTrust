@@ -28,7 +28,11 @@ export function Section(props: {
   );
 }
 
+// `testid` and the `data-state` markers (loading, error, unavailable, empty,
+// ready, and not-available on SectionItemNotAvailable) are hooks for the E2E
+// tests in apps/e2e: they don't depend on the language, unlike the text.
 export function SectionItem<T>(props: {
+  testid?: string;
   base?: string;
   lang: string;
   title: string;
@@ -49,11 +53,11 @@ export function SectionItem<T>(props: {
   };
 
   return (
-    <div class="relative flex items-center gap-2">
+    <div data-testid={props.testid} class="relative flex items-center gap-2">
       <div title={props.title}>{props.prefix}</div>
       <ErrorBoundary
         fallback={(error: Error) => (
-          <div>
+          <div data-state="error">
             <p class="text-muted">{props.description}</p>
             <Issue base={props.base} lang={props.lang} error={error} />
           </div>
@@ -61,7 +65,7 @@ export function SectionItem<T>(props: {
       >
         <Suspense
           fallback={
-            <div class="flex items-center gap-0.5">
+            <div data-state="loading" class="flex items-center gap-0.5">
               <p class="text-muted">{props.description}</p>
               <div class="p-1">
                 <div class="border-muted/75 size-4 animate-spin rounded-full border-2 border-t-transparent" />
@@ -71,7 +75,11 @@ export function SectionItem<T>(props: {
         >
           <Show
             when={props.informations}
-            fallback={<p class="text-muted">{props.description}</p>}
+            fallback={
+              <p data-state="unavailable" class="text-muted">
+                {props.description}
+              </p>
+            }
           >
             {(informations) => (
               <Show when={toArray(informations())}>
@@ -79,14 +87,16 @@ export function SectionItem<T>(props: {
                   <Show
                     when={information().length > 0}
                     fallback={
-                      <p class="text-muted">
+                      <p data-state="empty" class="text-muted">
                         {i18n("No information available", props.lang)}
                       </p>
                     }
                   >
-                    <List each={information()} suffix={props.suffix}>
-                      {(item, index) => <>{props.children(item, index)}</>}
-                    </List>
+                    <div data-state="ready" class="contents">
+                      <List each={information()} suffix={props.suffix}>
+                        {(item, index) => <>{props.children(item, index)}</>}
+                      </List>
+                    </div>
                   </Show>
                 )}
               </Show>
@@ -99,11 +109,16 @@ export function SectionItem<T>(props: {
 }
 
 export function SectionItemNotAvailable(props: {
+  testid?: string;
   title: string;
   prefix: JSX.Element;
 }) {
   return (
-    <div class="relative flex items-center gap-2">
+    <div
+      data-testid={props.testid}
+      data-state="not-available"
+      class="relative flex items-center gap-2"
+    >
       <div title={props.title}>{props.prefix}</div>
 
       <p class="text-muted">{props.title}</p>

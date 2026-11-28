@@ -1,6 +1,9 @@
 import { defineConfig } from "vitest/config";
 
-// `unit`: offline `*.test.ts` (see vitest.offline.ts). `live`: `*.live.test.ts`.
+// Two projects, selected by file name:
+// - `unit`: `*.test.ts`, offline. `vitest.offline.ts` makes any network access
+//   throw, so a test that reaches the network fails instead of passing by luck.
+// - `live`: `*.live.test.ts`, calls the real services.
 export default defineConfig({
   test: {
     testTimeout: 2 * 60 * 1000,

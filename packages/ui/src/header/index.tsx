@@ -24,7 +24,10 @@ export function HeaderDomain(props: {
   };
 }) {
   return (
-    <div class="mb-2 flex items-center justify-center text-xl">
+    <div
+      data-testid="header-domain"
+      class="mb-2 flex items-center justify-center text-xl"
+    >
       <ErrorBoundary
         fallback={(error: Error) => (
           <Issue base={props.base} lang={props.lang} error={error} />

@@ -1,0 +1,37 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "check-types": {
+      "dependsOn": ["@istrust/i18n#build"]
+    },
+    "lint": {
+      "dependsOn": ["@istrust/i18n#build"]
+    },
+    "record": {
+      "cache": false,
+      "dependsOn": [
+        "@istrust/i18n#build",
+        "website#build",
+        "webextension#build:chrome"
+      ]
+    },
+    "test:e2e": {
+      "dependsOn": [
+        "@istrust/i18n#build",
+        "website#build",
+        "webextension#build:chrome"
+      ],
+      "outputs": ["playwright-report/**", "test-results/**"],
+      "passThroughEnv": ["CI", "PLAYWRIGHT_BROWSERS_PATH"]
+    },
+    "test:e2e:live": {
+      "cache": false,
+      "dependsOn": [
+        "@istrust/i18n#build",
+        "website#build",
+        "webextension#build:chrome"
+      ],
+      "passThroughEnv": ["CI", "PLAYWRIGHT_BROWSERS_PATH"]
+    }
+  }
+}

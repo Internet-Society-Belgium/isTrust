@@ -7,6 +7,9 @@
     "build": {
       "outputs": ["dist/**"]
     },
+    "build:chrome": {
+      "outputs": ["dist/chrome-mv3/**"]
+    },
     "bundle": {},
     "check-types": {},
     "clean": {
@@ -21,7 +24,14 @@
       "dependsOn": ["//#format:check:root"]
     },
     "lint": {},
+    "record": {
+      "cache": false
+    },
     "test": {},
+    "test:e2e": {},
+    "test:e2e:live": {
+      "cache": false
+    },
     "test:live": {
       "cache": false
     }
