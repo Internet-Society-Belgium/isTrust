@@ -233,6 +233,23 @@ export function AlertWhoisProxy(props: {
   );
 }
 
+export function AlertWhoisProxyCountry(props: {
+  lang: string;
+  children: JSX.Element;
+}) {
+  return (
+    <div
+      class="text-warning"
+      title={i18n(
+        "Country of the privacy service, not of the owner",
+        props.lang,
+      )}
+    >
+      {props.children}
+    </div>
+  );
+}
+
 export function AlertRegistration(props: {
   lang: string;
   date: string;

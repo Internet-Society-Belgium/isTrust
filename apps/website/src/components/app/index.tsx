@@ -9,6 +9,7 @@ import {
   AlertRegistration,
   AlertWhoisPrivacyOrganization,
   AlertWhoisProxy,
+  AlertWhoisProxyCountry,
 } from "@istrust/ui/alert/index";
 import { Country } from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
@@ -284,9 +285,11 @@ export function App(props: { lang: string }) {
                   title={i18n("Country of residence", props.lang)}
                   description={<>{i18n("Country of residence", props.lang)}</>}
                   prefix={<IconMapPin />}
-                  informations={common.merge_informations(
-                    certificateData()?.countries,
-                    whoisData()?.countries,
+                  informations={common.sort_countries(
+                    common.merge_informations(
+                      certificateData()?.countries,
+                      whoisData()?.countries,
+                    ),
                   )}
                   suffix={(country) => (
                     <Source lang={props.lang} information={country} />
@@ -294,11 +297,24 @@ export function App(props: { lang: string }) {
                 >
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
-                      <Country
-                        lang={props.lang}
-                        value={country.value}
-                        type="text"
-                      />
+                      <Show
+                        when={country.proxy === true}
+                        fallback={
+                          <Country
+                            lang={props.lang}
+                            value={country.value}
+                            type="text"
+                          />
+                        }
+                      >
+                        <AlertWhoisProxyCountry lang={props.lang}>
+                          <Country
+                            lang={props.lang}
+                            value={country.value}
+                            type="text"
+                          />
+                        </AlertWhoisProxyCountry>
+                      </Show>
                     </ListAdditionalItem>
                   )}
                 </SectionItem>

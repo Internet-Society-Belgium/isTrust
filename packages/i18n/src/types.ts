@@ -28,6 +28,7 @@ export type Translated =
   | "As we want to protect your privacy, NO personal data is processed nor stored on this website. Similarly, NO cookie is used for tracking purposes"
   | "Configuring"
   | "Country of residence"
+  | "Country of the privacy service, not of the owner"
   | "Domain"
   | "Domain name"
   | "Feature not available"
