@@ -20,39 +20,64 @@ beforeEach(() => {
   certificates = [];
 });
 
-test("lists the individual of a certificate", async () => {
-  certificates = [{ type: "IV", issuer: ISSUER, individual: "Jane (Doe)" }];
+function individual(value: string) {
+  return { value, verified: true, sources: [ISSUER] };
+}
 
-  const data = await get_data("iv.example.test", true);
-
-  expect(data?.individuals).toStrictEqual([
-    { value: "Jane (Doe)", verified: true, sources: [ISSUER] },
-  ]);
-});
-
-test("lists the individuals of different certificates", async () => {
+test("lists the given name and the surname separately", async () => {
   certificates = [
-    { type: "IV", issuer: ISSUER, individual: "Jane (Doe)" },
-    { type: "IV", issuer: ISSUER, individual: "John (Doe)" },
+    { type: "IV", issuer: ISSUER, individualNames: ["Jane", "Doe"] },
   ];
 
   const data = await get_data("iv.example.test", true);
 
   expect(data?.individuals).toStrictEqual([
-    { value: "Jane (Doe)", verified: true, sources: [ISSUER] },
-    { value: "John (Doe)", verified: true, sources: [ISSUER] },
+    individual("Jane"),
+    individual("Doe"),
+  ]);
+});
+
+test("lists a given name only", async () => {
+  certificates = [{ type: "IV", issuer: ISSUER, individualNames: ["Jane"] }];
+
+  const data = await get_data("iv.example.test", true);
+
+  expect(data?.individuals).toStrictEqual([individual("Jane")]);
+});
+
+test("lists a surname only", async () => {
+  certificates = [{ type: "IV", issuer: ISSUER, individualNames: ["Doe"] }];
+
+  const data = await get_data("iv.example.test", true);
+
+  expect(data?.individuals).toStrictEqual([individual("Doe")]);
+});
+
+test("lists a shared name once", async () => {
+  certificates = [
+    { type: "IV", issuer: ISSUER, individualNames: ["Jane", "Doe"] },
+    { type: "IV", issuer: ISSUER, individualNames: ["John", "Doe"] },
+  ];
+
+  const data = await get_data("iv.example.test", true);
+
+  expect(data?.individuals).toStrictEqual([
+    individual("Jane"),
+    individual("Doe"),
+    individual("John"),
   ]);
 });
 
 test("lists the same person once", async () => {
   certificates = [
-    { type: "IV", issuer: ISSUER, individual: "Jane (Doe)" },
-    { type: "IV", issuer: ISSUER, individual: "Jane (Doe)" },
+    { type: "IV", issuer: ISSUER, individualNames: ["Jane", "Doe"] },
+    { type: "IV", issuer: ISSUER, individualNames: ["Jane", "Doe"] },
   ];
 
   const data = await get_data("iv.example.test", true);
 
   expect(data?.individuals).toStrictEqual([
-    { value: "Jane (Doe)", verified: true, sources: [ISSUER] },
+    individual("Jane"),
+    individual("Doe"),
   ]);
 });

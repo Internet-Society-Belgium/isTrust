@@ -289,3 +289,78 @@ test("improve_data_array add country", () => {
     },
   ] satisfies typeof array);
 });
+
+test("improve_data_array add source from another organisation", () => {
+  const array: Information<string>[] = [
+    {
+      value: "value",
+      verified: true,
+      sources: [{ organization: "organization1", links: [] }],
+    },
+  ];
+  const data: Information<string> = {
+    value: "value",
+    verified: true,
+    sources: [{ organization: "organization2", links: [] }],
+  };
+
+  expect(improve_informations(array, data)).toStrictEqual([
+    {
+      value: "value",
+      verified: true,
+      sources: [
+        { organization: "organization1", links: [] },
+        { organization: "organization2", links: [] },
+      ],
+    },
+  ] satisfies typeof array);
+});
+
+test("improve_data_array add source from another country", () => {
+  const array: Information<string>[] = [
+    {
+      value: "value",
+      verified: true,
+      sources: [{ organization: "org", country: "BE", links: [] }],
+    },
+  ];
+  const data: Information<string> = {
+    value: "value",
+    verified: true,
+    sources: [{ organization: "org", country: "FR", links: [] }],
+  };
+
+  expect(improve_informations(array, data)).toStrictEqual([
+    {
+      value: "value",
+      verified: true,
+      sources: [
+        { organization: "org", country: "BE", links: [] },
+        { organization: "org", country: "FR", links: [] },
+      ],
+    },
+  ] satisfies typeof array);
+});
+
+test("improve_data_array source without country matches", () => {
+  const array: Information<string>[] = [
+    {
+      value: "value",
+      verified: true,
+      sources: [{ organization: "org", country: "BE", links: [] }],
+    },
+  ];
+  const data: Information<string> = {
+    value: "value",
+    verified: true,
+    sources: [{ organization: "org", links: ["link"] }],
+  };
+
+  expect(improve_informations(array, data)).toStrictEqual([
+    {
+      value: "value",
+      verified: true,
+      sources: [{ organization: "org", country: "BE", links: ["link"] }],
+    },
+  ] satisfies typeof array);
+});

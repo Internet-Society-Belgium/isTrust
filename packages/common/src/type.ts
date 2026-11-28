@@ -63,13 +63,14 @@ export function improve_informations<T>(
 
 function improve_sources(sources: Source[], source: Source) {
   let match: Source | undefined;
-  for (const source of sources) {
+  for (const existing of sources) {
     if (
-      normalize(source.organization) === normalize(source.organization) &&
-      (source.country === undefined ||
-        normalize(source.country) === normalize(source.country))
+      normalize(existing.organization) === normalize(source.organization) &&
+      (existing.country === undefined ||
+        source.country === undefined ||
+        normalize(existing.country) === normalize(source.country))
     ) {
-      match = source;
+      match = existing;
       break;
     }
   }

@@ -1,7 +1,6 @@
 import { describe, expect, test } from "vitest";
 import {
   clean_values,
-  format_individual,
   get_data,
   is_valid_cert,
   join_values,
@@ -53,7 +52,7 @@ describe("get_data", () => {
         country: "BE",
         links: [],
       },
-      individual: "Jane (Doe)",
+      individualNames: ["Jane", "Doe"],
       country: "BE",
     });
   });
@@ -67,24 +66,6 @@ describe("get_data", () => {
         links: [],
       },
     });
-  });
-});
-
-describe("format_individual", () => {
-  test("given name and surname", () => {
-    expect(format_individual("Jane", "Doe")).toBe("Jane (Doe)");
-  });
-
-  test("given name only", () => {
-    expect(format_individual("Jane", undefined)).toBe("Jane");
-  });
-
-  test("surname only", () => {
-    expect(format_individual(undefined, "Doe")).toBe("Doe");
-  });
-
-  test("no name", () => {
-    expect(format_individual(undefined, undefined)).toBeUndefined();
   });
 });
 
