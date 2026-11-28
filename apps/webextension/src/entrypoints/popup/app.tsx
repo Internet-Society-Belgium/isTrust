@@ -13,7 +13,11 @@ import {
   AlertWhoisProxy,
   AlertWhoisProxyCountry,
 } from "@istrust/ui/alert/index";
-import { Country, create_is_proxy_country } from "@istrust/ui/country/index";
+import {
+  Country,
+  create_is_proxy_country,
+  sort_countries,
+} from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
 import { FooterWebsiteAvailability } from "@istrust/ui/footer/index";
 import { HeaderDomain, HeaderLogo } from "@istrust/ui/header/index";
@@ -300,7 +304,7 @@ export function App() {
                   title={i18n("Country of residence", lang())}
                   description={<>{i18n("Country of residence", lang())}</>}
                   prefix={<IconMapPin />}
-                  informations={common.sort_countries(
+                  informations={sort_countries(
                     common.merge_informations(
                       certificateData()?.countries,
                       whoisData()?.countries,

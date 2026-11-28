@@ -1,6 +1,5 @@
 import * as blacklist from "./blacklist";
 import * as certificate from "./certificate";
-import { sort_countries } from "./country";
 import * as dnssec from "./dnssec";
 import * as platform from "./platform";
 import * as disposableEmail from "./platform/disposable_email";
@@ -18,11 +17,10 @@ import * as whois from "./whois";
 import * as whois_privacy from "./whois_privacy";
 import * as whois_proxy from "./whois_proxy";
 import * as rdap from "./whois/rdap";
-import type { WHOISData } from "./whois/type";
 
-export type { Information, InformationCache, ErrorType, Platform, WHOISData };
+export type { Information, InformationCache, ErrorType, Platform };
 
-export { merge_informations, sort_countries };
+export { merge_informations };
 
 export async function get_domain(query: string, cache: InformationCache) {
   const full = parse_domain(query);
@@ -74,13 +72,6 @@ export async function is_whois_privacy(name: string) {
 
 export async function is_whois_proxy(name: string, cache: InformationCache) {
   return await whois_proxy.is_proxy(name, cache);
-}
-
-export async function is_whois_proxy_owner(
-  whois: Pick<WHOISData, "organizations" | "individuals">,
-  cache: InformationCache,
-) {
-  return await whois_proxy.is_proxy_owner(whois, cache);
 }
 
 export async function update_cache(cache: InformationCache) {

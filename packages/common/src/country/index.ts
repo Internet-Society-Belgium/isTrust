@@ -1,4 +1,3 @@
-import type { Information } from "../type";
 import { ISO_3166_ALPHA_2 } from "./iso3166";
 
 // XK (Kosovo) is not ISO 3166-1, but RDAP, certificates and the .be API use it.
@@ -33,20 +32,4 @@ export function normalize_country(value: string | undefined) {
   if (CODES.has(code)) return code;
 
   return NAMES.get(trimmed.toLowerCase());
-}
-
-// Stable: verified first, then unverified, then the proxy's.
-export function sort_countries(
-  countries: Information<string>[] | undefined,
-  is_proxy: (country: Information<string>) => boolean,
-) {
-  if (countries === undefined) return;
-
-  const rank = (country: Information<string>) => {
-    if (is_proxy(country)) return 2;
-    if (country.verified === true) return 0;
-    return 1;
-  };
-
-  return [...countries].sort((a, b) => rank(a) - rank(b));
 }
