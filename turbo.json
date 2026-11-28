@@ -1,6 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
+    "//#format:check:root": {
+      "cache": false
+    },
     "build": {
       "outputs": ["dist/**"]
     },
@@ -14,7 +17,9 @@
       "persistent": true
     },
     "format": {},
-    "format:check": {},
+    "format:check": {
+      "dependsOn": ["//#format:check:root"]
+    },
     "lint": {},
     "test": {},
     "test:live": {
