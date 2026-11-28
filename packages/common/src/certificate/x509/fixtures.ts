@@ -1,6 +1,9 @@
 // Test certificates for the offline x509 tests, generated with openssl.
 // A test root CA ("isTrust Test Root") signs the leaf certificates, valid
 // until 2126 except EXPIRED (2020-2021). Their private keys are not kept.
+// IV was added later. It is signed by a different throwaway CA that also uses
+// the name "isTrust Test Root", so the two CAs are not the same key. Use IV
+// only for tests that don't check the signature.
 
 export const CA = `-----BEGIN CERTIFICATE-----
 MIIB7DCCAZOgAwIBAgIUfwV/UPFirMCNQhHBRqJtM7eoRp8wCgYIKoZIzj0EAwIw
@@ -72,4 +75,41 @@ BgNVHQ4EFgQU4fhUWfTTuxea8t9Py/ZfI2zxxnIwHwYDVR0jBBgwFoAUtnnJ9ib/
 roSuOHkPDagVxbyDLwwwCgYIKoZIzj0EAwIDSQAwRgIhALmgl9Tc3jFklwF27RLn
 chzT17ORsD8Lzo2n4mjllak4AiEAh3GfsMTqbfwRyEOk2EKgq5YiMnbShoqPUeGp
 eL1YFMc=
+-----END CERTIFICATE-----`;
+
+// IV certificate for given name "Internet Society", surname "ISOC".
+export const IV = `-----BEGIN CERTIFICATE-----
+MIICMjCCAdegAwIBAgICEjQwCgYIKoZIzj0EAwIwQzELMAkGA1UEBhMCQkUxGDAW
+BgNVBAoMD2lzVHJ1c3QgVGVzdCBDQTEaMBgGA1UEAwwRaXNUcnVzdCBUZXN0IFJv
+b3QwIBcNMjYxMTI4MTYxNDQxWhgPMjEyNjExMDQxNjE0NDFaMGQxCzAJBgNVBAYT
+AkJFMREwDwYDVQQHDAhCcnVzc2VsczEZMBcGA1UEKgwQSW50ZXJuZXQgU29jaWV0
+eTENMAsGA1UEBAwESVNPQzEYMBYGA1UEAwwPaXYuZXhhbXBsZS50ZXN0MFkwEwYH
+KoZIzj0CAQYIKoZIzj0DAQcDQgAEHj41kJgCZEu/Bj2PyO4TiacxdmHZFMLg0NmT
+c+s1xKBQkKvwoqa/jT780EmEiffwmVT7nXJG53AVK3PIXsSTQ6OBlzCBlDAMBgNV
+HRMBAf8EAjAAMBMGA1UdJQQMMAoGCCsGAQUFBwMBMBMGA1UdIAQMMAowCAYGZ4EM
+AQIDMBoGA1UdEQQTMBGCD2l2LmV4YW1wbGUudGVzdDAdBgNVHQ4EFgQU5wKbDp4a
+UIsNfRlq02J7L8PNsKEwHwYDVR0jBBgwFoAUJpUD9gXV7MTHwbrP9W3uary5Grgw
+CgYIKoZIzj0EAwIDSQAwRgIhAPcCT2Dopj5On1lpC/Pf5jdB3yvSIdlvZQwuhNiS
+SIhxAiEAklY1mH3llXadWob5+BBkkON18Ia0wZIR3tWrkiQEh6U=
+-----END CERTIFICATE-----`;
+
+// Self-signed IV certificate with two given names ("Internet Society Belgium",
+// "Internet Society Chapter Belgium") and the surname "ISOC.be". Use it only
+// for tests that don't check the signature.
+export const MULTI_GIVEN_NAME = `-----BEGIN CERTIFICATE-----
+MIICrjCCAlWgAwIBAgIUJ14ONcg40nmCVEQoeyXbJWMbRzUwCgYIKoZIzj0EAwIw
+gYgxCzAJBgNVBAYTAkJFMSEwHwYDVQQqDBhJbnRlcm5ldCBTb2NpZXR5IEJlbGdp
+dW0xKTAnBgNVBCoMIEludGVybmV0IFNvY2lldHkgQ2hhcHRlciBCZWxnaXVtMRAw
+DgYDVQQEDAdJU09DLmJlMRkwFwYDVQQDDBBtZ24uZXhhbXBsZS50ZXN0MCAXDTI2
+MTEyODE2MjU0MVoYDzIxMjYxMTA0MTYyNTQxWjCBiDELMAkGA1UEBhMCQkUxITAf
+BgNVBCoMGEludGVybmV0IFNvY2lldHkgQmVsZ2l1bTEpMCcGA1UEKgwgSW50ZXJu
+ZXQgU29jaWV0eSBDaGFwdGVyIEJlbGdpdW0xEDAOBgNVBAQMB0lTT0MuYmUxGTAX
+BgNVBAMMEG1nbi5leGFtcGxlLnRlc3QwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNC
+AATYPF9ywyvM9ge9uLf1f+QB3+N17xzXSSWeZJYJE0Pk0OjQhptFXqKG5dZEDl5s
+Itb/uqoL298seA1C7W+BzgYgo4GYMIGVMB0GA1UdDgQWBBRCODfK+efWxwn3eHzb
+ZSlmGu6LkTAfBgNVHSMEGDAWgBRCODfK+efWxwn3eHzbZSlmGu6LkTATBgNVHSAE
+DDAKMAgGBmeBDAECAzATBgNVHSUEDDAKBggrBgEFBQcDATAbBgNVHREEFDASghBt
+Z24uZXhhbXBsZS50ZXN0MAwGA1UdEwEB/wQCMAAwCgYIKoZIzj0EAwIDRwAwRAIg
+eLO6n5RDodun2Y1UcHdD9jgm63ArOJb+SiNzkZFjxj0CIFj9grbcXfdhCDX1u7nN
+hGeBnV7FOkYXi0WXoxLtyMrw
 -----END CERTIFICATE-----`;

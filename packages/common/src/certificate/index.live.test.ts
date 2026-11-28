@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import { get_data } from ".";
+import { Source } from "../type";
 
 test("istrust.org", async () => {
   const data = await get_data("istrust.org", true);
@@ -68,13 +69,20 @@ test("icann.org", async () => {
         verified: true,
       },
       {
-        sources: [
+        // icann.org has DV certificates from several issuers. Which ones a
+        // data source returns, and in what order, depends on the source.
+        sources: expect.arrayContaining([
           {
             country: "US",
             links: [],
             organization: "Amazon",
           },
-        ],
+          {
+            country: "US",
+            links: [],
+            organization: "Let's Encrypt",
+          },
+        ]) as Source[],
         value: "DV",
         verified: true,
       },

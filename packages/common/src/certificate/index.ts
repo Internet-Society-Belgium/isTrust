@@ -60,11 +60,11 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
         certificateData.types = improvedTypes;
       }
 
-      if (x509Data.individual !== undefined) {
+      for (const individualName of x509Data.individualNames ?? []) {
         const improvedIndividuals = improve_informations(
           certificateData.individuals,
           {
-            value: x509Data.individual,
+            value: individualName,
             verified: true,
             sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
           },

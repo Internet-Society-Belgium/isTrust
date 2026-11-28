@@ -4,6 +4,7 @@ export const COMMON_NAME = "2.5.4.3";
 export const COUNTRY = "2.5.4.6";
 export const ORGANIZATION = "2.5.4.10";
 export const ORGANIZATION_UNIT = "2.5.4.11";
+export const SURNAME = "2.5.4.4";
 export const GIVEN_NAME = "2.5.4.42";
 
 // https://cabforum.org/working-groups/server/extended-validation/documents/
