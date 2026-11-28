@@ -175,7 +175,7 @@ function AlertBanner(props: {
           </div>
         </Match>
         <Match when={props.type === "warning"}>
-          <div class="bg-warning/10 border-gowarningod/25 text-warning rounded-lg border px-2.5 py-1.5">
+          <div class="bg-warning/10 border-warning/25 text-warning rounded-lg border px-2.5 py-1.5">
             <div class="flex items-center justify-center gap-0.5">
               <div class="p-1">
                 <IconAlert />
