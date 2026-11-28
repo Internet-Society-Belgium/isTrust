@@ -8,6 +8,9 @@ export interface Information<T> {
   value: T;
   sources: Source[];
   verified?: boolean;
+  // Only ever true; omitted otherwise. Marks a value (country) that belongs to
+  // a privacy/proxy service rather than to the owner.
+  proxy?: true;
 }
 
 export function merge_informations<T>(
@@ -43,6 +46,11 @@ export function improve_informations<T>(
 
   if (match.verified === true && information.verified === false) {
     return informations;
+  }
+
+  // Merged value is a proxy only if every contributing item is one.
+  if (match.proxy === true && information.proxy !== true) {
+    delete match.proxy;
   }
 
   if (match.verified === false && information.verified === true) {

@@ -1,5 +1,6 @@
 import * as blacklist from "./blacklist";
 import * as certificate from "./certificate";
+import { sort_countries } from "./country";
 import * as dnssec from "./dnssec";
 import * as platform from "./platform";
 import * as disposableEmail from "./platform/disposable_email";
@@ -20,7 +21,8 @@ import * as rdap from "./whois/rdap";
 
 export type { Information, InformationCache, ErrorType, Platform };
 
-export { merge_informations };
+export { merge_informations, sort_countries };
+export { is_privacy_service } from "./whois_privacy";
 
 export async function get_domain(query: string, cache: InformationCache) {
   const full = parse_domain(query);

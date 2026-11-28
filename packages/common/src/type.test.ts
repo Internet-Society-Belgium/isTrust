@@ -364,3 +364,95 @@ test("improve_data_array source without country matches", () => {
     },
   ] satisfies typeof array);
 });
+
+test("improve_informations keeps two distinct sources", () => {
+  const informations: Information<string>[] = [
+    {
+      value: "BE",
+      sources: [{ organization: "A", links: [] }],
+    },
+  ];
+
+  const merged = improve_informations(informations, {
+    value: "BE",
+    sources: [{ organization: "B", links: [] }],
+  });
+
+  expect(merged[0]?.sources.map((s) => s.organization)).toStrictEqual([
+    "A",
+    "B",
+  ]);
+});
+
+test("improve_informations clears proxy on verified non-proxy source", () => {
+  const informations: Information<string>[] = [
+    {
+      value: "US",
+      verified: false,
+      sources: [{ organization: "Privacy", links: [] }],
+      proxy: true,
+    },
+  ];
+
+  expect(
+    improve_informations(informations, {
+      value: "US",
+      verified: true,
+      sources: [{ organization: "Owner", links: [] }],
+    }),
+  ).toStrictEqual([
+    {
+      value: "US",
+      verified: true,
+      sources: [{ organization: "Owner", links: [] }],
+    },
+  ] satisfies typeof informations);
+});
+
+test("improve_informations clears proxy on unverified non-proxy source", () => {
+  const informations: Information<string>[] = [
+    {
+      value: "US",
+      sources: [{ organization: "Privacy", links: [] }],
+      proxy: true,
+    },
+  ];
+
+  const merged = improve_informations(informations, {
+    value: "US",
+    sources: [{ organization: "Owner", links: [] }],
+  });
+
+  expect(merged[0]).not.toHaveProperty("proxy");
+});
+
+test("improve_informations keeps proxy when every source is proxy", () => {
+  const informations: Information<string>[] = [
+    {
+      value: "US",
+      sources: [{ organization: "Privacy A", links: [] }],
+      proxy: true,
+    },
+  ];
+
+  const merged = improve_informations(informations, {
+    value: "US",
+    sources: [{ organization: "Privacy B", links: [] }],
+    proxy: true,
+  });
+
+  expect(merged[0]?.proxy).toBe(true);
+});
+
+test("improve_informations omits proxy when no source is proxy", () => {
+  const informations: Information<string>[] = [
+    { value: "US", sources: [{ organization: "A", links: [] }] },
+  ];
+
+  const merged = improve_informations(informations, {
+    value: "US",
+    sources: [{ organization: "B", links: [] }],
+  });
+
+  expect(merged[0]).not.toHaveProperty("proxy");
+});

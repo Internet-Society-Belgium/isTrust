@@ -1,4 +1,5 @@
 import * as x509 from "@peculiar/x509";
+import { normalize_country } from "../../country";
 import { CertificateType } from "../type";
 import * as oid from "./oid";
 import { X509Data, X509Issuer } from "./type";
@@ -58,7 +59,9 @@ export function get_data(cert: X509Certificate) {
       links: [],
     };
 
-    const issuerCountry = join_values(cert.issuerName.getField(oid.COUNTRY));
+    const issuerCountry = normalize_country(
+      join_values(cert.issuerName.getField(oid.COUNTRY)),
+    );
     if (issuerCountry !== undefined) {
       issuer.country = issuerCountry;
     }
@@ -82,13 +85,15 @@ export function get_data(cert: X509Certificate) {
     }
   }
 
-  const subjectCountry = join_values(cert.subjectName.getField(oid.COUNTRY));
+  const subjectCountry = normalize_country(
+    join_values(cert.subjectName.getField(oid.COUNTRY)),
+  );
   if (subjectCountry !== undefined) {
     data.country = subjectCountry;
   }
 
-  const subjectIncCountry = join_values(
-    cert.subjectName.getField(oid.INC_COUNTRY),
+  const subjectIncCountry = normalize_country(
+    join_values(cert.subjectName.getField(oid.INC_COUNTRY)),
   );
   if (subjectIncCountry !== undefined) {
     data.incCountry = subjectIncCountry;

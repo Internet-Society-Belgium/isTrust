@@ -1,6 +1,8 @@
+import { normalize_country } from "../../country";
 import {
   improve_informations,
   improve_links,
+  Information,
   InformationCache,
   Source,
 } from "../../type";
@@ -16,6 +18,7 @@ import {
   source_error,
   user_error,
 } from "../../utils/error";
+import { is_privacy_service } from "../../whois_privacy";
 import { WHOISData } from "../type";
 import {
   JCard,
@@ -129,7 +132,7 @@ export async function get_data(domain: string, cache: InformationCache) {
 
       const rdapResult = validate_rdap_result(json);
 
-      improve_data(data, rdapResult);
+      await improve_data(data, rdapResult, cache);
 
       if (rdapResult.links !== undefined) {
         for (const link of rdapResult.links) {
@@ -149,7 +152,11 @@ export async function get_data(domain: string, cache: InformationCache) {
   return data;
 }
 
-function improve_data(data: WHOISData, result: RdapResult) {
+export async function improve_data(
+  data: WHOISData,
+  result: RdapResult,
+  cache: InformationCache,
+) {
   let organization: string | undefined;
 
   const registrarEntity = result.entities.find((e) => {
@@ -284,11 +291,22 @@ function improve_data(data: WHOISData, result: RdapResult) {
     const country = get_country(registrantEntity.vcardArray);
 
     if (country !== undefined) {
-      const improvedCountries = improve_informations(data.countries, {
+      const information: Information<string> = {
         value: country,
         verified: false,
         sources,
-      });
+      };
+
+      // The country of a privacy/proxy service is not the owner's country.
+      const name = organization ?? get_name(registrantEntity.vcardArray);
+      if (name !== undefined && (await is_privacy_service(name, cache))) {
+        information.proxy = true;
+      }
+
+      const improvedCountries = improve_informations(
+        data.countries,
+        information,
+      );
       if (improvedCountries.length > 0) {
         data.countries = improvedCountries;
       }
@@ -329,7 +347,7 @@ function get_country(vcardArray: JCard) {
   if (cc !== undefined) {
     const countryCode = stringify_rdap_value(cc);
 
-    return countryCode;
+    return normalize_country(countryCode);
   }
 
   const addressValue = adrProperty[3];
@@ -339,7 +357,7 @@ function get_country(vcardArray: JCard) {
 
     const countryName = stringify_rdap_value(countryValue);
 
-    return countryName;
+    return normalize_country(countryName);
   }
 
   return;
