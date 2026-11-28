@@ -1,4 +1,4 @@
-// `npm run record -w e2e`: rewrites scenarios/<domain>.json from the real
+// `npm run record:e2e`: rewrites scenarios/<domain>.json from the real
 // services. It runs the same flows as the tests (the website, and the
 // extension, which calls more services because it can bypass CORS) and saves
 // every response, trimmed so the file stays small. Review the diff before
@@ -74,8 +74,16 @@ async function record_route(route: Route, scenario: Scenario) {
     response = await route.fetch();
     body = await response.body();
   } catch {
-    if (request.method() === "GET" && !is_doh_request(request)) {
-      scenario.responses[response_key("GET", url)] = {
+    // An earlier pass may already hold a response for this URL (the extension
+    // pass repeats the website's requests): a network error here must not
+    // overwrite it.
+    const key = response_key("GET", url);
+    if (
+      request.method() === "GET" &&
+      !is_doh_request(request) &&
+      scenario.responses[key] === undefined
+    ) {
+      scenario.responses[key] = {
         status: 0,
         contentType: "",
         body: "",
@@ -177,5 +185,13 @@ test("record the scenario", async ({ page, context }) => {
     await extension.close();
   }
 
+  const failed = Object.entries(scenario.responses)
+    .filter(([, recorded]) => recorded?.failed === true)
+    .map(([key]) => key);
+  if (failed.length > 0) {
+    console.warn(
+      `Recorded as network failures (replayed as failures): ${failed.join(", ")}`,
+    );
+  }
   save_scenario(scenario);
 });

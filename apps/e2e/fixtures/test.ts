@@ -58,7 +58,7 @@ export const test = base.extend<Options & Fixtures>({
       await use(network);
       expect(
         network.unexpected,
-        "requests with no recorded response (run `npm run record -w e2e`, or stub them)",
+        "requests with no recorded response (run `npm run record:e2e`, or stub them)",
       ).toEqual([]);
     },
     { auto: true },

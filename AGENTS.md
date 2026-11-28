@@ -52,7 +52,7 @@ Name a new test `*.live.test.ts` if it reaches the network, and `*.test.ts` othe
 | `npm run test`, `lint`, `check-types`, `format:check` | No      | Yes           |
 | `npm run verify:e2e`, `npm run test:e2e`              | No      | Yes           |
 | `npm run test:live`, `npm run test:e2e:live`          | Yes     | No            |
-| `npm run record -w e2e`                               | Yes     | No            |
+| `npm run record:e2e`                                  | Yes     | No            |
 
 Apart from these, only `npm ci` and `npx -w e2e playwright install chromium` need the network, to install dependencies and the browser.
 
@@ -75,7 +75,7 @@ How the offline run works (`apps/e2e/fixtures/`):
 
 - Every request goes through `network.ts`. DoH queries get an answer built from the scenario (`doh.ts`). Other requests replay `scenarios/istrust.org.json`. Anything else is aborted, and the test fails with the list of unexpected requests. A new endpoint in a check therefore fails the E2E tests until the scenario is recorded again.
 - The browser clock is frozen to the recording date, and `Math.random` is seeded (`random.ts`), so the checks shuffle their sources the same way in every run.
-- `npm run record -w e2e` rewrites the scenario from the real services. Review the diff, and update the test expectations if the data changed. Don't edit the scenario by hand: for a state `istrust.org` doesn't have (DNSSEC, a blocked domain), add a variant in `fixtures/variants.ts` and select it with `test.use({ variant: "…" })`.
+- `npm run record:e2e` rebuilds the website and the extension, then rewrites the scenario from the real services. Run it through this command, not `-w e2e`: the builds it needs come from Turbo. Review the diff, and update the test expectations if the data changed. Don't edit the scenario by hand: for a state `istrust.org` doesn't have (DNSSEC, a blocked domain), add a variant in `fixtures/variants.ts` and select it with `test.use({ variant: "…" })`.
 - Tests find elements by `data-testid` (`header-domain`, `alert-banner`, and the result items such as `dnssec` and `registration`) and `data-state` (`loading`, `unavailable`, `empty`, `error`, `ready`, `not-available`), set in `packages/ui`. They compare text through `@istrust/i18n`, so the same assertion works in every language.
 
 ### Check caveats

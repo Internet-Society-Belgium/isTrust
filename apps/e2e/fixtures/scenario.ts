@@ -3,7 +3,7 @@ import path from "node:path";
 
 // A scenario is everything the checks see from the network for one domain:
 // the recorded responses of every service they call, plus the DNSSEC answer.
-// `npm run record -w e2e` writes it from the real services
+// `npm run record:e2e` writes it from the real services
 // (scenarios/<domain>.json); variants change parts of it (fixtures/variants.ts).
 
 export interface RecordedResponse {

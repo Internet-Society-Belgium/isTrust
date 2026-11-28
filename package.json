@@ -31,13 +31,14 @@
     "format:check": "turbo run format:check",
     "format:check:root": "prettier --check \"*.{js,ts,json}\"",
     "lint": "turbo lint",
+    "record:e2e": "turbo record --filter=e2e",
     "release": "release-it",
     "test": "turbo test",
     "test:e2e": "turbo test:e2e",
     "test:e2e:live": "turbo test:e2e:live",
     "test:live": "turbo test:live",
-    "verify": "NPM_CONFIG_LOGLEVEL=silent turbo run format:check lint check-types test --continue=dependencies-successful --output-logs=errors-only",
-    "verify:e2e": "NPM_CONFIG_LOGLEVEL=silent turbo run format:check lint check-types test test:e2e --continue=dependencies-successful --output-logs=errors-only",
+    "verify": "turbo run format:check lint check-types test --continue=dependencies-successful --output-logs=errors-only",
+    "verify:e2e": "turbo run format:check lint check-types test test:e2e --continue=dependencies-successful --output-logs=errors-only",
     "verify:force": "npm run verify -- --force"
   },
   "config": {

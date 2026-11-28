@@ -21,6 +21,11 @@ function with_response(
       `No recorded response for ${key}: record the scenario again`,
     );
   }
+  if (recorded.failed === true) {
+    throw new Error(
+      `${key} failed when it was recorded, so it has no body to change: record the scenario again (npm run record:e2e)`,
+    );
+  }
   return {
     ...scenario,
     responses: {
