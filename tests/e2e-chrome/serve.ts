@@ -7,7 +7,7 @@ import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
 
-const root = path.join(import.meta.dirname, "../website/dist/website");
+const root = path.join(import.meta.dirname, "../../apps/website/dist/website");
 const port = Number(process.argv[2] ?? "4321");
 
 const types: Record<string, string> = {

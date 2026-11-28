@@ -23,7 +23,7 @@ export const live_timeout = 4 * 60_000;
 
 export const extension_path = path.join(
   import.meta.dirname,
-  "../../webextension/dist/chrome-mv3",
+  "../../../apps/webextension/dist/chrome-mv3",
 );
 
 export interface Options {
