@@ -9,7 +9,8 @@ export interface X509Issuer {
 export interface X509Data {
   type: CertificateType;
   issuer?: X509Issuer;
-  individual?: string;
+  // The given name and the surname, each as its own name.
+  individualNames?: string[];
   organization?: string;
   country?: string;
   incCountry?: string;

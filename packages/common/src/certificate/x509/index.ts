@@ -45,7 +45,9 @@ export function get_data(cert: X509Certificate) {
 
   let organization: string | undefined;
 
-  const issuerOrganization = atos(cert.issuerName.getField(oid.ORGANIZATION));
+  const issuerOrganization = join_values(
+    cert.issuerName.getField(oid.ORGANIZATION),
+  );
   if (issuerOrganization !== undefined) {
     organization = issuerOrganization;
   }
@@ -56,7 +58,7 @@ export function get_data(cert: X509Certificate) {
       links: [],
     };
 
-    const issuerCountry = atos(cert.issuerName.getField(oid.COUNTRY));
+    const issuerCountry = join_values(cert.issuerName.getField(oid.COUNTRY));
     if (issuerCountry !== undefined) {
       issuer.country = issuerCountry;
     }
@@ -66,9 +68,11 @@ export function get_data(cert: X509Certificate) {
     data.issuer = issuer;
   }
 
-  const subjectOrganization = atos(cert.subjectName.getField(oid.ORGANIZATION));
+  const subjectOrganization = join_values(
+    cert.subjectName.getField(oid.ORGANIZATION),
+  );
   if (subjectOrganization !== undefined) {
-    const organizationUnit = atos(
+    const organizationUnit = join_values(
       cert.subjectName.getField(oid.ORGANIZATION_UNIT),
     );
     if (organizationUnit !== undefined) {
@@ -78,26 +82,38 @@ export function get_data(cert: X509Certificate) {
     }
   }
 
-  const subjectCountry = atos(cert.subjectName.getField(oid.COUNTRY));
+  const subjectCountry = join_values(cert.subjectName.getField(oid.COUNTRY));
   if (subjectCountry !== undefined) {
     data.country = subjectCountry;
   }
 
-  const subjectIncCountry = atos(cert.subjectName.getField(oid.INC_COUNTRY));
+  const subjectIncCountry = join_values(
+    cert.subjectName.getField(oid.INC_COUNTRY),
+  );
   if (subjectIncCountry !== undefined) {
     data.incCountry = subjectIncCountry;
   }
 
-  const subjectGivenName = atos(cert.subjectName.getField(oid.GIVEN_NAME));
-  if (subjectGivenName !== undefined) {
-    data.individual = subjectGivenName;
+  // IV certificates carry the name as separate givenName and surname fields.
+  // Each given name and each surname is kept as its own name.
+  const subjectIndividualNames = [
+    ...cert.subjectName.getField(oid.GIVEN_NAME),
+    ...cert.subjectName.getField(oid.SURNAME),
+  ]
+    .map((name) => name.trim())
+    .filter((name) => name !== "");
+  if (subjectIndividualNames.length > 0) {
+    data.individualNames = subjectIndividualNames;
   }
 
   return data;
 }
 
-function atos(array: string[]) {
-  const text = array.join(" ").trim();
+export function join_values(values: string[]) {
+  const text = values
+    .map((value) => value.trim())
+    .filter((value) => value !== "")
+    .join(" ");
   if (text === "") return;
   return text;
 }
@@ -138,7 +154,7 @@ function is_tls_capable(cert: X509Certificate) {
 function is_same_domain(cert: X509Certificate, domain: string) {
   const dnsNames = [];
 
-  const commonName = atos(cert.subjectName.getField(oid.COMMON_NAME));
+  const commonName = join_values(cert.subjectName.getField(oid.COMMON_NAME));
   if (commonName !== undefined) {
     dnsNames.push(commonName);
   }

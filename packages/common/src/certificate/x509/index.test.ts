@@ -1,6 +1,14 @@
 import { describe, expect, test } from "vitest";
-import { get_data, is_valid_cert, parse_cert } from ".";
-import { CA, CLIENT_AUTH, DV, EV, EXPIRED } from "./fixtures";
+import { get_data, is_valid_cert, join_values, parse_cert } from ".";
+import {
+  CA,
+  CLIENT_AUTH,
+  DV,
+  EV,
+  EXPIRED,
+  IV,
+  MULTI_GIVEN_NAME,
+} from "./fixtures";
 
 // Base64 DER, as returned by the Certspotter and MerkleMap APIs.
 function pem_to_base64(pem: string) {
@@ -38,6 +46,31 @@ describe("get_data", () => {
     });
   });
 
+  test("IV certificate", () => {
+    expect(get_data(parse_cert(IV))).toStrictEqual({
+      type: "IV",
+      issuer: {
+        organization: "isTrust Test CA",
+        country: "BE",
+        links: [],
+      },
+      individualNames: ["Internet Society", "ISOC"],
+      country: "BE",
+    });
+  });
+
+  test("certificate with several given names", () => {
+    expect(get_data(parse_cert(MULTI_GIVEN_NAME))).toStrictEqual({
+      type: "IV",
+      individualNames: [
+        "Internet Society Belgium",
+        "Internet Society Chapter Belgium",
+        "ISOC.be",
+      ],
+      country: "BE",
+    });
+  });
+
   test("DV certificate", () => {
     expect(get_data(parse_cert(DV))).toStrictEqual({
       type: "DV",
@@ -47,6 +80,30 @@ describe("get_data", () => {
         links: [],
       },
     });
+  });
+});
+
+describe("join_values", () => {
+  test("joins values with one space", () => {
+    expect(join_values(["Internet", "Society"])).toBe("Internet Society");
+  });
+
+  test("trims each value", () => {
+    expect(join_values([" Internet ", "  Society"])).toBe("Internet Society");
+  });
+
+  test("ignores blank values", () => {
+    expect(join_values(["Internet", "", "  ", "Society"])).toBe(
+      "Internet Society",
+    );
+  });
+
+  test("no values", () => {
+    expect(join_values([])).toBeUndefined();
+  });
+
+  test("only blank values", () => {
+    expect(join_values(["", " "])).toBeUndefined();
   });
 });
 
