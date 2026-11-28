@@ -13,10 +13,17 @@ export function is_doh_request(request: Request): boolean {
   );
 }
 
-export function doh_answer(request: Request, authenticated: boolean): Buffer {
+/** The answer to a DoH query, or undefined when it asks for more than A records. */
+export function doh_answer(
+  request: Request,
+  authenticated: boolean,
+): Buffer | undefined {
   const body = request.postDataBuffer();
   if (body === null) throw new Error("DoH request without a body");
   const query = dns_packet.decode(body);
+  if ((query.questions ?? []).some((question) => question.type !== "A")) {
+    return undefined;
+  }
 
   const flags =
     dns_packet.RECURSION_DESIRED |

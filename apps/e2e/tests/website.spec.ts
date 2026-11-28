@@ -2,9 +2,13 @@
 // scenarios/istrust.org.json. Texts are checked through @istrust/i18n, so the
 // same assertions hold in every language.
 import i18n, { translatedLangs } from "@istrust/i18n";
-import { expect, item, test, wait_for_results } from "../fixtures/test";
-
-const domain = "istrust.org";
+import {
+  domain,
+  expect,
+  ready,
+  test,
+  wait_for_results,
+} from "../fixtures/test";
 
 for (const lang of translatedLangs) {
   test.describe(lang, () => {
@@ -22,14 +26,14 @@ for (const lang of translatedLangs) {
       await expect(page.getByTestId("header-domain")).toContainText(domain);
       await wait_for_results(page);
 
-      await expect(
-        item(page, "registration").locator('[data-state="ready"]'),
-      ).toContainText(i18n("Registered", lang));
-      await expect(
-        item(page, "dnssec").locator('[data-state="ready"]'),
-      ).toContainText(i18n("Not protected with", lang));
+      await expect(ready(page, "registration")).toContainText(
+        i18n("Registered", lang),
+      );
+      await expect(ready(page, "dnssec")).toContainText(
+        i18n("Not protected with", lang),
+      );
       await expect(page.getByTestId("alert-banner")).toHaveCount(0);
-      await expect(item(page, "first-visit")).toHaveAttribute(
+      await expect(page.getByTestId("first-visit")).toHaveAttribute(
         "data-state",
         "not-available",
       );
@@ -53,9 +57,9 @@ test.describe("a domain protected with DNSSEC", () => {
   test("shows the protection", async ({ page }) => {
     await page.goto(`/en/#${domain}`);
     await wait_for_results(page);
-    await expect(
-      item(page, "dnssec").locator('[data-state="ready"]'),
-    ).toContainText(i18n("Protected with", "en"));
+    await expect(ready(page, "dnssec")).toContainText(
+      i18n("Protected with", "en"),
+    );
   });
 });
 

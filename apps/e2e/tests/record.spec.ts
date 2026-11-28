@@ -15,44 +15,49 @@ import {
   type Scenario,
 } from "../fixtures/scenario";
 import {
+  domain,
   expect,
   extension_id_of,
   launch_extension,
+  live_timeout,
   test,
   wait_for_results,
 } from "../fixtures/test";
 
-const domain = "istrust.org";
-// Some services (crt.sh in particular) can take minutes to answer.
-const live_timeout = 4 * 60_000;
-
 const is_text = (content_type: string) =>
   /json|text|javascript|xml/.test(content_type);
 
-/** Requests in flight, to wait until the page stops calling services. */
-let in_flight = 0;
+/** One recording: the scenario it fills, and what its route handler tracks. */
+interface Recording {
+  scenario: Scenario;
+  /** Requests in flight, to wait until the page stops calling services. */
+  in_flight: number;
+  /** DNSSEC flags of the DoH answers: they must agree. */
+  dnssec_answers: boolean[];
+}
 
-async function network_quiet(): Promise<void> {
+async function network_quiet(recording: Recording): Promise<void> {
   let quiet_since = Date.now();
   while (Date.now() - quiet_since < 2_000) {
-    if (in_flight > 0) quiet_since = Date.now();
+    if (recording.in_flight > 0) quiet_since = Date.now();
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
 }
 
-async function record(context: BrowserContext, scenario: Scenario) {
+async function record(context: BrowserContext, recording: Recording) {
   await seed_random(context);
   await context.route("**/*", async (route) => {
-    in_flight++;
+    recording.in_flight++;
     try {
-      await record_route(route, scenario);
+      await record_route(route, recording);
     } finally {
-      in_flight--;
+      recording.in_flight--;
     }
   });
 }
 
-async function record_route(route: Route, scenario: Scenario) {
+async function record_route(route: Route, recording: Recording) {
+  const { scenario } = recording;
   if (await handle_common_request(route, domain)) return;
   const request = route.request();
   const url = request.url();
@@ -74,21 +79,18 @@ async function record_route(route: Route, scenario: Scenario) {
   }
 
   if (is_doh_request(request)) {
-    if (response.ok()) scenario.dnssec.authenticated = doh_authenticated(body);
+    if (response.ok()) recording.dnssec_answers.push(doh_authenticated(body));
   } else if (request.method() === "GET") {
     const content_type = response.headers()["content-type"] ?? "";
-    const recorded: RecordedResponse = is_text(content_type)
-      ? {
-          status: response.status(),
-          contentType: content_type,
-          body: trim(url, content_type, body.toString("utf8")),
-        }
-      : {
-          status: response.status(),
-          contentType: content_type,
-          body: body.toString("base64"),
-          base64: true,
-        };
+    const text = is_text(content_type);
+    const recorded: RecordedResponse = {
+      status: response.status(),
+      content_type,
+      body: text
+        ? trim(url, content_type, body.toString("utf8"))
+        : body.toString("base64"),
+      ...(text ? {} : { base64: true }),
+    };
     scenario.responses[response_key("GET", url)] = recorded;
   }
 
@@ -139,27 +141,32 @@ function trim(url: string, content_type: string, body: string): string {
 test("record the scenario", async ({ page, context }) => {
   test.setTimeout(10 * 60_000);
 
-  const scenario: Scenario = {
-    domain,
-    recorded_at: new Date().toISOString(),
-    dnssec: { authenticated: false },
-    responses: {},
+  const recording: Recording = {
+    scenario: {
+      domain,
+      recorded_at: new Date().toISOString(),
+      dnssec: { authenticated: false },
+      responses: {},
+    },
+    in_flight: 0,
+    dnssec_answers: [],
   };
+  const { scenario, dnssec_answers } = recording;
 
-  await record(context, scenario);
+  await record(context, recording);
   await page.goto(`/en/#${domain}`);
   await wait_for_results(page, live_timeout);
-  await network_quiet();
+  await network_quiet(recording);
   await context.unrouteAll({ behavior: "ignoreErrors" });
 
   const extension = await launch_extension();
   try {
-    await record(extension, scenario);
+    await record(extension, recording);
     const id = await extension_id_of(extension);
     const popup = await extension.newPage();
     await popup.goto(`chrome-extension://${id}/popup.html?q=${domain}`);
     await wait_for_results(popup, live_timeout);
-    await network_quiet();
+    await network_quiet(recording);
     await extension.unrouteAll({ behavior: "ignoreErrors" });
   } finally {
     await extension.close();
@@ -168,6 +175,11 @@ test("record the scenario", async ({ page, context }) => {
   const failed = Object.entries(scenario.responses)
     .filter(([, recorded]) => recorded?.failed === true)
     .map(([key]) => key);
+  expect(
+    new Set(dnssec_answers).size,
+    "DoH resolvers disagree on DNSSEC: rerun npm run record:e2e",
+  ).toBeLessThanOrEqual(1);
+  scenario.dnssec.authenticated = dnssec_answers.at(0) ?? false;
   expect(
     failed,
     "requests failed while recording: rerun npm run record:e2e",

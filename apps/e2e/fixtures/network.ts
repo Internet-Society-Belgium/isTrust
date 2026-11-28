@@ -56,10 +56,14 @@ export async function replay_network(
     const request = route.request();
     const url = request.url();
 
-    if (is_doh_request(request)) {
+    // A query the stub can't answer falls through, and is reported below.
+    const answer = is_doh_request(request)
+      ? doh_answer(request, scenario.dnssec.authenticated)
+      : undefined;
+    if (answer !== undefined) {
       await route.fulfill({
         contentType: "application/dns-message",
-        body: doh_answer(request, scenario.dnssec.authenticated),
+        body: answer,
       });
       return;
     }
@@ -72,7 +76,7 @@ export async function replay_network(
     if (recorded !== undefined) {
       await route.fulfill({
         status: recorded.status,
-        contentType: recorded.contentType,
+        contentType: recorded.content_type,
         body:
           recorded.base64 === true
             ? Buffer.from(recorded.body, "base64")

@@ -148,7 +148,7 @@ jobs:
     needs: [lint, check_types]
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     env:
       TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
 
@@ -199,6 +199,60 @@ jobs:
             apps/e2e/test-results
           retention-days: 14
 
+  e2e_live:
+    name: Live E2E tests
+    needs: [lint, check_types]
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    env:
+      TURBO_SCM_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Chromium
+        run: npx -w e2e playwright install --with-deps chromium
+
+      # Live: the real services, so a failure can come from the network or from
+      # upstream data changing. Report it, but don't fail CI.
+      - name: Live E2E tests
+        id: live
+        continue-on-error: true
+        run: npm run test:e2e:live -- --affected
+
+      - name: Warn on live E2E test failure
+        if: steps.live.outcome == 'failure'
+        run: echo "::warning title=Live E2E tests failed::Live E2E tests failed. They depend on external services, so this doesn't block the merge. Check the Live E2E tests step log before merging."
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-live
+          path: |
+            apps/e2e/playwright-report
+            apps/e2e/test-results
+          retention-days: 14
+
   test_live:
     name: Live tests
     needs: [lint, check_types]
@@ -233,15 +287,3 @@ jobs:
       - name: Warn on live test failure
         if: steps.live.outcome == 'failure'
         run: echo "::warning title=Live tests failed::Live tests failed. They depend on external services, so this doesn't block the merge. Check the Live tests step log before merging."
-
-      - name: Install Chromium
-        run: npx -w e2e playwright install --with-deps chromium
-
-      - name: Live E2E tests
-        id: live_e2e
-        continue-on-error: true
-        run: npm run test:e2e:live -- --affected
-
-      - name: Warn on live E2E test failure
-        if: steps.live_e2e.outcome == 'failure'
-        run: echo "::warning title=Live E2E tests failed::Live E2E tests failed. They depend on external services, so this doesn't block the merge. Check the Live E2E tests step log before merging."

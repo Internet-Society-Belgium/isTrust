@@ -22,7 +22,11 @@ test("records a failure when nothing is recorded yet", () => {
 
 test("keeps a response an earlier pass recorded", () => {
   const scenario = empty_scenario();
-  const recorded = { status: 200, contentType: "application/json", body: "{}" };
+  const recorded = {
+    status: 200,
+    content_type: "application/json",
+    body: "{}",
+  };
   scenario.responses[key] = recorded;
   record_failure(scenario, key);
   expect(scenario.responses[key]).toEqual(recorded);

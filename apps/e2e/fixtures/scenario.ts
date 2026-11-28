@@ -8,7 +8,7 @@ import path from "node:path";
 
 export interface RecordedResponse {
   status: number;
-  contentType: string;
+  content_type: string;
   /** Text, or base64 when `base64` is true. */
   body: string;
   base64?: boolean;
@@ -51,7 +51,7 @@ export function record_failure(scenario: Scenario, key: string): void {
   if (scenario.responses[key] !== undefined) return;
   scenario.responses[key] = {
     status: 0,
-    contentType: "",
+    content_type: "",
     body: "",
     failed: true,
   };

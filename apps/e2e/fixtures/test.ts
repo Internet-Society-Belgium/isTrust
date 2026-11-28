@@ -10,10 +10,16 @@ import {
 } from "@playwright/test";
 import { replay_network, type Network } from "./network";
 import { seed_random } from "./random";
-import { load_scenario, type Scenario } from "./scenario";
+import { load_scenario } from "./scenario";
 import { variants, type Variant } from "./variants";
 
 export { expect };
+
+/** The domain of the recorded scenario (scenarios/istrust.org.json). */
+export const domain = "istrust.org";
+
+/** Live runs and the recorder: some services (crt.sh in particular) take minutes. */
+export const live_timeout = 4 * 60_000;
 
 export const extension_path = path.join(
   import.meta.dirname,
@@ -30,18 +36,13 @@ export interface Options {
 }
 
 interface Fixtures {
-  scenario: Scenario;
   network: Network | undefined;
 }
 
 export const test = base.extend<Options & Fixtures>({
-  scenario_domain: ["istrust.org", { option: true }],
+  scenario_domain: [domain, { option: true }],
   variant: ["recorded", { option: true }],
   live: [false, { option: true }],
-
-  scenario: async ({ scenario_domain, variant }, use) => {
-    await use(variants[variant](load_scenario(scenario_domain)));
-  },
 
   // Auto: every test runs offline unless its project is live. It loads the
   // scenario itself, so a live run (or the recorder) needs no scenario file.
@@ -85,11 +86,15 @@ export async function launch_extension(): Promise<BrowserContext> {
   });
 }
 
+async function service_worker_of(context: BrowserContext): Promise<Worker> {
+  return (
+    context.serviceWorkers().at(0) ??
+    (await context.waitForEvent("serviceworker"))
+  );
+}
+
 export async function extension_id_of(context: BrowserContext) {
-  const worker = context.serviceWorkers().at(0);
-  const service_worker =
-    worker ?? (await context.waitForEvent("serviceworker"));
-  return new URL(service_worker.url()).host;
+  return new URL((await service_worker_of(context)).url()).host;
 }
 
 export const extension_test = test.extend<ExtensionFixtures>({
@@ -101,8 +106,7 @@ export const extension_test = test.extend<ExtensionFixtures>({
   },
 
   service_worker: async ({ context }, use) => {
-    const worker = context.serviceWorkers().at(0);
-    await use(worker ?? (await context.waitForEvent("serviceworker")));
+    await use(await service_worker_of(context));
   },
 
   extension_id: async ({ service_worker }, use) => {
@@ -133,9 +137,9 @@ export const extension_test = test.extend<ExtensionFixtures>({
   },
 });
 
-/** A result item of the popup or the website, e.g. `dnssec`. */
-export function item(page: Page, testid: string): Locator {
-  return page.getByTestId(testid);
+/** The content of a result item once its data arrived, e.g. `ready(page, "dnssec")`. */
+export function ready(page: Page, testid: string): Locator {
+  return page.getByTestId(testid).locator('[data-state="ready"]');
 }
 
 const settled =
@@ -151,9 +155,9 @@ export async function wait_for_results(
   timeout = 60_000,
 ): Promise<void> {
   for (const testid of ["dnssec", "registration"]) {
-    await expect(item(page, testid).locator(settled).first()).toBeAttached({
-      timeout,
-    });
+    await expect(
+      page.getByTestId(testid).locator(settled).first(),
+    ).toBeAttached({ timeout });
   }
   await expect(page.locator('[data-state="loading"]')).toHaveCount(0, {
     timeout,

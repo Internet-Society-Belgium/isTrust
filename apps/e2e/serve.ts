@@ -31,9 +31,16 @@ if (!existsSync(root)) {
 }
 
 createServer((request, response) => {
-  const pathname = decodeURIComponent(
-    new URL(request.url ?? "/", "http://localhost").pathname,
-  );
+  let pathname: string;
+  try {
+    pathname = decodeURIComponent(
+      new URL(request.url ?? "/", "http://localhost").pathname,
+    );
+  } catch {
+    // A malformed %-escape is the client's fault: answer it, don't crash.
+    response.writeHead(400).end();
+    return;
+  }
   let file = path.join(root, path.normalize(pathname));
   if (!file.startsWith(root + path.sep)) {
     response.writeHead(403).end();
