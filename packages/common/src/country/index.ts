@@ -1,12 +1,9 @@
+import { ALIASES } from "./aliases";
 import { ISO_3166_ALPHA_2 } from "./iso3166";
 
 // XK (Kosovo) is not ISO 3166-1, but RDAP, certificates and the .be API use it.
 // Accepted on purpose so Kosovar owners are not dropped.
 const EXCEPTIONS = ["XK"];
-
-const ALIASES: Record<string, string> = {
-  UK: "GB",
-};
 
 const CODES = new Set([...ISO_3166_ALPHA_2, ...EXCEPTIONS]);
 
