@@ -21,6 +21,12 @@ test("istrust.org", async () => {
     countries: [
       {
         value: "BE",
+        meta: [
+          {
+            role: "office",
+            owner: "Internet Society Chapter Belgium vzw/asbl",
+          },
+        ],
         verified: false,
         sources: [
           {
@@ -82,6 +88,7 @@ test("github.com", async () => {
           },
         ],
         value: "US",
+        meta: [{ role: "office" }],
         verified: false,
       },
     ],

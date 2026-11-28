@@ -31,20 +31,22 @@ export function Section(props: {
 // `testid` and the `data-state` markers (loading, error, unavailable, empty,
 // ready, and not-available on SectionItemNotAvailable) are hooks for the E2E
 // tests in apps/e2e: they don't depend on the language, unlike the text.
-export function SectionItem<T>(props: {
+export function SectionItem<T, M = unknown>(props: {
   testid?: string;
   base?: string;
   lang: string;
   title: string;
   description: JSX.Element;
-  informations?: common.Information<T> | common.Information<T>[];
+  informations?: common.Information<T, M> | common.Information<T, M>[];
   prefix: JSX.Element;
   // eslint-disable-next-line no-unused-vars
-  children: (item: common.Information<T>, index: number) => JSX.Element;
+  children: (item: common.Information<T, M>, index: number) => JSX.Element;
   // eslint-disable-next-line no-unused-vars
-  suffix?: (item: common.Information<T>) => JSX.Element;
+  suffix?: (item: common.Information<T, M>) => JSX.Element;
 }) {
-  const toArray = (data: common.Information<T> | common.Information<T>[]) => {
+  const toArray = (
+    data: common.Information<T, M> | common.Information<T, M>[],
+  ) => {
     if (Array.isArray(data)) {
       return data;
     }

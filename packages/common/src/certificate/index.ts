@@ -1,3 +1,4 @@
+import { country_meta } from "../country";
 import { improve_informations } from "../type";
 import * as crtsh from "./crtsh";
 import * as merkelmap from "./merkelmap";
@@ -81,6 +82,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
             value: x509Data.country,
             verified: true,
             sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+            meta: [country_meta("office", x509Data.owner)],
           },
         );
         if (improvedCountries.length > 0) {
@@ -109,6 +111,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
             value: x509Data.incCountry,
             verified: true,
             sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+            meta: [country_meta("incorporated", x509Data.owner)],
           },
         );
         if (improvedCountries.length > 0) {

@@ -15,6 +15,7 @@ test("dnsbelgium.be", async () => {
           },
         ],
         value: "BE",
+        meta: [{ role: "office", owner: "DNS Belgium vzw" }],
         verified: true,
       },
     ],
@@ -61,6 +62,12 @@ test("internetsociety.be", async () => {
           },
         ],
         value: "BE",
+        meta: [
+          {
+            role: "office",
+            owner: "Internet Society Chapter Belgium vzw/asbl",
+          },
+        ],
         verified: false,
       },
     ],

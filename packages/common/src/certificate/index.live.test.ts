@@ -39,6 +39,12 @@ test("icann.org", async () => {
           },
         ],
         value: "US",
+        meta: [
+          {
+            role: "office",
+            owner: "Internet Corporation For Assigned Names and Numbers",
+          },
+        ],
         verified: true,
       },
     ],
@@ -97,6 +103,10 @@ test("digicert.com", async () => {
     countries: [
       {
         value: "US",
+        meta: [
+          { role: "office", owner: "DigiCert, Inc." },
+          { role: "incorporated", owner: "DigiCert, Inc." },
+        ],
         verified: true,
         sources: [
           {

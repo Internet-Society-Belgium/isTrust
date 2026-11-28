@@ -1,6 +1,8 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { createResource, Match, Resource, Switch } from "solid-js";
 import { Flag } from "./flag";
+import { country_title } from "./title";
 
 // A country is the proxy's when whois gives it and the whois owner is a proxy
 // service.
@@ -25,6 +27,8 @@ export function Country(props: {
   lang: string;
   type: "text" | "icon";
   value: string;
+  meta?: common.CountryMeta[];
+  proxy?: boolean;
 }) {
   const getRegionName = (code: string, lang: string) => {
     try {
@@ -39,13 +43,26 @@ export function Country(props: {
     }
   };
 
+  const title = () =>
+    country_title(
+      getRegionName(props.value, props.lang),
+      props.meta,
+      {
+        office: i18n("Office", props.lang),
+        incorporated: i18n("Incorporated in", props.lang),
+      },
+      props.proxy === true
+        ? i18n("Country of the proxy service, not of the owner", props.lang)
+        : undefined,
+    );
+
   return (
     <Switch>
       <Match when={props.type === "text"}>
-        <span>{getRegionName(props.value, props.lang)}</span>
+        <span title={title()}>{getRegionName(props.value, props.lang)}</span>
       </Match>
       <Match when={props.type === "icon"}>
-        <div title={getRegionName(props.value, props.lang)}>
+        <div title={title()}>
           <Flag code={props.value} />
         </div>
       </Match>

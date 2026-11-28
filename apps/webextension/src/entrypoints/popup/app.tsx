@@ -320,6 +320,8 @@ export function App() {
                         <Country
                           lang={lang()}
                           value={country.value}
+                          meta={country.meta}
+                          proxy={isProxyCountry(country)}
                           type="text"
                         />
                       </AlertWhoisProxyCountry>

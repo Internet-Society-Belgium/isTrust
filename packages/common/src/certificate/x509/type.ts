@@ -11,7 +11,10 @@ export interface X509Data {
   issuer?: X509Issuer;
   // The given name and the surname, each as its own name.
   individualNames?: string[];
+  // Display name, with the OU suffix when present.
   organization?: string;
+  // Raw subject O, without the OU suffix.
+  owner?: string;
   country?: string;
   incCountry?: string;
 }

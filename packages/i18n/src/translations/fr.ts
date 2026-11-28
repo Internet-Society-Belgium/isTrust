@@ -123,4 +123,6 @@ export const fr: Translations = {
     "est géré par Internet Society Chapter Belgium vzw/asbl (association sans but lucratif)",
   "less than 1 day a year": "moins d'un jour par an",
   now: "maintenant",
+  "Incorporated in": "Constituée en",
+  Office: "Siège",
 };

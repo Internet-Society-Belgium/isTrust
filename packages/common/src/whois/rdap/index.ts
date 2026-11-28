@@ -1,4 +1,4 @@
-import { normalize_country } from "../../country";
+import { country_meta, normalize_country } from "../../country";
 import {
   improve_informations,
   improve_links,
@@ -285,10 +285,13 @@ export function improve_data(data: WHOISData, result: RdapResult) {
     const country = get_country(registrantEntity.vcardArray);
 
     if (country !== undefined) {
+      const owner = organization ?? get_name(registrantEntity.vcardArray);
+
       const improvedCountries = improve_informations(data.countries, {
         value: country,
         verified: false,
         sources,
+        meta: [country_meta("office", owner)],
       });
       if (improvedCountries.length > 0) {
         data.countries = improvedCountries;

@@ -4,15 +4,17 @@ export interface Source {
   links: string[];
 }
 
-export interface Information<T> {
+export interface Information<T, M = unknown> {
   value: T;
   sources: Source[];
   verified?: boolean;
+  // Extra facts about the value, such as who owns a country entry.
+  meta?: M[];
 }
 
-export function merge_informations<T>(
-  array1: Information<T>[] | undefined,
-  array2: Information<T>[] | undefined,
+export function merge_informations<T, M>(
+  array1: Information<T, M>[] | undefined,
+  array2: Information<T, M>[] | undefined,
 ) {
   if (array1 === undefined && array2 === undefined) return;
 
@@ -24,11 +26,11 @@ export function merge_informations<T>(
   return informations;
 }
 
-export function improve_informations<T>(
-  informations: Information<T>[],
-  information: Information<T>,
+export function improve_informations<T, M>(
+  informations: Information<T, M>[],
+  information: Information<T, M>,
 ) {
-  let match: Information<T> | undefined;
+  let match: Information<T, M> | undefined;
   for (const info of informations) {
     if (normalize(info.value) === normalize(information.value)) {
       match = info;
@@ -37,8 +39,15 @@ export function improve_informations<T>(
   }
 
   if (match === undefined) {
+    if (information.meta !== undefined) {
+      information.meta = improve_meta([], information.meta);
+    }
     informations.push(information);
     return informations;
+  }
+
+  if (information.meta !== undefined) {
+    match.meta = improve_meta(match.meta ?? [], information.meta);
   }
 
   if (match.verified === true && information.verified === false) {
@@ -59,6 +68,17 @@ export function improve_informations<T>(
   }
 
   return informations;
+}
+
+// Appends entries not already present, compared on their normalized content.
+// shortcut: key order counts, so build each meta type with one helper.
+function improve_meta<M>(meta: M[], extra: M[]) {
+  const key = (m: M) => normalize(JSON.stringify(m));
+  for (const entry of extra) {
+    if (!meta.some((m) => key(m) === key(entry))) meta.push(entry);
+  }
+
+  return meta;
 }
 
 function improve_sources(sources: Source[], source: Source) {
