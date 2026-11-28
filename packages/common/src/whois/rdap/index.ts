@@ -289,6 +289,7 @@ export function improve_data(data: WHOISData, result: RdapResult) {
         value: country,
         verified: false,
         sources,
+        meta: ["office"],
       });
       if (improvedCountries.length > 0) {
         data.countries = improvedCountries;

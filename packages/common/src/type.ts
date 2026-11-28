@@ -4,15 +4,17 @@ export interface Source {
   links: string[];
 }
 
-export interface Information<T> {
+export interface Information<T, M = unknown> {
   value: T;
   sources: Source[];
   verified?: boolean;
+  // Extra facts about the value, such as a country's role.
+  meta?: M[];
 }
 
-export function merge_informations<T>(
-  array1: Information<T>[] | undefined,
-  array2: Information<T>[] | undefined,
+export function merge_informations<T, M>(
+  array1: Information<T, M>[] | undefined,
+  array2: Information<T, M>[] | undefined,
 ) {
   if (array1 === undefined && array2 === undefined) return;
 
@@ -24,11 +26,11 @@ export function merge_informations<T>(
   return informations;
 }
 
-export function improve_informations<T>(
-  informations: Information<T>[],
-  information: Information<T>,
+export function improve_informations<T, M>(
+  informations: Information<T, M>[],
+  information: NoInfer<Information<T, M>>,
 ) {
-  let match: Information<T> | undefined;
+  let match: Information<T, M> | undefined;
   for (const info of informations) {
     if (normalize(info.value) === normalize(information.value)) {
       match = info;
@@ -39,6 +41,11 @@ export function improve_informations<T>(
   if (match === undefined) {
     informations.push(information);
     return informations;
+  }
+
+  // shortcut: Set compares by identity, enough for string meta; compare contents if meta becomes objects.
+  if (information.meta !== undefined) {
+    match.meta = [...new Set([...(match.meta ?? []), ...information.meta])];
   }
 
   if (match.verified === true && information.verified === false) {

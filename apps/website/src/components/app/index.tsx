@@ -307,6 +307,8 @@ export function App(props: { lang: string }) {
                         <Country
                           lang={props.lang}
                           value={country.value}
+                          meta={country.meta}
+                          proxy={isProxyCountry(country)}
                           type="text"
                         />
                       </AlertWhoisProxyCountry>

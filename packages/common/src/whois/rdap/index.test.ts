@@ -26,6 +26,7 @@ describe("improve_data countries", () => {
         value: "US",
         verified: false,
         sources: [{ organization: "NAMECHEAP INC", links: [] }],
+        meta: ["office"],
       },
     ]);
   });
@@ -38,6 +39,7 @@ describe("improve_data countries", () => {
         value: "US",
         verified: false,
         sources: [{ organization: "CSC Corporate Domains, Inc.", links: [] }],
+        meta: ["office"],
       },
     ]);
   });
@@ -55,6 +57,7 @@ describe("improve_data countries", () => {
     const data = run(fixtures.GITHUB);
 
     expect(data.countries.map((c) => c.value)).toStrictEqual(["US"]);
+    expect(data.countries[0]?.meta).toStrictEqual(["office"]);
     expect(data.organizations).toStrictEqual([]);
   });
 

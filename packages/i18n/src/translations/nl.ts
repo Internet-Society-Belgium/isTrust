@@ -123,4 +123,6 @@ export const nl: Translations = {
     "wordt beheerd door Internet Society Chapter Belgium vzw/asbl (vereniging zonder winstoogmerk)",
   "less than 1 day a year": "minder dan 1 dag per jaar",
   now: "nu",
+  Office: "Kantoor",
+  "Place of incorporation": "Plaats van oprichting",
 };

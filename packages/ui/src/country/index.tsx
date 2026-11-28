@@ -1,4 +1,5 @@
 import * as common from "@istrust/common";
+import i18n from "@istrust/i18n";
 import { createResource, Match, Resource, Switch } from "solid-js";
 import { Flag } from "./flag";
 
@@ -25,6 +26,8 @@ export function Country(props: {
   lang: string;
   type: "text" | "icon";
   value: string;
+  meta?: common.CountryRole[];
+  proxy?: boolean;
 }) {
   const getRegionName = (code: string, lang: string) => {
     try {
@@ -39,13 +42,27 @@ export function Country(props: {
     }
   };
 
+  // Native tooltip: proxy warning, country name, then one line per role.
+  const title = () =>
+    [
+      ...(props.proxy === true
+        ? [i18n("Country of the proxy service, not of the owner", props.lang)]
+        : []),
+      getRegionName(props.value, props.lang),
+      ...(props.meta ?? []).map((role) =>
+        role === "office"
+          ? i18n("Office", props.lang)
+          : i18n("Place of incorporation", props.lang),
+      ),
+    ].join("\n");
+
   return (
     <Switch>
       <Match when={props.type === "text"}>
-        <span>{getRegionName(props.value, props.lang)}</span>
+        <span title={title()}>{getRegionName(props.value, props.lang)}</span>
       </Match>
       <Match when={props.type === "icon"}>
-        <div title={getRegionName(props.value, props.lang)}>
+        <div title={title()}>
           <Flag code={props.value} />
         </div>
       </Match>

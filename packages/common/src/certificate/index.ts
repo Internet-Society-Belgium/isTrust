@@ -81,6 +81,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
             value: x509Data.country,
             verified: true,
             sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+            meta: ["office"],
           },
         );
         if (improvedCountries.length > 0) {
@@ -109,6 +110,7 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
             value: x509Data.incCountry,
             verified: true,
             sources: x509Data.issuer !== undefined ? [x509Data.issuer] : [],
+            meta: ["incorporated"],
           },
         );
         if (improvedCountries.length > 0) {

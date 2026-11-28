@@ -39,6 +39,7 @@ test("icann.org", async () => {
           },
         ],
         value: "US",
+        meta: ["office"],
         verified: true,
       },
     ],
@@ -97,6 +98,7 @@ test("digicert.com", async () => {
     countries: [
       {
         value: "US",
+        meta: ["office", "incorporated"],
         verified: true,
         sources: [
           {

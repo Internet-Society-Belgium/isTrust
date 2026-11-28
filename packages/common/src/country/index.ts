@@ -36,13 +36,13 @@ export function normalize_country(value: string | undefined) {
 }
 
 // Stable: verified first, then unverified, then the proxy's.
-export function sort_countries(
-  countries: Information<string>[] | undefined,
-  is_proxy: (country: Information<string>) => boolean,
+export function sort_countries<M>(
+  countries: Information<string, M>[] | undefined,
+  is_proxy: (country: Information<string, M>) => boolean,
 ) {
   if (countries === undefined) return;
 
-  const rank = (country: Information<string>) => {
+  const rank = (country: Information<string, M>) => {
     if (is_proxy(country)) return 2;
     if (country.verified === true) return 0;
     return 1;

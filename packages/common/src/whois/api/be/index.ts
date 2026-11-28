@@ -66,7 +66,9 @@ export async function get_data(domain: string, canBypassCORS: boolean) {
 
     const country = normalize_country(contact.country ?? undefined);
     if (country !== undefined) {
-      data.countries = [{ value: country, sources, verified }];
+      data.countries = [
+        { value: country, sources, verified, meta: ["office"] },
+      ];
     }
   } catch (e) {
     const error = e as Error;

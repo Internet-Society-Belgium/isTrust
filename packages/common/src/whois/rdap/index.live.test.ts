@@ -21,6 +21,7 @@ test("istrust.org", async () => {
     countries: [
       {
         value: "BE",
+        meta: ["office"],
         verified: false,
         sources: [
           {
@@ -82,6 +83,7 @@ test("github.com", async () => {
           },
         ],
         value: "US",
+        meta: ["office"],
         verified: false,
       },
     ],
