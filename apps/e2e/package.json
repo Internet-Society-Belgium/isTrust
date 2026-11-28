@@ -1,0 +1,31 @@
+{
+  "name": "e2e",
+  "version": "4.5.3",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "clean": "rm -rf .turbo node_modules playwright-report test-results",
+    "format": "prettier --write \"*.{js,ts,json}\" && prettier ./fixtures ./tests --write",
+    "format:check": "prettier --check \"*.{js,ts,json}\" && prettier ./fixtures ./tests --check",
+    "lint": "eslint . --max-warnings 0",
+    "record": "playwright test --project=record",
+    "test:e2e": "playwright test --project=website --project=extension",
+    "test:e2e:live": "playwright test --project=website-live --project=extension-live"
+  },
+  "devDependencies": {
+    "@dnsquery/dns-packet": "^6.1.1",
+    "@istrust/eslint-config": "*",
+    "@istrust/i18n": "*",
+    "@istrust/prettier-config": "*",
+    "@istrust/typescript-config": "*",
+    "@playwright/test": "1.65.1",
+    "@types/chrome": "^0.3.5",
+    "@types/node": "^24.19.4",
+    "eslint": "^10.13.0",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2",
+    "webextension": "*",
+    "website": "*"
+  }
+}

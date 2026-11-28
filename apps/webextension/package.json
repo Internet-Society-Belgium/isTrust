@@ -3,6 +3,7 @@
   "version": "4.5.3",
   "type": "module",
   "scripts": {
+    "build:chrome": "npm run generate:locales && wxt build --browser chrome --mv3",
     "bundle": "npm run bundle:chrome && npm run bundle:edge && npm run bundle:firefox",
     "bundle:chrome": "npm run generate:locales && wxt zip --browser chrome --mv3",
     "bundle:edge": "npm run generate:locales && wxt zip --browser edge --mv3",

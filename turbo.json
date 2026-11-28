@@ -1,11 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalPassThroughEnv": ["NPM_CONFIG_LOGLEVEL"],
   "tasks": {
     "//#format:check:root": {
       "cache": false
     },
     "build": {
       "outputs": ["dist/**"]
+    },
+    "build:chrome": {
+      "outputs": ["dist/chrome-mv3/**"]
     },
     "bundle": {},
     "check-types": {},
@@ -21,7 +25,14 @@
       "dependsOn": ["//#format:check:root"]
     },
     "lint": {},
+    "record": {
+      "cache": false
+    },
     "test": {},
+    "test:e2e": {},
+    "test:e2e:live": {
+      "cache": false
+    },
     "test:live": {
       "cache": false
     }
