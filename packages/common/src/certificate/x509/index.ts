@@ -95,10 +95,13 @@ export function get_data(cert: X509Certificate) {
   }
 
   // IV certificates carry the name as separate givenName and surname fields.
-  // Each one is kept as its own name.
-  const subjectIndividualNames = [oid.GIVEN_NAME, oid.SURNAME]
-    .map((field) => join_values(cert.subjectName.getField(field)))
-    .filter((name) => name !== undefined);
+  // Each given name and each surname is kept as its own name.
+  const subjectIndividualNames = [
+    ...cert.subjectName.getField(oid.GIVEN_NAME),
+    ...cert.subjectName.getField(oid.SURNAME),
+  ]
+    .map((name) => name.trim())
+    .filter((name) => name !== "");
   if (subjectIndividualNames.length > 0) {
     data.individualNames = subjectIndividualNames;
   }
