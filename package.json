@@ -32,7 +32,7 @@
     "format:check": "turbo run format:check",
     "format:check:root": "prettier --check \"*.{js,ts,json}\"",
     "lint": "turbo lint",
-    "record:e2e": "turbo record --filter=e2e",
+    "record:e2e": "turbo record --filter=e2e-chrome",
     "release": "release-it",
     "test": "turbo test",
     "test:e2e": "turbo test:e2e",

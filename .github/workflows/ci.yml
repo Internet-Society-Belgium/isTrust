@@ -182,10 +182,10 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
 
       - name: Install Chromium
-        run: npx -w e2e playwright install --with-deps chromium
+        run: npx -w e2e-chrome playwright install --with-deps chromium
 
       # Offline: every service the checks call answers from
-      # tests/e2e/scenarios, so a failure is a real one.
+      # tests/e2e-chrome/scenarios, so a failure is a real one.
       - name: E2E tests
         run: npm run test:e2e -- --affected
 
@@ -195,8 +195,8 @@ jobs:
         with:
           name: playwright-report
           path: |
-            tests/e2e/playwright-report
-            tests/e2e/test-results
+            tests/e2e-chrome/playwright-report
+            tests/e2e-chrome/test-results
           retention-days: 14
 
   e2e_live:
@@ -230,7 +230,7 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
 
       - name: Install Chromium
-        run: npx -w e2e playwright install --with-deps chromium
+        run: npx -w e2e-chrome playwright install --with-deps chromium
 
       # Live: the real services, so a failure can come from the network or from
       # upstream data changing. Report it, but don't fail CI.
@@ -249,8 +249,8 @@ jobs:
         with:
           name: playwright-report-live
           path: |
-            tests/e2e/playwright-report
-            tests/e2e/test-results
+            tests/e2e-chrome/playwright-report
+            tests/e2e-chrome/test-results
           retention-days: 14
 
   test_live:

@@ -1,5 +1,5 @@
 {
-  "name": "e2e",
+  "name": "e2e-chrome",
   "version": "4.5.3",
   "private": true,
   "type": "module",

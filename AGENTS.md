@@ -10,7 +10,7 @@ npm workspaces orchestrated by Turborepo. Node `>=24` (see `.nvmrc`), npm 11.
 | ------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `apps/webextension` | `webextension`      | Browser extension, built with [WXT](https://wxt.dev/) and Solid. Entrypoints in `src/entrypoints/` (`background`, `popup`).                                      |
 | `apps/website`      | `website`           | Marketing/app website, built with Astro and Solid. Pages under `src/pages/[lang]/`.                                                                              |
-| `tests/e2e`          | `e2e`               | Playwright E2E tests of the website and the Chrome extension, against their builds.                                                                              |
+| `tests/e2e-chrome`          | `e2e`               | Playwright E2E tests of the website and the Chrome extension, against their builds.                                                                              |
 | `packages/common`   | `@istrust/common`   | Trust checks: `dnssec`, `certificate`, `whois` (RDAP + `.be` API), `whois_privacy`, `whois_proxy`, `blacklist`, `psl`, `platform`. Unit and live tests (vitest). |
 | `packages/ui`       | `@istrust/ui`       | Shared Solid components and Tailwind styles.                                                                                                                     |
 | `packages/i18n`     | `@istrust/i18n`     | Translations (`en` source strings, `fr`, `nl`).                                                                                                                  |
@@ -37,7 +37,7 @@ Before finishing a change, run `npm run verify`. It must pass.
 
 ## Tests
 
-Unit tests live in `packages/common` (vitest), E2E tests in `tests/e2e` (Playwright, see [E2E tests](#e2e-tests)). The unit tests come in two kinds:
+Unit tests live in `packages/common` (vitest), E2E tests in `tests/e2e-chrome` (Playwright, see [E2E tests](#e2e-tests)). The unit tests come in two kinds:
 
 - **`*.test.ts`: offline tests.** They don't touch the network, give the same result every time, and are what `npm test`, `npm run verify`, and CI run.
 - **`*.live.test.ts`: live tests.** They call the real services the checks use (DNS-over-HTTPS, RDAP, the `.be` whois API, Certspotter, Quad9, the public lists). Run them with `npm run test:live`. They need network access, and can fail because of a transient network error or because upstream data changed. Rerun before suspecting your change, and compare against the real response before changing a parser or an expectation.
@@ -54,7 +54,7 @@ Name a new test `*.live.test.ts` if it reaches the network, and `*.test.ts` othe
 | `npm run test:live`, `npm run test:e2e:live`          | Yes     | No            |
 | `npm run record:e2e`                                  | Yes     | No            |
 
-Apart from these, only `npm ci` and `npx -w e2e playwright install chromium` need the network, to install dependencies and the browser.
+Apart from these, only `npm ci` and `npx -w e2e-chrome playwright install chromium` need the network, to install dependencies and the browser.
 
 ### When a live test fails
 
@@ -64,14 +64,14 @@ Apart from these, only `npm ci` and `npx -w e2e playwright install chromium` nee
 
 ### E2E tests
 
-`tests/e2e` runs the built website and the built Chrome extension (MV3, which also covers Edge) in Chromium. Turbo builds both first. Firefox and Safari aren't covered.
+`tests/e2e-chrome` runs the built website and the built Chrome extension (MV3, which also covers Edge) in Chromium. Turbo builds both first. Firefox and Safari aren't covered.
 
-- Once per machine: `npx -w e2e playwright install chromium`.
+- Once per machine: `npx -w e2e-chrome playwright install chromium`.
 - `npm run test:e2e`: offline. `tests/*.spec.ts` check `istrust.org` in the website (`en`, `fr`, `nl`) and in the extension popup, for the active tab and for a domain from the context menu.
 - `npm run test:e2e:live`: `tests/*.live.spec.ts`, against the real services, with loose assertions. CI runs it on merge to `v2` (job `e2e_live` in `ci.yml`), not on pull requests, like the offline E2E job (`e2e`). Treat a failure like a [failing live test](#when-a-live-test-fails).
-- After a failure: `npx -w e2e playwright show-report`, or open the trace it lists (`npx -w e2e playwright show-trace <trace.zip>`).
+- After a failure: `npx -w e2e-chrome playwright show-report`, or open the trace it lists (`npx -w e2e-chrome playwright show-trace <trace.zip>`).
 
-How the offline run works (`tests/e2e/fixtures/`):
+How the offline run works (`tests/e2e-chrome/fixtures/`):
 
 - Every request goes through `network.ts`. DoH queries get an answer built from the scenario (`doh.ts`). Other requests replay `scenarios/istrust.org.json`. Anything else is aborted, and the test fails with the list of unexpected requests. A new endpoint in a check therefore fails the E2E tests until the scenario is recorded again.
 - The browser clock is frozen to the recording date, and `Math.random` is seeded (`random.ts`), so the checks shuffle their sources the same way in every run.
