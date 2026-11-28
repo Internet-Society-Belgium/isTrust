@@ -13,7 +13,11 @@ import {
   AlertWhoisProxy,
   AlertWhoisProxyCountry,
 } from "@istrust/ui/alert/index";
-import { Country } from "@istrust/ui/country/index";
+import {
+  Country,
+  is_proxy_owner,
+  sort_countries,
+} from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
 import { FooterWebsiteAvailability } from "@istrust/ui/footer/index";
 import { HeaderDomain, HeaderLogo } from "@istrust/ui/header/index";
@@ -180,6 +184,23 @@ export function App() {
     },
   );
 
+  const [proxyOwner] = createResource(
+    () => (whoisData.state === "ready" ? whoisData() : undefined),
+    async (whois) => {
+      return await is_proxy_owner(whois, cache);
+    },
+  );
+
+  // Certificate countries are the owner's, so only whois ones can be a proxy's.
+  const isProxyCountry = (country: common.Information<string>) =>
+    proxyOwner.state === "ready" &&
+    proxyOwner() &&
+    !(
+      certificateData.state === "ready" &&
+      certificateData()?.countries.some((c) => c.value === country.value) ===
+        true
+    );
+
   const [dnssecData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
     async (domain) => {
@@ -298,11 +319,12 @@ export function App() {
                   title={i18n("Country of residence", lang())}
                   description={<>{i18n("Country of residence", lang())}</>}
                   prefix={<IconMapPin />}
-                  informations={common.sort_countries(
+                  informations={sort_countries(
                     common.merge_informations(
                       certificateData()?.countries,
                       whoisData()?.countries,
                     ),
+                    isProxyCountry,
                   )}
                   suffix={(country) => (
                     <Source lang={lang()} information={country} />
@@ -311,7 +333,7 @@ export function App() {
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
                       <Show
-                        when={country.proxy === true}
+                        when={isProxyCountry(country)}
                         fallback={
                           <Country
                             lang={lang()}

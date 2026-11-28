@@ -1,6 +1,5 @@
 import { describe, expect, test } from "vitest";
-import type { Information } from "../type";
-import { normalize_country, sort_countries } from "./index";
+import { normalize_country } from "./index";
 
 describe("normalize_country", () => {
   test.each([
@@ -33,40 +32,5 @@ describe("normalize_country", () => {
 
   test("undefined", () => {
     expect(normalize_country(undefined)).toBeUndefined();
-  });
-});
-
-describe("sort_countries", () => {
-  const item = (
-    value: string,
-    flags: { verified?: boolean; proxy?: true } = {},
-  ): Information<string> => ({ value, sources: [], ...flags });
-
-  test("verified, then unverified, then proxy; stable inside each group", () => {
-    const items = [
-      item("A", { proxy: true }),
-      item("B", { verified: false }),
-      item("C", { verified: true }),
-      item("D"),
-      item("E", { verified: true }),
-    ];
-
-    expect(sort_countries(items)?.map((i) => i.value)).toStrictEqual([
-      "C",
-      "E",
-      "B",
-      "D",
-      "A",
-    ]);
-  });
-
-  test("does not mutate input", () => {
-    const items = [item("B"), item("A", { verified: true })];
-    sort_countries(items);
-    expect(items.map((i) => i.value)).toStrictEqual(["B", "A"]);
-  });
-
-  test("undefined stays undefined", () => {
-    expect(sort_countries(undefined)).toBeUndefined();
   });
 });

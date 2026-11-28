@@ -1,6 +1,5 @@
 // ISO 3166-1 alpha-2 codes (officially assigned codes).
-// Source: ISO 3166-1 (iso.org / Wikipedia "ISO 3166-1 alpha-2"). Transcribed by
-// hand, not generated: verify against the ISO Online Browsing Platform before merge.
+// Matches Debian iso-codes data/iso_3166-1.json (249 codes), checked 2026-11-28.
 export const ISO_3166_ALPHA_2 = [
   "AD",
   "AE",
