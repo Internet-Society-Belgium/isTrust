@@ -5,15 +5,17 @@
 // committing it: the expectations in the tests may need to follow.
 import type { BrowserContext, Route } from "@playwright/test";
 import { doh_authenticated, is_doh_request } from "../fixtures/doh";
-import { is_domain_page, local_url, stub_page } from "../fixtures/network";
+import { handle_common_request } from "../fixtures/network";
 import { seed_random } from "../fixtures/random";
 import {
+  record_failure,
   response_key,
   save_scenario,
   type RecordedResponse,
   type Scenario,
 } from "../fixtures/scenario";
 import {
+  expect,
   extension_id_of,
   launch_extension,
   test,
@@ -51,20 +53,9 @@ async function record(context: BrowserContext, scenario: Scenario) {
 }
 
 async function record_route(route: Route, scenario: Scenario) {
+  if (await handle_common_request(route, domain)) return;
   const request = route.request();
   const url = request.url();
-
-  if (local_url.test(url)) {
-    await route.continue();
-    return;
-  }
-  if (is_domain_page(request, domain)) {
-    await route.fulfill({
-      contentType: "text/html",
-      body: stub_page(domain),
-    });
-    return;
-  }
 
   // A service that fails live fails in the browser too: the checks fall
   // back (e.g. to the next DoH resolver) as they would for a user.
@@ -74,21 +65,9 @@ async function record_route(route: Route, scenario: Scenario) {
     response = await route.fetch();
     body = await response.body();
   } catch {
-    // An earlier pass may already hold a response for this URL (the extension
-    // pass repeats the website's requests): a network error here must not
-    // overwrite it.
-    const key = response_key("GET", url);
-    if (
-      request.method() === "GET" &&
-      !is_doh_request(request) &&
-      scenario.responses[key] === undefined
-    ) {
-      scenario.responses[key] = {
-        status: 0,
-        contentType: "",
-        body: "",
-        failed: true,
-      };
+    // DoH queries have no recorded answer, so only a GET failure is kept.
+    if (request.method() === "GET" && !is_doh_request(request)) {
+      record_failure(scenario, response_key("GET", url));
     }
     await route.abort().catch(() => undefined);
     return;
@@ -142,6 +121,7 @@ function trim(url: string, content_type: string, body: string): string {
     url.startsWith("https://raw.githubusercontent.com/hagezi/") ||
     url.startsWith("https://disposable.github.io/")
   ) {
+    // shortcut: keeps 20 entries plus the domain's own, not its parent or subdomains; keep those too before recording a domain with subdomains in the lists.
     return keep_lines((entry) => entry === domain, 20);
   }
   if (url === "https://data.iana.org/rdap/dns.json") {
@@ -188,10 +168,9 @@ test("record the scenario", async ({ page, context }) => {
   const failed = Object.entries(scenario.responses)
     .filter(([, recorded]) => recorded?.failed === true)
     .map(([key]) => key);
-  if (failed.length > 0) {
-    console.warn(
-      `Recorded as network failures (replayed as failures): ${failed.join(", ")}`,
-    );
-  }
+  expect(
+    failed,
+    "requests failed while recording: rerun npm run record:e2e",
+  ).toEqual([]);
   save_scenario(scenario);
 });

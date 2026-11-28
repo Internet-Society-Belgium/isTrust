@@ -10,7 +10,7 @@
     "format:check": "prettier --check \"*.{js,ts,json}\" && prettier ./fixtures ./tests --check",
     "lint": "eslint . --max-warnings 0",
     "record": "playwright test --project=record",
-    "test:e2e": "playwright test --project=website --project=extension",
+    "test:e2e": "playwright test --project=website --project=extension --project=unit",
     "test:e2e:live": "playwright test --project=website-live --project=extension-live"
   },
   "devDependencies": {

@@ -23,6 +23,23 @@ export function is_domain_page(request: Request, domain: string): boolean {
   return hostname === domain || hostname.endsWith(`.${domain}`);
 }
 
+/** Answers the requests every flow handles the same way. False for the rest. */
+export async function handle_common_request(
+  route: Route,
+  domain: string,
+): Promise<boolean> {
+  const request = route.request();
+  if (local_url.test(request.url())) {
+    await route.continue();
+    return true;
+  }
+  if (is_domain_page(request, domain)) {
+    await route.fulfill({ contentType: "text/html", body: stub_page(domain) });
+    return true;
+  }
+  return false;
+}
+
 export interface Network {
   /** Requests that matched nothing: each one is a test failure. */
   unexpected: string[];
@@ -35,21 +52,9 @@ export async function replay_network(
   const network: Network = { unexpected: [] };
 
   await context.route("**/*", async (route: Route) => {
+    if (await handle_common_request(route, scenario.domain)) return;
     const request = route.request();
     const url = request.url();
-
-    if (local_url.test(url)) {
-      await route.continue();
-      return;
-    }
-
-    if (is_domain_page(request, scenario.domain)) {
-      await route.fulfill({
-        contentType: "text/html",
-        body: stub_page(scenario.domain),
-      });
-      return;
-    }
 
     if (is_doh_request(request)) {
       await route.fulfill({

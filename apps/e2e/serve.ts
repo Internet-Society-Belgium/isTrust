@@ -14,17 +14,13 @@ const types: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript",
   ".css": "text/css",
-  ".json": "application/json",
   ".webmanifest": "application/manifest+json",
   ".svg": "image/svg+xml",
   ".png": "image/png",
-  ".jpg": "image/jpeg",
   ".webp": "image/webp",
   ".ico": "image/x-icon",
-  ".woff2": "font/woff2",
   ".txt": "text/plain",
   ".pdf": "application/pdf",
-  ".mp4": "video/mp4",
 };
 
 if (!existsSync(root)) {
@@ -39,7 +35,7 @@ createServer((request, response) => {
     new URL(request.url ?? "/", "http://localhost").pathname,
   );
   let file = path.join(root, path.normalize(pathname));
-  if (!file.startsWith(root)) {
+  if (!file.startsWith(root + path.sep)) {
     response.writeHead(403).end();
     return;
   }

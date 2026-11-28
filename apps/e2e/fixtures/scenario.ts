@@ -46,6 +46,17 @@ export function save_scenario(scenario: Scenario): void {
   );
 }
 
+/** Records a network failure, unless an earlier pass already holds a response. */
+export function record_failure(scenario: Scenario, key: string): void {
+  if (scenario.responses[key] !== undefined) return;
+  scenario.responses[key] = {
+    status: 0,
+    contentType: "",
+    body: "",
+    failed: true,
+  };
+}
+
 export function response_key(method: string, url: string): string {
   return `${method} ${url}`;
 }

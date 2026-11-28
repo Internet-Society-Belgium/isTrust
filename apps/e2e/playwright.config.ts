@@ -40,6 +40,10 @@ export default defineConfig<Options>({
       testMatch: /(^|\/)extension\.spec\.ts$/,
     },
     {
+      name: "unit",
+      testMatch: /(^|\/)scenario\.spec\.ts$/,
+    },
+    {
       name: "website-live",
       testMatch: /(^|\/)website\.live\.spec\.ts$/,
       use: { ...devices["Desktop Chrome"], live: true },
