@@ -28,6 +28,7 @@
     "@istrust/eslint-config": "*",
     "@istrust/prettier-config": "*",
     "@istrust/typescript-config": "*",
+    "@types/node": "^24.19.4",
     "eslint": "^10.15.0",
     "prettier": "^3.10.1",
     "reflect-metadata": "^0.2.2",
