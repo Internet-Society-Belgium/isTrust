@@ -239,11 +239,8 @@ export function AlertWhoisProxyCountry(props: {
 }) {
   return (
     <div
-      class="text-warning"
-      title={i18n(
-        "Country of the privacy service, not of the owner",
-        props.lang,
-      )}
+      class="text-bad"
+      title={i18n("Country of the proxy service, not of the owner", props.lang)}
     >
       {props.children}
     </div>

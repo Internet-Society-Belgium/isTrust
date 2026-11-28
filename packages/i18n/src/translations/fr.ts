@@ -29,8 +29,8 @@ export const fr: Translations = {
     "Comme nous souhaitons protéger votre vie privée, AUCUNE donnée personnelle n'est traitée ni stockée sur ce site web. De même, AUCUN cookie n'est utilisé à des fins de suivi",
   Configuring: "Configuration",
   "Country of residence": "Pays de résidence",
-  "Country of the privacy service, not of the owner":
-    "Pays du service de confidentialité, et non celui du propriétaire",
+  "Country of the proxy service, not of the owner":
+    "Pays du service proxy, et non celui du propriétaire",
   Domain: "Domaine",
   "Domain name": "Nom de domaine",
   "Feature not available": "Fonctionnalité non disponible",

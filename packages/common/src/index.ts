@@ -21,7 +21,6 @@ import * as rdap from "./whois/rdap";
 export type { Information, InformationCache, ErrorType, Platform };
 
 export { merge_informations };
-export { is_privacy_service } from "./whois_privacy";
 
 export async function get_domain(query: string, cache: InformationCache) {
   const full = parse_domain(query);

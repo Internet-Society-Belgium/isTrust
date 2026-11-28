@@ -2,8 +2,8 @@ import * as common from "@istrust/common";
 import { Match, Switch } from "solid-js";
 import { Flag } from "./flag";
 
-// True when every whois owner name is a privacy or proxy service: the whois
-// country is then the service's, not the owner's.
+// True when every whois owner name is a proxy service: the whois country is
+// then the proxy's, not the owner's.
 export async function is_proxy_owner(
   whois: {
     organizations: common.Information<string>[];
@@ -17,12 +17,12 @@ export async function is_proxy_owner(
   if (names.length === 0) return false;
 
   const results = await Promise.all(
-    names.map((name) => common.is_privacy_service(name, cache)),
+    names.map((name) => common.is_whois_proxy(name, cache)),
   );
   return results.every((result) => result);
 }
 
-// Stable: verified first, then unverified, then the privacy service's.
+// Stable: verified first, then unverified, then the proxy's.
 export function sort_countries(
   countries: common.Information<string>[] | undefined,
   // eslint-disable-next-line no-unused-vars
