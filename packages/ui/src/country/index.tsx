@@ -1,42 +1,24 @@
 import * as common from "@istrust/common";
-import { Match, Switch } from "solid-js";
+import { createResource, Match, Resource, Switch } from "solid-js";
 import { Flag } from "./flag";
 
-// True when every whois owner name is a proxy service: the whois country is
-// then the proxy's, not the owner's.
-export async function is_proxy_owner(
-  whois: {
-    organizations: common.Information<string>[];
-    individuals: common.Information<string>[];
-  },
+// A country is the proxy's when whois gives it and the whois owner is a proxy
+// service.
+export function create_is_proxy_country(
+  whois: Resource<common.WHOISData | undefined>,
   cache: common.InformationCache,
 ) {
-  const names = [...whois.organizations, ...whois.individuals].map(
-    (information) => information.value,
-  );
-  if (names.length === 0) return false;
+  const ready = () => (whois.state === "ready" ? whois() : undefined);
 
-  const results = await Promise.all(
-    names.map((name) => common.is_whois_proxy(name, cache)),
-  );
-  return results.every((result) => result);
-}
+  const [proxyOwner] = createResource(ready, async (data) => {
+    return await common.is_whois_proxy_owner(data, cache);
+  });
 
-// Stable: verified first, then unverified, then the proxy's.
-export function sort_countries(
-  countries: common.Information<string>[] | undefined,
-  // eslint-disable-next-line no-unused-vars
-  is_proxy: (country: common.Information<string>) => boolean,
-) {
-  if (countries === undefined) return;
+  const in_whois = (country: common.Information<string>) =>
+    ready()?.countries.some((c) => c.value === country.value) === true;
 
-  const rank = (country: common.Information<string>) => {
-    if (is_proxy(country)) return 2;
-    if (country.verified === true) return 0;
-    return 1;
-  };
-
-  return [...countries].sort((a, b) => rank(a) - rank(b));
+  return (country: common.Information<string>) =>
+    proxyOwner.state === "ready" && proxyOwner() && in_whois(country);
 }
 
 export function Country(props: {

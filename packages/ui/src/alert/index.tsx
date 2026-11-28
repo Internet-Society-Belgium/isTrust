@@ -235,15 +235,21 @@ export function AlertWhoisProxy(props: {
 
 export function AlertWhoisProxyCountry(props: {
   lang: string;
+  proxy: boolean;
   children: JSX.Element;
 }) {
   return (
-    <div
-      class="text-bad"
-      title={i18n("Country of the proxy service, not of the owner", props.lang)}
-    >
-      {props.children}
-    </div>
+    <Show when={props.proxy} fallback={props.children}>
+      <div
+        class="text-bad"
+        title={i18n(
+          "Country of the proxy service, not of the owner",
+          props.lang,
+        )}
+      >
+        {props.children}
+      </div>
+    </Show>
   );
 }
 

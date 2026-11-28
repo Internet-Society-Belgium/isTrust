@@ -1,6 +1,7 @@
 import { InformationCache } from "../type";
 import { out_of_date, releaseMutex, updated, waitMutex } from "../utils/cache";
 import { source_error } from "../utils/error";
+import type { WHOISData } from "../whois/type";
 import { validate_whois_proxy, validate_whois_proxy_patterns } from "./type";
 
 const CACHING_DAYS = 30;
@@ -69,4 +70,19 @@ export async function is_proxy(name: string, cache: InformationCache) {
   }
 
   return false;
+}
+
+// The whois owner is a proxy service: its organization, or its name when it
+// has no organization, matches the proxy list.
+export async function is_proxy_owner(
+  whois: Pick<WHOISData, "organizations" | "individuals">,
+  cache: InformationCache,
+) {
+  const owners =
+    whois.organizations.length > 0 ? whois.organizations : whois.individuals;
+
+  const results = await Promise.all(
+    owners.map((owner) => is_proxy(owner.value, cache)),
+  );
+  return results.some((result) => result);
 }

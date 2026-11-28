@@ -14,7 +14,7 @@ const registrar = (fn: string) => ({
   ],
 });
 
-// namecheap.com: registrant hidden behind a privacy service in the US.
+// namecheap.com: registrant hidden behind a proxy service in the US.
 export const NAMECHEAP = {
   events: [],
   entities: [
@@ -45,7 +45,7 @@ export const NAMECHEAP = {
   ],
 };
 
-// bankofamerica.com: owner in the US, not a privacy service.
+// bankofamerica.com: owner in the US, not a proxy service.
 export const BANKOFAMERICA = {
   events: [],
   entities: [
@@ -66,7 +66,7 @@ export const BANKOFAMERICA = {
   ],
 };
 
-// istrust.org: owner in Belgium, not a privacy service.
+// istrust.org: owner in Belgium, not a proxy service.
 export const ISTRUST = {
   events: [],
   entities: [

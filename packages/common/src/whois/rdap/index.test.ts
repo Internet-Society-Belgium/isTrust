@@ -1,4 +1,6 @@
 import { describe, expect, test } from "vitest";
+import type { InformationCache } from "../../type";
+import { is_proxy_owner } from "../../whois_proxy";
 import type { WHOISData } from "../type";
 import * as fixtures from "./fixtures";
 import { improve_data } from "./index";
@@ -16,7 +18,7 @@ function run(fixture: unknown) {
 }
 
 describe("improve_data countries", () => {
-  test("privacy service registrant keeps its country", () => {
+  test("proxy service registrant keeps its country", () => {
     const data = run(fixtures.NAMECHEAP);
 
     expect(data.countries).toStrictEqual([
@@ -69,5 +71,45 @@ describe("improve_data countries", () => {
     const data = run(fixtures.LABEL_UNITED_STATES);
 
     expect(data.countries.map((c) => c.value)).toStrictEqual(["US"]);
+  });
+});
+
+// In-memory cache, seeded with the whois-proxy pattern that matches namecheap
+// in the published list, and marked fresh so nothing is fetched.
+function seeded_cache(): InformationCache {
+  const entries = new Map<string, string>([
+    [
+      "whois_proxy",
+      JSON.stringify([
+        "^Privacy service provided by WITHHELD FOR PRIVACY LLC$",
+      ]),
+    ],
+    ["whois_proxy#lastUpdate", new Date().toISOString()],
+  ]);
+
+  return {
+    get: (key) => Promise.resolve(entries.get(key)),
+    set: (key, value) => {
+      entries.set(key, value);
+      return Promise.resolve();
+    },
+    clear: (prefix) => {
+      for (const key of [...entries.keys()]) {
+        if (key.startsWith(prefix)) entries.delete(key);
+      }
+      return Promise.resolve();
+    },
+  };
+}
+
+describe("is_proxy_owner", () => {
+  test.each([
+    ["namecheap", fixtures.NAMECHEAP, true],
+    ["bankofamerica", fixtures.BANKOFAMERICA, false],
+    // The organization is checked, not the redacted name.
+    ["istrust", fixtures.ISTRUST, false],
+    ["github, no owner", fixtures.GITHUB, false],
+  ])("%s", async (_, fixture, expected) => {
+    expect(await is_proxy_owner(run(fixture), seeded_cache())).toBe(expected);
   });
 });

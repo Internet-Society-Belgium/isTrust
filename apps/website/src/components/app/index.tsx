@@ -11,11 +11,7 @@ import {
   AlertWhoisProxy,
   AlertWhoisProxyCountry,
 } from "@istrust/ui/alert/index";
-import {
-  Country,
-  is_proxy_owner,
-  sort_countries,
-} from "@istrust/ui/country/index";
+import { Country, create_is_proxy_country } from "@istrust/ui/country/index";
 import { DatePastPeriod } from "@istrust/ui/date/index";
 import { HeaderDomain } from "@istrust/ui/header/index";
 import {
@@ -148,22 +144,7 @@ export function App(props: { lang: string }) {
     },
   );
 
-  const [proxyOwner] = createResource(
-    () => (whoisData.state === "ready" ? whoisData() : undefined),
-    async (whois) => {
-      return await is_proxy_owner(whois, cache);
-    },
-  );
-
-  // Certificate countries are the owner's, so only whois ones can be a proxy's.
-  const isProxyCountry = (country: common.Information<string>) =>
-    proxyOwner.state === "ready" &&
-    proxyOwner() &&
-    !(
-      certificateData.state === "ready" &&
-      certificateData()?.countries.some((c) => c.value === country.value) ===
-        true
-    );
+  const isProxyCountry = create_is_proxy_country(whoisData, cache);
 
   const [dnssecData, { mutate: mutateDnssecData }] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
@@ -306,7 +287,7 @@ export function App(props: { lang: string }) {
                   title={i18n("Country of residence", props.lang)}
                   description={<>{i18n("Country of residence", props.lang)}</>}
                   prefix={<IconMapPin />}
-                  informations={sort_countries(
+                  informations={common.sort_countries(
                     common.merge_informations(
                       certificateData()?.countries,
                       whoisData()?.countries,
@@ -319,24 +300,16 @@ export function App(props: { lang: string }) {
                 >
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
-                      <Show
-                        when={isProxyCountry(country)}
-                        fallback={
-                          <Country
-                            lang={props.lang}
-                            value={country.value}
-                            type="text"
-                          />
-                        }
+                      <AlertWhoisProxyCountry
+                        lang={props.lang}
+                        proxy={isProxyCountry(country)}
                       >
-                        <AlertWhoisProxyCountry lang={props.lang}>
-                          <Country
-                            lang={props.lang}
-                            value={country.value}
-                            type="text"
-                          />
-                        </AlertWhoisProxyCountry>
-                      </Show>
+                        <Country
+                          lang={props.lang}
+                          value={country.value}
+                          type="text"
+                        />
+                      </AlertWhoisProxyCountry>
                     </ListAdditionalItem>
                   )}
                 </SectionItem>

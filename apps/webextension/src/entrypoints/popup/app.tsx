@@ -13,11 +13,7 @@ import {
   AlertWhoisProxy,
   AlertWhoisProxyCountry,
 } from "@istrust/ui/alert/index";
-import {
-  Country,
-  is_proxy_owner,
-  sort_countries,
-} from "@istrust/ui/country/index";
+import { Country, create_is_proxy_country } from "@istrust/ui/country/index";
 import { DateFrequency, DatePastPeriod } from "@istrust/ui/date/index";
 import { FooterWebsiteAvailability } from "@istrust/ui/footer/index";
 import { HeaderDomain, HeaderLogo } from "@istrust/ui/header/index";
@@ -184,22 +180,7 @@ export function App() {
     },
   );
 
-  const [proxyOwner] = createResource(
-    () => (whoisData.state === "ready" ? whoisData() : undefined),
-    async (whois) => {
-      return await is_proxy_owner(whois, cache);
-    },
-  );
-
-  // Certificate countries are the owner's, so only whois ones can be a proxy's.
-  const isProxyCountry = (country: common.Information<string>) =>
-    proxyOwner.state === "ready" &&
-    proxyOwner() &&
-    !(
-      certificateData.state === "ready" &&
-      certificateData()?.countries.some((c) => c.value === country.value) ===
-        true
-    );
+  const isProxyCountry = create_is_proxy_country(whoisData, cache);
 
   const [dnssecData] = createResource(
     () => (domain.state === "ready" ? domain() : undefined),
@@ -319,7 +300,7 @@ export function App() {
                   title={i18n("Country of residence", lang())}
                   description={<>{i18n("Country of residence", lang())}</>}
                   prefix={<IconMapPin />}
-                  informations={sort_countries(
+                  informations={common.sort_countries(
                     common.merge_informations(
                       certificateData()?.countries,
                       whoisData()?.countries,
@@ -332,24 +313,16 @@ export function App() {
                 >
                   {(country, index) => (
                     <ListAdditionalItem index={index}>
-                      <Show
-                        when={isProxyCountry(country)}
-                        fallback={
-                          <Country
-                            lang={lang()}
-                            value={country.value}
-                            type="text"
-                          />
-                        }
+                      <AlertWhoisProxyCountry
+                        lang={lang()}
+                        proxy={isProxyCountry(country)}
                       >
-                        <AlertWhoisProxyCountry lang={lang()}>
-                          <Country
-                            lang={lang()}
-                            value={country.value}
-                            type="text"
-                          />
-                        </AlertWhoisProxyCountry>
-                      </Show>
+                        <Country
+                          lang={lang()}
+                          value={country.value}
+                          type="text"
+                        />
+                      </AlertWhoisProxyCountry>
                     </ListAdditionalItem>
                   )}
                 </SectionItem>
