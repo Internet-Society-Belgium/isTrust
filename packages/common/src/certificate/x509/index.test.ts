@@ -1,5 +1,12 @@
 import { describe, expect, test } from "vitest";
-import { get_data, is_valid_cert, parse_cert } from ".";
+import {
+  clean_values,
+  format_individual,
+  get_data,
+  is_valid_cert,
+  join_values,
+  parse_cert,
+} from ".";
 import { CA, CLIENT_AUTH, DV, EV, EXPIRED, IV } from "./fixtures";
 
 // Base64 DER, as returned by the Certspotter and MerkleMap APIs.
@@ -46,7 +53,7 @@ describe("get_data", () => {
         country: "BE",
         links: [],
       },
-      individual: "Jane Doe",
+      individual: "Jane (Doe)",
       country: "BE",
     });
   });
@@ -60,6 +67,71 @@ describe("get_data", () => {
         links: [],
       },
     });
+  });
+});
+
+describe("format_individual", () => {
+  test("given name and surname", () => {
+    expect(format_individual("Jane", "Doe")).toBe("Jane (Doe)");
+  });
+
+  test("given name only", () => {
+    expect(format_individual("Jane", undefined)).toBe("Jane");
+  });
+
+  test("surname only", () => {
+    expect(format_individual(undefined, "Doe")).toBe("Doe");
+  });
+
+  test("no name", () => {
+    expect(format_individual(undefined, undefined)).toBeUndefined();
+  });
+});
+
+describe("clean_values", () => {
+  test("keeps each value", () => {
+    expect(clean_values(["Jane", "Marie", "Doe"])).toStrictEqual([
+      "Jane",
+      "Marie",
+      "Doe",
+    ]);
+  });
+
+  test("trims each value", () => {
+    expect(clean_values([" Jane ", "  Doe"])).toStrictEqual(["Jane", "Doe"]);
+  });
+
+  test("drops blank values", () => {
+    expect(clean_values(["Jane", "", "  ", "Doe"])).toStrictEqual([
+      "Jane",
+      "Doe",
+    ]);
+  });
+
+  test("no values", () => {
+    expect(clean_values([])).toStrictEqual([]);
+  });
+});
+
+describe("join_values", () => {
+  test("joins values with one space", () => {
+    expect(join_values(["Jane", "Marie"])).toBe("Jane Marie");
+  });
+
+  test("trims each value", () => {
+    expect(join_values([" Jane ", "  Marie"])).toBe("Jane Marie");
+  });
+
+  test("ignores blank values", () => {
+    expect(join_values(["Jane", "", "  ", "Marie"])).toBe("Jane Marie");
+  });
+
+  test("no values", () => {
+    expect(join_values([])).toBeUndefined();
+  });
+
+  test("only blank values", () => {
+    expect(join_values(["", " "])).toBeUndefined();
   });
 });
 
