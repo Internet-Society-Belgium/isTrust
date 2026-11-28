@@ -239,6 +239,7 @@ export function App() {
             <div class="flex flex-col gap-1">
               <Section title={i18n("Owner", lang())}>
                 <SectionItem
+                  testid="individual"
                   base={base}
                   lang={lang()}
                   title={i18n("Individual name", lang())}
@@ -264,6 +265,7 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
+                  testid="organization"
                   base={base}
                   lang={lang()}
                   title={i18n("Organization name", lang())}
@@ -289,6 +291,7 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
+                  testid="country"
                   base={base}
                   lang={lang()}
                   title={i18n("Country of residence", lang())}
@@ -316,6 +319,7 @@ export function App() {
 
               <Section title={i18n("Domain", lang())}>
                 <SectionItem
+                  testid="registration"
                   base={base}
                   lang={lang()}
                   title={i18n("Registration", lang())}
@@ -349,6 +353,7 @@ export function App() {
                 </SectionItem>
 
                 <SectionItem
+                  testid="dnssec"
                   base={base}
                   lang={lang()}
                   title={`${i18n("Protection with", lang())} DNSSEC`}
@@ -413,11 +418,13 @@ export function App() {
                     }
                   >
                     <SectionItemNotAvailable
+                      testid="first-visit"
                       title={i18n("First visit", lang())}
                       prefix={<IconCalendar1 />}
                     />
 
                     <SectionItemNotAvailable
+                      testid="visit-frequency"
                       title={i18n("Frequency of visits", lang())}
                       prefix={<IconCalendarCheck />}
                     />
@@ -437,11 +444,13 @@ export function App() {
                     }
                   >
                     <SectionItemNotAvailable
+                      testid="first-visit"
                       title={i18n("First visit", lang())}
                       prefix={<IconCalendar1 />}
                     />
 
                     <SectionItemNotAvailable
+                      testid="visit-frequency"
                       title={i18n("Frequency of visits", lang())}
                       prefix={<IconCalendarCheck />}
                     />
@@ -450,6 +459,7 @@ export function App() {
                 <Match when={true}>
                   <Section title={i18n("Visit", lang())}>
                     <SectionItem
+                      testid="first-visit"
                       base={base}
                       lang={lang()}
                       title={i18n("First visit", lang())}
@@ -490,6 +500,7 @@ export function App() {
                     </SectionItem>
 
                     <SectionItem
+                      testid="visit-frequency"
                       base={base}
                       lang={lang()}
                       title={i18n("Frequency of visits", lang())}

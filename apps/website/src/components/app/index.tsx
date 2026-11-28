@@ -229,6 +229,7 @@ export function App(props: { lang: string }) {
             <div class="flex flex-col gap-1">
               <Section title={i18n("Owner", props.lang)}>
                 <SectionItem
+                  testid="individual"
                   lang={props.lang}
                   title={i18n("Individual name", props.lang)}
                   description={<>{i18n("Individual name", props.lang)}</>}
@@ -253,6 +254,7 @@ export function App(props: { lang: string }) {
                 </SectionItem>
 
                 <SectionItem
+                  testid="organization"
                   lang={props.lang}
                   title={i18n("Organization name", props.lang)}
                   description={<>{i18n("Organization name", props.lang)}</>}
@@ -277,6 +279,7 @@ export function App(props: { lang: string }) {
                 </SectionItem>
 
                 <SectionItem
+                  testid="country"
                   lang={props.lang}
                   title={i18n("Country of residence", props.lang)}
                   description={<>{i18n("Country of residence", props.lang)}</>}
@@ -303,6 +306,7 @@ export function App(props: { lang: string }) {
 
               <Section title={i18n("Domain", props.lang)}>
                 <SectionItem
+                  testid="registration"
                   lang={props.lang}
                   title={i18n("Registration", props.lang)}
                   description={<>{i18n("Registration", props.lang)}</>}
@@ -338,6 +342,7 @@ export function App(props: { lang: string }) {
                 </SectionItem>
 
                 <SectionItem
+                  testid="dnssec"
                   lang={props.lang}
                   title={`${i18n("Protection with", props.lang)} DNSSEC`}
                   description={
@@ -394,11 +399,13 @@ export function App(props: { lang: string }) {
                 }
               >
                 <SectionItemNotAvailable
+                  testid="first-visit"
                   title={i18n("First visit", props.lang)}
                   prefix={<IconCalendar1 />}
                 />
 
                 <SectionItemNotAvailable
+                  testid="visit-frequency"
                   title={i18n("Frequency of visits", props.lang)}
                   prefix={<IconCalendarCheck />}
                 />

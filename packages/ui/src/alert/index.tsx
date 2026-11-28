@@ -161,7 +161,11 @@ function AlertBanner(props: {
   children: JSX.Element;
 }) {
   return (
-    <div class="mb-2 flex items-center justify-center">
+    <div
+      data-testid="alert-banner"
+      data-type={props.type}
+      class="mb-2 flex items-center justify-center"
+    >
       <Switch>
         <Match when={props.type === "good"}>
           <div class="bg-good/10 border-good/25 text-good rounded-lg border px-2.5 py-1.5">
